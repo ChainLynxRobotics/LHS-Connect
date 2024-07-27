@@ -1,6 +1,16 @@
 <svelte:head>
     <title>LHS Connect | Home</title>
-    <meta name="description" content="Quick links, Bell Schedule, Club list, and more! All in one easy-to-use student hub for Lincoln High School in Seattle.">
 </svelte:head>
 
+<script lang="ts">
+    let count = 0;
+
+    function handleClick() {
+        count += 1;
+    }
+</script>
+
 <h1>Welcome to LHS Connect</h1>
+<button on:click={handleClick}>
+    Clicked {count} {count === 1 ? 'time' : 'times'}
+</button>
