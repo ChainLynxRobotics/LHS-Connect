@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Button } from "flowbite-svelte";
-    import { SunOutline } from "flowbite-svelte-icons";
+    import { MoonOutline, SunOutline } from "flowbite-svelte-icons";
 	import { getContext } from "svelte";
 	import type { ThemeContext } from "../+layout.svelte";
 
@@ -11,6 +11,10 @@
     }
 </script>
 
-<Button size="sm" on:click={handleClick} color="alternative">
-    <SunOutline></SunOutline>
+<Button size="sm" on:click={handleClick} color="none">
+    {#if $theme === "dark"}
+        <SunOutline></SunOutline>
+    {:else}
+        <MoonOutline></MoonOutline>
+    {/if}
 </Button>
