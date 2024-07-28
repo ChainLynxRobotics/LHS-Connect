@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-    export type ThemeContext = Writable<"light"|"dark"|undefined>;
+	export type ThemeContext = Writable<'light' | 'dark' | undefined>;
 </script>
 
 <script lang="ts">
