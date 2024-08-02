@@ -59,7 +59,7 @@
 	];
 </script>
 
-<div class="flex overflow-x-auto my-2">
+<div class="my-2 flex overflow-x-auto">
 	{#each links as link}
 		<a
 			href={link.url}

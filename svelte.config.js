@@ -15,11 +15,9 @@ const config = {
 		alias: {
 			$components: './src/lib/components',
 			$assets: './src/lib/assets',
-			$styles: './src/lib/styles',
-		},
-	},
-
-	
+			$styles: './src/lib/styles'
+		}
+	}
 };
 
 export default config;

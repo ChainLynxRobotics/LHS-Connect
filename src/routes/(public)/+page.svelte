@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import BellSchedule from './BellScheduleTabs.svelte';
-	
+
 	// Data from the server
 	export let data: PageData;
 </script>

@@ -6,7 +6,7 @@
 		NavUl,
 		NavHamburger,
 		Dropdown,
-		DropdownItem,
+		DropdownItem
 	} from 'flowbite-svelte';
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 	import { page } from '$app/stores';
@@ -18,7 +18,9 @@
 	const inactiveClass = 'rounded-none';
 </script>
 
-<Navbar class="sticky start-0 top-0 z-20 w-full border-b bg-gray-100 dark:bg-gray-800 px-4 shadow-md">
+<Navbar
+	class="sticky start-0 top-0 z-20 w-full border-b bg-gray-100 px-4 shadow-md dark:bg-gray-800"
+>
 	<NavBrand href="/">
 		<!-- <img src="/imgs/icon.png" alt="Logo" class="me-3 h-6 sm:h-9"> -->
 		<span class="self-center whitespace-nowrap text-xl font-bold">LHS Connect</span>
