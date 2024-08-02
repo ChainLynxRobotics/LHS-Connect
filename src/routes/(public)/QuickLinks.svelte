@@ -1,13 +1,13 @@
 <script lang="ts">
-	import schoologyLogo from '$lib/images/schoology.png?enhanced';
-	import officeLogo from '$lib/images/office.svg';
-	import outlookLogo from '$lib/images/outlook.svg';
-	import lincolnLogo from '$lib/images/sps.webp?enhanced';
-	import sourceLogo from '$lib/images/source.png?enhanced';
-	import cleverLogo from '$lib/images/clever.webp?enhanced';
-	import collegeBoardLogo from '$lib/images/collegeboard.png?enhanced';
-	import khanAcademyLogo from '$lib/images/khanacademy.svg';
-	import navianceLogo from '$lib/images/naviance.png?enhanced';
+	import schoologyLogo from '$assets/images/schoology.png?enhanced';
+	import officeLogo from '$assets/images/office.svg';
+	import outlookLogo from '$assets/images/outlook.svg';
+	import lincolnLogo from '$assets/images/sps.webp?enhanced';
+	import sourceLogo from '$assets/images/source.png?enhanced';
+	import cleverLogo from '$assets/images/clever.webp?enhanced';
+	import collegeBoardLogo from '$assets/images/collegeboard.png?enhanced';
+	import khanAcademyLogo from '$assets/images/khanacademy.svg';
+	import navianceLogo from '$assets/images/naviance.png?enhanced';
 
 	const links = [
 		{
@@ -59,30 +59,28 @@
 	];
 </script>
 
-<div class="w-full overflow-auto">
-	<div class="my-4 flex justify-center">
-		{#each links as link}
-			<a
-				href={link.url}
-				target="_blank"
-				title={`Open ${link.name} in a new tab`}
-				class="flex-shrink-0 rounded-xl px-4 py-4 transition-colors focus-within:outline-none focus-within:ring-4 hover:bg-gray-200 dark:hover:bg-gray-700 lg:px-8"
-			>
-				{#if typeof link.img === 'string'}
-					<img
-						src={link.img}
-						alt={link.name + ' Logo'}
-						class={`w-12 rounded ${link.darkInverse ? 'dark:invert' : ''}`}
-					/>
-				{:else}
-					<enhanced:img
-						src={link.img}
-						alt={link.name + ' Logo'}
-						sizes="96px, 128px"
-						class={`w-12 rounded ${link.darkInverse ? 'dark:invert' : ''}`}
-					/>
-				{/if}
-			</a>
-		{/each}
-	</div>
+<div class="flex overflow-x-auto my-2">
+	{#each links as link}
+		<a
+			href={link.url}
+			target="_blank"
+			title={`Open ${link.name} in a new tab`}
+			class="flex-shrink-0 rounded-xl px-4 py-4 transition-colors focus-within:outline-none focus-within:ring-4 hover:bg-gray-100 dark:hover:bg-gray-800 lg:px-8"
+		>
+			{#if typeof link.img === 'string'}
+				<img
+					src={link.img}
+					alt={link.name + ' Logo'}
+					class={`w-12 rounded ${link.darkInverse ? 'dark:invert' : ''}`}
+				/>
+			{:else}
+				<enhanced:img
+					src={link.img}
+					alt={link.name + ' Logo'}
+					sizes="96px, 128px"
+					class={`w-12 rounded ${link.darkInverse ? 'dark:invert' : ''}`}
+				/>
+			{/if}
+		</a>
+	{/each}
 </div>

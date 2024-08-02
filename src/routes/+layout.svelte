@@ -3,7 +3,7 @@
 </script>
 
 <script lang="ts">
-	import '../css/tailwind.css';
+	import '$lib/styles/tailwind.css';
 	import { onMount, setContext } from 'svelte';
 	import { writable, type Writable } from 'svelte/store';
 
