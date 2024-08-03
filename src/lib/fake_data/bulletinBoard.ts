@@ -1,23 +1,21 @@
-import { StickyNoteColor, type BulletinBoardData } from '$lib/types/HomePageData';
+import { type BulletinBoardData } from '$lib/types/HomePageData';
 
 const bulletinBoard: BulletinBoardData = {
-	content: "Welcome to the bulletin board! Here you can find important announcements and information.",
     notes: [
         {
+            title: "Exhibition Project Placement",
             content: "Exhibition project placement has been released! [Click Here](https://districtlms.seattleschools.org/page/7295699823) to view which project you will be exhibiting!",
-            color: StickyNoteColor.Yellow,
-            rotation: 2
+            link: "https://districtlms.seattleschools.org/page/7295699823"
         },
         {
+            title: "Senior Graduation",
             content: "This is a sticky note! Yippee!!",
-            color: StickyNoteColor.Blue,
-            rotation: -3
+            link: "https://www.seattleschools.org"
         },
         {
-            content: "This is a sticky note! Yippee!!",
-            color: StickyNoteColor.Pink,
-            rotation: 1
-        },
+            title: "Senior Graduation",
+            content: "This is a sticky note! Yippee!!"
+        }
     ]
 };
 

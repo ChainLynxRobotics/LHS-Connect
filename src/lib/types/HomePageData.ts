@@ -38,30 +38,19 @@ export interface BellScheduleData {
 }
 
 /**
- * Represents a color for a sticky note out of a set of predefined colors.
+ * Represents a note on the bulletin board.
  */
-export enum StickyNoteColor {
-	Yellow = "#feff9c",
-	Blue = "#7afcff",
-	Green = "#7cff7a",
-	Pink = "#ff7eb9",
-}
-
-/**
- * Represents a sticky note on the bulletin board.
- */
-export interface StickyNote {
+export interface Note {
+	title: string;
 	content: string;
-	color: StickyNoteColor;
-	rotation: number;
+	link?: string;
 }
 
 /**
- * Represents the data for the bulletin board, with text content and a list of sticky notes below it.
+ * Represents the data for the bulletin board, with a list of notes below it.
  */
 export interface BulletinBoardData {
-	content: string;
-	notes: StickyNote[];
+	notes: Note[];
 }
 
 /**
