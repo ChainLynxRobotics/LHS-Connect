@@ -38,6 +38,33 @@ export interface BellScheduleData {
 }
 
 /**
+ * Represents a color for a sticky note out of a set of predefined colors.
+ */
+export enum StickyNoteColor {
+	Yellow = "#feff9c",
+	Blue = "#7afcff",
+	Green = "#7cff7a",
+	Pink = "#ff7eb9",
+}
+
+/**
+ * Represents a sticky note on the bulletin board.
+ */
+export interface StickyNote {
+	content: string;
+	color: StickyNoteColor;
+	rotation: number;
+}
+
+/**
+ * Represents the data for the bulletin board, with text content and a list of sticky notes below it.
+ */
+export interface BulletinBoardData {
+	content: string;
+	notes: StickyNote[];
+}
+
+/**
  * Represents the data for the homepage.
  */
 export interface HomePageData {
@@ -45,4 +72,8 @@ export interface HomePageData {
 	 * The bell schedules for the school year.
 	 */
 	bellSchedules: BellScheduleData;
+	/**
+	 * The bulletin board data.
+	 */
+	bulletinBoard: BulletinBoardData;
 }

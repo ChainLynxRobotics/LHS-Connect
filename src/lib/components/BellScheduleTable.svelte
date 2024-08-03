@@ -43,7 +43,7 @@
 	}
 </script>
 
-<Table divClass="relative mx-auto" striped>
+<Table divClass="relative mx-auto border dark:border-gray-700" striped>
 	<!-- <TableHead theadClass="text-xs uppercase text-center">
       <TableHeadCell>Name</TableHeadCell>
       <TableHeadCell>Time</TableHeadCell>
@@ -51,7 +51,7 @@
 	<TableBody tableBodyClass="divide-y text-center">
 		{#each schedule.periods as period}
 			<TableBodyRow
-				class={`${period.emphasis ? '!bg-gray-100 dark:!bg-gray-600' : ''} ${reactive && currentlyWithinTime(period.start, period.end) ? '!border-2 !border-yellow-200 dark:!border' : 'border-b last:border-b-0 dark:border-gray-700'}`}
+				class={`${period.emphasis ? '!bg-gray-100 dark:!bg-gray-600' : ''} ${reactive && currentlyWithinTime(period.start, period.end) ? '!border-2 !border-red-500' : 'border-b last:border-b-0 dark:border-gray-700'}`}
 			>
 				<TableBodyCell tdClass={`px-6 py-4 whitespace-nowrap`}>
 					{period.name}

@@ -94,7 +94,7 @@ const bellSchedules: BellScheduleData = {
 	],
 	special: [
 		{
-			date: '2024-8-2',
+			date: '2024-8-3',
 			schedule: {
 				name: 'Special thingy',
 				desc: 'This is the schedule for Tuesday and Thursday.',
