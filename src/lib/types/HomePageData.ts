@@ -54,6 +54,25 @@ export interface BulletinBoardData {
 }
 
 /**
+ * Represents a card with a title, subtitle, and a list of links.
+ */
+export interface LinkCard {
+	title: string;
+	subtitle?: string;
+	links: {
+		title: string;
+		url: string;
+	}[];
+}
+
+/**
+ * Represents the data for a list of link cards.
+ */
+export interface LinkCardListData {
+	cards: LinkCard[];
+}
+
+/**
  * Represents the data for the homepage.
  */
 export interface HomePageData {
@@ -65,4 +84,8 @@ export interface HomePageData {
 	 * The bulletin board data.
 	 */
 	bulletinBoard: BulletinBoardData;
+	/**
+	 * The contact information for the school.
+	 */
+	contactInfo: LinkCardListData;
 }
