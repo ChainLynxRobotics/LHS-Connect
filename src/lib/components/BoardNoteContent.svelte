@@ -6,7 +6,7 @@
     export let note: Note;
 
 </script>
-<div class="flex bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden {note.link && 'hover:bg-gray-100 dark:hover:bg-gray-700 transition'}">
+<div class="flex bg-gray-50 dark:bg-gray-800 border dark:border-gray-700 rounded-xl shadow-lg overflow-hidden {note.link && 'hover:bg-gray-100 dark:hover:bg-gray-700 transition'}">
     <div class="w-full p-4">
         <h2 class="text-lg font-semibold prose">
             <SvelteMarkdown source={note.title} isInline />
