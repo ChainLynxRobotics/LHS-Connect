@@ -1,26 +1,33 @@
 <script lang="ts">
 	import ExternalLink from "$components/ExternalLink.svelte";
+    import SectionHeader from "$components/SectionHeader.svelte";
     import type { Club } from "$lib/types/ClubPageData";
 	import { Search, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from "flowbite-svelte";
-    import { stringSimilarity } from "string-similarity-js";
+	import Fuse from "fuse.js";
 
     export let clubs: Club[];
 
-
     let search = "";
 
-    $: filteredClubs = search.trim().length === 0 ? clubs : clubs.map(club => ({
-        club,
-        score: stringSimilarity(club.name, search),
-    })).filter(({ score }) => score > 0.5).sort((a, b) => b.score - a.score).map(({ club }) => club);
+    $: fuse = new Fuse(clubs, {
+        keys: [
+            {name: 'name', weight: 5},
+            {name: 'day', weight: 1},
+            {name: 'time', weight: 1},
+            {name: 'location', weight: 1},
+            {name: 'advisor', weight: 1},
+        ],
+    });
 
-    $: console.log(filteredClubs);
-    $: console.log(search);
+    $: searchedClubs = search.trim().length === 0 ? clubs : fuse.search(search).map((result) => result.item);
 </script>
 
-<div class="flex justify-center items-center mb-4">
+<div class="px-4">
+    <SectionHeader title="List of Lincoln Clubs" />
+</div>
+<div class="flex justify-center items-center mt-8 mb-4 px-4">
     <div class="w-full max-w-sm">
-        <Search size="md" placeholder="Search by Club Name" bind:search />
+        <Search size="md" placeholder="Search" bind:value={search} />
     </div>
 </div>
 <Table striped shadow >
@@ -33,7 +40,7 @@
         <TableHeadCell>Instagram</TableHeadCell>
     </TableHead>
     <TableBody>
-        {#each filteredClubs as club}
+        {#each searchedClubs as club}
             <TableBodyRow>
                 <TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{club.name}</TableBodyCell>
                 <TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{club.day}</TableBodyCell>
