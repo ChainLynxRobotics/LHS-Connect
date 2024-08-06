@@ -1,13 +1,13 @@
 <script lang="ts">
-	import schoologyLogo from '$assets/images/schoology.png?enhanced';
-	import officeLogo from '$assets/images/office.svg';
-	import outlookLogo from '$assets/images/outlook.svg';
-	import lincolnLogo from '$assets/images/sps.webp?enhanced';
-	import sourceLogo from '$assets/images/source.png?enhanced';
-	import cleverLogo from '$assets/images/clever.webp?enhanced';
-	import collegeBoardLogo from '$assets/images/collegeboard.png?enhanced';
-	import khanAcademyLogo from '$assets/images/khanacademy.svg';
-	import navianceLogo from '$assets/images/naviance.png?enhanced';
+	import schoologyLogo from '$assets/images/logos/schoology.png?enhanced';
+	import officeLogo from '$assets/images/logos/office.svg';
+	import outlookLogo from '$assets/images/logos/outlook.svg';
+	import lincolnLogo from '$assets/images/logos/sps.webp?enhanced';
+	import sourceLogo from '$assets/images/logos/source.png?enhanced';
+	import cleverLogo from '$assets/images/logos/clever.webp?enhanced';
+	import collegeBoardLogo from '$assets/images/logos/collegeboard.png?enhanced';
+	import khanAcademyLogo from '$assets/images/logos/khanacademy.svg';
+	import navianceLogo from '$assets/images/logos/naviance.png?enhanced';
 
 	const links = [
 		{
