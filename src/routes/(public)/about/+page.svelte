@@ -1,12 +1,20 @@
 <script lang="ts">
     import SectionHeader from '$components/SectionHeader.svelte';
-	import { Card } from 'flowbite-svelte';
+	import { Button, Card, Modal } from 'flowbite-svelte';
 
     import lincolnBuilding from '$assets/images/lincolnbuilding.webp?enhanced';
     import tylerAvatar from '$assets/images/avatars/tyler.jpg?enhanced';
     import nathanAvatar from '$assets/images/avatars/nathan.jpg?enhanced';
+	import { DiscordSolid, InstagramSolid, MailBoxOutline } from 'flowbite-svelte-icons';
+	import ContactForm from './ContactForm.svelte';
     
-    
+    let copyTextModal = false;
+    let copyTextContent = '';
+    function copyText(text: string) {
+        navigator.clipboard.writeText(text);
+        copyTextContent = text;
+        copyTextModal = true;
+    }
 </script>
 
 <svelte:head>
@@ -44,6 +52,17 @@
                     <p class="intent-8 mt-4 text-center">
                         LHS Senior with a passion for making websites, petting dogs, and thriving as your local <span title=":3">protogen cosplayer</span>.
                     </p>
+                    <div class="flex mt-4 gap-4">
+                        <Button href="mailto:contact@lhsconnect.com" target="_blank" rel="noopener" title="Mail" color="light" class="dark:text-white">
+                            <MailBoxOutline size="lg" />
+                        </Button>
+                        <Button on:click={()=>copyText("1withspaghetti")} title="Discord" color="light" class="dark:text-white">
+                            <DiscordSolid size="lg" />
+                        </Button>
+                        <Button href="https://www.instagram.com/tyler_the_spaghetti/" target="_blank" rel="noopener" title="Instagram" color="light" class="dark:text-white">
+                            <InstagramSolid size="lg" />
+                        </Button>
+                    </div>
                 </div>
             </Card>
             <Card padding="md" size="xs">
@@ -58,4 +77,18 @@
             </Card>
         </div>
     </div>
+
+    <div class="w-full max-w-4xl">
+        <ContactForm />
+    </div>
+
+    
+    <Modal bind:open={copyTextModal} on:close={() => copyTextModal = false} size="sm">
+        <div class="text-center">
+            <p class="mb-4">
+                The text <code>{copyTextContent}</code> has been copied to your clipboard.
+            </p>
+            <Button on:click={() => copyTextModal = false} color="alternative">Close</Button>
+        </div>
+    </Modal>
 </div>
