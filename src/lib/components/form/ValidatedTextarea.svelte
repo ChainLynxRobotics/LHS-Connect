@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Helper, Input, Label } from "flowbite-svelte";
-	import type { InputProps } from "flowbite-svelte/Input.svelte";
+	import { Helper, Input, Label, Textarea } from "flowbite-svelte";
 	import type { LabelProps } from "flowbite-svelte/Label.svelte";
+    import type { TextareaProps } from "flowbite-svelte/Textarea.svelte";
 
     /**
      * The id of the input element
@@ -50,7 +50,7 @@
     /**
      * Props to pass to the {@link Input} component
      */
-    export let inputProps: InputProps = {};
+    export let textareaProps: TextareaProps = {};
     /**
      * Props to pass to the {@link Label} component
      */
@@ -86,7 +86,7 @@
         {/if}
     </Label>
 {/if}
-<Input {id} bind:value color={isValid ? 'base' : 'red'} on:input={() => disableValidateOnInput ? validate = false : false} {...inputProps} ></Input>
+<Textarea {id} bind:value color={isValid ? 'base' : 'red'} on:input={() => disableValidateOnInput ? validate = false : false} {...textareaProps} ></Textarea>
 {#if !isValid && errorMessage}
     <Helper class="mt-2" color="red">
         {errorMessage}

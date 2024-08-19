@@ -14,7 +14,7 @@
 
 	$: activeUrl = $page.url.pathname;
 
-	const activeClass = 'rounded-none md:border-b-4 border-red-500';
+	const activeClass = 'rounded-none md:border-b-4 border-primary-500';
 	const inactiveClass = 'rounded-none';
 </script>
 

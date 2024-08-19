@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Helper, Input, Label } from "flowbite-svelte";
-	import type { InputProps } from "flowbite-svelte/Input.svelte";
+	import { Helper, Input, Label, Select } from "flowbite-svelte";
 	import type { LabelProps } from "flowbite-svelte/Label.svelte";
+	import type { SelectProps } from "flowbite-svelte/Select.svelte";
 
     /**
      * The id of the input element
@@ -50,7 +50,7 @@
     /**
      * Props to pass to the {@link Input} component
      */
-    export let inputProps: InputProps = {};
+    export let selectProps: SelectProps = {};
     /**
      * Props to pass to the {@link Label} component
      */
@@ -86,7 +86,7 @@
         {/if}
     </Label>
 {/if}
-<Input {id} bind:value color={isValid ? 'base' : 'red'} on:input={() => disableValidateOnInput ? validate = false : false} {...inputProps} ></Input>
+<Select {id} bind:value on:input={() => disableValidateOnInput ? validate = false : false} {...selectProps} ></Select>
 {#if !isValid && errorMessage}
     <Helper class="mt-2" color="red">
         {errorMessage}
