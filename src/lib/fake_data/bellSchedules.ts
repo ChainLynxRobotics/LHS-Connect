@@ -19,8 +19,8 @@ const bellSchedules: BellScheduleData = {
 					},
 					{
 						name: 'Mentorship',
-						start:'10:50',
-						end: '11:25',
+						start: '10:50',
+						end: '11:25'
 					},
 					{
 						name: 'Period 3',
@@ -113,8 +113,8 @@ const bellSchedules: BellScheduleData = {
 					},
 					{
 						name: 'Mentorship',
-						start:'10:10',
-						end: '11:10',
+						start: '10:10',
+						end: '11:10'
 					},
 					{
 						name: 'Period 3',
@@ -144,7 +144,7 @@ const bellSchedules: BellScheduleData = {
 					}
 				]
 			}
-		},
+		}
 	],
 	special: [
 		{
@@ -191,7 +191,7 @@ const bellSchedules: BellScheduleData = {
 					}
 				]
 			}
-		},
+		}
 	]
 };
 

@@ -36,7 +36,7 @@
 		<NavLi href="/clubs">Club List</NavLi>
 		<NavLi href="/calendar">Calendar</NavLi>
 		<NavLi class="cursor-pointer">
-			Tools<ChevronDownOutline class="text-primary-800 ms-2 inline h-6 w-6 dark:text-white" />
+			Tools<ChevronDownOutline class="ms-2 inline h-6 w-6 text-primary-800 dark:text-white" />
 		</NavLi>
 		<Dropdown class="z-20 w-44">
 			<DropdownItem href="/link-generator">Short Link Generator</DropdownItem>

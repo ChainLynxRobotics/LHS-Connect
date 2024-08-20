@@ -3,7 +3,7 @@ import type { ClubPageData } from '$lib/types/ClubPageData';
 import type { PageServerLoad } from './$types';
 
 export const load = (async (): Promise<ClubPageData> => {
-    return {
-        clubs: clubs
-    };
+	return {
+		clubs: clubs
+	};
 }) satisfies PageServerLoad;

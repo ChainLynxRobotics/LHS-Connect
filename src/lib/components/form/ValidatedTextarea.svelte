@@ -1,94 +1,93 @@
 <script lang="ts">
-	import { Helper, Input, Label, Textarea } from "flowbite-svelte";
-	import type { LabelProps } from "flowbite-svelte/Label.svelte";
-    import type { TextareaProps } from "flowbite-svelte/Textarea.svelte";
+	import { Input, Label, Textarea } from 'flowbite-svelte';
+	import type { LabelProps } from 'flowbite-svelte/Label.svelte';
+	import type { TextareaProps } from 'flowbite-svelte/Textarea.svelte';
+	import ValidatedLabel from './util/ValidatedLabel.svelte';
+	import ValidatedHelper from './util/ValidatedHelper.svelte';
 
-    /**
-     * The id of the input element
-     */
-    export let id: string|undefined = undefined;
-    /**
-     * The label of the input element, shown above the input. Also used for error messages if `contentName` is not provided
-     */
-    export let label: string|undefined = undefined;
+	/**
+	 * The id of the input element
+	 */
+	export let id: string | undefined = undefined;
+	/**
+	 * The label of the input element, shown above the input. Also used for error messages if `contentName` is not provided
+	 */
+	export let label: string | undefined = undefined;
 
-    /**
-     * The value of the input element, used for two-way binding
-     */
-    export let value: string;
-    /** 
-     * Whether to validate the input, set to true to enable validation (for example, during form submission)
-     * @default false
-     */
-    export let validate: boolean|undefined = false;
-    /**
-     * Whether the input is valid or not, used for two-way binding
-     */
-    export let isValid = true;
-    /**
-     * Whether to set `validate` to false when the input is changed
-     * @default false
-     */
-    export let disableValidateOnInput: boolean|undefined = false;
+	/**
+	 * The value of the input element, used for two-way binding
+	 */
+	export let value: string;
+	/**
+	 * Whether to validate the input, set to true to enable validation (for example, during form submission)
+	 * @default false
+	 */
+	export let validate: boolean | undefined = false;
+	/**
+	 * Whether the input is valid or not, used for two-way binding
+	 */
+	export let isValid = true;
+	/**
+	 * Whether to set `validate` to false when the input is changed
+	 * @default false
+	 */
+	export let disableValidateOnInput: boolean | undefined = false;
 
-    /** 
-     * Used for error messages, for example "[contentName] is required"
-     * If not provided, it defaults to the value of the `label` prop or "Field"
-     * @default "Field"
-     */
-    export let contentName: string = label || 'Field';
+	/**
+	 * Used for error messages, for example "[contentName] is required"
+	 * If not provided, it defaults to the value of the `label` prop or "Field"
+	 * @default "Field"
+	 */
+	export let contentName: string = label || 'Field';
 
-    /**
-     * For validation, whether the input is required or not
-     */
-    export let required: Boolean|undefined = false;
-    /**
-     * For validation, a regular expression pattern to match the input value against
-     */
-    export let pattern: RegExp|string|undefined = undefined;
+	/**
+	 * For validation, whether the input is required or not
+	 */
+	export let required: Boolean | undefined = false;
+	/**
+	 * For validation, a regular expression pattern to match the input value against
+	 */
+	export let pattern: RegExp | string | undefined = undefined;
 
-    /**
-     * Props to pass to the {@link Input} component
-     */
-    export let textareaProps: TextareaProps = {};
-    /**
-     * Props to pass to the {@link Label} component
-     */
-    export let labelProps: LabelProps = {};
-    
-    let errorMessage = '';
+	/**
+	 * Props to pass to the {@link Input} component
+	 */
+	export let textareaProps: TextareaProps = {};
+	/**
+	 * Props to pass to the {@link Label} component
+	 */
+	export let labelProps: LabelProps = {};
 
-    $: {
-        if (validate) {
-            if (required && !value) {
-                isValid = false;
-                errorMessage = `${contentName} is required`;
-            } else if (pattern && !(typeof pattern === 'string' ? new RegExp(pattern) : pattern).test(value)) {
-                isValid = false;
-                errorMessage = `${contentName} is invalid`;
-            } else {
-                isValid = true;
-                errorMessage = '';
-            }
-        } else {
-            isValid = true;
-            errorMessage = '';
-        }
-    }
-    
+	let errorMessage = '';
+
+	$: {
+		if (validate) {
+			if (required && !value) {
+				isValid = false;
+				errorMessage = `${contentName} is required`;
+			} else if (
+				pattern &&
+				!(typeof pattern === 'string' ? new RegExp(pattern) : pattern).test(value)
+			) {
+				isValid = false;
+				errorMessage = `${contentName} is invalid`;
+			} else {
+				isValid = true;
+				errorMessage = '';
+			}
+		} else {
+			isValid = true;
+			errorMessage = '';
+		}
+	}
 </script>
 
-{#if label}
-    <Label for={id} color={isValid ? undefined : 'red'} class="mb-2" {...labelProps}>
-        {label}
-        {#if required}
-            <span class="text-red-500">*</span>
-        {/if}
-    </Label>
-{/if}
-<Textarea {id} bind:value color={isValid ? 'base' : 'red'} on:input={() => disableValidateOnInput ? validate = false : false} {...textareaProps} ></Textarea>
-{#if !isValid && errorMessage}
-    <Helper class="mt-2" color="red">
-        {errorMessage}
-    </Helper>
-{/if}
+<ValidatedLabel {id} {label} {isValid} {required} {labelProps} />
+<Textarea
+	{id}
+	bind:value
+	color={isValid ? 'base' : 'red'}
+	on:input={() => (disableValidateOnInput ? (validate = false) : false)}
+	{...textareaProps}
+></Textarea>
+<ValidatedHelper {isValid} {errorMessage} />

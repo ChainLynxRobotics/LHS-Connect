@@ -9,7 +9,7 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				'primary': {
+				primary: {
 					'50': '#fef2f2',
 					'100': '#fee2e2',
 					'200': '#fecaca',
@@ -20,9 +20,8 @@ export default {
 					'700': '#b91c1c',
 					'800': '#991b1b',
 					'900': '#7f1d1d',
-					'950': '#450a0a',
-				},
-    
+					'950': '#450a0a'
+				}
 			}
 		}
 	},
@@ -44,5 +43,5 @@ export default {
 		'h-9',
 		'leading-9',
 		'shadow-lg'
-	],
+	]
 } as Config;

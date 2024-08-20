@@ -1,58 +1,67 @@
 <script lang="ts">
-	import ExternalLink from "$components/ExternalLink.svelte";
-    import SectionHeader from "$components/SectionHeader.svelte";
-    import type { Club } from "$lib/types/ClubPageData";
-	import { Search, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from "flowbite-svelte";
-	import Fuse from "fuse.js";
+	import ExternalLink from '$components/ExternalLink.svelte';
+	import SectionHeader from '$components/SectionHeader.svelte';
+	import type { Club } from '$lib/types/ClubPageData';
+	import {
+		Search,
+		Table,
+		TableBody,
+		TableBodyCell,
+		TableBodyRow,
+		TableHead,
+		TableHeadCell
+	} from 'flowbite-svelte';
+	import Fuse from 'fuse.js';
 
-    export let clubs: Club[];
+	export let clubs: Club[];
 
-    let search = "";
+	let search = '';
 
-    $: fuse = new Fuse(clubs, {
-        keys: [
-            {name: 'name', weight: 5},
-            {name: 'day', weight: 1},
-            {name: 'time', weight: 1},
-            {name: 'location', weight: 1},
-            {name: 'advisor', weight: 1},
-        ],
-    });
+	$: fuse = new Fuse(clubs, {
+		keys: [
+			{ name: 'name', weight: 5 },
+			{ name: 'day', weight: 1 },
+			{ name: 'time', weight: 1 },
+			{ name: 'location', weight: 1 },
+			{ name: 'advisor', weight: 1 }
+		]
+	});
 
-    $: searchedClubs = search.trim().length === 0 ? clubs : fuse.search(search).map((result) => result.item);
+	$: searchedClubs =
+		search.trim().length === 0 ? clubs : fuse.search(search).map((result) => result.item);
 </script>
 
 <div class="px-4">
-    <SectionHeader title="List of Lincoln Clubs" />
+	<SectionHeader title="List of Lincoln Clubs" />
 </div>
-<div class="flex justify-center items-center mt-8 mb-4 px-4">
-    <div class="w-full max-w-sm">
-        <Search size="md" placeholder="Search" bind:value={search} />
-    </div>
+<div class="mb-4 mt-8 flex items-center justify-center px-4">
+	<div class="w-full max-w-sm">
+		<Search size="md" placeholder="Search" bind:value={search} />
+	</div>
 </div>
-<Table striped shadow >
-    <TableHead>
-        <TableHeadCell>Name</TableHeadCell>
-        <TableHeadCell>Day</TableHeadCell>
-        <TableHeadCell>Time</TableHeadCell>
-        <TableHeadCell>Location</TableHeadCell>
-        <TableHeadCell>Advisor</TableHeadCell>
-        <TableHeadCell>Instagram</TableHeadCell>
-    </TableHead>
-    <TableBody>
-        {#each searchedClubs as club}
-            <TableBodyRow>
-                <TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{club.name}</TableBodyCell>
-                <TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{club.day}</TableBodyCell>
-                <TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{club.time}</TableBodyCell>
-                <TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{club.location}</TableBodyCell>
-                <TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{club.advisor}</TableBodyCell>
-                <TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">
-                    {#if club.instagram}
-                        <ExternalLink href="https://instagram.com/{club.instagram}" text="@{club.instagram}" />
-                    {/if}
-                </TableBodyCell>
-            </TableBodyRow>
-        {/each}
-    </TableBody>
+<Table striped shadow>
+	<TableHead>
+		<TableHeadCell>Name</TableHeadCell>
+		<TableHeadCell>Day</TableHeadCell>
+		<TableHeadCell>Time</TableHeadCell>
+		<TableHeadCell>Location</TableHeadCell>
+		<TableHeadCell>Advisor</TableHeadCell>
+		<TableHeadCell>Instagram</TableHeadCell>
+	</TableHead>
+	<TableBody>
+		{#each searchedClubs as club}
+			<TableBodyRow>
+				<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{club.name}</TableBodyCell>
+				<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{club.day}</TableBodyCell>
+				<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{club.time}</TableBodyCell>
+				<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{club.location}</TableBodyCell>
+				<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{club.advisor}</TableBodyCell>
+				<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">
+					{#if club.instagram}
+						<ExternalLink href="https://instagram.com/{club.instagram}" text="@{club.instagram}" />
+					{/if}
+				</TableBodyCell>
+			</TableBodyRow>
+		{/each}
+	</TableBody>
 </Table>
