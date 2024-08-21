@@ -1,13 +1,23 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import SectionHeader from "$components/SectionHeader.svelte";
+	import ShortLinkForm from "./ShortLinkForm.svelte";
 
-	export let data: PageData;
+	
+
 </script>
 
 <svelte:head>
 	<title>LHS Connect | Link Generator</title>
 </svelte:head>
 
-<div class="flex w-full flex-col flex-wrap items-center p-4">
-	<h1>TODO: Link Generator</h1>
+<div class="flex w-full flex-col items-center gap-16 p-4">
+	<div class="w-full max-w-4xl">
+		<SectionHeader title="Short Link Generator" />
+		<p class="mt-4 indent-8 mb-12">
+			Take a long URL and shorten it to a more manageable and lincoln-branded link. This is useful for
+			putting on posters or other advertising. Make sure to keep everything school appropriate!
+		</p>
+
+		<ShortLinkForm />
+	</div>
 </div>

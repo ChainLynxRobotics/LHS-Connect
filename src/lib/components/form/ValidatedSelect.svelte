@@ -17,7 +17,7 @@
 	/**
 	 * The value of the input element, used for two-way binding
 	 */
-	export let value: string;
+	export let value: string = "";
 	/**
 	 * Whether to validate the input, set to true to enable validation (for example, during form submission)
 	 * @default false
@@ -57,8 +57,11 @@
 	 * Props to pass to the {@link Label} component
 	 */
 	export let labelProps: LabelProps = {};
-
-	let errorMessage = '';
+	
+	/**
+	 * The error message to show if the input is invalid
+	 */
+	 export let errorMessage = '';
 
 	$: {
 		if (validate) {

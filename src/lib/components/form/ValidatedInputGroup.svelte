@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { Input, Label } from 'flowbite-svelte';
+	import { ButtonGroup, Input, Label } from 'flowbite-svelte';
 	import type { InputProps } from 'flowbite-svelte/Input.svelte';
 	import type { LabelProps } from 'flowbite-svelte/Label.svelte';
 	import ValidatedLabel from './util/ValidatedLabel.svelte';
 	import ValidatedHelper from './util/ValidatedHelper.svelte';
+	import type { ButtonGroupProps } from 'flowbite-svelte/ButtonGroup.svelte';
 
 	/**
 	 * The id of the input element
@@ -58,8 +59,15 @@
 	 * Props to pass to the {@link Label} component
 	 */
 	export let labelProps: LabelProps = {};
-
-	let errorMessage = '';
+	/**
+	 * Props to pass to the {@link ButtonGroup} component
+	 */
+	export let buttonGroupProps: ButtonGroupProps = {};
+	
+	/**
+	 * The error message to show if the input is invalid
+	 */
+	export let errorMessage = '';
 
 	$: {
 		if (validate) {
@@ -84,11 +92,15 @@
 </script>
 
 <ValidatedLabel {id} {label} {isValid} {required} {labelProps} />
-<Input
-	{id}
-	bind:value
-	color={isValid ? 'base' : 'red'}
-	on:input={() => (disableValidateOnInput ? (validate = false) : false)}
-	{...inputProps}
-></Input>
+<ButtonGroup class="w-full" {...buttonGroupProps}>
+	<slot name="before"></slot>
+	<Input
+		{id}
+		bind:value
+		color={isValid ? 'base' : 'red'}
+		on:input={() => (disableValidateOnInput ? (validate = false) : false)}
+		{...inputProps}
+	></Input>
+	<slot name="after"></slot>
+</ButtonGroup>
 <ValidatedHelper {isValid} {errorMessage} />
