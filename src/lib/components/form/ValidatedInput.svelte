@@ -19,20 +19,15 @@
 	 */
 	export let value: string = "";
 	/**
-	 * Whether to validate the input, set to true to enable validation (for example, during form submission)
-	 * @default false
+	 * Whether to show errors to the user (for example, during form submission)
+	 * @default true
 	 */
-	export let validate: boolean | undefined = false;
+	export let showValidation: boolean = true;
 	/**
 	 * Whether the input is valid or not, used for two-way binding
 	 * @default true
 	 */
 	export let isValid = true;
-	/**
-	 * Whether to set `validate` to false when the input is changed
-	 * @default false
-	 */
-	export let disableValidateOnInput: boolean | undefined = false;
 
 	/**
 	 * Used for error messages, for example "[contentName] is required"
@@ -62,20 +57,15 @@
 	let errorMessage = '';
 
 	$: {
-		if (validate) {
-			if (required && !value) {
-				isValid = false;
-				errorMessage = `${contentName} is required`;
-			} else if (
-				pattern &&
-				!(typeof pattern === 'string' ? new RegExp(pattern) : pattern).test(value)
-			) {
-				isValid = false;
-				errorMessage = `${contentName} is invalid`;
-			} else {
-				isValid = true;
-				errorMessage = '';
-			}
+		if (required && !value) {
+			isValid = false;
+			errorMessage = `${contentName} is required`;
+		} else if (
+			pattern &&
+			!(typeof pattern === 'string' ? new RegExp(pattern) : pattern).test(value)
+		) {
+			isValid = false;
+			errorMessage = `${contentName} is invalid`;
 		} else {
 			isValid = true;
 			errorMessage = '';
@@ -83,12 +73,12 @@
 	}
 </script>
 
-<ValidatedLabel {id} {label} {isValid} {required} {labelProps} />
+<ValidatedLabel {id} {label} {isValid} {showValidation} {required} {labelProps} />
 <Input
 	{id}
 	bind:value
-	color={isValid ? 'base' : 'red'}
-	on:input={() => (disableValidateOnInput ? (validate = false) : false)}
+	color={!showValidation || isValid ? 'base' : 'red'}
+	formnovalidate
 	{...inputProps}
 ></Input>
-<ValidatedHelper {isValid} {errorMessage} />
+<ValidatedHelper {isValid} {showValidation} {errorMessage} />

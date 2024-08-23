@@ -4,7 +4,7 @@
 	import { InputAddon, Button } from "flowbite-svelte";
 	import QrCodeCard from "$components/QrCodeCard.svelte";
 
-    let validate = false;
+    let showValidation = false;
 
     let formIsValid = {
         url: false,
@@ -26,7 +26,7 @@
                 id="suffix"
                 label="Short Url (Only letters, numbers, and hyphens)"
                 contentName="Field"
-                validate={validate || !!formValues.suffix}
+                showValidation={showValidation || !!formValues.suffix}
                 required
                 pattern={/^[a-zA-Z0-9-]{1,32}$/}
                 bind:isValid={formIsValid.suffix}
@@ -42,7 +42,7 @@
                 id="url"
                 label="Redirect Url"
                 contentName="Url"
-                validate={validate || !!formValues.url}
+                showValidation={showValidation || !!formValues.url}
                 required
                 pattern={/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/}
                 bind:isValid={formIsValid.url}

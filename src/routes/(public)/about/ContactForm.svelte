@@ -6,7 +6,7 @@
 	import { Button, type SelectOptionType } from 'flowbite-svelte';
 	import { PaperPlaneOutline } from 'flowbite-svelte-icons';
 
-	let validate = false;
+	let showValidation = false;
 
 	let formIsValid = {
 		email: false,
@@ -35,7 +35,7 @@
 			<ValidatedInput
 				id="email"
 				label="Email"
-				{validate}
+				{showValidation}
 				bind:isValid={formIsValid.email}
 				bind:value={formValues.email}
 				required
@@ -47,7 +47,7 @@
 			<ValidatedSelect
 				id="type"
 				label="Feedback Type"
-				{validate}
+				{showValidation}
 				bind:isValid={formIsValid.type}
 				bind:value={formValues.type}
 				required
@@ -59,7 +59,7 @@
 		<ValidatedTextarea
 			id="message"
 			label="Message"
-			{validate}
+			{showValidation}
 			bind:isValid={formIsValid.message}
 			bind:value={formValues.message}
 			required
