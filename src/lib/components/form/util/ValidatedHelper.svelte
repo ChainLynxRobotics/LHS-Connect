@@ -10,7 +10,6 @@
 	 * The error message to display if the input is not valid
 	 */
 	export let errorMessage: string | undefined = undefined;
-
 </script>
 
 {#if !isValid && errorMessage}

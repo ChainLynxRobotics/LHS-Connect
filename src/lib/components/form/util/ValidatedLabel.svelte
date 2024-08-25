@@ -23,7 +23,6 @@
 	 * Whether the input is required or not, will render a red asterisk if true
 	 */
 	export let required: Boolean | undefined = false;
-	
 </script>
 
 {#if label}

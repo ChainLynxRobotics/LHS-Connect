@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { Card } from "flowbite-svelte";
-	import RegisterForm from "./RegisterForm.svelte";
-	
+	import { Card } from 'flowbite-svelte';
+	import RegisterForm from './RegisterForm.svelte';
 </script>
 
 <svelte:head>
@@ -9,8 +8,7 @@
 </svelte:head>
 
 <div class="flex w-full flex-col items-center gap-16 p-4 pt-16">
-
-    <Card>
-        <RegisterForm />
-    </Card>
+	<Card>
+		<RegisterForm />
+	</Card>
 </div>

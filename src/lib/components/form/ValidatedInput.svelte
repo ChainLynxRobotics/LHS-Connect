@@ -19,7 +19,7 @@
 	/**
 	 * The value of the input element, used for two-way binding
 	 */
-	export let value: string = "";
+	export let value: string = '';
 
 	/**
 	 * The validator for the input element
@@ -28,12 +28,12 @@
 	/**
 	 * The validator for the input element, but uses the `validateAt` method of an object schema with the provided id as the argument
 	 */
-	export let validatorObject: ObjectSchema<{[k in ID]: string}> | undefined = undefined;
+	export let validatorObject: ObjectSchema<{ [k in ID]: string }> | undefined = undefined;
 
 	/**
 	 * VISUAL ONLY, whether the input is required or not, and should have a red asterisk
 	 */
-	 export let visuallyRequired: boolean | undefined = false;
+	export let visuallyRequired: boolean | undefined = false;
 	/**
 	 * Props to pass to the {@link Input} component
 	 */
@@ -42,8 +42,6 @@
 	 * Props to pass to the {@link Label} component
 	 */
 	export let labelProps: LabelProps = {};
-
-
 
 	let checkValidation = false;
 
@@ -58,7 +56,7 @@
 		checkValidation = true;
 		try {
 			if (validatorObject) {
-				let casted = await validatorObject.validateAt(id, {[id]: value});
+				let casted = await validatorObject.validateAt(id, { [id]: value });
 				if (cast) value = casted || '';
 			} else if (validator) {
 				let casted = await validator.validate(value);
@@ -75,7 +73,6 @@
 	}
 
 	$: isValid = errorMessage === '';
-
 </script>
 
 <ValidatedLabel {id} {label} {isValid} required={visuallyRequired} {labelProps} />

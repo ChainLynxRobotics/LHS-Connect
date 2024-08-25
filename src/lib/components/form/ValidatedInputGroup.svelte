@@ -20,25 +20,25 @@
 	/**
 	 * The value of the input element, used for two-way binding
 	 */
-	export let value: string = "";
+	export let value: string = '';
 
 	/**
 	 * The validator for the input element
 	 */
-	 export let validator: StringSchema | undefined = undefined;
+	export let validator: StringSchema | undefined = undefined;
 	/**
 	 * The validator for the input element, but uses the `validateAt` method of an object schema with the provided id as the argument
 	 */
-	export let validatorObject: ObjectSchema<{[k in ID]: string}> | undefined = undefined;
+	export let validatorObject: ObjectSchema<{ [k in ID]: string }> | undefined = undefined;
 
 	/**
 	 * VISUAL ONLY, whether the input is required or not, and should have a red asterisk
 	 */
-	 export let visuallyRequired: boolean | undefined = false;
+	export let visuallyRequired: boolean | undefined = false;
 	/**
 	 * Props to pass to the {@link Input} component
 	 */
-	 export let inputProps: InputProps = {};
+	export let inputProps: InputProps = {};
 	/**
 	 * Props to pass to the {@link Label} component
 	 */
@@ -47,8 +47,6 @@
 	 * Props to pass to the {@link ButtonGroup} component
 	 */
 	export let buttonGroupProps: ButtonGroupProps = {};
-
-
 
 	let checkValidation = false;
 
@@ -59,11 +57,11 @@
 	 * Calling this function will also enable the input to always be visually validated.
 	 * @param cast - Whether to cast the value during validation as defined by the validator. For example, trimming the string or converting it to a number
 	 */
-	 export async function validate(cast: boolean = false): Promise<boolean> {
+	export async function validate(cast: boolean = false): Promise<boolean> {
 		checkValidation = true;
 		try {
 			if (validatorObject) {
-				let casted = await validatorObject.validateAt(id, {[id]: value});
+				let casted = await validatorObject.validateAt(id, { [id]: value });
 				if (cast) value = casted || '';
 			} else if (validator) {
 				let casted = await validator.validate(value);
@@ -80,7 +78,6 @@
 	}
 
 	$: isValid = errorMessage === '';
-
 </script>
 
 <ValidatedLabel {id} {label} {isValid} required={visuallyRequired} {labelProps} />
