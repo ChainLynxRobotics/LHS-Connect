@@ -54,13 +54,20 @@
 
 	let errorMessage = '';
 
-	export async function validate(): Promise<boolean> {
+	/**
+	 * Check if the input is valid, and set the error message if it is not.
+	 * Calling this function will also enable the input to always be visually validated.
+	 * @param cast - Whether to cast the value during validation as defined by the validator. For example, trimming the string or converting it to a number
+	 */
+	 export async function validate(cast: boolean = false): Promise<boolean> {
 		checkValidation = true;
 		try {
 			if (validatorObject) {
-				await validatorObject.validateAt(id, {[id]: value});
+				let casted = await validatorObject.validateAt(id, {[id]: value});
+				if (cast) value = casted || '';
 			} else if (validator) {
-				await validator.validate(value);
+				let casted = await validator.validate(value);
+				if (cast) value = casted || '';
 			}
 			errorMessage = '';
 			return true;
@@ -81,10 +88,11 @@
 	<slot name="before"></slot>
 	<Input
 		{id}
+		name={id}
 		bind:value
 		color={isValid ? 'base' : 'red'}
 		formnovalidate
-		on:blur={validate}
+		on:blur={() => validate()}
 		on:input={() => checkValidation && validate()}
 		{...inputProps}
 	></Input>

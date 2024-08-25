@@ -19,6 +19,7 @@
                 bind:this={suffix}
                 id="suffix"
                 label="Short Url (Only letters, numbers, and hyphens)"
+                visuallyRequired
                 validatorObject={shortLinkSchema}
                 inputProps={{ type: 'text' }}
             >
@@ -31,6 +32,7 @@
                 bind:this={url}
                 id="url"
                 label="Redirect Url"
+                visuallyRequired
                 validatorObject={shortLinkSchema}
                 inputProps={{ type: 'url', placeholder: 'Paste URL Here' }}
             />

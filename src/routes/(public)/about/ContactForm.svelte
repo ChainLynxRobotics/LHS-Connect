@@ -28,6 +28,7 @@
 				bind:this={email}
 				id="email"
 				label="Email"
+				visuallyRequired
 				validatorObject={contactUsSchema}
 				inputProps={{ type: 'email', placeholder: 'name@email.com' }}
 			/>
@@ -37,6 +38,7 @@
 				bind:this={type}
 				id="type"
 				label="Feedback Type"
+				visuallyRequired
 				validatorObject={contactUsSchema}
 				selectProps={{ items: feedbackTypes, placeholder: 'Select a feedback type...' }}
 			/>
@@ -47,6 +49,7 @@
 			bind:this={message}
 			id="message"
 			label="Message"
+			visuallyRequired
 			validatorObject={contactUsSchema}
 			textareaProps={{ placeholder: 'Your message', rows: 4 }}
 		/>

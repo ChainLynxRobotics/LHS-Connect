@@ -3,6 +3,7 @@ import { object, string, type InferType } from "yup";
 const adminLoginSchema = object({
     email: string().trim().required().email().max(256).label("Email"),
     password: string().required().min(6).max(32).label("Password"),
+    remember: string().oneOf(["on", "off"]).label("Remember Me"),
 });
 
 export default adminLoginSchema;
