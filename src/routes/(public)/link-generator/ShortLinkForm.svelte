@@ -3,17 +3,10 @@
     import ValidatedInput from "$components/form/ValidatedInput.svelte";
 	import { InputAddon, Button } from "flowbite-svelte";
 	import QrCodeCard from "$components/QrCodeCard.svelte";
+	import shortLinkSchema from "$lib/schemas/shortLinkSchema";
 
-    let showValidation = false;
-
-    let formIsValid = {
-        url: false,
-		suffix: false
-	};
-	let formValues = {
-        url: '',
-		suffix: ''
-	};
+    let suffix: ValidatedInputGroup<"suffix">;
+    let url: ValidatedInput<"url">;
 
 
 </script>
@@ -23,14 +16,10 @@
 
         <div class="mb-6">
             <ValidatedInputGroup
+                bind:this={suffix}
                 id="suffix"
                 label="Short Url (Only letters, numbers, and hyphens)"
-                contentName="Field"
-                showValidation={showValidation || !!formValues.suffix}
-                required
-                pattern={/^[a-zA-Z0-9-]{1,32}$/}
-                bind:isValid={formIsValid.suffix}
-                bind:value={formValues.suffix}
+                validatorObject={shortLinkSchema}
                 inputProps={{ type: 'text' }}
             >
                 <InputAddon slot="before"><span class="text-nowrap">https://lhs.cx/</span></InputAddon>
@@ -39,14 +28,10 @@
         
         <div class="mb-6">
             <ValidatedInput
+                bind:this={url}
                 id="url"
                 label="Redirect Url"
-                contentName="Url"
-                showValidation={showValidation || !!formValues.url}
-                required
-                pattern={/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/}
-                bind:isValid={formIsValid.url}
-                bind:value={formValues.url}
+                validatorObject={shortLinkSchema}
                 inputProps={{ type: 'url', placeholder: 'Paste URL Here' }}
             />
         </div>
@@ -56,5 +41,5 @@
         </div>
 
     </form>
-    <QrCodeCard data={'https://lhs.cx/'+formValues.suffix} />
+    <QrCodeCard data={'https://lhs.cx/'+suffix.value} />
 </div>

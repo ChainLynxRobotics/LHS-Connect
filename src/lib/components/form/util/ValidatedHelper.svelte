@@ -7,18 +7,13 @@
 	 */
 	export let isValid = true;
 	/**
-	 * Whether to show errors to the user (for example, during form submission)
-	 * @default true
-	 */
-	 export let showValidation: boolean = true;
-
-	/**
 	 * The error message to display if the input is not valid
 	 */
 	export let errorMessage: string | undefined = undefined;
+
 </script>
 
-{#if showValidation && !isValid && errorMessage}
+{#if !isValid && errorMessage}
 	<Helper class="mt-2" color="red">
 		{errorMessage}
 	</Helper>

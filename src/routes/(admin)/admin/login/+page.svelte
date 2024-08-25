@@ -1,24 +1,28 @@
 <script lang="ts">
 	import ValidatedInput from "$components/form/ValidatedInput.svelte";
+	import adminLoginSchema from "$lib/schemas/adminLoginSchema";
     import { Button, Card, Checkbox, Modal } from "flowbite-svelte";
 
-    let showValidation = false;
+    let form: HTMLFormElement;
 
-    let formIsValid = {
-        email: false,
-        password: false
-    };
-    let formValues = {
-        email: '',
-        password: ''
-    };
+    let email: ValidatedInput<"email">;
 
+    let isSubmitting = false;
     function handleSubmit(event: SubmitEvent) {
-        if (Object.values(formIsValid).includes(false)) {
-            console.log('Form is not valid');
-            console.log(formIsValid, formValues);
-            event.preventDefault();
-        }
+        if (isSubmitting) return;
+        isSubmitting = true;
+        event.preventDefault();
+
+        Promise.all([
+            email.validate()
+        ]).then((results) => {
+            if (results.every((result) => result)) {
+                // All fields are valid
+                form.submit();
+            }
+        }).finally(() => {
+            isSubmitting = false;
+        });
     }
     
 </script>
@@ -30,17 +34,14 @@
 <div class="flex w-full flex-col items-center gap-16 p-4 pt-16">
 
     <Card>
-        <form on:submit={handleSubmit} action="/" method="post" class="flex flex-col space-y-6">
+        <form bind:this={form} on:submit={handleSubmit} method="post" class="flex flex-col space-y-6">
             <h3 class="text-xl font-medium text-gray-900 dark:text-white">Sign in to LHS Connect Admin</h3>
             <div class="">
                 <ValidatedInput
+                    bind:this={email}
                     id="email"
                     label="Email"
-                    required
-                    pattern={/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/}
-                    {showValidation}
-                    bind:value={formValues.email}
-                    bind:isValid={formIsValid.email}
+                    validatorObject={adminLoginSchema}
                     inputProps={{ type: 'email', placeholder: 'email@website.com' }}
                 />
             </div>
@@ -48,11 +49,8 @@
                 <ValidatedInput
                     id="password"
                     label="Password"
-                    required
-                    {showValidation}
-                    bind:value={formValues.password}
-                    bind:isValid={formIsValid.password}
-                    inputProps={{ type: 'password', placeholder: 'Password' }}
+                    validatorObject={adminLoginSchema}
+                    inputProps={{ type: 'password' }}
                 />
             </div>
             <div class="flex items-start">

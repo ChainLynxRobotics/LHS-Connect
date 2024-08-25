@@ -1,49 +1,39 @@
-<script lang="ts">
+<svelte:options accessors />
+
+<script lang="ts" generics="ID extends string">
 	import { Input, Label, Select } from 'flowbite-svelte';
 	import type { LabelProps } from 'flowbite-svelte/Label.svelte';
 	import type { SelectProps } from 'flowbite-svelte/Select.svelte';
 	import ValidatedLabel from './util/ValidatedLabel.svelte';
 	import ValidatedHelper from './util/ValidatedHelper.svelte';
+	import { ObjectSchema, type StringSchema, ValidationError } from 'yup';
 
 	/**
 	 * The id of the input element
 	 */
-	export let id: string | undefined = undefined;
+	export let id: ID;
 	/**
 	 * The label of the input element, shown above the input. Also used for error messages if `contentName` is not provided
 	 */
 	export let label: string | undefined = undefined;
-
 	/**
 	 * The value of the input element, used for two-way binding
 	 */
 	export let value: string = "";
-	/**
-	 * Whether to show errors to the user (for example, during form submission)
-	 * @default true
-	 */
-	export let showValidation: boolean = true;
-	/**
-	 * Whether the input is valid or not, used for two-way binding
-	 */
-	export let isValid = true;
 
 	/**
-	 * Used for error messages, for example "[contentName] is required"
-	 * If not provided, it defaults to the value of the `label` prop or "Field"
-	 * @default "Field"
+	 * The validator for the input element
 	 */
-	export let contentName: string = label || 'Field';
+	 export let validator: StringSchema | undefined = undefined;
+	/**
+	 * The validator for the input element, but uses the `validateAt` method of an object schema with the provided id as the argument
+	 */
+	export let validatorObject: ObjectSchema<{[k in ID]: string}> | undefined = undefined;
 
 	/**
-	 * For validation, whether the input is required or not
+	 * VISUAL ONLY, whether the input is required or not, and should have a red asterisk
 	 */
-	export let required: Boolean | undefined = false;
-	/**
-	 * For validation, a regular expression pattern to match the input value against
-	 */
-	export let pattern: RegExp | string | undefined = undefined;
-
+	 export let visuallyRequired: boolean | undefined = false;
 	/**
 	 * Props to pass to the {@link Input} component
 	 */
@@ -52,34 +42,42 @@
 	 * Props to pass to the {@link Label} component
 	 */
 	export let labelProps: LabelProps = {};
-	
-	/**
-	 * The error message to show if the input is invalid
-	 */
-	 export let errorMessage = '';
 
-	$: {
-		if (required && !value) {
-			isValid = false;
-			errorMessage = `${contentName} is required`;
-		} else if (
-			pattern &&
-			!(typeof pattern === 'string' ? new RegExp(pattern) : pattern).test(value)
-		) {
-			isValid = false;
-			errorMessage = `${contentName} is invalid`;
-		} else {
-			isValid = true;
+
+
+	let checkValidation = false;
+
+	let errorMessage = '';
+
+	export async function validate(): Promise<boolean> {
+		checkValidation = true;
+		try {
+			if (validatorObject) {
+				await validatorObject.validateAt(id, {[id]: value});
+			} else if (validator) {
+				await validator.validate(value);
+			}
 			errorMessage = '';
+			return true;
+		} catch (error: unknown) {
+			if (error instanceof ValidationError) {
+				errorMessage = error.message;
+			}
+			return false;
 		}
 	}
+
+	$: isValid = errorMessage === '';
+
 </script>
 
-<ValidatedLabel {id} {label} {isValid} {showValidation} {required} {labelProps} />
+<ValidatedLabel {id} {label} {isValid} required={visuallyRequired} {labelProps} />
 <Select
 	{id}
 	bind:value
 	formnovalidate
+	on:blur={validate}
+	on:input={() => checkValidation && validate()}
 	{...selectProps}
 ></Select>
-<ValidatedHelper {isValid} {showValidation} {errorMessage} />
+<ValidatedHelper {isValid} {errorMessage} />

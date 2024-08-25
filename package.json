@@ -38,6 +38,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@svelte-put/qr": "^1.2.1"
+		"@svelte-put/qr": "^1.2.1",
+		"yup": "^1.4.0"
 	}
 }
