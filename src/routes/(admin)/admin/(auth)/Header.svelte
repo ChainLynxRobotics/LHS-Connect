@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Navbar, NavBrand, NavHamburger, NavUl, NavLi } from 'flowbite-svelte';
-	import ThemeSwitch from '../(public)/ThemeSwitch.svelte';
 	import { page } from '$app/stores';
+	import ThemeSwitch from '$components/ThemeSwitch.svelte';
 
 	$: activeUrl = $page.url.pathname;
 
@@ -25,7 +25,9 @@
 	</div>
 
 	<NavUl {activeUrl} {activeClass} {inactiveClass}>
+		<NavLi href="/">Back to Home</NavLi>
+		<NavLi href="/admin/login">Log In</NavLi>
+		<NavLi href="/admin/register">Register</NavLi>
 		<NavLi href="/admin/panel">Panel</NavLi>
-		<NavLi href="/">Public Home</NavLi>
 	</NavUl>
 </Navbar>

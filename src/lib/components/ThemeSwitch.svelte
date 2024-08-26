@@ -1,8 +1,12 @@
+<script context="module" lang="ts">
+	export type ThemeContext = Writable<'light' | 'dark' | undefined>;
+</script>
+
 <script lang="ts">
 	import { Button } from 'flowbite-svelte';
 	import { MoonOutline, SunOutline } from 'flowbite-svelte-icons';
 	import { getContext } from 'svelte';
-	import type { ThemeContext } from '../+layout.svelte';
+	import type { Writable } from 'svelte/store';
 
 	let theme = getContext<ThemeContext>('theme');
 

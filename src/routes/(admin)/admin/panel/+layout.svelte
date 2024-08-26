@@ -1,0 +1,113 @@
+<script lang="ts">
+	import { page } from "$app/stores";
+	import ThemeSwitch from "$components/ThemeSwitch.svelte";
+	import { CloseButton, Drawer, Navbar, NavBrand, Sidebar, SidebarWrapper, SidebarGroup, SidebarItem, SidebarDropdownWrapper, SidebarDropdownItem } from "flowbite-svelte";
+    import { ChartPieSolid, HomeSolid } from "flowbite-svelte-icons";
+    import Menu from 'flowbite-svelte/Menu.svelte'
+	import { sineIn } from "svelte/easing";
+
+    const pages = [
+        {
+            label: "Dashboard",
+            href: "/admin/panel/",
+            icon: ChartPieSolid,
+        },
+        {
+            label: "Home Page",
+            icon: HomeSolid,
+            children: [
+                {
+                    label: "Bulletin Board",
+                    href: "/admin/panel/home/bulletin-board",
+                },
+                {
+                    label: "Bell Schedule",
+                    href: "/admin/panel/home/bell-schedule",
+                },
+                {
+                    label: "Contact Info",
+                    href: "/admin/panel/home/contact-info",
+                },
+                {
+                    label: "Useful Links",
+                    href: "/admin/panel/home/useful-links",
+                },
+            ],
+        }
+    ]
+
+    let breakPoint: number = 1024;
+	let width: number;
+
+    $: mobile = width < breakPoint;
+    $: if (!mobile) drawerHidden = false;
+    let drawerHidden = false;
+
+    $: activeUrl = $page.url.pathname;
+</script>
+
+<svelte:window bind:innerWidth={width} />
+
+<Drawer
+    bind:hidden={drawerHidden}
+    activateClickOutside={mobile}
+    backdrop={mobile}
+    transitionType="fly"
+    transitionParams={{
+		x: -320,
+		duration: 200,
+		easing: sineIn
+	}}
+    width="w-64"
+    class="pb-32"
+>
+    <div class="flex items-center">
+        <CloseButton on:click={() => drawerHidden = true} class="mb-4 dark:text-white lg:hidden" />
+    </div>
+    <Sidebar asideClass="w-54">
+        <SidebarWrapper divClass="overflow-y-auto py-4 px-3 rounded">
+            <SidebarGroup>
+
+                {#each pages as { label, href, icon, children }, i}
+                    {#if children}
+                        <SidebarDropdownWrapper {label}>
+                            <svelte:fragment slot="icon">
+                                <svelte:component this={icon} class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                            </svelte:fragment>
+                            {#each children as { label, href }, i}
+                                <SidebarDropdownItem label={label} href={href} active={activeUrl === href} />
+                            {/each}
+                        </SidebarDropdownWrapper>
+                    {:else}
+                        <SidebarItem href={href} label={label} active={activeUrl === href}>
+                            <svelte:fragment slot="icon">
+                                <svelte:component this={icon} class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                            </svelte:fragment>
+                        </SidebarItem>
+                    {/if}
+                {/each}
+            </SidebarGroup>
+        </SidebarWrapper>
+    </Sidebar>
+</Drawer>
+
+<main class="lg:pl-64 w-full">
+    <Navbar
+        class="sticky start-0 top-0 z-20 w-full px-4"
+    >
+        <div>
+            <Menu on:click={() => drawerHidden = false} class="lg:hidden" />
+        </div>
+        <NavBrand href="/">
+            <!-- <img src="/imgs/icon.png" alt="Logo" class="me-3 h-6 sm:h-9"> -->
+            <span class="self-center whitespace-nowrap text-xl font-bold"
+                >LHS Connect <i class="text-sm font-bold text-primary-500">Admin</i></span
+            >
+        </NavBrand>
+
+        <ThemeSwitch />
+    </Navbar>
+    <div>
+        <slot />
+    </div>
+</main>

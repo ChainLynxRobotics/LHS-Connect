@@ -1,11 +1,8 @@
-<script context="module" lang="ts">
-	export type ThemeContext = Writable<'light' | 'dark' | undefined>;
-</script>
-
 <script lang="ts">
+	import type { ThemeContext } from '$components/ThemeSwitch.svelte';
 	import '$lib/styles/tailwind.css';
 	import { onMount, setContext } from 'svelte';
-	import { writable, type Writable } from 'svelte/store';
+	import { writable } from 'svelte/store';
 
 	let theme = setContext<ThemeContext>('theme', writable(undefined));
 
