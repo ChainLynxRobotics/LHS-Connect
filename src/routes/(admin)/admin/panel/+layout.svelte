@@ -15,11 +15,17 @@
 	} from 'flowbite-svelte';
 	import {
 		AngleLeftOutline,
+		ArrowLeftToBracketOutline,
 		CalendarMonthOutline,
+		ChartPieOutline,
 		ChartPieSolid,
+		HomeOutline,
 		HomeSolid,
 		LinkOutline,
-		TableRowOutline
+		TableRowOutline,
+
+		UserCircleOutline
+
 	} from 'flowbite-svelte-icons';
 	import Menu from 'flowbite-svelte/Menu.svelte';
 	import { sineIn } from 'svelte/easing';
@@ -28,11 +34,11 @@
 		{
 			label: 'Dashboard',
 			href: '/admin/panel',
-			icon: ChartPieSolid
+			icon: ChartPieOutline
 		},
 		{
 			label: 'Home Page',
-			icon: HomeSolid,
+			icon: HomeOutline,
 			children: [
 				{
 					label: 'Bulletin Board',
@@ -142,6 +148,24 @@
 						</SidebarItem>
 					{/if}
 				{/each}
+			</SidebarGroup>
+			<SidebarGroup border>
+				<SidebarItem href="/admin/panel/account" label="Account">
+					<svelte:fragment slot="icon">
+						<svelte:component
+							this={UserCircleOutline}
+							class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+						/>
+					</svelte:fragment>
+				</SidebarItem>
+				<SidebarItem label="Log Out" spanClass="ms-3 text-red-500 dark:text-red-400">
+					<svelte:fragment slot="icon">
+						<svelte:component
+							this={ArrowLeftToBracketOutline}
+							class="h-6 w-6 transition duration-75 text-red-500 dark:text-red-400"
+						/>
+					</svelte:fragment>
+				</SidebarItem>
 			</SidebarGroup>
 		</SidebarWrapper>
 	</Sidebar>
