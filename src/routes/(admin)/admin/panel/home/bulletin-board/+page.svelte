@@ -1,7 +1,7 @@
 <script lang="ts">
 	import bulletinBoard from "$lib/fake_data/bulletinBoard";
 	import type { BulletinBoardData, Note } from "$lib/types/HomePageData";
-    import { dndzone } from 'svelte-dnd-action';
+    import { dragHandleZone } from 'svelte-dnd-action';
 	import { flip } from "svelte/animate";
 	import EditableBoardNoteContent from "./EditableBoardNoteContent.svelte";
 	import SectionHeader from "$components/SectionHeader.svelte";
@@ -39,11 +39,14 @@
 
     // Drag and drop
     const flipDurationMs = 300;
-    function handleDndConsider(e: CustomEvent) {
+    function handleDndConsider(e: CustomEvent<{items: {id: number, note: Note}[]}>) {
         visualState = e.detail.items;
     }
-    function handleDndFinalize(e: CustomEvent) {
-        $state = visualState = e.detail.items; // Update the actual state now that its finalized
+    function handleDndFinalize(e: CustomEvent<{items: {id: number, note: Note}[]}>) {
+        // Check if order has changed before updating state and history
+        if (e.detail.items.map(v=>v.id).join(',') !== $state.map(v=>v.id).join(',')) {
+            $state = e.detail.items; // Update the actual state now that its finalized
+        }
     }
 
 
@@ -86,6 +89,26 @@
             }
         })()
     }
+
+    function handleDuplicateNote(id: number) {
+        const note = $state.find(v=>v.id===id)?.note;
+        if (!note) return;
+        $state = [
+            ...$state,
+            {
+                id: $state.reduce((prev, current) => (prev && prev.id > current.id) ? prev : current).id + 1, // Grab the highest id and then plus 1
+                note: {
+                    title: note.title,
+                    content: note.content,
+                    link: note.link,
+                },
+            },
+        ];
+    }
+
+    function handleDeleteNote(id: number) {
+        $state = $state.filter(v=>v.id!==id);
+    }
 </script>
 
 <div class="flex flex-col items-center p-4">
@@ -94,10 +117,15 @@
         <p>The title and content support markdown, and you can drag the notes around.</p>
     </div>
     <Button color="alternative" on:click={handleNewNote}>New Note</Button>
-    <section use:dndzone={{items: visualState, flipDurationMs, dropTargetStyle: {}}} on:consider={handleDndConsider} on:finalize={handleDndFinalize} class="max-w-lg py-4 flex flex-col gap-4">
+    <section use:dragHandleZone={{items: visualState, flipDurationMs, dropTargetStyle: {}}} on:consider={handleDndConsider} on:finalize={handleDndFinalize} class="max-w-lg py-4 flex flex-col gap-4">
         {#each visualState as item(item.id)}
             <div class="w-full" animate:flip="{{duration: flipDurationMs}}">
-                <EditableBoardNoteContent note={item.note} on:editButtonClick={()=>openEditModal(item.id)} />
+                <EditableBoardNoteContent 
+                    note={item.note} 
+                    on:editButtonClick={()=>openEditModal(item.id)} 
+                    on:duplicateButtonClick={()=>handleDuplicateNote(item.id)}
+                    on:deleteButtonClick={()=>handleDeleteNote(item.id)}
+                />
             </div>
         {/each}
     </section>

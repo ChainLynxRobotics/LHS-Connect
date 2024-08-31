@@ -3,6 +3,7 @@
 	import type { Note } from '$lib/types/HomePageData';
 	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { createEventDispatcher } from 'svelte';
+	import { dragHandle } from 'svelte-dnd-action';
 
 	export let note: Note;
 
@@ -14,7 +15,7 @@
 </script>
 
 <div class="w-full flex items-start gap-2">
-	<div class="w-full">
+	<div use:dragHandle class="w-full">
 		{#if note.link}
 			<a href={note.link} target="_blank" rel="noopener noreferrer">
 				<BoardNoteContent {note} />
