@@ -23,9 +23,7 @@
 		HomeSolid,
 		LinkOutline,
 		TableRowOutline,
-
 		UserCircleOutline
-
 	} from 'flowbite-svelte-icons';
 	import Menu from 'flowbite-svelte/Menu.svelte';
 	import { sineIn } from 'svelte/easing';
@@ -162,7 +160,7 @@
 					<svelte:fragment slot="icon">
 						<svelte:component
 							this={ArrowLeftToBracketOutline}
-							class="h-6 w-6 transition duration-75 text-red-500 dark:text-red-400"
+							class="h-6 w-6 text-red-500 transition duration-75 dark:text-red-400"
 						/>
 					</svelte:fragment>
 				</SidebarItem>
