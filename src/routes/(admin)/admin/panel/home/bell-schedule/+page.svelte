@@ -1,7 +1,6 @@
 <script lang="ts">
-	import SectionHeader from "$components/SectionHeader.svelte";
-	import EditableScheduleList from "./EditableScheduleList.svelte";
-
+	import SectionHeader from '$components/SectionHeader.svelte';
+	import EditableScheduleList from './EditableScheduleList.svelte';
 </script>
 
 <div class="flex flex-col items-center p-4">

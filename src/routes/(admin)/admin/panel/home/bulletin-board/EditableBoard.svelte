@@ -15,21 +15,21 @@
 	export let bulletinBoardData: BulletinBoardData = bulletinBoard; // TODO: Replace with real data
 
 	const { state, undo, redo, canUndo, canRedo } = createHistoryManager(
-        // bulletinBoardData does NOT include an id param for each note, so we need to add it for dnd to work
+		// bulletinBoardData does NOT include an id param for each note, so we need to add it for dnd to work
 		bulletinBoardData.notes.map((note, index) => ({
 			id: index,
 			data: note
 		}))
 	);
 
-    // Unpack the dnd state to be used in the component output
-    $: bulletinBoardData = { notes: $state.map((v) => v.data) }; // Update the data to be saved when the state changes
+	// Unpack the dnd state to be used in the component output
+	$: bulletinBoardData = { notes: $state.map((v) => v.data) }; // Update the data to be saved when the state changes
 
 	$: console.log($state);
 
 	//////////////// Drag and drop //////////////////
 
-    $: visualState = $state; // Temp value for what is displayed during dragging. State is then updated once the drag is finalized.
+	$: visualState = $state; // Temp value for what is displayed during dragging. State is then updated once the drag is finalized.
 
 	const flipDurationMs = 300;
 	function handleDndConsider(e: CustomEvent<{ items: { id: number; data: Note }[] }>) {
@@ -45,12 +45,12 @@
 
 	//////////////// Editing //////////////////
 
-    /**
-     * Grab the highest id and then plus 1
-     */
-     function newId() {
-        return $state.reduce((prev, current) => (prev && prev.id > current.id ? prev : current)).id + 1;
-    }
+	/**
+	 * Grab the highest id and then plus 1
+	 */
+	function newId() {
+		return $state.reduce((prev, current) => (prev && prev.id > current.id ? prev : current)).id + 1;
+	}
 
 	function handleNew() {
 		$state = [
@@ -85,7 +85,7 @@
 		$state = $state.filter((v) => v.id !== id);
 	}
 
-    //////////////// Editing Modal //////////////////
+	//////////////// Editing Modal //////////////////
 
 	let editModalOpen = false;
 	let editModalId = 0;
@@ -131,30 +131,37 @@
 
 <Button color="alternative" on:click={handleNew}>New Note</Button>
 <section
-    use:dragHandleZone={{ items: visualState, flipDurationMs, dropTargetStyle: {} }}
-    on:consider={handleDndConsider}
-    on:finalize={handleDndFinalize}
-    class="flex max-w-lg flex-col gap-4 py-4"
+	use:dragHandleZone={{ items: visualState, flipDurationMs, dropTargetStyle: {} }}
+	on:consider={handleDndConsider}
+	on:finalize={handleDndFinalize}
+	class="flex max-w-lg flex-col gap-4 py-4"
 >
-    {#each visualState as item (item.id)}
-        <div class="w-full" animate:flip={{ duration: flipDurationMs }}>
-            <EditableBoardNoteContent
-                note={item.data}
-                on:editButtonClick={() => openEditModal(item.id)}
-                on:duplicateButtonClick={() => handleDuplicate(item.id)}
-                on:deleteButtonClick={() => handleDelete(item.id)}
-            />
-        </div>
-    {/each}
+	{#each visualState as item (item.id)}
+		<div class="w-full" animate:flip={{ duration: flipDurationMs }}>
+			<EditableBoardNoteContent
+				note={item.data}
+				on:editButtonClick={() => openEditModal(item.id)}
+				on:duplicateButtonClick={() => handleDuplicate(item.id)}
+				on:deleteButtonClick={() => handleDelete(item.id)}
+			/>
+		</div>
+	{/each}
 </section>
-<UndoRedoPublishBar canUndo={$canUndo} canRedo={$canRedo} canPublish={$canUndo} on:undo={undo} on:redo={redo} on:publish={()=>alert('TODO')} />
+<UndoRedoPublishBar
+	canUndo={$canUndo}
+	canRedo={$canRedo}
+	canPublish={$canUndo}
+	on:undo={undo}
+	on:redo={redo}
+	on:publish={() => alert('TODO')}
+/>
 
 <Modal bind:open={editModalOpen} size="md" autoclose={false}>
 	<form class="flex flex-col space-y-6" action="#" on:submit={handleEditModalSubmit}>
-        <div>
-            <h3 class="mb-2 text-xl font-medium text-gray-900 dark:text-white">Edit Note</h3>
-            <Helper>Markdown is supported</Helper>
-        </div>
+		<div>
+			<h3 class="mb-2 text-xl font-medium text-gray-900 dark:text-white">Edit Note</h3>
+			<Helper>Markdown is supported</Helper>
+		</div>
 		<div>
 			<ValidatedInput
 				bind:this={titleInput}

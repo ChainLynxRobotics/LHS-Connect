@@ -1,31 +1,29 @@
 <script lang="ts">
-	import UndoRedoPublishBar from "$components/admin/UndoRedoPublishBar.svelte";
-	import { default as initialKnownSchedules } from "$lib/fake_data/knownSchedules";
-	import type { BellSchedule } from "$lib/types/HomePageData";
-	import { createHistoryManager } from "$lib/util/clientHistoryManager";
-	import { Button, Accordion } from "flowbite-svelte";
-	import { dragHandleZone } from "svelte-dnd-action";
-	import { flip } from "svelte/animate";
-	import EditableScheduleItem from "./EditableScheduleItem.svelte";
+	import UndoRedoPublishBar from '$components/admin/UndoRedoPublishBar.svelte';
+	import { default as initialKnownSchedules } from '$lib/fake_data/knownSchedules';
+	import type { BellSchedule } from '$lib/types/HomePageData';
+	import { createHistoryManager } from '$lib/util/clientHistoryManager';
+	import { Button, Accordion } from 'flowbite-svelte';
+	import { dragHandleZone } from 'svelte-dnd-action';
+	import { flip } from 'svelte/animate';
+	import EditableScheduleItem from './EditableScheduleItem.svelte';
 
+	export let knownSchedules: BellSchedule[] = initialKnownSchedules;
 
-    export let knownSchedules: BellSchedule[] = initialKnownSchedules;
-
-    const { state, undo, redo, canUndo, canRedo } = createHistoryManager(
-        // knownSchedules does NOT include an id param for each note, so we need to add it for dnd to work
+	const { state, undo, redo, canUndo, canRedo } = createHistoryManager(
+		// knownSchedules does NOT include an id param for each note, so we need to add it for dnd to work
 		knownSchedules.map((schedule, index) => ({
 			id: index,
 			data: schedule
 		}))
 	);
 
-    // Unpack the dnd state to be used in the component output
-    $: knownSchedules = $state.map((v) => v.data); // Update the data to be saved when the state changes
+	// Unpack the dnd state to be used in the component output
+	$: knownSchedules = $state.map((v) => v.data); // Update the data to be saved when the state changes
 
+	//////////////// Drag and drop //////////////////
 
-    //////////////// Drag and drop //////////////////
-
-    $: visualState = $state; // Temp value for what is displayed during dragging. State is then updated once the drag is finalized.
+	$: visualState = $state; // Temp value for what is displayed during dragging. State is then updated once the drag is finalized.
 
 	const flipDurationMs = 300;
 	function handleDndConsider(e: CustomEvent<{ items: { id: number; data: BellSchedule }[] }>) {
@@ -39,14 +37,14 @@
 		}
 	}
 
-    //////////////// Editing //////////////////
+	//////////////// Editing //////////////////
 
-    /**
-     * Grab the highest id and then plus 1
-     */
-     function newId() {
-        return $state.reduce((prev, current) => (prev && prev.id > current.id ? prev : current)).id + 1;
-    }
+	/**
+	 * Grab the highest id and then plus 1
+	 */
+	function newId() {
+		return $state.reduce((prev, current) => (prev && prev.id > current.id ? prev : current)).id + 1;
+	}
 
 	function handleNew() {
 		$state = [
@@ -55,13 +53,13 @@
 				id: newId(),
 				data: {
 					name: 'New Schedule',
-                    periods: [
-                        {
-                            name: 'Period 1',
-                            start: '8:00',
-                            end: '9:00'
-                        },
-                    ]
+					periods: [
+						{
+							name: 'Period 1',
+							start: '8:00',
+							end: '9:00'
+						}
+					]
 				}
 			}
 		];
@@ -82,18 +80,17 @@
 	function handleDelete(id: number) {
 		$state = $state.filter((v) => v.id !== id);
 	}
-
 </script>
 
 <Button color="alternative" on:click={handleNew}>New Schedule</Button>
 <Accordion flush defaultClass="w-full max-w-lg">
-    <section
-        use:dragHandleZone={{ items: visualState, flipDurationMs, dropTargetStyle: {} }}
-        on:consider={handleDndConsider}
-        on:finalize={handleDndFinalize}
+	<section
+		use:dragHandleZone={{ items: visualState, flipDurationMs, dropTargetStyle: {} }}
+		on:consider={handleDndConsider}
+		on:finalize={handleDndFinalize}
 		class="py-4"
-    >
-        {#each visualState as item (item.id)}
+	>
+		{#each visualState as item (item.id)}
 			<div animate:flip={{ duration: flipDurationMs }} class="bg-white dark:bg-gray-900">
 				<EditableScheduleItem
 					schedule={item.data}
@@ -102,7 +99,14 @@
 					on:deleteButtonClick={() => handleDelete(item.id)}
 				/>
 			</div>
-        {/each}
-    </section>
+		{/each}
+	</section>
 </Accordion>
-<UndoRedoPublishBar canUndo={$canUndo} canRedo={$canRedo} canPublish={$canUndo} on:undo={undo} on:redo={redo} on:publish={()=>alert('TODO')} />
+<UndoRedoPublishBar
+	canUndo={$canUndo}
+	canRedo={$canRedo}
+	canPublish={$canUndo}
+	on:undo={undo}
+	on:redo={redo}
+	on:publish={() => alert('TODO')}
+/>
