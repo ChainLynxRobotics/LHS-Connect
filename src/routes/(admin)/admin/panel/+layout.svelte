@@ -94,9 +94,10 @@
 <svelte:window bind:innerWidth={width} />
 
 <Drawer
+	id="sidebar"
 	bind:hidden={drawerHidden}
 	activateClickOutside={mobile}
-	backdrop={mobile}
+	backdrop={false}
 	transitionType="fly"
 	transitionParams={{
 		x: -320,
@@ -105,6 +106,7 @@
 	}}
 	width="w-64"
 	class="pb-32"
+	divClass="overflow-y-auto z-40 p-4 bg-white dark:bg-gray-800"
 >
 	<div class="flex items-center">
 		<CloseButton on:click={() => (drawerHidden = true)} class="mb-4 dark:text-white lg:hidden" />

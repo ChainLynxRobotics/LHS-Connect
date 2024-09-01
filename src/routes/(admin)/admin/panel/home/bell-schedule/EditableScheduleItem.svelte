@@ -1,0 +1,45 @@
+<script lang="ts">
+	import BellScheduleTable from "$components/BellScheduleTable.svelte";
+import type { BellSchedule } from "$lib/types/HomePageData";
+	import { AccordionItem, Tooltip } from "flowbite-svelte";
+	import { DotsVerticalOutline, EditOutline, FileCopyOutline, TrashBinOutline } from "flowbite-svelte-icons";
+	import { createEventDispatcher } from "svelte";
+	import { dragHandle } from "svelte-dnd-action";
+
+    export let schedule: BellSchedule;
+
+    const dispatch = createEventDispatcher<{
+		editButtonClick: null;
+		duplicateButtonClick: null;
+		deleteButtonClick: null;
+	}>();
+
+</script>
+
+
+<AccordionItem defaultClass="flex items-center gap-8 w-full font-medium text-left group-first:rounded-t-xl border-gray-200 dark:border-gray-70">
+    <div slot="header" class="flex w-full justify-between gap-4">
+        <div class="flex items-center gap-2">
+            <span use:dragHandle class="flex items-center">
+                <DotsVerticalOutline class="text-gray-500" />
+                <DotsVerticalOutline class="-ml-3 text-gray-500" />
+            </span>
+            <span>{schedule.name}</span>
+        </div>
+        <div class="flex">
+            <button title="Edit" on:click|stopPropagation={() => dispatch('editButtonClick')} class="!p-2"
+                ><EditOutline class="h-6 w-6" /></button
+            >
+            <Tooltip>Edit</Tooltip>
+            <button title="Duplicate" on:click|stopPropagation={() => dispatch('duplicateButtonClick')} class="!p-2"
+                ><FileCopyOutline class="h-6 w-6" /></button
+            >
+            <Tooltip>Duplicate</Tooltip>
+            <button title="Delete" on:click|stopPropagation={() => dispatch('deleteButtonClick')} class="!p-2"
+                ><TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" /></button
+            >
+            <Tooltip>Delete</Tooltip>
+        </div>
+    </div>
+    <BellScheduleTable {schedule} />
+</AccordionItem>
