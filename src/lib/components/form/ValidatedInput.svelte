@@ -1,6 +1,6 @@
 <svelte:options accessors />
 
-<script lang="ts" generics="ID extends string">
+<script lang="ts" generics="ID extends string = string">
 	import { Input, Label } from 'flowbite-svelte';
 	import type { InputProps } from 'flowbite-svelte/Input.svelte';
 	import type { LabelProps } from 'flowbite-svelte/Label.svelte';

@@ -63,26 +63,22 @@
 		});
 	}
 
-	function handleEditModalSubmit(e: SubmitEvent) {
-		e.preventDefault();
-		(async () => {
-			if (
-				[
-					await titleInput.validate(),
-					await contentInput.validate(),
-					await linkInput.validate()
-				].every((v) => v)
-			) {
-				const note = {
-					title: titleInput.value || '',
-					content: contentInput.value || '',
-					link: linkInput.value
-				};
-				bulletinBoardData.notes[editModalIndex] = note;
-				bulletinBoardData = bulletinBoardData; // Force update
-				editModalOpen = false;
-			}
-		})();
+	async function handleEditModalSubmit(e: SubmitEvent) {
+		if (
+			![
+				await titleInput.validate(),
+				await contentInput.validate(),
+				await linkInput.validate()
+			].every((v) => v)
+		) return;
+		const note = {
+			title: titleInput.value || '',
+			content: contentInput.value || '',
+			link: linkInput.value
+		};
+		bulletinBoardData.notes[editModalIndex] = note;
+		bulletinBoardData = bulletinBoardData; // Force update
+		editModalOpen = false;
 	}
 </script>
 
@@ -105,7 +101,7 @@
 </DraggableList>
 
 <Modal bind:open={editModalOpen} size="md" autoclose={false}>
-	<form class="flex flex-col space-y-6" action="#" on:submit={handleEditModalSubmit}>
+	<form class="flex flex-col space-y-6" on:submit|preventDefault={handleEditModalSubmit}>
 		<div>
 			<h3 class="mb-2 text-xl font-medium text-gray-900 dark:text-white">Edit Note</h3>
 			<Helper>Markdown is supported</Helper>

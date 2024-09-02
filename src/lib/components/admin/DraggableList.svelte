@@ -15,9 +15,11 @@
 
     export let flipDurationMs = 300;
 
+    export let sectionElement = "section";
     export let sectionClass = "";
     export let sectionProps: HTMLAttributes<HTMLElement> = {};
 
+    export let dragWrapperElement = "div";
     export let dragWrapperClass = "";
     export let dragWrapperProps: HTMLAttributes<HTMLElement> = {};
 
@@ -42,7 +44,8 @@
 
 </script>
 
-<section
+<svelte:element
+    this={sectionElement}
 	use:dragHandleZone={{ items: visualItems, flipDurationMs, dropTargetStyle: {} }}
 	on:consider={handleDndConsider}
 	on:finalize={handleDndFinalize}
@@ -50,8 +53,8 @@
     {...sectionProps}
 >
     {#each visualItems as item (item.id)}
-        <div animate:flip={{ duration: flipDurationMs }} class={dragWrapperClass} {...dragWrapperProps}>
+        <svelte:element this={dragWrapperElement} animate:flip={{ duration: flipDurationMs }} class={dragWrapperClass} {...dragWrapperProps}>
             <slot item={item.data} index={items.findIndex(i=>i===item.data)} />
-        </div>
+        </svelte:element>
     {/each}
-</section>
+</svelte:element>

@@ -1,6 +1,6 @@
 <svelte:options accessors />
 
-<script lang="ts" generics="ID extends string">
+<script lang="ts" generics="ID extends string = string">
 	import { Input, Label, Textarea } from 'flowbite-svelte';
 	import type { LabelProps } from 'flowbite-svelte/Label.svelte';
 	import type { TextareaProps } from 'flowbite-svelte/Textarea.svelte';
@@ -28,7 +28,7 @@
 	/**
 	 * The validator for the input element, but uses the `validateAt` method of an object schema with the provided id as the argument
 	 */
-	export let validatorObject: ObjectSchema<{ [k in ID]: string }> | undefined = undefined;
+	export let validatorObject: ObjectSchema<{ [k in ID]: any }> | undefined = undefined;
 
 	/**
 	 * VISUAL ONLY, whether the input is required or not, and should have a red asterisk
