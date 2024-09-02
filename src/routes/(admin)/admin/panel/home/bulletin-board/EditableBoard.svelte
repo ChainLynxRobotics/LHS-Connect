@@ -25,8 +25,6 @@
 	// Unpack the dnd state to be used in the component output
 	$: bulletinBoardData = { notes: $state.map((v) => v.data) }; // Update the data to be saved when the state changes
 
-	$: console.log($state);
-
 	//////////////// Drag and drop //////////////////
 
 	$: visualState = $state; // Temp value for what is displayed during dragging. State is then updated once the drag is finalized.
