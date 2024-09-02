@@ -13,7 +13,7 @@
 
 	export let bulletinBoardData: BulletinBoardData = bulletinBoard; // TODO: Replace with real data
 
-	const { state, undo, redo, canUndo, canRedo } = createHistoryManager(bulletinBoardData);
+	const { state, push, undo, redo, canUndo, canRedo } = createHistoryManager(bulletinBoardData);
 
 	//////////////// Editing //////////////////
 
@@ -93,6 +93,7 @@
 
 <DraggableList
 	items={$state.notes}
+	update={(notes) => ($state = { ...$state, notes })}
 	sectionClass="flex max-w-lg flex-col gap-4 py-4"
 	dragWrapperClass="w-full"
 	let:item

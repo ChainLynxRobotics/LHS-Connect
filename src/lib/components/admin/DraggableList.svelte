@@ -11,6 +11,7 @@
 	import { dragHandleZone } from "svelte-dnd-action";
 
     export let items: A[] = [];
+    export let update: (items: A[]) => void = () => {};
 
     export let flipDurationMs = 300;
 
@@ -36,8 +37,7 @@
                 changed = true;
             }
         }
-		if (changed) items = e.detail.items.map(item=>items[item.dataIndex]); // Update the actual state now that its finalized
-        console.log(items);
+		if (changed) update(e.detail.items.map(item=>items[item.dataIndex])); // Update the actual state now that its finalized
 	}
 
 </script>
