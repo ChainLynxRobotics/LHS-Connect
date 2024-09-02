@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
-    export type DraggableItem = {
+    export type DraggableItem<A> = {
         id: number;
-        dataIndex: number;
+        data: A;
     };
 </script>
 
@@ -22,22 +22,22 @@
     export let dragWrapperProps: HTMLAttributes<HTMLElement> = {};
 
 
-    let visualItems: DraggableItem[];
-    visualItems = items.map((data, dataIndex) => ({ id: dataIndex, dataIndex }));
+    let visualItems: DraggableItem<A>[];
+    $: visualItems = items.map((data, i) => ({ id: Date.now()+i, data }));
 
-    function handleDndConsider(e: CustomEvent<{ items: DraggableItem[] }>) {
+    function handleDndConsider(e: CustomEvent<{ items: DraggableItem<A>[] }>) {
 		visualItems = e.detail.items;
 	}
-	function handleDndFinalize(e: CustomEvent<{ items: DraggableItem[] }>) {
+	function handleDndFinalize(e: CustomEvent<{ items: DraggableItem<A>[] }>) {
 		visualItems = e.detail.items;
 		// Check if order has changed before updating state and history
         let changed = visualItems.length !== items.length; // If the length is different, then the order has changed, if they are not continue with the array comparison
         for (let i = 0; i < e.detail.items.length && !changed; i++) {
-            if (items[visualItems[i].dataIndex] !== items[i]) {
+            if (visualItems[i].data !== items[i]) {
                 changed = true;
             }
         }
-		if (changed) update(e.detail.items.map(item=>items[item.dataIndex])); // Update the actual state now that its finalized
+		if (changed) update(visualItems.map(item=>item.data)); // Update the actual state now that its finalized
 	}
 
 </script>
@@ -50,9 +50,8 @@
     {...sectionProps}
 >
     {#each visualItems as item (item.id)}
-        {@const data = items[item.dataIndex]}
         <div animate:flip={{ duration: flipDurationMs }} class={dragWrapperClass} {...dragWrapperProps}>
-            <slot item={data} index={item.dataIndex} />
+            <slot item={item.data} index={items.findIndex(i=>i===item.data)} />
         </div>
     {/each}
 </section>

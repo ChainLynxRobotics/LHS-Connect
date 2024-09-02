@@ -3,23 +3,19 @@
 	import type { BulletinBoardData, Note } from '$lib/types/HomePageData';
 	import EditableBoardNoteContent from './EditableBoardNoteContent.svelte';
 	import { Button, Helper, Modal } from 'flowbite-svelte';
-	import { createHistoryManager } from '$lib/util/clientHistoryManager';
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
 	import bulletinBoardSchema from '$lib/schemas/bulletinBoardSchema';
 	import { tick } from 'svelte';
-	import UndoRedoPublishBar from '$components/admin/UndoRedoPublishBar.svelte';
 	import DraggableList from '$components/admin/DraggableList.svelte';
 
 	export let bulletinBoardData: BulletinBoardData = bulletinBoard; // TODO: Replace with real data
 
-	const { state, push, undo, redo, canUndo, canRedo } = createHistoryManager(bulletinBoardData);
-
 	//////////////// Editing //////////////////
 
 	function handleNew() {
-		$state.notes = [
-			...$state.notes,
+		bulletinBoardData.notes = [
+			...bulletinBoardData.notes,
 			{
 				title: 'New Note',
 				content: 'content'
@@ -28,10 +24,10 @@
 	}
 
 	function handleDuplicate(index: number) {
-		const note = $state.notes[index];
+		const note = bulletinBoardData.notes[index];
 		if (!note) return;
-		$state.notes = [
-			...$state.notes,
+		bulletinBoardData.notes = [
+			...bulletinBoardData.notes,
 			{
 				title: note.title,
 				content: note.content,
@@ -41,8 +37,8 @@
 	}
 
 	function handleDelete(index: number) {
-		$state.notes.splice(index, 1);
-		$state = $state; // Force update
+		bulletinBoardData.notes.splice(index, 1);
+		bulletinBoardData = bulletinBoardData; // Force update
 	}
 
 	//////////////// Editing Modal //////////////////
@@ -58,7 +54,7 @@
 	function openEditModal(index: number) {
 		editModalOpen = true;
 		editModalIndex = index;
-		editModalNote = $state.notes[index];
+		editModalNote = bulletinBoardData.notes[index];
 
 		tick().then(() => {
 			titleInput.value = editModalNote?.title;
@@ -82,7 +78,8 @@
 					content: contentInput.value || '',
 					link: linkInput.value
 				};
-				$state.notes[editModalIndex] = note;
+				bulletinBoardData.notes[editModalIndex] = note;
+				bulletinBoardData = bulletinBoardData; // Force update
 				editModalOpen = false;
 			}
 		})();
@@ -92,8 +89,8 @@
 <Button color="alternative" on:click={handleNew}>New Note</Button>
 
 <DraggableList
-	items={$state.notes}
-	update={(notes) => ($state = { ...$state, notes })}
+	items={bulletinBoardData.notes}
+	update={(notes) => (bulletinBoardData.notes = notes)}
 	sectionClass="flex max-w-lg flex-col gap-4 py-4"
 	dragWrapperClass="w-full"
 	let:item
@@ -106,15 +103,6 @@
 		on:deleteButtonClick={() => handleDelete(index)}
 	/>
 </DraggableList>
-
-<UndoRedoPublishBar
-	canUndo={$canUndo}
-	canRedo={$canRedo}
-	canPublish={$canUndo}
-	on:undo={undo}
-	on:redo={redo}
-	on:publish={() => alert('TODO')}
-/>
 
 <Modal bind:open={editModalOpen} size="md" autoclose={false}>
 	<form class="flex flex-col space-y-6" action="#" on:submit={handleEditModalSubmit}>
