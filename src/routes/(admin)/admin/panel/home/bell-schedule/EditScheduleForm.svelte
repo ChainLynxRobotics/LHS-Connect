@@ -8,7 +8,7 @@
 	import { createEventDispatcher } from "svelte";
 	import { dragHandle } from "svelte-dnd-action";
 	import DragHandleOutline from "$components/admin/DragHandleOutline.svelte";
-    import { TrashBinOutline } from "flowbite-svelte-icons";
+    import { FileCopyOutline, TrashBinOutline } from "flowbite-svelte-icons";
 
 
     export let schedule: BellSchedule;
@@ -30,6 +30,11 @@
         schedule.periods.push({name: 'Period', start: '00:00', end: '00:00', emphasis: false});
         schedule = schedule; // Force update
     }
+
+    function handleDuplicatePeriod(index: number) {
+        schedule.periods.splice(index, 0, JSON.parse(JSON.stringify(schedule.periods[index])));
+        schedule = schedule; // Force update
+    }   
 
     function handleDeletePeriod(index: number) {
         schedule.periods.splice(index, 1);
@@ -149,6 +154,7 @@
                 </TableBodyCell>
                 <TableBodyCell>
                     <div class="flex">
+                        <button type="button" on:click={()=>handleDuplicatePeriod(index)} class="!p-2"><FileCopyOutline class="h-6 w-6" /></button>
                         <button type="button" on:click={()=>handleDeletePeriod(index)} class="!p-2"><TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" /></button>
                     </div>
                 </TableBodyCell>
