@@ -11,42 +11,31 @@
 	//////////////// Editing //////////////////
 
 	function handleNew() {
-		knownSchedules = [
-			...knownSchedules,
-			{
-				name: 'New Schedule',
-				periods: [
-					{
-						name: 'Period 1',
-						start: '8:00',
-						end: '9:00'
-					}
-				]
-			}
-		];
+		knownSchedules.push({
+			name: 'New Schedule',
+			periods: [
+				{
+					name: 'Period 1',
+					start: '8:00',
+					end: '9:00'
+				}
+			]
+		});
+		knownSchedules = knownSchedules; // Force update
+	}
+
+	function handleEdit(index: number, schedule: BellSchedule) {
+		knownSchedules[index] = schedule;
 	}
 
 	function handleDuplicate(index: number) {
-		const schedule = knownSchedules[index];
-		if (!schedule) return;
-		knownSchedules = [...knownSchedules, JSON.parse(JSON.stringify(schedule))];
+		knownSchedules.splice(index, 0, JSON.parse(JSON.stringify(knownSchedules[index])));
+		knownSchedules = knownSchedules; // Force update
 	}
 
 	function handleDelete(index: number) {
 		knownSchedules.splice(index, 1);
 		knownSchedules = knownSchedules; // Force update
-	}
-
-	//////////////// Editing Modal //////////////////
-
-	let editModalOpen = false;
-	let editModalIndex = 0;
-	let editModalSchedule: BellSchedule | undefined = undefined;
-
-	function openEditModal(index: number) {
-		editModalOpen = true;
-		editModalIndex = index;
-		editModalSchedule = knownSchedules[index];
 	}
 </script>
 
@@ -64,21 +53,9 @@
 	>
 		<EditableScheduleItem
 			schedule={item}
-			on:editButtonClick={() => openEditModal(index)}
-			on:duplicateButtonClick={() => handleDuplicate(index)}
-			on:deleteButtonClick={() => handleDelete(index)}
+			on:edit={(e) => handleEdit(index, e.detail)}
+			on:duplicate={() => handleDuplicate(index)}
+			on:delete={() => handleDelete(index)}
 		/>
 	</DraggableList>
 </Accordion>
-
-<Modal bind:open={editModalOpen} size="lg" autoclose={false}>
-	<EditScheduleForm
-		schedule={editModalSchedule || { name: '', periods: [] }}
-		onSave={(schedule) => {
-			knownSchedules[editModalIndex] = schedule;
-			knownSchedules = knownSchedules; // Force update
-			editModalOpen = false;
-		}}
-		on:close={() => (editModalOpen = false)}
-	/>
-</Modal>

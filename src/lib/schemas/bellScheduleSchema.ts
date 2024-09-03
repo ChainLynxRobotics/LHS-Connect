@@ -1,4 +1,4 @@
-import { array, object, string, type InferType } from 'yup';
+import { array, boolean, object, string, type InferType } from 'yup';
 
 export const timeStringRegex = /^(0?[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
 
@@ -12,7 +12,7 @@ export const bellSchedulePeriodSchema = object({
 	name: bellSchedulePeriodSchemaName,
 	start: bellSchedulePeriodSchemaTime,
 	end: bellSchedulePeriodSchemaTime,
-	emphasis: string().oneOf(['on', 'off'])
+	emphasis: boolean().optional()
 });
 
 const bellScheduleSchema = object({

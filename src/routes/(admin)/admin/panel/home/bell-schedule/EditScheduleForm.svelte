@@ -16,10 +16,10 @@
 	const flipDurationMs = 300;
 
 	export let schedule: BellSchedule;
-	export let onSave: (schedule: BellSchedule) => void;
 
 	const dispatch = createEventDispatcher<{
-		close: null;
+		submit: BellSchedule;
+		cancel: null;
 	}>();
 
 	let name = schedule.name;
@@ -62,7 +62,7 @@
 		)
 			return; // If one of the validations failed, don't save
 
-		onSave({
+		dispatch('submit', {
 			name,
 			desc,
 			periods: periods.map((period) => ({ ...period, id: undefined }))
@@ -186,7 +186,7 @@
 	</div>
 
 	<div class="mb-4 mt-6 flex gap-4">
-		<Button type="button" color="alternative" on:click={() => dispatch('close')}>Cancel</Button>
+		<Button type="button" color="alternative" on:click={() => dispatch('cancel')}>Cancel</Button>
 		<Button type="submit">Save</Button>
 	</div>
 </form>

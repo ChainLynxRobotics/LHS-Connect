@@ -2,18 +2,27 @@
 	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
 	import BellScheduleTable from '$components/BellScheduleTable.svelte';
 	import type { BellSchedule } from '$lib/types/HomePageData';
-	import { AccordionItem, Tooltip } from 'flowbite-svelte';
+	import { AccordionItem, Modal, Tooltip } from 'flowbite-svelte';
 	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { createEventDispatcher } from 'svelte';
 	import { dragHandle } from 'svelte-dnd-action';
+	import EditScheduleForm from './EditScheduleForm.svelte';
 
 	export let schedule: BellSchedule;
 
 	const dispatch = createEventDispatcher<{
-		editButtonClick: null;
-		duplicateButtonClick: null;
-		deleteButtonClick: null;
+		edit: BellSchedule;
+		duplicate: null;
+		delete: null;
 	}>();
+
+
+	let editModalOpen = false;
+
+	function handleEditModalSubmit(e: CustomEvent<BellSchedule>) {
+		dispatch('edit', e.detail);
+		editModalOpen = false;
+	}
 </script>
 
 <AccordionItem
@@ -27,19 +36,19 @@
 			<span>{schedule.name}</span>
 		</div>
 		<div class="flex">
-			<button title="Edit" on:click|stopPropagation={() => dispatch('editButtonClick')} class="!p-2"
+			<button title="Edit" on:click|stopPropagation={() => editModalOpen = true} class="!p-2"
 				><EditOutline class="h-6 w-6" /></button
 			>
 			<Tooltip>Edit</Tooltip>
 			<button
 				title="Duplicate"
-				on:click|stopPropagation={() => dispatch('duplicateButtonClick')}
+				on:click|stopPropagation={() => dispatch('duplicate')}
 				class="!p-2"><FileCopyOutline class="h-6 w-6" /></button
 			>
 			<Tooltip>Duplicate</Tooltip>
 			<button
 				title="Delete"
-				on:click|stopPropagation={() => dispatch('deleteButtonClick')}
+				on:click|stopPropagation={() => dispatch('delete')}
 				class="!p-2"><TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" /></button
 			>
 			<Tooltip>Delete</Tooltip>
@@ -47,3 +56,11 @@
 	</div>
 	<BellScheduleTable {schedule} />
 </AccordionItem>
+
+<Modal bind:open={editModalOpen} size="lg" autoclose={false}>
+	<EditScheduleForm
+		{schedule}
+		on:submit={handleEditModalSubmit}
+		on:cancel={() => (editModalOpen = false)}
+	/>
+</Modal>
