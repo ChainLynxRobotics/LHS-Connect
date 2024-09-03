@@ -85,6 +85,7 @@
 <Button color="alternative" on:click={handleNew}>New Note</Button>
 
 <DraggableList
+	dragZoneType="notes"
 	items={bulletinBoardData.notes}
 	update={(notes) => (bulletinBoardData.notes = notes)}
 	sectionClass="flex max-w-lg flex-col gap-4 py-4"

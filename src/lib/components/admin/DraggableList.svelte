@@ -8,12 +8,15 @@
 <script lang="ts" generics="A">
 	import { flip } from "svelte/animate";
 	import type { HTMLAttributes } from "svelte/elements";
-	import { dragHandleZone } from "svelte-dnd-action";
+	import { dragHandleZone, type Options } from "svelte-dnd-action";
 
     export let items: A[] = [];
     export let update: (items: A[]) => void = () => {};
 
     export let flipDurationMs = 300;
+
+    export let dragZoneType: string = "";
+    export let dragZoneOptions: Partial<Options<DraggableItem<A>>> = {};
 
     export let sectionElement = "section";
     export let sectionClass = "";
@@ -46,7 +49,7 @@
 
 <svelte:element
     this={sectionElement}
-	use:dragHandleZone={{ items: visualItems, flipDurationMs, dropTargetStyle: {} }}
+	use:dragHandleZone={{ items: visualItems, flipDurationMs, type: dragZoneType, dropTargetStyle: {}, ...dragZoneOptions }}
 	on:consider={handleDndConsider}
 	on:finalize={handleDndFinalize}
     class={sectionClass}

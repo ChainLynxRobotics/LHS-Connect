@@ -80,7 +80,7 @@
         />
     </div>
 
-    <div>
+    <div class="w-full">
         <Table striped>
             <TableHead>
                 <TableHeadCell></TableHeadCell>
@@ -91,6 +91,7 @@
                 <TableHeadCell>Actions</TableHeadCell>
             </TableHead>
             <DraggableList 
+                dragZoneType="periods"
                 items={schedule.periods} 
                 update={(periods)=>schedule.periods = periods} 
                 let:item 

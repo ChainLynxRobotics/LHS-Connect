@@ -58,6 +58,7 @@
 
 <Accordion flush defaultClass="w-full max-w-lg">
 	<DraggableList
+		dragZoneType="schedules"
 		items={knownSchedules}
 		update={(schedules) => (knownSchedules = schedules)}
 		sectionClass="py-4"
