@@ -70,7 +70,8 @@
 				await contentInput.validate(),
 				await linkInput.validate()
 			].every((v) => v)
-		) return;
+		)
+			return;
 		const note = {
 			title: titleInput.value || '',
 			content: contentInput.value || '',

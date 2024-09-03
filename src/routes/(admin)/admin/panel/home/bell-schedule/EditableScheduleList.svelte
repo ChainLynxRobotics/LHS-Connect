@@ -29,17 +29,13 @@
 	function handleDuplicate(index: number) {
 		const schedule = knownSchedules[index];
 		if (!schedule) return;
-		knownSchedules = [
-			...knownSchedules,
-			JSON.parse(JSON.stringify(schedule))
-		];
+		knownSchedules = [...knownSchedules, JSON.parse(JSON.stringify(schedule))];
 	}
 
 	function handleDelete(index: number) {
 		knownSchedules.splice(index, 1);
 		knownSchedules = knownSchedules; // Force update
 	}
-
 
 	//////////////// Editing Modal //////////////////
 
@@ -76,13 +72,13 @@
 </Accordion>
 
 <Modal bind:open={editModalOpen} size="lg" autoclose={false}>
-	<EditScheduleForm 
-		schedule={editModalSchedule || {name: '', periods: []}} 
+	<EditScheduleForm
+		schedule={editModalSchedule || { name: '', periods: [] }}
 		onSave={(schedule) => {
 			knownSchedules[editModalIndex] = schedule;
 			knownSchedules = knownSchedules; // Force update
 			editModalOpen = false;
 		}}
-		on:close={() => editModalOpen = false}
+		on:close={() => (editModalOpen = false)}
 	/>
 </Modal>

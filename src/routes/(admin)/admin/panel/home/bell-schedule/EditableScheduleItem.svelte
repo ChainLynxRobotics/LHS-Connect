@@ -3,11 +3,7 @@
 	import BellScheduleTable from '$components/BellScheduleTable.svelte';
 	import type { BellSchedule } from '$lib/types/HomePageData';
 	import { AccordionItem, Tooltip } from 'flowbite-svelte';
-	import {
-		EditOutline,
-		FileCopyOutline,
-		TrashBinOutline
-	} from 'flowbite-svelte-icons';
+	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { createEventDispatcher } from 'svelte';
 	import { dragHandle } from 'svelte-dnd-action';
 
