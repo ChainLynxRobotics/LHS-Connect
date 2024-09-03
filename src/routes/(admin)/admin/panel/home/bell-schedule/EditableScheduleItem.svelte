@@ -1,13 +1,9 @@
 <script lang="ts">
+	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
 	import BellScheduleTable from '$components/BellScheduleTable.svelte';
 	import type { BellSchedule } from '$lib/types/HomePageData';
 	import { AccordionItem, Tooltip } from 'flowbite-svelte';
-	import {
-		DotsVerticalOutline,
-		EditOutline,
-		FileCopyOutline,
-		TrashBinOutline
-	} from 'flowbite-svelte-icons';
+	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { createEventDispatcher } from 'svelte';
 	import { dragHandle } from 'svelte-dnd-action';
 
@@ -26,8 +22,7 @@
 	<div slot="header" class="flex w-full justify-between gap-4">
 		<div class="flex items-center gap-2">
 			<span use:dragHandle class="flex items-center">
-				<DotsVerticalOutline class="text-gray-500" />
-				<DotsVerticalOutline class="-ml-3 text-gray-500" />
+				<DragHandleOutline />
 			</span>
 			<span>{schedule.name}</span>
 		</div>
