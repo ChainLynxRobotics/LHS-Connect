@@ -3,12 +3,13 @@
     import type { BellSchedule, TimeString } from "$lib/types/HomePageData";
     import bellScheduleSchema, { bellSchedulePeriodSchemaName } from "$lib/schemas/bellScheduleSchema";
 	import ValidatedTextarea from "$components/form/ValidatedTextarea.svelte";
-	import { Button, Checkbox, Table, TableBodyCell, TableHead, TableHeadCell } from "flowbite-svelte";
+	import { Button, Table, TableBodyCell, TableHead, TableHeadCell } from "flowbite-svelte";
 	import DraggableList from "$components/admin/DraggableList.svelte";
 	import { createEventDispatcher } from "svelte";
 	import { dragHandle } from "svelte-dnd-action";
 	import DragHandleOutline from "$components/admin/DragHandleOutline.svelte";
     import { FileCopyOutline, TrashBinOutline } from "flowbite-svelte-icons";
+	import CheckboxWithAccessors from "$components/form/CheckboxWithAccessors.svelte";
 
 
     export let schedule: BellSchedule;
@@ -24,7 +25,7 @@
     let periodNames: ValidatedInput<string>[] = [];
     let periodStarts: HTMLInputElement[] = [];
     let periodEnds: HTMLInputElement[] = [];
-    let periodEmphasizes: Checkbox[] = [];
+    let periodEmphasizes: CheckboxWithAccessors[] = [];
 
     function handleAddPeriod() {
         schedule.periods.push({name: 'Period', start: '00:00', end: '00:00', emphasis: false});
@@ -55,7 +56,7 @@
                 name: periodNames[i].value||'',
                 start: periodStarts[i].value as TimeString,
                 end: periodEnds[i].value as TimeString,
-                emphasis: period.emphasis
+                emphasis: periodEmphasizes[i].checked
             }))
         });
     }
@@ -143,13 +144,14 @@
                     />
                 </TableBodyCell>
                 <TableBodyCell>
-                    <Checkbox 
+                    <CheckboxWithAccessors
                         bind:this={periodEmphasizes[index]}
-                        id={`period-${index}-emphasize`}
-                        name={`period-${index}-emphasize`}
-                        type="checkbox"
-                        aria-label="Emphasize"
-                        bind:checked={schedule.periods[index].emphasis}
+                        checkboxProps={{
+                            id: `period-${index}-emphasize`,
+                            name: `period-${index}-emphasize`,
+                            'aria-label': 'Emphasize'
+                        }}
+                        checked={schedule.periods[index].emphasis}
                     />
                 </TableBodyCell>
                 <TableBodyCell>
