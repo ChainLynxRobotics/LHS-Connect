@@ -7,10 +7,6 @@
 	import { Button, type SelectOptionType } from 'flowbite-svelte';
 	import { PaperPlaneOutline } from 'flowbite-svelte-icons';
 
-	let email: ValidatedInput<'email'>;
-	let type: ValidatedSelect<'type'>;
-	let message: ValidatedTextarea<'message'>;
-
 	export const feedbackTypes: SelectOptionType<string>[] = [
 		{ value: 'feedback', name: 'General Feedback' },
 		{ value: 'suggestion', name: 'Suggestion' },
@@ -18,14 +14,18 @@
 		{ value: 'bug', name: 'Bug Report' },
 		{ value: 'other', name: 'Other' }
 	];
+
+	let emailInput: ValidatedInput<'email'>;
+	let typeInput: ValidatedSelect<'type'>;
+	let messageInput: ValidatedTextarea<'message'>;
 </script>
 
 <SectionHeader title="Contact Us" />
-<form>
+<form on:submit|preventDefault={()=>alert('TODO')}>
 	<div class="grid gap-6 md:grid-cols-2">
 		<div class="mb-6">
 			<ValidatedInput
-				bind:this={email}
+				bind:this={emailInput}
 				id="email"
 				label="Email"
 				visuallyRequired
@@ -35,7 +35,7 @@
 		</div>
 		<div class="mb-6">
 			<ValidatedSelect
-				bind:this={type}
+				bind:this={typeInput}
 				id="type"
 				label="Feedback Type"
 				visuallyRequired
@@ -46,7 +46,7 @@
 	</div>
 	<div class="mb-6">
 		<ValidatedTextarea
-			bind:this={message}
+			bind:this={messageInput}
 			id="message"
 			label="Message"
 			visuallyRequired
