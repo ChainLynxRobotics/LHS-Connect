@@ -21,7 +21,7 @@
 	<title>LHS Connect | About</title>
 </svelte:head>
 
-<div class="flex w-full flex-col items-center gap-16 p-4">
+<div class="flex w-full flex-col items-center gap-16 p-4 pb-16">
 	<div class="w-full max-w-4xl">
 		<enhanced:img
 			src={lincolnBuilding}

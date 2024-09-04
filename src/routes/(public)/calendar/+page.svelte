@@ -8,6 +8,6 @@
 	<title>LHS Connect | Calendar</title>
 </svelte:head>
 
-<div class="flex w-full flex-col flex-wrap items-center p-4">
+<div class="flex w-full flex-col flex-wrap items-center p-4 pb-16">
 	<h1>TODO: Calendar</h1>
 </div>

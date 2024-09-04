@@ -12,7 +12,7 @@
 	<title>LHS Connect | Home</title>
 </svelte:head>
 
-<div class="flex w-full flex-col items-center justify-center gap-8 p-4">
+<div class="flex w-full flex-col items-center justify-center gap-8 p-4 pb-16">
 	<div class="flex flex-col gap-8 lg:flex-row lg:items-start">
 		<div class="w-full max-w-xl">
 			<BulletinBoard data={data.bulletinBoard} />

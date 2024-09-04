@@ -7,7 +7,7 @@
 	<title>LHS Connect | QR Generator</title>
 </svelte:head>
 
-<div class="flex w-full flex-col items-center gap-16 p-4">
+<div class="flex w-full flex-col items-center gap-16 p-4 pb-16">
 	<div class="w-full max-w-4xl">
 		<SectionHeader title="QR Code Generator" />
 		<p class="mb-12 mt-4 indent-8">
