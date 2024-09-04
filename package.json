@@ -40,5 +40,6 @@
 		"vite": "^5.0.3",
 		"yup": "^1.4.0"
 	},
-	"type": "module"
+	"type": "module",
+	"packageManager": "pnpm@9.9.0"
 }
