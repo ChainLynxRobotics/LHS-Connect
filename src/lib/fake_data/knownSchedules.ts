@@ -147,7 +147,7 @@ const knownSchedules: BellSchedule[] = [
 			{
 				name: '9th grade on-campus lunch',
 				start: '11:35',
-				end: '12:20',
+				end: '12:20'
 			},
 			{
 				name: '9th grade assembly',
@@ -157,7 +157,7 @@ const knownSchedules: BellSchedule[] = [
 			{
 				name: '10th/11th/12th Lunch',
 				start: '12:40',
-				end: '13:10',
+				end: '13:10'
 			},
 			{
 				name: 'Period 1',

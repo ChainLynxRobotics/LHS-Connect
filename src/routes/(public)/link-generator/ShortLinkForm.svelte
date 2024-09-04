@@ -13,7 +13,7 @@
 </script>
 
 <div class="flex w-full flex-col items-center gap-8 md:flex-row md:items-start">
-	<form on:submit|preventDefault={()=>alert("TODO")} class="w-full">
+	<form on:submit|preventDefault={() => alert('TODO')} class="w-full">
 		<div class="mb-6">
 			<ValidatedInputGroup
 				bind:this={suffixInput}

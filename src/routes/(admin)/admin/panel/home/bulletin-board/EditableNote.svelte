@@ -15,7 +15,6 @@
 		delete: null;
 	}>();
 
-
 	let editModalOpen = false;
 
 	function handleEditModalSubmit(e: CustomEvent<Note>) {
@@ -35,7 +34,7 @@
 		{/if}
 	</div>
 	<div class="flex flex-col">
-		<button title="Edit" on:click={() => editModalOpen = true} class="!p-2"
+		<button title="Edit" on:click={() => (editModalOpen = true)} class="!p-2"
 			><EditOutline class="h-6 w-6" /></button
 		>
 		<button title="Duplicate" on:click={() => dispatch('duplicate')} class="!p-2"
@@ -48,5 +47,9 @@
 </div>
 
 <Modal bind:open={editModalOpen} size="md" autoclose={false}>
-	<EditNoteForm {note} on:submit={handleEditModalSubmit} on:cancel={() => editModalOpen = false} />
+	<EditNoteForm
+		{note}
+		on:submit={handleEditModalSubmit}
+		on:cancel={() => (editModalOpen = false)}
+	/>
 </Modal>

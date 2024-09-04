@@ -1,6 +1,5 @@
 import { array, object, string, type InferType } from 'yup';
 
-
 export const linkCardSchemaLinkName = string().required().max(64).label('Name');
 export const linkCardSchemaLinkUrl = string().required().url().max(512).label('URL');
 

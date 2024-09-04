@@ -1,7 +1,6 @@
 <script lang="ts">
-	import SectionHeader from "$components/SectionHeader.svelte";
-	import EditableLinkCardList from "./EditableLinkCardList.svelte";
-
+	import SectionHeader from '$components/SectionHeader.svelte';
+	import EditableLinkCardList from './EditableLinkCardList.svelte';
 </script>
 
 <div class="flex flex-col items-center p-4">

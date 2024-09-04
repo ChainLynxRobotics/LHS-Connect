@@ -21,7 +21,7 @@
 </script>
 
 <SectionHeader title="Contact Us" />
-<form on:submit|preventDefault={()=>alert('TODO')}>
+<form on:submit|preventDefault={() => alert('TODO')}>
 	<div class="grid gap-6 md:grid-cols-2">
 		<div class="mb-6">
 			<ValidatedInput

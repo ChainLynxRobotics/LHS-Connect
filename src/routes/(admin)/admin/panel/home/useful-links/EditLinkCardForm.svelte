@@ -1,73 +1,75 @@
 <script lang="ts">
-	import type { LinkCard } from "$lib/types/HomePageData";
-	import { createEventDispatcher } from "svelte";
-    import ValidatedInput from "$components/form/ValidatedInput.svelte";
-	import DragHandleOutline from "$components/admin/DragHandleOutline.svelte";
-	import ValidatedTextarea from "$components/form/ValidatedTextarea.svelte";
-	import { Table, TableHead, TableHeadCell, TableBodyCell, Button } from "flowbite-svelte";
-	import { FileCopyOutline, TrashBinOutline } from "flowbite-svelte-icons";
-	import { dragHandleZone, dragHandle } from "svelte-dnd-action";
-	import { flip } from "svelte/animate";
-	import linkCardSchema, { linkCardSchemaLinkName, linkCardSchemaLinkUrl } from "$lib/schemas/linkCardSchema";
+	import type { LinkCard } from '$lib/types/HomePageData';
+	import { createEventDispatcher } from 'svelte';
+	import ValidatedInput from '$components/form/ValidatedInput.svelte';
+	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
+	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
+	import { Table, TableHead, TableHeadCell, TableBodyCell, Button } from 'flowbite-svelte';
+	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
+	import { dragHandleZone, dragHandle } from 'svelte-dnd-action';
+	import { flip } from 'svelte/animate';
+	import linkCardSchema, {
+		linkCardSchemaLinkName,
+		linkCardSchemaLinkUrl
+	} from '$lib/schemas/linkCardSchema';
 
+	const flipDurationMs = 300;
 
-    const flipDurationMs = 300;
+	export let card: LinkCard;
 
-    export let card: LinkCard;
+	const dispatch = createEventDispatcher<{
+		submit: LinkCard;
+		cancel: null;
+	}>();
 
-    const dispatch = createEventDispatcher<{
-        submit: LinkCard;
-        cancel: null;
-    }>();
+	let title = card.title;
+	let subtitle = card.subtitle;
+	let links = card.links.map((link) => ({ ...link, id: Math.random() }));
 
-    let title = card.title;
-    let subtitle = card.subtitle;
-    let links = card.links.map((link) => ({ ...link, id: Math.random() }));
+	let titleInput: ValidatedInput<'title'>;
+	let subtitleInput: ValidatedInput<'subtitle'>;
+	let linkNameInputs: ValidatedInput<string>[] = [];
+	let linkUrlInputs: ValidatedInput<string>[] = [];
 
-    let titleInput: ValidatedInput<'title'>;
-    let subtitleInput: ValidatedInput<'subtitle'>;
-    let linkNameInputs: ValidatedInput<string>[] = [];
-    let linkUrlInputs: ValidatedInput<string>[] = [];
+	function handleAddLink() {
+		links.push({
+			title: 'Link',
+			url: 'https://lhsconnect.com',
+			id: Math.random()
+		});
+		links = links; // Force update
+	}
 
-    function handleAddLink() {
-        links.push({
-            title: 'Link',
-            url: 'https://lhsconnect.com',
-            id: Math.random()
-        });
-        links = links; // Force update
-    }
+	function handleDuplicateLink(index: number) {
+		links.splice(index, 0, { ...links[index], id: Math.random() });
+		links = links; // Force update
+	}
 
-    function handleDuplicateLink(index: number) {
-        links.splice(index, 0, { ...links[index], id: Math.random() });
-        links = links; // Force update
-    }
+	function handleDeleteLink(index: number) {
+		links.splice(index, 1);
+		links = links; // Force update
+	}
 
-    function handleDeleteLink(index: number) {
-        links.splice(index, 1);
-        links = links; // Force update
-    }
+	async function handleSave() {
+		if (
+			![
+				...(await Promise.all(linkNameInputs.map((input) => input.validate(true)))),
+				...(await Promise.all(linkUrlInputs.map((input) => input.validate(true)))),
+				await titleInput.validate(true),
+				await subtitleInput.validate(true)
+			].every((valid) => valid)
+		) {
+			return;
+		}
 
-    async function handleSave() {
-        if (
-            ![
-                ...(await Promise.all(linkNameInputs.map((input) => input.validate(true)))),
-                ...(await Promise.all(linkUrlInputs.map((input) => input.validate(true)))),
-                await titleInput.validate(true),
-                await subtitleInput.validate(true)
-            ].every((valid) => valid)
-        ) {
-            return;
-        }
+		dispatch('submit', {
+			title,
+			subtitle,
+			links
+		});
+	}
 
-        dispatch('submit', {
-            title,
-            subtitle,
-            links
-        });
-    }
-
-    function handleDragConsider(event: CustomEvent<{ items: any[] }>) {
+	function handleDragConsider(event: CustomEvent<{ items: any[] }>) {
 		links = event.detail.items;
 	}
 	function handleDragFinalize(event: CustomEvent<{ items: any[] }>) {
@@ -164,4 +166,3 @@
 		<Button type="submit">Save</Button>
 	</div>
 </form>
-
