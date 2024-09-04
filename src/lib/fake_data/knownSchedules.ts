@@ -134,6 +134,62 @@ const knownSchedules: BellSchedule[] = [
 				end: '14:25'
 			}
 		]
+	},
+	{
+		name: 'First Day',
+		desc: 'Welcome back to school! Doors open for 9th graders at 8:30, and 12:40 for everybody else. Classes start at 1:15.',
+		periods: [
+			{
+				name: '9th grade orientation',
+				start: '08:50',
+				end: '11:35'
+			},
+			{
+				name: '9th grade on-campus lunch',
+				start: '11:35',
+				end: '12:20',
+			},
+			{
+				name: '9th grade assembly',
+				start: '12:20',
+				end: '13:10'
+			},
+			{
+				name: '10th/11th/12th Lunch',
+				start: '12:40',
+				end: '13:10',
+			},
+			{
+				name: 'Period 1',
+				start: '13:15',
+				end: '13:35'
+			},
+			{
+				name: 'Period 2',
+				start: '13:40',
+				end: '14:00'
+			},
+			{
+				name: 'Period 3',
+				start: '14:05',
+				end: '14:25'
+			},
+			{
+				name: 'Period 4',
+				start: '14:30',
+				end: '14:50'
+			},
+			{
+				name: 'Period 5',
+				start: '14:55',
+				end: '15:15'
+			},
+			{
+				name: 'Period 6',
+				start: '15:20',
+				end: '15:40'
+			}
+		]
 	}
 ];
 

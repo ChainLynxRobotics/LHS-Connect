@@ -26,6 +26,6 @@
 		<LinkCardList title="Contact Information" data={data.contactInfo} />
 	</div>
 	<div class="w-full max-w-4xl">
-		<LinkCardList title="Useful Links" data={data.contactInfo} />
+		<LinkCardList title="Useful Links" data={data.usefulLinks} />
 	</div>
 </div>

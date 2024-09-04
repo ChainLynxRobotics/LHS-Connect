@@ -88,4 +88,8 @@ export interface HomePageData {
 	 * The contact information for the school.
 	 */
 	contactInfo: LinkCardListData;
+	/**
+	 * A list of useful links.
+	 */
+	usefulLinks: LinkCardListData;
 }
