@@ -5,17 +5,21 @@
 	import QrCodeCard from '$components/QrCodeCard.svelte';
 	import shortLinkSchema from '$lib/schemas/shortLinkSchema';
 
-	let suffix: ValidatedInputGroup<'suffix'>;
-	let url: ValidatedInput<'url'>;
+	let suffixInput: ValidatedInputGroup<'suffix'>;
+	let urlInput: ValidatedInput<'url'>;
+
+	let suffix: string = '';
+	let url: string = '';
 </script>
 
 <div class="flex w-full flex-col items-center gap-8 md:flex-row md:items-start">
-	<form class="w-full">
+	<form on:submit|preventDefault={()=>alert("TODO")} class="w-full">
 		<div class="mb-6">
 			<ValidatedInputGroup
-				bind:this={suffix}
+				bind:this={suffixInput}
 				id="suffix"
 				label="Short Url (Only letters, numbers, and hyphens)"
+				bind:value={suffix}
 				visuallyRequired
 				validatorObject={shortLinkSchema}
 				inputProps={{ type: 'text' }}
@@ -26,9 +30,10 @@
 
 		<div class="mb-6">
 			<ValidatedInput
-				bind:this={url}
+				bind:this={urlInput}
 				id="url"
 				label="Redirect Url"
+				bind:value={url}
 				visuallyRequired
 				validatorObject={shortLinkSchema}
 				inputProps={{ type: 'url', placeholder: 'Paste URL Here' }}
@@ -39,5 +44,5 @@
 			<Button type="submit">Generate Short Link</Button>
 		</div>
 	</form>
-	<QrCodeCard data={'https://lhs.cx/' + suffix.value} />
+	<QrCodeCard data={'https://lhs.cx/' + suffix} />
 </div>
