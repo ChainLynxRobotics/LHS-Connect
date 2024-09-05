@@ -32,7 +32,7 @@ export interface BellScheduleData {
 		schedule: BellSchedule;
 	}[];
 	special: {
-		date: DateString;
+		date: DateString | DateString[];
 		schedule: BellSchedule;
 	}[];
 }

@@ -105,16 +105,16 @@ const knownSchedules: BellSchedule[] = [
 			{
 				name: 'Mentorship',
 				start: '10:10',
-				end: '11:10'
+				end: '11:15'
 			},
 			{
 				name: 'Period 3',
-				start: '11:15',
-				end: '11:50'
+				start: '11:20',
+				end: '11:55'
 			},
 			{
 				name: 'Lunch',
-				start: '11:25',
+				start: '11:55',
 				end: '12:25',
 				emphasis: true
 			},
