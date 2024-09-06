@@ -190,7 +190,55 @@ const knownSchedules: BellSchedule[] = [
 				end: '15:40'
 			}
 		]
-	}
+	},
+	{
+		name: 'Assembly',
+		desc: 'Assembly during mentorship time, still go to your mentorship class first for instructions',
+		periods: [
+			{
+				name: 'Period 1',
+				start: '08:50',
+				end: '09:45'
+			},
+			{
+				name: 'Period 2',
+				start: '09:50',
+				end: '10:45'
+			},
+			{
+				name: 'Assembly',
+				start: '10:50',
+				end: '11:25',
+				emphasis: true
+			},
+			{
+				name: 'Period 3',
+				start: '11:30',
+				end: '12:20'
+			},
+			{
+				name: 'Lunch',
+				start: '12:25',
+				end: '12:55',
+				emphasis: true
+			},
+			{
+				name: 'Period 4',
+				start: '13:00',
+				end: '13:50'
+			},
+			{
+				name: 'Period 5',
+				start: '13:55',
+				end: '14:45'
+			},
+			{
+				name: 'Period 6',
+				start: '14:50',
+				end: '15:40'
+			}
+		]
+	},
 ];
 
 export default knownSchedules;

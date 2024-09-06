@@ -717,7 +717,7 @@ const clubs = [
 		time: 'Lunch',
 		location: '431',
 		advisor: 'Richards',
-		instagram: 't_mobile_club'
+		instagram: 'tmobileclub'
 	},
 	{
 		name: 'Taylor Swift Club',

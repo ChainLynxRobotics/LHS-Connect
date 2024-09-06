@@ -18,13 +18,17 @@ const bellSchedules: BellScheduleData = {
 	],
 	special: [
 		{
-			date: ['2024-9-5', '2024-9-6', '2024-9-7', '2024-9-8', '2024-9-9', '2024-9-10', '2024-9-11', '2024-9-12', '2024-9-13'],
+			date: ['2024-9-5', '2024-9-7', '2024-9-8', '2024-9-9', '2024-9-10', '2024-9-12', '2024-9-13'],
 			schedule: {
 				...knownSchedules[0],
 				name: 'Mon/Fri Everyday',
 				desc: 'From 9/5 to 9/13 we will be using the Monday/Friday schedule everyday (EXCEPT WEDNESDAY) so we have mentorship.'
 			}
 		},
+		{
+			date: '2024-9-6',
+			schedule: knownSchedules[4]
+		}
 	]
 };
 
