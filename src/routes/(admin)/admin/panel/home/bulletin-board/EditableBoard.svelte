@@ -1,11 +1,10 @@
 <script lang="ts">
-	import bulletinBoard from '$lib/fake_data/bulletinBoard';
-	import type { BulletinBoardData, Note } from '$lib/types/HomePageData';
+	import type { Note } from '$lib/types/HomePageData';
 	import EditableNote from './EditableNote.svelte';
 	import { Button } from 'flowbite-svelte';
 	import DraggableList from '$components/admin/DraggableList.svelte';
 
-	export let notes: Note[] = bulletinBoard.notes; // TODO: Replace with real data
+	export let notes: Note[];
 
 	//////////////// Editing //////////////////
 
@@ -32,21 +31,25 @@
 	}
 </script>
 
-<Button color="alternative" on:click={handleNew}>New Note</Button>
+<div class="flex flex-col items-center">
 
-<DraggableList
-	dragZoneType="notes"
-	items={notes}
-	update={(items) => (notes = items)}
-	sectionClass="flex max-w-lg flex-col gap-4 py-4"
-	dragWrapperClass="w-full"
-	let:item
-	let:index
->
-	<EditableNote
-		note={item}
-		on:edit={(e) => handleEdit(index, e.detail)}
-		on:duplicate={() => handleDuplicate(index)}
-		on:delete={() => handleDelete(index)}
-	/>
-</DraggableList>
+	<Button color="alternative" on:click={handleNew}>New Note</Button>
+
+	<DraggableList
+		dragZoneType="notes"
+		items={notes}
+		update={(items) => (notes = items)}
+		sectionClass="flex max-w-lg flex-col gap-4 py-4"
+		dragWrapperClass="w-full"
+		let:item
+		let:index
+	>
+		<EditableNote
+			note={item}
+			on:edit={(e) => handleEdit(index, e.detail)}
+			on:duplicate={() => handleDuplicate(index)}
+			on:delete={() => handleDelete(index)}
+		/>
+	</DraggableList>
+
+</div>

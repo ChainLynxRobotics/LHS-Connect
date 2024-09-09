@@ -1,11 +1,19 @@
 <script lang="ts">
+	import type { GlobalPageData } from '$lib/types/GlobalPageData';
+	import Footer from './Footer.svelte';
 	import Header from './Header.svelte';
 	import QuickLinks from './QuickLinks.svelte';
+
+	export let data: GlobalPageData;
 </script>
 
-<Header></Header>
-<div class="flex w-full flex-col items-center">
-	<QuickLinks />
-</div>
+<div class="min-h-screen">
 
-<slot></slot>
+	<Header></Header>
+	<div class="flex w-full flex-col items-center">
+		<QuickLinks />
+	</div>
+
+	<slot></slot>
+</div>
+<Footer data={data.footer}></Footer>

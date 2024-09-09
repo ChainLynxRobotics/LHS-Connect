@@ -45,7 +45,7 @@
 			please contact us using the information below.
 		</p>
 	</div>
-	<div class="w-full max-w-4xl">
+	<div id="team" class="w-full max-w-4xl">
 		<SectionHeader title="Meet the Team" />
 		<div class="mx-auto flex flex-wrap justify-center gap-4">
 			<Card padding="md" size="xs">
@@ -115,7 +115,7 @@
 		</div>
 	</div>
 
-	<div class="w-full max-w-4xl">
+	<div id="contact" class="w-full max-w-4xl">
 		<ContactForm />
 	</div>
 

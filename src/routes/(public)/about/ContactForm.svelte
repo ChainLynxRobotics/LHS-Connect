@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import ValidatedSelect from '$components/form/ValidatedSelect.svelte';
 	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
@@ -8,9 +9,8 @@
 	import { PaperPlaneOutline } from 'flowbite-svelte-icons';
 
 	export const feedbackTypes: SelectOptionType<string>[] = [
-		{ value: 'feedback', name: 'General Feedback' },
 		{ value: 'suggestion', name: 'Suggestion' },
-		{ value: 'report', name: 'False Information Report' },
+		{ value: 'report', name: 'Incorrect Information Report' },
 		{ value: 'bug', name: 'Bug Report' },
 		{ value: 'other', name: 'Other' }
 	];
@@ -18,6 +18,10 @@
 	let emailInput: ValidatedInput<'email'>;
 	let typeInput: ValidatedSelect<'type'>;
 	let messageInput: ValidatedTextarea<'message'>;
+
+	let email = '';
+	let type = $page.url.searchParams.get('type') || '';
+	let message = '';
 </script>
 
 <SectionHeader title="Contact Us" />
@@ -28,6 +32,7 @@
 				bind:this={emailInput}
 				id="email"
 				label="Email"
+				bind:value={email}
 				visuallyRequired
 				validatorObject={contactUsSchema}
 				inputProps={{ type: 'email', placeholder: 'name@email.com' }}
@@ -37,10 +42,11 @@
 			<ValidatedSelect
 				bind:this={typeInput}
 				id="type"
-				label="Feedback Type"
+				label="Category"
+				bind:value={type}
 				visuallyRequired
 				validatorObject={contactUsSchema}
-				selectProps={{ items: feedbackTypes, placeholder: 'Select a feedback type...' }}
+				selectProps={{ items: feedbackTypes, placeholder: 'Select a category...' }}
 			/>
 		</div>
 	</div>
@@ -49,6 +55,7 @@
 			bind:this={messageInput}
 			id="message"
 			label="Message"
+			bind:value={message}
 			visuallyRequired
 			validatorObject={contactUsSchema}
 			textareaProps={{ placeholder: 'Your message', rows: 4 }}

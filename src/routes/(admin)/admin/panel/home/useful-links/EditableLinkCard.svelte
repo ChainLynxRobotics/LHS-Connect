@@ -23,8 +23,8 @@
 	}
 </script>
 
-<div class="flex w-full items-start gap-2">
-	<div use:dragHandle class="w-full">
+<div class="flex items-start gap-2">
+	<div use:dragHandle>
 		<LinkCardContent {card} />
 	</div>
 	<div class="flex flex-col">

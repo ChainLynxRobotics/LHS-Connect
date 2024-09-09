@@ -3,7 +3,6 @@
 	import { createEventDispatcher } from 'svelte';
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
-	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
 	import { Table, TableHead, TableHeadCell, TableBodyCell, Button } from 'flowbite-svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { dragHandleZone, dragHandle } from 'svelte-dnd-action';
@@ -53,8 +52,8 @@
 	async function handleSave() {
 		if (
 			![
-				...(await Promise.all(linkNameInputs.map((input) => input.validate(true)))),
-				...(await Promise.all(linkUrlInputs.map((input) => input.validate(true)))),
+				...(await Promise.all(linkNameInputs.map((input) => input ? input.validate(true) : true))),
+				...(await Promise.all(linkUrlInputs.map((input) => input ? input.validate(true) : true))),
 				await titleInput.validate(true),
 				await subtitleInput.validate(true)
 			].every((valid) => valid)

@@ -1,42 +1,40 @@
 <script lang="ts">
 	import DraggableList from '$components/admin/DraggableList.svelte';
-	import contactInfo from '$lib/fake_data/contactInfo';
 	import type { LinkCard } from '$lib/types/HomePageData';
 	import EditableLinkCard from './EditableLinkCard.svelte';
 
-	export let linkCards: LinkCard[] = contactInfo.cards;
+	export let cards: LinkCard[];
 
 	//////////////// Editing //////////////////
 
 	function handleNew() {
-		linkCards.push({
+		cards.push({
 			title: 'New Card',
 			links: []
 		});
-		linkCards = linkCards; // Force update
+		cards = cards; // Force update
 	}
 
 	function handleEdit(index: number, card: LinkCard) {
-		linkCards[index] = card;
+		cards[index] = card;
 	}
 
 	function handleDuplicate(index: number) {
-		linkCards.splice(index, 0, JSON.parse(JSON.stringify(linkCards[index])));
-		linkCards = linkCards; // Force update
+		cards.splice(index, 0, JSON.parse(JSON.stringify(cards[index])));
+		cards = cards; // Force update
 	}
 
 	function handleDelete(index: number) {
-		linkCards.splice(index, 1);
-		linkCards = linkCards; // Force update
+		cards.splice(index, 1);
+		cards = cards; // Force update
 	}
 </script>
 
 <DraggableList
 	dragZoneType="cards"
-	items={linkCards}
-	update={(items) => (linkCards = items)}
-	sectionClass="flex max-w-lg flex-col gap-4 py-4"
-	dragWrapperClass="w-full"
+	items={cards}
+	update={(items) => (cards = items)}
+	sectionClass="flex flex-wrap gap-4 py-4 justify-center"
 	let:item
 	let:index
 >

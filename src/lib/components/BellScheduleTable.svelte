@@ -21,6 +21,24 @@
 		return `${formattedHour}:${formattedMinute}`;
 	}
 
+	function getRowClass(periodIndex: number): string {
+		const period = schedule.periods[periodIndex];
+		let c = 'text-base';
+		if (period.emphasis) {
+			c += ' !bg-gray-100 dark:!bg-gray-600';
+		}
+		if (reactive && currentlyWithinTime(period.start, period.end)) {
+			c += ' !border-2 !border-primary-500';
+		} else {
+			c += ' border-b last:border-b-0 dark:border-gray-700';
+			// Check for passing period
+			if (reactive && schedule.periods[periodIndex - 1] && currentlyWithinTime(schedule.periods[periodIndex - 1].end, period.start)) {
+				c += ' !border-t-2 !border-t-primary-500';
+			}
+		}
+		return c;
+	}
+
 	function currentlyWithinTime(start: TimeString, end: TimeString): boolean {
 		const now = new Date();
 		const [startHour, startMinute] = start.split(':').map(Number);
@@ -49,14 +67,14 @@
       <TableHeadCell>Time</TableHeadCell>
     </TableHead> -->
 	<TableBody tableBodyClass="divide-y text-center">
-		{#each schedule.periods as period}
+		{#each schedule.periods as period, i}
 			<TableBodyRow
-				class={`${period.emphasis ? '!bg-gray-100 dark:!bg-gray-600' : ''} ${reactive && currentlyWithinTime(period.start, period.end) ? '!border-2 !border-primary-500' : 'border-b last:border-b-0 dark:border-gray-700'}`}
+				class={getRowClass(i)}
 			>
-				<TableBodyCell tdClass={`px-6 py-4 whitespace-nowrap`}>
+				<TableBodyCell>
 					{period.name}
 				</TableBodyCell>
-				<TableBodyCell tdClass={`px-6 py-4 whitespace-nowrap`}>
+				<TableBodyCell>
 					{formatTime(period.start)} - {formatTime(period.end)}
 				</TableBodyCell>
 			</TableBodyRow>

@@ -24,6 +24,13 @@ export interface BellSchedule {
 }
 
 /**
+ * Represents a list of defined bell schedules.
+ */
+export interface DefinedScheduleList {
+	schedules: BellSchedule[];
+}
+
+/**
  * Represents the bell schedules for a school year, with defaults and special schedules.
  */
 export interface BellScheduleData {

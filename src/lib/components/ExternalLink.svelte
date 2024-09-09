@@ -7,5 +7,6 @@
 	{href}
 	target="_blank"
 	rel="noopener noreferrer"
-	class="font-medium text-blue-600 hover:underline dark:text-blue-400">{text}</a
->
+	class="font-medium text-blue-600 underline dark:text-blue-400">
+		{text}
+</a>

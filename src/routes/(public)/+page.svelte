@@ -13,19 +13,26 @@
 </svelte:head>
 
 <div class="flex w-full flex-col items-center justify-center gap-8 p-4 pb-16">
-	<div class="flex flex-col gap-8 lg:flex-row lg:items-start">
-		<div class="w-full max-w-xl">
+	<div class="grid grid-home-page gap-x-8 gap-y-16">
+		<div>
 			<BulletinBoard data={data.bulletinBoard} />
 		</div>
-		<div class="w-full max-w-xl">
+		<div>
 			<BellSchedule data={data.bellSchedules} />
 		</div>
-	</div>
-
-	<div class="w-full max-w-4xl">
-		<LinkCardList title="Contact Information" data={data.contactInfo} />
-	</div>
-	<div class="w-full max-w-4xl">
-		<LinkCardList title="Useful Links" data={data.usefulLinks} />
+		<div class="lg:col-span-2">
+			<LinkCardList title="Contact Information" data={data.contactInfo} />
+		</div>
 	</div>
 </div>
+
+<style>
+	.grid-home-page {
+		grid-template-columns: repeat(1, minmax(0, 42rem));
+	}
+	@media (min-width: 1024px) {
+		.grid-home-page {
+			grid-template-columns: repeat(2, minmax(0, 42rem));
+		}
+	}
+</style>
