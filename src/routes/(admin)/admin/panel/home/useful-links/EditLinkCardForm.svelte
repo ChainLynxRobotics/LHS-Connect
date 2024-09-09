@@ -52,8 +52,10 @@
 	async function handleSave() {
 		if (
 			![
-				...(await Promise.all(linkNameInputs.map((input) => input ? input.validate(true) : true))),
-				...(await Promise.all(linkUrlInputs.map((input) => input ? input.validate(true) : true))),
+				...(await Promise.all(
+					linkNameInputs.map((input) => (input ? input.validate(true) : true))
+				)),
+				...(await Promise.all(linkUrlInputs.map((input) => (input ? input.validate(true) : true)))),
 				await titleInput.validate(true),
 				await subtitleInput.validate(true)
 			].every((valid) => valid)

@@ -24,8 +24,9 @@
 	// Get the special schedule for today
 	const currentDate = new Date().setHours(0, 0, 0, 0);
 	for (const item of data.special) {
-
-		let specialDates = (Array.isArray(item.date) ? item.date : [item.date]).map((date) => new Date(date).getTime());
+		let specialDates = (Array.isArray(item.date) ? item.date : [item.date]).map((date) =>
+			new Date(date).getTime()
+		);
 		if (specialDates.includes(currentDate)) {
 			tabs.push(item.schedule);
 			selectedTab = tabs.length - 1;
@@ -61,7 +62,12 @@
 				{#each upcomingSpecialSchedules as special}
 					<AccordionItem>
 						<span slot="header"
-							>{!Array.isArray(special.date) ? new Date(special.date).toDateString() : special.date.filter((date) => new Date(date) > new Date()).map(date=>new Date(date).toDateString()).join(', ')} - {special.schedule.name}</span
+							>{!Array.isArray(special.date)
+								? new Date(special.date).toDateString()
+								: special.date
+										.filter((date) => new Date(date) > new Date())
+										.map((date) => new Date(date).toDateString())
+										.join(', ')} - {special.schedule.name}</span
 						>
 						<BellScheduleTable schedule={special.schedule} />
 					</AccordionItem>

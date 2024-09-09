@@ -6,7 +6,7 @@
 </script>
 
 <div
-	class="w-96 flex flex-col overflow-hidden rounded-xl border bg-gray-50 p-4 shadow-lg dark:border-gray-700 dark:bg-gray-800"
+	class="flex w-96 flex-col overflow-hidden rounded-xl border bg-gray-50 p-4 shadow-lg dark:border-gray-700 dark:bg-gray-800"
 >
 	<h3 class="text-lg font-semibold">{card.title}</h3>
 	{#if card.subtitle}

@@ -13,7 +13,7 @@
 </svelte:head>
 
 <div class="flex w-full flex-col items-center justify-center gap-8 p-4 pb-16">
-	<div class="grid grid-home-page gap-x-8 gap-y-16">
+	<div class="grid-home-page grid gap-x-8 gap-y-16">
 		<div>
 			<BulletinBoard data={data.bulletinBoard} />
 		</div>

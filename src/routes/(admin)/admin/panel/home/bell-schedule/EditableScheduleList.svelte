@@ -38,7 +38,6 @@
 </script>
 
 <div class="flex flex-col items-center">
-
 	<Button color="alternative" on:click={handleNew}>New Schedule</Button>
 
 	<Accordion flush defaultClass="w-full max-w-lg">
@@ -59,5 +58,4 @@
 			/>
 		</DraggableList>
 	</Accordion>
-
 </div>

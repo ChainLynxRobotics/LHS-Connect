@@ -4,5 +4,5 @@ import type { PageServerLoad } from './$types';
 import bulletinBoard from '$lib/fake_data/bulletinBoard';
 
 export const load = (async () => {
-    return bulletinBoard;
+	return bulletinBoard;
 }) satisfies PageServerLoad;

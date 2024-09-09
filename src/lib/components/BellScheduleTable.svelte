@@ -32,7 +32,11 @@
 		} else {
 			c += ' border-b last:border-b-0 dark:border-gray-700';
 			// Check for passing period
-			if (reactive && schedule.periods[periodIndex - 1] && currentlyWithinTime(schedule.periods[periodIndex - 1].end, period.start)) {
+			if (
+				reactive &&
+				schedule.periods[periodIndex - 1] &&
+				currentlyWithinTime(schedule.periods[periodIndex - 1].end, period.start)
+			) {
 				c += ' !border-t-2 !border-t-primary-500';
 			}
 		}
@@ -68,9 +72,7 @@
     </TableHead> -->
 	<TableBody tableBodyClass="divide-y text-center">
 		{#each schedule.periods as period, i}
-			<TableBodyRow
-				class={getRowClass(i)}
-			>
+			<TableBodyRow class={getRowClass(i)}>
 				<TableBodyCell>
 					{period.name}
 				</TableBodyCell>

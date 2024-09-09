@@ -8,7 +8,6 @@
 </script>
 
 <div class="min-h-screen">
-
 	<Header></Header>
 	<div class="flex w-full flex-col items-center">
 		<QuickLinks />

@@ -5,9 +5,9 @@ import type { LayoutServerLoad } from './$types';
 import usefulLinks from '$lib/fake_data/usefulLinks';
 
 export const load = (async (): Promise<GlobalPageData> => {
-    return {
-        footer: {
-            usefulLinks: usefulLinks
-        }
-    };
+	return {
+		footer: {
+			usefulLinks: usefulLinks
+		}
+	};
 }) satisfies LayoutServerLoad;

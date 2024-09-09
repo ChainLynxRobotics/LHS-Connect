@@ -4,5 +4,5 @@ import type { PageServerLoad } from './$types';
 import usefulLinks from '$lib/fake_data/usefulLinks';
 
 export const load = (async () => {
-    return usefulLinks;
+	return usefulLinks;
 }) satisfies PageServerLoad;

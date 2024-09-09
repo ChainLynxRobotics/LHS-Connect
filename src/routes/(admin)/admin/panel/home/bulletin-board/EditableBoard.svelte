@@ -32,7 +32,6 @@
 </script>
 
 <div class="flex flex-col items-center">
-
 	<Button color="alternative" on:click={handleNew}>New Note</Button>
 
 	<DraggableList
@@ -51,5 +50,4 @@
 			on:delete={() => handleDelete(index)}
 		/>
 	</DraggableList>
-
 </div>

@@ -4,5 +4,5 @@ import type { PageServerLoad } from './$types';
 import contactInfo from '$lib/fake_data/contactInfo';
 
 export const load = (async () => {
-    return contactInfo;
+	return contactInfo;
 }) satisfies PageServerLoad;

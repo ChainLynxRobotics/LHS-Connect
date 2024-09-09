@@ -4,5 +4,5 @@ import type { PageServerLoad } from './$types';
 import knownSchedules from '$lib/fake_data/knownSchedules';
 
 export const load = (async () => {
-    return knownSchedules;
+	return knownSchedules;
 }) satisfies PageServerLoad;
