@@ -73,7 +73,7 @@
 			validatorObject={bulletinBoardSchema}
 		/>
 	</div>
-	<div class="flex gap-4">
+	<div class="flex gap-4 justify-center">
 		<Button type="button" color="alternative" on:click={() => dispatch('cancel')}>Cancel</Button>
 		<Button type="submit">Save</Button>
 	</div>

@@ -2,5 +2,8 @@
 	import Header from './Header.svelte';
 </script>
 
-<Header></Header>
-<slot></slot>
+<div class="min-h-screen bg-white dark:bg-gray-900">
+	<Header></Header>
+
+	<slot></slot>
+</div>

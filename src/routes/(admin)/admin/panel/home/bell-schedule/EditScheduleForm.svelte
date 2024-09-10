@@ -30,7 +30,7 @@
 	let descInput: ValidatedTextarea<'desc'>;
 	let periodNameInputs: ValidatedInput<string>[] = [];
 
-	function handleAddPeriod() {
+	function handleAdd() {
 		periods.push({
 			name: 'Period',
 			start: '00:00',
@@ -41,12 +41,12 @@
 		periods = periods; // Force update
 	}
 
-	function handleDuplicatePeriod(index: number) {
+	function handleDuplicate(index: number) {
 		periods.splice(index, 0, { ...periods[index], id: Math.random() });
 		periods = periods; // Force update
 	}
 
-	function handleDeletePeriod(index: number) {
+	function handleDelete(index: number) {
 		periods.splice(index, 1);
 		periods = periods; // Force update
 	}
@@ -167,10 +167,10 @@
 						</TableBodyCell>
 						<TableBodyCell>
 							<div class="flex">
-								<button type="button" on:click={() => handleDuplicatePeriod(index)} class="!p-2"
+								<button type="button" on:click={() => handleDuplicate(index)} class="!p-2"
 									><FileCopyOutline class="h-6 w-6" /></button
 								>
-								<button type="button" on:click={() => handleDeletePeriod(index)} class="!p-2"
+								<button type="button" on:click={() => handleDelete(index)} class="!p-2"
 									><TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" /></button
 								>
 							</div>
@@ -182,10 +182,10 @@
 	</div>
 
 	<div class="mt-2">
-		<Button type="button" color="alternative" on:click={handleAddPeriod}>Add Period</Button>
+		<Button type="button" color="alternative" on:click={handleAdd}>Add Period</Button>
 	</div>
 
-	<div class="mb-4 mt-6 flex gap-4">
+	<div class="mb-4 mt-6 flex gap-4 justify-center">
 		<Button type="button" color="alternative" on:click={() => dispatch('cancel')}>Cancel</Button>
 		<Button type="submit">Save</Button>
 	</div>

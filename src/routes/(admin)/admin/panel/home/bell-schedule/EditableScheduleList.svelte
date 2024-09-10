@@ -37,10 +37,12 @@
 	}
 </script>
 
-<div class="flex flex-col items-center">
-	<Button color="alternative" on:click={handleNew}>New Schedule</Button>
+<div class="w-full">
+    <div class="flex justify-center mb-8">
+        <Button color="alternative" on:click={handleNew}>New Schedule</Button>
+    </div>
 
-	<Accordion flush defaultClass="w-full max-w-lg">
+	<Accordion flush defaultClass="w-full max-w-lg mx-auto">
 		<DraggableList
 			dragZoneType="schedules"
 			items={schedules}

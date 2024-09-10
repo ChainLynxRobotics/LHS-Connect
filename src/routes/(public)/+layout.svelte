@@ -7,7 +7,7 @@
 	export let data: GlobalPageData;
 </script>
 
-<div class="min-h-screen">
+<div class="min-h-screen bg-white dark:bg-gray-900">
 	<Header></Header>
 	<div class="flex w-full flex-col items-center">
 		<QuickLinks />

@@ -31,14 +31,16 @@
 	}
 </script>
 
-<div class="flex flex-col items-center">
-	<Button color="alternative" on:click={handleNew}>New Note</Button>
+<div class="w-full">
+    <div class="flex justify-center mb-8">
+        <Button color="alternative" on:click={handleNew}>Add Note</Button>
+    </div>
 
 	<DraggableList
 		dragZoneType="notes"
 		items={notes}
 		update={(items) => (notes = items)}
-		sectionClass="flex max-w-lg flex-col gap-4 py-4"
+		sectionClass="flex max-w-lg flex-col gap-4 py-4 mx-auto"
 		dragWrapperClass="w-full"
 		let:item
 		let:index

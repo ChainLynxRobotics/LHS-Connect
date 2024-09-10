@@ -171,7 +171,7 @@
 	</Sidebar>
 </Drawer>
 
-<main class="w-full lg:pl-64">
+<main class="min-h-screen bg-white dark:bg-gray-900 w-full lg:pl-64">
 	<Navbar class="sticky start-0 top-0 z-20 w-full px-4">
 		<div>
 			<Menu on:click={() => (drawerHidden = false)} class="lg:hidden" />

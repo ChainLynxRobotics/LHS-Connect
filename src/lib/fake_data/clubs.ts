@@ -1,3 +1,5 @@
+import type { ClubPageData } from "$lib/types/ClubPageData";
+
 const clubs = [
 	{
 		name: 'Animal Welfare Club',
@@ -833,4 +835,4 @@ const clubs = [
 	}
 ];
 
-export default clubs;
+export default {clubs: clubs} as ClubPageData;
