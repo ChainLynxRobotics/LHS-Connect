@@ -122,7 +122,7 @@ const knownSchedules: DefinedScheduleList = {
 				{
 					name: 'Period 4',
 					start: '12:30',
-					end: '10:05'
+					end: '13:05'
 				},
 				{
 					name: 'Period 5',
