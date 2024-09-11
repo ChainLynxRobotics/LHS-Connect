@@ -115,8 +115,8 @@ const knownSchedules: DefinedScheduleList = {
 				},
 				{
 					name: 'Lunch',
-					start: '11:55',
-					end: '12:25',
+					start: '12:00',
+					end: '12:30',
 					emphasis: true
 				},
 				{
