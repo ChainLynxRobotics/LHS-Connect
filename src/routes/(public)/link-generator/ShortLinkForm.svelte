@@ -9,7 +9,7 @@
 
 	let suffixInput: ValidatedInputGroup<'suffix'>;
 	let urlInput: ValidatedInput<'url'>;
-	let passwordInput: ValidatedInput<'password'>;
+	let passwordInput: ValidatedInputGroup<'password'>;
 
 	let suffix: string = '';
 	let url: string = '';
@@ -19,10 +19,20 @@
 
 	let advancedOpen: boolean = false;
 	let passwordVisible: boolean = false;
+
+	async function handleSubmit() {
+		const shortLinkData = {
+			suffix: await suffixInput.validate(),
+			url: await urlInput.validate(),
+			password: await passwordInput.validate()
+		}
+		console.log(shortLinkData);
+		alert('TODO');
+	}
 </script>
 
 <div class="flex w-full flex-col items-center justify-center gap-8 pt-8 md:flex-row">
-	<form on:submit|preventDefault={() => alert('TODO')} class="w-full max-w-md">
+	<form on:submit|preventDefault={handleSubmit} class="w-full max-w-md">
 		<div class="mb-6">
 			<ValidatedInputGroup
 				bind:this={suffixInput}

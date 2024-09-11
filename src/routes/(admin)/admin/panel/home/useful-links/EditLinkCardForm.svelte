@@ -50,23 +50,13 @@
 	}
 
 	async function handleSave() {
-		if (
-			![
-				...(await Promise.all(
-					linkNameInputs.map((input) => (input ? input.validate(true) : true))
-				)),
-				...(await Promise.all(linkUrlInputs.map((input) => (input ? input.validate(true) : true)))),
-				await titleInput.validate(true),
-				await subtitleInput.validate(true)
-			].every((valid) => valid)
-		) {
-			return;
-		}
+		await Promise.all(linkNameInputs.map((input) => input.validate()));
+		await Promise.all(linkUrlInputs.map((input) => input.validate()));
 
 		dispatch('submit', {
-			title,
-			subtitle,
-			links
+			title: await titleInput.validate(),
+			subtitle: await subtitleInput.validate(),
+			links: links.map((link) => ({ ...link, id: undefined }))
 		});
 	}
 

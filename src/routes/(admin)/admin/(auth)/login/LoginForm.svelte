@@ -6,25 +6,20 @@
 
 	let form: HTMLFormElement;
 
-	let email: ValidatedInput<'email'>;
-	let password: ValidatedInput<'password'>;
+	let emailInput: ValidatedInput<'email'>;
+	let passwordInput: ValidatedInput<'password'>;
 
 	let isSubmitting = false;
-	function handleSubmit(event: SubmitEvent) {
+	async function handleSubmit() {
 		if (isSubmitting) return;
 		isSubmitting = true;
-		event.preventDefault();
-
-		Promise.allSettled([email.validate(true), password.validate(true)])
-			.then((results) => {
-				if (results.every((result) => result.status === 'fulfilled' && result.value === true)) {
-					// All fields are valid
-					form.submit();
-				}
-			})
-			.finally(() => {
-				isSubmitting = false;
-			});
+		
+		const loginData = {
+			email: await emailInput.validate(),
+			password: await passwordInput.validate()
+		};
+		console.log(loginData);
+		alert('TODO');
 	}
 
 	let passwordInfoOpen = false;
@@ -40,7 +35,7 @@
 	<h3 class="text-xl font-medium text-gray-900 dark:text-white">Sign in to LHS Connect Admin</h3>
 	<div class="">
 		<ValidatedInput
-			bind:this={email}
+			bind:this={emailInput}
 			id="email"
 			label="Email"
 			visuallyRequired
@@ -50,7 +45,7 @@
 	</div>
 	<div class="">
 		<ValidatedInput
-			bind:this={password}
+			bind:this={passwordInput}
 			id="password"
 			label="Password"
 			visuallyRequired

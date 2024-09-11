@@ -5,35 +5,30 @@
 
 	let form: HTMLFormElement;
 
-	let email: ValidatedInput<'email'>;
-	let password: ValidatedInput<'password'>;
-	let confirmPassword: ValidatedInput<'confirmPassword'>;
-	let key: ValidatedInput<'key'>;
+	let emailInput: ValidatedInput<'email'>;
+	let passwordInput: ValidatedInput<'password'>;
+	let confirmPasswordInput: ValidatedInput<'confirmPassword'>;
+	let keyInput: ValidatedInput<'key'>;
 
 	let isSubmitting = false;
-	function handleSubmit(event: SubmitEvent) {
+	async function handleSubmit() {
 		if (isSubmitting) return;
 		isSubmitting = true;
-		event.preventDefault();
 
-		Promise.allSettled([email.validate(true), password.validate(true)])
-			.then((results) => {
-				if (results.every((result) => result.status === 'fulfilled' && result.value === true)) {
-					// All fields are valid
-					form.submit();
-				}
-			})
-			.finally(() => {
-				isSubmitting = false;
-			});
+		const loginData = {
+			email: await emailInput.validate(),
+			password: await passwordInput.validate(),
+			confirmPassword: await confirmPasswordInput.validate(),
+			key: await keyInput.validate()
+		};
+		console.log(loginData);
+		alert('TODO');
 	}
 </script>
 
 <form
 	bind:this={form}
-	on:submit={handleSubmit}
-	method="post"
-	novalidate
+	on:submit|preventDefault={handleSubmit}
 	class="flex flex-col space-y-6"
 >
 	<h3 class="text-xl font-medium text-gray-900 dark:text-white">
@@ -41,7 +36,7 @@
 	</h3>
 	<div class="">
 		<ValidatedInput
-			bind:this={email}
+			bind:this={emailInput}
 			id="email"
 			label="Email"
 			visuallyRequired
@@ -51,7 +46,7 @@
 	</div>
 	<div class="">
 		<ValidatedInput
-			bind:this={password}
+			bind:this={passwordInput}
 			id="password"
 			label="Password"
 			visuallyRequired
@@ -61,7 +56,7 @@
 	</div>
 	<div class="">
 		<ValidatedInput
-			bind:this={confirmPassword}
+			bind:this={confirmPasswordInput}
 			id="confirmPassword"
 			label="Confirm Password"
 			visuallyRequired
@@ -71,7 +66,7 @@
 	</div>
 	<div class="">
 		<ValidatedInput
-			bind:this={key}
+			bind:this={keyInput}
 			id="key"
 			label="Admin Account Key"
 			visuallyRequired

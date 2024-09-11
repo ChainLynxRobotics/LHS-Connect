@@ -52,19 +52,14 @@
 	}
 
 	async function handleSave() {
-		if (
-			![
-				...(await Promise.all(periodNameInputs.map((input) => input.validate(true)))),
-				await nameInput.validate(true),
-				await descInput.validate(true)
-				// Start times and end times are validated by the browser
-			].every((v) => v)
-		)
-			return; // If one of the validations failed, don't save
+		// Validate all inputs
+		for (let periodInput of periodNameInputs) {
+			await periodInput.validate();
+		}
 
 		dispatch('submit', {
-			name,
-			desc,
+			name: await nameInput.validate(),
+			desc: await descInput.validate(),
 			periods: periods.map((period) => ({ ...period, id: undefined }))
 		});
 	}

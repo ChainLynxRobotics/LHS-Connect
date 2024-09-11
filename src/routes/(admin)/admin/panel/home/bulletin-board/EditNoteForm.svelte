@@ -22,18 +22,10 @@
 	let linkInput: ValidatedInput<'link'>;
 
 	async function handleEditModalSubmit(e: SubmitEvent) {
-		if (
-			![
-				await titleInput.validate(),
-				await contentInput.validate(),
-				await linkInput.validate()
-			].every((v) => v)
-		)
-			return;
 		const note = {
-			title,
-			content,
-			link
+			title: await titleInput.validate(),
+			content: await contentInput.validate(),
+			link: await linkInput.validate()
 		};
 		dispatch('submit', note);
 	}

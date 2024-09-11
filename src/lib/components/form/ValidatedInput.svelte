@@ -51,8 +51,10 @@
 	 * Check if the input is valid, and set the error message if it is not.
 	 * Calling this function will also enable the input to always be visually validated.
 	 * @param cast - Whether to cast the value during validation as defined by the validator. For example, trimming the string or converting it to a number
+	 * @throws ValidationError - If the input is not valid
+	 * @returns The value of the input element
 	 */
-	export async function validate(cast: boolean = false): Promise<boolean> {
+	export async function validate(cast: boolean = true): Promise<string> {
 		checkValidation = true;
 		try {
 			if (validatorObject) {
@@ -63,12 +65,14 @@
 				if (cast) value = casted || '';
 			}
 			errorMessage = '';
-			return true;
+			return value;
 		} catch (error: unknown) {
 			if (error instanceof ValidationError) {
 				errorMessage = error.message;
+			} else {
+				errorMessage = 'An unknown error occurred';
 			}
-			return false;
+			throw error;
 		}
 	}
 
@@ -83,7 +87,7 @@
 	color={isValid ? 'base' : 'red'}
 	formnovalidate
 	on:blur={() => validate()}
-	on:input={() => checkValidation && validate()}
+	on:input={() => checkValidation && validate(false)}
 	{...inputProps}
 ></Input>
 <ValidatedHelper {isValid} {errorMessage} />
