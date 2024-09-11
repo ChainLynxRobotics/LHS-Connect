@@ -18,7 +18,7 @@ const bellSchedules: BellScheduleData = {
 	],
 	special: [
 		{
-			date: ['2024-9-5', '2024-9-7', '2024-9-8', '2024-9-9', '2024-9-10', '2024-9-12', '2024-9-13'],
+			date: [ 1725519600000, 1725692400000, 1725778800000, 1725865200000, 1725951600000, 1726124400000, 1726210800000 ],
 			schedule: {
 				...knownSchedules.schedules[0],
 				name: 'Mon/Fri Everyday',
@@ -26,7 +26,7 @@ const bellSchedules: BellScheduleData = {
 			}
 		},
 		{
-			date: '2024-9-6',
+			date: 1725606000000,
 			schedule: knownSchedules.schedules[4]
 		}
 	]

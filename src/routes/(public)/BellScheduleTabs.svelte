@@ -24,20 +24,18 @@
 	// Get the special schedule for today
 	const currentDate = new Date().setHours(0, 0, 0, 0);
 	for (const item of data.special) {
-		let specialDates = (Array.isArray(item.date) ? item.date : [item.date]).map((date) =>
-			new Date(date).getTime()
-		);
+		let specialDates = (Array.isArray(item.date) ? item.date : [item.date]);
 		if (specialDates.includes(currentDate)) {
 			tabs.push(item.schedule);
 			selectedTab = tabs.length - 1;
 		}
 	}
 
-	let upcomingSpecialSchedules = data.special.filter((item) => {
-		if (Array.isArray(item.date)) {
-			return item.date.some((date) => new Date(date) > new Date());
+	let upcomingSpecialSchedules = data.special.filter((schedule) => {
+		if (Array.isArray(schedule.date)) {
+			return schedule.date.some((date) => date > new Date().getTime());
 		} else {
-			return new Date(item.date) > new Date();
+			return new Date(schedule.date) > new Date();
 		}
 	});
 </script>
