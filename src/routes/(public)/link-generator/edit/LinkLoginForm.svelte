@@ -5,7 +5,7 @@
 	import shortLinkSchema from "$lib/schemas/shortLinkSchema";
 	import { Button, InputAddon } from "flowbite-svelte";
 	import { EyeOutline, EyeSlashOutline } from "flowbite-svelte-icons";
-
+	import { createEventDispatcher } from "svelte";
 
     export let suffix = $page.url.searchParams.get('suffix') || '';
     export let password = '';
@@ -13,17 +13,16 @@
     let suffixInput: ValidatedInput<'suffix'>;
     let passwordInput: ValidatedInput<'password'>;
 
-    // For backwards binding
-    export let isAuthenticated = false;
+    const dispatch = createEventDispatcher<{
+        submit: { suffix: string; password: string; }
+    }>();
 
     async function handleSubmit() {
         const linkLoginData = {
             suffix: await suffixInput.validate(),
             password: await passwordInput.validate()
         }
-        console.log(linkLoginData);
-        alert('TODO');
-        isAuthenticated = true;
+        dispatch('submit', linkLoginData);
     }
 
     let passwordVisible = false;
