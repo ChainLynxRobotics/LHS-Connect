@@ -3,6 +3,8 @@
 	import SectionHeader from '$components/SectionHeader.svelte';
 	import type { BellSchedule, BellScheduleData } from '$lib/types/HomePageData';
 	import { Accordion, AccordionItem, TabItem, Tabs } from 'flowbite-svelte';
+	import { DateTime } from 'luxon';
+	import { onMount } from 'svelte';
 
 	// Import the data from the parent component
 	export let data: BellScheduleData;
@@ -11,32 +13,53 @@
 
 	let tabs: BellSchedule[] = [];
 	let selectedTab = 0;
+	let upcomingSpecialSchedules: { date: number[]; schedule: BellSchedule, dateStr: string }[] = [];
 
-	// Get the default schedules for the week
-	const dayOfWeek = new Date().getDay();
-	for (const item of data.defaults) {
-		tabs.push(item.schedule);
-		if (item.daysOfWeek.includes(dayOfWeek)) {
-			selectedTab = tabs.length - 1;
+	let now = DateTime.now().setZone("America/Los_Angeles");
+	let dayOfWeek = now.get("weekday");
+	let dateEpoch = DateTime.now().setZone("America/Los_Angeles").startOf("day").toMillis();
+	$: {
+		// Default day schedules
+		tabs = [...data.defaults.map((item) => item.schedule)];
+		selectedTab = 0;
+		for (const item of data.defaults) {
+			if (item.daysOfWeek.includes(dayOfWeek)) selectedTab = tabs.indexOf(item.schedule);
 		}
-	}
 
-	// Get the special schedule for today
-	const currentDate = new Date().setHours(0, 0, 0, 0);
-	for (const item of data.special) {
-		let specialDates = (Array.isArray(item.date) ? item.date : [item.date]);
-		if (specialDates.includes(currentDate)) {
-			tabs.push(item.schedule);
-			selectedTab = tabs.length - 1;
+		// Get the special schedule for today
+		for (const item of data.special) {
+			if (item.date.includes(dateEpoch)) {
+				tabs.unshift(item.schedule);
+				selectedTab = 0;
+			}
 		}
-	}
 
-	let upcomingSpecialSchedules = data.special.filter((schedule) => {
-		if (Array.isArray(schedule.date)) {
+		// Add any future special schedules
+		upcomingSpecialSchedules = data.special.filter((schedule) => {
 			return schedule.date.some((date) => date > new Date().getTime());
-		} else {
-			return new Date(schedule.date) > new Date();
-		}
+		}).map((schedule) => {
+			return {
+				...schedule,
+				dateStr: schedule.date
+					.filter((date) => date > now.toMillis())
+					.map((date) => DateTime.fromMillis(date).toFormat('L/d/yy'))
+					.join(', ')
+			};
+		});
+	}
+
+	// setInterval to check if the minute has changed to update the reactive components
+	onMount(() => {
+		// Set the interval to check for the minute change
+		let clear = setInterval(() => {
+			let current = DateTime.now().setZone("America/Los_Angeles");
+			if (current.get("minute") !== now.get("minute")) {
+				now = current;
+				dayOfWeek = now.get("weekday");
+				dateEpoch = DateTime.now().setZone("America/Los_Angeles").startOf("day").toMillis();
+			}
+		}, 1000);
+		return () => clearInterval(clear);
 	});
 </script>
 
@@ -60,12 +83,7 @@
 				{#each upcomingSpecialSchedules as special}
 					<AccordionItem>
 						<span slot="header"
-							>{!Array.isArray(special.date)
-								? new Date(special.date).toDateString()
-								: special.date
-										.filter((date) => new Date(date) > new Date())
-										.map((date) => new Date(date).toDateString())
-										.join(', ')} - {special.schedule.name}</span
+							>{special.schedule.name} - {special.dateStr}</span
 						>
 						<BellScheduleTable schedule={special.schedule} />
 					</AccordionItem>

@@ -26,7 +26,7 @@ const bellSchedules: BellScheduleData = {
 			}
 		},
 		{
-			date: 1725606000000,
+			date: [ 1725606000000 ],
 			schedule: knownSchedules.schedules[4]
 		}
 	]

@@ -5,9 +5,8 @@
 		TableBody,
 		TableBodyCell,
 		TableBodyRow,
-		TableHead,
-		TableHeadCell
 	} from 'flowbite-svelte';
+	import { DateTime } from 'luxon';
 
 	export let schedule: BellSchedule;
 	export let reactive: boolean = false;
@@ -43,33 +42,15 @@
 		return c;
 	}
 
-	function currentlyWithinTime(start: TimeString, end: TimeString): boolean {
-		const now = new Date();
-		const [startHour, startMinute] = start.split(':').map(Number);
-		const [endHour, endMinute] = end.split(':').map(Number);
-		const startDateTime = new Date(
-			now.getFullYear(),
-			now.getMonth(),
-			now.getDate(),
-			startHour,
-			startMinute
-		);
-		const endDateTime = new Date(
-			now.getFullYear(),
-			now.getMonth(),
-			now.getDate(),
-			endHour,
-			endMinute
-		);
-		return now.getTime() >= startDateTime.getTime() && now.getTime() <= endDateTime.getTime();
+	function currentlyWithinTime(startStr: TimeString, endStr: TimeString): boolean {
+		const now = DateTime.now().setZone("America/Los_Angeles").toMillis();
+		const start = DateTime.fromFormat(startStr, "HH:mm").setZone("America/Los_Angeles").toMillis();
+		const end = DateTime.fromFormat(endStr, "HH:mm").setZone("America/Los_Angeles").toMillis();
+		return now >= start && now <= end;
 	}
 </script>
 
 <Table divClass="relative mx-auto border dark:border-gray-700" striped>
-	<!-- <TableHead theadClass="text-xs uppercase text-center">
-      <TableHeadCell>Name</TableHeadCell>
-      <TableHeadCell>Time</TableHeadCell>
-    </TableHead> -->
 	<TableBody tableBodyClass="divide-y text-center">
 		{#each schedule.periods as period, i}
 			<TableBodyRow class={getRowClass(i)}>

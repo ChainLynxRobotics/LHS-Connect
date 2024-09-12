@@ -39,7 +39,7 @@ export interface BellScheduleData {
 		schedule: BellSchedule;
 	}[];
 	special: {
-		date: number | number[]; // Epoch timestamp at midnight before the day, or an array of timestamps for multiple days
+		date: number[]; // Epoch timestamp at midnight (seattle timezone) before the day
 		schedule: BellSchedule;
 	}[];
 }
