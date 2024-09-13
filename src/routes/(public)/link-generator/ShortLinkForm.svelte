@@ -95,8 +95,8 @@
 					</div>
 					<Helper>
 						Adding a password when creating a link allows you to come back and edit it or view how many clicks it has.
-						Use the button below <i>after</i> you have have generated the link using the button above.
 					</Helper>
+					<div class="my-8 h-[1px] bg-gray-500 mx-4"></div>
 					<div class="flex justify-center mt-8">
 						<Button type="button" color="alternative" href="/link-generator/edit">Edit Existing Link</Button>
 					</div>

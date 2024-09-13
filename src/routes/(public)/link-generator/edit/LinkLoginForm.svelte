@@ -10,6 +10,8 @@
     export let suffix = $page.url.searchParams.get('suffix') || '';
     export let password = '';
 
+    $: suffix = suffix.replace('https://lhs.cx/', '');
+
     let suffixInput: ValidatedInput<'suffix'>;
     let passwordInput: ValidatedInput<'password'>;
 

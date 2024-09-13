@@ -2,8 +2,9 @@
 	import SectionHeader from '$components/SectionHeader.svelte';
 	import { slide } from 'svelte/transition';
 	import LinkLoginForm from './LinkLoginForm.svelte';
-	import { Alert, Spinner } from 'flowbite-svelte';
-	import { InfoCircleSolid } from 'flowbite-svelte-icons';
+	import { Alert, Button, Spinner } from 'flowbite-svelte';
+	import { ArrowLeftOutline, InfoCircleSolid } from 'flowbite-svelte-icons';
+	import LinkEditForm from './LinkEditForm.svelte';
 
     let suffix: string;
 	let password: string;
@@ -14,15 +15,17 @@
 		refreshData();
 	}
 
-	let linkData: Promise<{ url: string, hits: number, createdAt: number }>|undefined = undefined;
+	let linkData: Promise<{ suffix: string, url: string, hits: number, createdAt: number }>|undefined = undefined;
 	function refreshData() {
-		linkData = fetch(`/api/links/${suffix}/verify`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ password })
-		}).then(res => res.json());
+		linkData = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				if (suffix === 'error') {
+					reject(new Error('Invalid short link or password.'));
+					return;
+				}
+				resolve({ suffix: 'testing', url: 'https://example.com/', hits: 0, createdAt: Date.now() });
+			}, 1000);
+		});
 	}
 </script>
 
@@ -32,6 +35,9 @@
 
 <div class="flex w-full flex-col items-center gap-16 p-4 pb-16">
 	<div class="w-full max-w-4xl">
+		<div class="mb-8">
+			<Button outline color="alternative" href="/link-generator"><ArrowLeftOutline/> Back to Link Generator</Button>
+		</div>
 		<SectionHeader title="Short Link Editor" />
 		<p class="mb-12 mt-4 indent-8">
 			If you already created a short link, you can edit it here. Just paste the short link in the box below with its password and click "Verify" to proceed.
@@ -41,15 +47,15 @@
 
 		{#if linkData}
 			{#await linkData}
-				<div class="w-full flex justify-center">
+				<div class="mt-16 w-full flex justify-center">
 					<Spinner class="w-12 h-12 text-primary-500" />
 				</div>
 			{:then data} 
-				<div transition:slide>
-					
+				<div class="mt-16" transition:slide>
+					<LinkEditForm {suffix} {password} url={"https://example.com/"} hits={134} createdAt={Date.now()} />
 				</div>
 			{:catch error}
-				<div transition:slide>
+				<div class="mt-8" transition:slide>
 					<Alert type="error">
 						<InfoCircleSolid slot="icon" class="w-5 h-5" />
 						<span>Error: {error.message}</span>
