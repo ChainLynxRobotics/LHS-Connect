@@ -37,7 +37,7 @@
 <div class="w-full">
     <div class="flex justify-center mb-8 gap-8">
         <Button color="alternative" on:click={handleNew}>Add Club</Button>
-        <AutoImportClubsButton />
+        <AutoImportClubsButton on:submit={(e)=>clubs = e.detail} />
     </div>
 
     <Table striped shadow>

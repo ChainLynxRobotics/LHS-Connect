@@ -25,7 +25,7 @@
 	/**
 	 * The validator for the input element
 	 */
-	export let validator: StringSchema | undefined = undefined;
+	export let validator: StringSchema<string|undefined, any, any, any> | undefined = undefined;
 	/**
 	 * The validator for the input element, but uses the `validateAt` method of an object schema with the provided id as the argument
 	 */

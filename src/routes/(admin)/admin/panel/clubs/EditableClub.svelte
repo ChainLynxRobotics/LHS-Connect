@@ -34,7 +34,7 @@
             <ExternalLink href="https://instagram.com/{club.instagram}" text="@{club.instagram}" />
         {/if}
     </TableBodyCell>
-    <TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">
+    <TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm align-top">
         <div class="flex">
             <button title="Edit" on:click|stopPropagation={() => (editModalOpen = true)} class="!p-2"
                 ><EditOutline class="h-6 w-6" /></button
