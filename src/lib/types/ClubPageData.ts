@@ -8,6 +8,7 @@ export interface Club {
 	location: string;
 	advisor: string;
 	instagram?: string; // No '@' symbol, just the username
+	desc?: string;
 }
 
 /**

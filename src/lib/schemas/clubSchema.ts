@@ -7,6 +7,7 @@ const clubSchema = object({
     location: string().required().max(250),
     advisor: string().required().max(250),
     instagram: string().optional().trim().matches(/^[a-zA-Z0-9._]*$/, "Must be a valid instagram username (without the @)").max(250),
+    desc: string().optional().max(500)
 });
 
 export default clubSchema;

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ValidatedInput from "$components/form/ValidatedInput.svelte";
+	import ValidatedTextarea from "$components/form/ValidatedTextarea.svelte";
 	import clubSchema from "$lib/schemas/clubSchema";
 	import type { Club } from "$lib/types/ClubPageData";
 	import { Button } from "flowbite-svelte";
@@ -19,6 +20,7 @@
     let location = club.location;
     let advisor = club.advisor;
     let instagram = club.instagram;
+    let desc = club.desc;
 
     let nameInput: ValidatedInput<'name'>;
     let dayInput: ValidatedInput<'day'>;
@@ -26,6 +28,7 @@
     let locationInput: ValidatedInput<'location'>;
     let advisorInput: ValidatedInput<'advisor'>;
     let instagramInput: ValidatedInput<'instagram'>;
+    let descInput: ValidatedTextarea<'desc'>;
 
     async function handleEditModalSubmit(e: SubmitEvent) {
         if (
@@ -35,7 +38,8 @@
                 await timeInput.validate(),
                 await locationInput.validate(),
                 await advisorInput.validate(),
-                await instagramInput.validate(true)
+                await instagramInput.validate(),
+                await descInput.validate()
             ].every((v) => v)
         )
             return;
@@ -45,7 +49,8 @@
             time,
             location,
             advisor,
-            instagram
+            instagram,
+            desc
         };
         dispatch('submit', club);
     }
@@ -112,6 +117,15 @@
             id="instagram"
             label="Instagram"
             bind:value={instagram}
+            validatorObject={clubSchema}
+        />
+    </div>
+    <div>
+        <ValidatedTextarea
+            bind:this={descInput}
+            id="desc"
+            label="Description"
+            bind:value={desc}
             validatorObject={clubSchema}
         />
     </div>

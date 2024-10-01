@@ -30,29 +30,34 @@
             Papa.parse(strData, {
                 step(results) {
                     line++;
-                    if (line < parseInt(start)) return;
-                    if (line > parseInt(end)) return;
+                    if (start !== undefined && line < parseInt(start)) return;
+                    if (end !== undefined && line > parseInt(end)) return;
 
                     if (results.errors.length > 0) {
                         console.error(results.errors);
                         return;
                     }
+
                     const row = results.data as any[];
 
+                    if (row[0] == "Club" && line == 1) return; // Skip header
                     if (row.map((v: string)=>v.trim()).filter(v=>!!v).length < 4) return; // Skip empty-ish rows
 
-                    var instaSearch = (/(?<=[ @,"']{0,})([a-zA-Z\d._]+?)(?= ?- ?insta)/img).exec(row[6]);
-                    var instaUrlSearch = (/instagram\.com\/([a-zA-Z\d._]+)/img).exec(row[6]);
+                    // Search for instagram username
+                    var instaSearch = (/@?([a-zA-Z\d._]+)( ?- ?insta(gram)?)?/img).exec(row[5]);
+                    var instaUrlSearch = (/instagram\.com\/([a-zA-Z\d._]+)/img).exec(row[5]);
                     var insta = '';
-                    if (instaSearch != null) insta = instaSearch[0];
+                    if (instaSearch != null) insta = instaSearch[1];
                     if (instaUrlSearch != null) insta = instaUrlSearch[1];
+
                     records.push({
                         name: row[0].replace('\n', ' ').trim(),
-                        day: row[3].replace('\n', ' ').trim(),
-                        time: row[4].replace('\n', ' ').trim(),
-                        location: row[5].replace('\n', ' ').trim(),
-                        advisor: row[2].replace('\n', ' ').trim(),
-                        instagram: insta || undefined,
+                        day: row[2].replace('\n', ' ').trim(),
+                        time: row[3].replace('\n', ' ').trim(),
+                        location: row[1].replace('\n', ' ').trim(),
+                        advisor: row[6].replace('\n', ' ').trim(),
+                        instagram: insta.replace('@','') || undefined,
+                        desc: row[7].replace('\n', ' ').trim() || undefined,
                     });
                 },
                 complete() {
@@ -83,8 +88,7 @@
                     bind:this={startInput}
                     id="start"
                     label="Start Row"
-                    validator={string().matches(/^\d+$/, "Must be a number").min(1).max(3 /* Characters */).label("Start Row")}
-                    visuallyRequired
+                    validator={string().optional().matches(/^\d*$/, "Must be a number").max(3 /* Characters */).label("Start Row")}
                     inputProps={{ type: "number", min: 1 }}
                 />
             </div>
@@ -93,8 +97,7 @@
                     bind:this={endInput}
                     id="end"
                     label="End Row"
-                    validator={string().matches(/^\d+$/, "Must be a number").min(1).max(3 /* Characters */).label("End Row")}
-                    visuallyRequired
+                    validator={string().optional().matches(/^\d*$/, "Must be a number").max(3 /* Characters */).label("End Row")}
                     inputProps={{ type: "number", min: 1 }}
                 />
             </div>

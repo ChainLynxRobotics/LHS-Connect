@@ -9,8 +9,10 @@
 		TableBodyCell,
 		TableBodyRow,
 		TableHead,
-		TableHeadCell
+		TableHeadCell,
+		Popover,
 	} from 'flowbite-svelte';
+	import { InfoCircleOutline } from 'flowbite-svelte-icons';
 	import Fuse from 'fuse.js';
 
 	export let clubs: Club[];
@@ -20,6 +22,7 @@
 	$: fuse = new Fuse(clubs, {
 		keys: [
 			{ name: 'name', weight: 5 },
+			{ name: 'desc', weight: 4 },
 			{ name: 'day', weight: 1 },
 			{ name: 'time', weight: 1 },
 			{ name: 'location', weight: 1 },
@@ -51,7 +54,15 @@
 	<TableBody>
 		{#each searchedClubs as club}
 			<TableBodyRow>
-				<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{club.name}</TableBodyCell>
+				<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">
+					{club.name}
+					{#if club.desc}
+						<InfoCircleOutline class="inline h-4 w-4 text-gray-500 dark:text-gray-400" />
+						<Popover title={club.name} placement="top-start" class="max-w-lg">
+							{club.desc}
+						</Popover>
+					{/if}
+				</TableBodyCell>
 				<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{club.day}</TableBodyCell>
 				<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{club.time}</TableBodyCell>
 				<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{club.location}</TableBodyCell>
