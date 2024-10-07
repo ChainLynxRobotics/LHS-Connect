@@ -47,7 +47,7 @@ export interface ScheduleOverride {
 export interface BellScheduleData {
 	readonly schedules: BellSchedule[];
 	defaults: ScheduleId[]; // For each day of the week
-	special: ScheduleOverride[];
+	specials: ScheduleOverride[];
 }
 
 /**

@@ -28,7 +28,7 @@
 		}
 
 		// Get the special schedule for today
-		const specials = data.special.filter((item) => item.date === dateEpoch);
+		const specials = data.specials.filter((item) => item.date === dateEpoch);
 		for (let i = 0; i < specials.length; i++) {
 			const scheduleId = specials[i].scheduleId;
 			if (tabs.includes(scheduleId)) continue;
@@ -37,7 +37,7 @@
 		}
 
 		// Add any future special schedules
-		upcomingSpecialSchedules = data.special
+		upcomingSpecialSchedules = data.specials
 			.filter((item) => item.date > dateEpoch)
 			.map((item) => ({
 				...item,
