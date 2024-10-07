@@ -6,7 +6,7 @@
 	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { createEventDispatcher } from 'svelte';
 	import { dragHandle } from 'svelte-dnd-action';
-	import EditScheduleForm from './EditScheduleForm.svelte';
+	import SavedScheduleForm from './SavedScheduleForm.svelte';
 
 	export let schedule: BellSchedule;
 
@@ -53,7 +53,7 @@
 </AccordionItem>
 
 <Modal bind:open={editModalOpen} size="lg" autoclose={false}>
-	<EditScheduleForm
+	<SavedScheduleForm
 		{schedule}
 		on:submit={handleEditModalSubmit}
 		on:cancel={() => (editModalOpen = false)}

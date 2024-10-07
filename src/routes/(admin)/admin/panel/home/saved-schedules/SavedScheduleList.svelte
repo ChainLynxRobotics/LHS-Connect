@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { BellSchedule } from '$lib/types/HomePageData';
 	import { Button, Accordion } from 'flowbite-svelte';
-	import EditableScheduleItem from './EditableScheduleItem.svelte';
+	import SavedScheduleItem from './SavedScheduleItem.svelte';
 	import DraggableList from '$components/admin/DraggableList.svelte';
 
 	export let schedules: BellSchedule[];
@@ -10,6 +10,7 @@
 
 	function handleNew() {
 		schedules.push({
+			id: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER),
 			name: 'New Schedule',
 			periods: [
 				{
@@ -52,7 +53,7 @@
 			let:item
 			let:index
 		>
-			<EditableScheduleItem
+			<SavedScheduleItem
 				schedule={item}
 				on:edit={(e) => handleEdit(index, e.detail)}
 				on:duplicate={() => handleDuplicate(index)}

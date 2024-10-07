@@ -43,12 +43,12 @@
 					href: '/admin/panel/home/bulletin-board'
 				},
 				{
-					label: 'Defined Bell Schedules',
-					href: '/admin/panel/home/defined-bell-schedules'
+					label: 'Bell Schedule',
+					href: '/admin/panel/home/bell-schedule'
 				},
 				{
-					label: 'Daily Bell Schedules',
-					href: '/admin/panel/home/daily-schedules'
+					label: 'Saved Schedules',
+					href: '/admin/panel/home/saved-schedules'
 				},
 				{
 					label: 'Contact Info',

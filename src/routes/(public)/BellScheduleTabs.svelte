@@ -1,7 +1,7 @@
 <script lang="ts">
 	import BellScheduleTable from '$components/BellScheduleTable.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import type { BellSchedule, BellScheduleData } from '$lib/types/HomePageData';
+	import type { BellScheduleData, ScheduleId } from '$lib/types/HomePageData';
 	import { Accordion, AccordionItem, TabItem, Tabs } from 'flowbite-svelte';
 	import { DateTime } from 'luxon';
 	import { onMount } from 'svelte';
@@ -11,41 +11,38 @@
 
 	// Precalculate the shown tabs and the selected tab
 
-	let tabs: BellSchedule[] = [];
+	let tabs: ScheduleId[] = [];
 	let selectedTab = 0;
-	let upcomingSpecialSchedules: { date: number[]; schedule: BellSchedule, dateStr: string }[] = [];
+	let upcomingSpecialSchedules: { date: number; scheduleId: ScheduleId, dateStr: string }[] = [];
 
 	let now = DateTime.now().setZone("America/Los_Angeles");
 	let dayOfWeek = now.get("weekday");
 	let dateEpoch = DateTime.now().setZone("America/Los_Angeles").startOf("day").toMillis();
 	$: {
 		// Default day schedules
-		tabs = [...data.defaults.map((item) => item.schedule)];
-		selectedTab = 0;
-		for (const item of data.defaults) {
-			if (item.daysOfWeek.includes(dayOfWeek)) selectedTab = tabs.indexOf(item.schedule);
+		for (let i = 0; i < data.defaults.length; i++) {
+			const scheduleId = data.defaults[i];
+			if (tabs.includes(scheduleId)) continue;
+			tabs.push(scheduleId);
+			if (dayOfWeek === i) selectedTab = tabs.length - 1;
 		}
 
 		// Get the special schedule for today
-		for (const item of data.special) {
-			if (item.date.includes(dateEpoch)) {
-				tabs.unshift(item.schedule);
-				selectedTab = 0;
-			}
+		const specials = data.special.filter((item) => item.date === dateEpoch);
+		for (let i = 0; i < specials.length; i++) {
+			const scheduleId = specials[i].scheduleId;
+			if (tabs.includes(scheduleId)) continue;
+			tabs.unshift(scheduleId);
+			selectedTab = 0;
 		}
 
 		// Add any future special schedules
-		upcomingSpecialSchedules = data.special.filter((schedule) => {
-			return schedule.date.some((date) => date > new Date().getTime());
-		}).map((schedule) => {
-			return {
-				...schedule,
-				dateStr: schedule.date
-					.filter((date) => date > now.toMillis())
-					.map((date) => DateTime.fromMillis(date).toFormat('L/d/yy'))
-					.join(', ')
-			};
-		});
+		upcomingSpecialSchedules = data.special
+			.filter((item) => item.date > dateEpoch)
+			.map((item) => ({
+				...item,
+				dateStr: DateTime.fromMillis(item.date).toFormat('L/d/yy')
+			}));
 	}
 
 	// setInterval to check if the minute has changed to update the reactive components
@@ -69,10 +66,11 @@
 	contentClass="pt-4 bg-white dark:bg-gray-900"
 	defaultClass="flex flex-wrap ltr:mr-2 rtl:ml-2"
 >
-	{#each tabs as tab, i}
+	{#each tabs as scheduleId, i}
+		{@const schedule = data.schedules.find((s) => s.id === scheduleId)}
 		<TabItem open={i === selectedTab}>
-			<span slot="title">{tab.name}</span>
-			<BellScheduleTable schedule={tab} reactive={i === selectedTab} />
+			<span slot="title">{schedule?.name || "Unknown"}</span>
+			<BellScheduleTable schedule={schedule} reactive={i === selectedTab} />
 		</TabItem>
 	{/each}
 
@@ -81,11 +79,12 @@
 			<div slot="title" class="flex items-center gap-2">Upcoming...</div>
 			<Accordion multiple>
 				{#each upcomingSpecialSchedules as special}
+					{@const schedule = data.schedules.find((s) => s.id === special.scheduleId)}
 					<AccordionItem>
 						<span slot="header"
-							>{special.schedule.name} - {special.dateStr}</span
+							>{schedule?.name || "Unknown"} - {special.dateStr}</span
 						>
-						<BellScheduleTable schedule={special.schedule} />
+						<BellScheduleTable schedule={schedule} />
 					</AccordionItem>
 				{/each}
 			</Accordion>

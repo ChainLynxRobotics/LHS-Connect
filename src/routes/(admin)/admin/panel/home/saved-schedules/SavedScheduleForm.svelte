@@ -58,6 +58,7 @@
 		}
 
 		dispatch('submit', {
+			id: schedule.id,
 			name: await nameInput.validate(),
 			desc: await descInput.validate(),
 			periods: periods.map((period) => ({ ...period, id: undefined }))

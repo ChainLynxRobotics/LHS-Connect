@@ -13,6 +13,7 @@ export type DateString = `${number}-${number}-${number}`;
  * Represents a single bell schedule, with a name, description, and a list of periods.
  */
 export interface BellSchedule {
+	id: number;
 	name: string;
 	desc?: string;
 	periods: {
@@ -26,22 +27,27 @@ export interface BellSchedule {
 /**
  * Represents a list of defined bell schedules.
  */
-export interface DefinedScheduleList {
+export interface SavedScheduleData {
 	schedules: BellSchedule[];
+}
+
+/**
+ * ID of a bell schedule, referencing an id in the SavedScheduleList.
+ */
+export type ScheduleId = number;
+
+export interface ScheduleOverride {
+	date: number; // Epoch timestamp at midnight (seattle timezone) before the day
+	scheduleId: ScheduleId;
 }
 
 /**
  * Represents the bell schedules for a school year, with defaults and special schedules.
  */
 export interface BellScheduleData {
-	defaults: {
-		daysOfWeek: [number, ...number[]]; // 0-6, 0 = Sunday, 6 = Saturday
-		schedule: BellSchedule;
-	}[];
-	special: {
-		date: number[]; // Epoch timestamp at midnight (seattle timezone) before the day
-		schedule: BellSchedule;
-	}[];
+	readonly schedules: BellSchedule[];
+	defaults: ScheduleId[]; // For each day of the week
+	special: ScheduleOverride[];
 }
 
 /**

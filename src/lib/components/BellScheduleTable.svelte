@@ -8,7 +8,7 @@
 	} from 'flowbite-svelte';
 	import { DateTime } from 'luxon';
 
-	export let schedule: BellSchedule;
+	export let schedule: BellSchedule | undefined;
 	export let reactive: boolean = false;
 
 	function formatTime(time: TimeString): string {
@@ -21,8 +21,10 @@
 	}
 
 	function getRowClass(periodIndex: number): string {
-		const period = schedule.periods[periodIndex];
 		let c = 'text-base';
+		if (!schedule) return c;
+
+		const period = schedule.periods[periodIndex];
 		if (period.emphasis) {
 			c += ' !bg-gray-100 dark:!bg-gray-600';
 		}
@@ -52,7 +54,7 @@
 
 <Table divClass="relative mx-auto border dark:border-gray-700" striped>
 	<TableBody tableBodyClass="divide-y text-center">
-		{#each schedule.periods as period, i}
+		{#each schedule?.periods || [] as period, i}
 			<TableBodyRow class={getRowClass(i)}>
 				<TableBodyCell>
 					{period.name}
@@ -64,6 +66,6 @@
 		{/each}
 	</TableBody>
 </Table>
-{#if schedule.desc}
+{#if schedule?.desc}
 	<p class="mt-4 text-center text-sm opacity-75">{schedule.desc}</p>
 {/if}
