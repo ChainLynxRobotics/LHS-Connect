@@ -16,7 +16,7 @@
 	let upcomingSpecialSchedules: { date: number; scheduleId: ScheduleId, dateStr: string }[] = [];
 
 	let now = DateTime.now().setZone("America/Los_Angeles");
-	let dayOfWeek = now.get("weekday");
+	$: dayOfWeek = now.get("weekday");
 	let dateEpoch = DateTime.now().setZone("America/Los_Angeles").startOf("day").toMillis();
 	$: {
 		// Default day schedules
@@ -49,17 +49,13 @@
 			}));
 	}
 
-	// setInterval to check if the minute has changed to update the reactive components
+	// setInterval to update reactive data
 	onMount(() => {
-		// Set the interval to check for the minute change
+		// Update the current time every 10 seconds
 		let clear = setInterval(() => {
-			let current = DateTime.now().setZone("America/Los_Angeles");
-			if (current.get("minute") !== now.get("minute")) {
-				now = current;
-				dayOfWeek = now.get("weekday");
-				dateEpoch = DateTime.now().setZone("America/Los_Angeles").startOf("day").toMillis();
-			}
-		}, 1000);
+			now = DateTime.now().setZone("America/Los_Angeles");
+			dateEpoch = DateTime.now().setZone("America/Los_Angeles").startOf("day").toMillis();
+		}, 10000);
 		return () => clearInterval(clear);
 	});
 </script>
