@@ -31,27 +31,15 @@
     let descInput: ValidatedTextarea<'desc'>;
 
     async function handleEditModalSubmit(e: SubmitEvent) {
-        if (
-            ![
-                await nameInput.validate(),
-                await dayInput.validate(),
-                await timeInput.validate(),
-                await locationInput.validate(),
-                await advisorInput.validate(),
-                await instagramInput.validate(),
-                await descInput.validate()
-            ].every((v) => v)
-        )
-            return;
         const club = {
-            name,
-            day,
-            time,
-            location,
-            advisor,
-            instagram,
-            desc
-        };
+            name: await nameInput.validate(),
+            day: await dayInput.validate(),
+            time: await timeInput.validate(),
+            location: await locationInput.validate(),
+            advisor: await advisorInput.validate(),
+            instagram: await instagramInput.validate(),
+            desc: await descInput.validate()
+        }
         dispatch('submit', club);
     }
 
