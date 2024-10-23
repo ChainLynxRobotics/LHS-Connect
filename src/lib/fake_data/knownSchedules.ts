@@ -204,16 +204,16 @@ const knownSchedules: SavedScheduleData = {
 				{
 					name: 'Period 1',
 					start: '08:50',
-					end: '09:45'
+					end: '09:40'
 				},
 				{
 					name: 'Period 2',
-					start: '09:50',
-					end: '10:45'
+					start: '09:45',
+					end: '10:35'
 				},
 				{
 					name: 'Assembly',
-					start: '10:50',
+					start: '10:40',
 					end: '11:25',
 					emphasis: true
 				},

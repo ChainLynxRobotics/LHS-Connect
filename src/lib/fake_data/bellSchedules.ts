@@ -10,7 +10,7 @@ const bellSchedules: BellScheduleData = {
 			scheduleId: 0
 		},
 		{
-			date: 1728198000000,
+			date: 1729234800000,
 			scheduleId: 4
 		}
 	]
