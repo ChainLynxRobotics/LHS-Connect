@@ -20,11 +20,15 @@
 	let dateEpoch = DateTime.now().setZone("America/Los_Angeles").startOf("day").toMillis();
 	$: {
 		// Default day schedules
+		const addedSchedules = new Set();
+		tabs = [];
 		for (let i = 0; i < data.defaults.length; i++) {
-			const scheduleId = data.defaults[i];
-			if (tabs.includes(scheduleId)) continue;
-			tabs.push(scheduleId);
-			if (dayOfWeek === i) selectedTab = tabs.length - 1;
+        const scheduleId = data.defaults[i];
+			if (!addedSchedules.has(scheduleId)) {
+				tabs.push(scheduleId);
+				addedSchedules.add(scheduleId);
+			}
+			if (dayOfWeek === i) selectedTab = tabs.indexOf(scheduleId);
 		}
 
 		// Get the special schedule for today
