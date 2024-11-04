@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LinkCardContent from '$components/LinkCardContent.svelte';
+	import LinkCardContent from '$components/info/LinkCardContent.svelte';
 	import type { LinkCard } from '$lib/types/HomePageData';
 	import { Modal } from 'flowbite-svelte';
 	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';

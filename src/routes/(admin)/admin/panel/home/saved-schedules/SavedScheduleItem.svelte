@@ -1,6 +1,6 @@
 <script lang="ts">
 	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
-	import BellScheduleTable from '$components/BellScheduleTable.svelte';
+	import BellScheduleTable from '$components/info/BellScheduleTable.svelte';
 	import type { BellSchedule } from '$lib/types/HomePageData';
 	import { AccordionItem, Modal, Tooltip } from 'flowbite-svelte';
 	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';

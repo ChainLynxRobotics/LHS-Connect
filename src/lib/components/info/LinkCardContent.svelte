@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { LinkCard } from '$lib/types/HomePageData';
-	import ExternalLink from './ExternalLink.svelte';
+	import ExternalLink from '../ExternalLink.svelte';
 
 	export let card: LinkCard;
 </script>

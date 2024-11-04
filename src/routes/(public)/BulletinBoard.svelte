@@ -1,5 +1,5 @@
 <script lang="ts">
-	import BoardNoteContent from '$components/BoardNoteContent.svelte';
+	import BoardNoteContent from '$components/info/BoardNoteContent.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
 	import type { BulletinBoardData } from '$lib/types/HomePageData';
 

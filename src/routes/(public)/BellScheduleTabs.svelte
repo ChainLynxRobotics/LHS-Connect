@@ -1,5 +1,5 @@
 <script lang="ts">
-	import BellScheduleTable from '$components/BellScheduleTable.svelte';
+	import BellScheduleTable from '$components/info/BellScheduleTable.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
 	import type { BellScheduleData, ScheduleId } from '$lib/types/HomePageData';
 	import { Accordion, AccordionItem, TabItem, Tabs } from 'flowbite-svelte';

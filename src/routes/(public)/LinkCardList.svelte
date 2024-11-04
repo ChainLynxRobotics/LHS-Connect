@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LinkCardContent from '$components/LinkCardContent.svelte';
+	import LinkCardContent from '$components/info/LinkCardContent.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
 	import type { LinkCardListData } from '$lib/types/HomePageData';
 

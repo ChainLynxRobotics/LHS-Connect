@@ -1,5 +1,5 @@
 <script lang="ts">
-	import BoardNoteContent from '$components/BoardNoteContent.svelte';
+	import BoardNoteContent from '$components/info/BoardNoteContent.svelte';
 	import type { Note } from '$lib/types/HomePageData';
 	import { Modal } from 'flowbite-svelte';
 	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
