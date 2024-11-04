@@ -22,18 +22,18 @@
 </script>
 
 <TableBodyRow>
-    <TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{link.suffix}</TableBodyCell>
-    <TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm"><A href="{link.url}" target="_blank" rel="noreferrer">{link.url}</A></TableBodyCell>
-    <TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">
+    <TableBodyCell tdClass="p-4 font-medium max-w-sm">{link.suffix}</TableBodyCell>
+    <TableBodyCell tdClass="p-4 font-medium max-w-sm"><A href="{link.url}" target="_blank" rel="noreferrer">{link.url}</A></TableBodyCell>
+    <TableBodyCell tdClass="p-4 font-medium max-w-sm">
         {#if link.password}
             <span>••••••••</span>
             <Tooltip>{link.password}</Tooltip>
         {/if}
     </TableBodyCell>
-    <TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{DateTime.fromMillis(link.createdAt).toLocaleString(DateTime.DATETIME_SHORT)}</TableBodyCell>
-    <TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{link.uses}</TableBodyCell>
-    <TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm align-top">
-        <div class="flex">
+    <TableBodyCell tdClass="p-4 font-medium max-w-sm">{DateTime.fromMillis(link.createdAt).toLocaleString(DateTime.DATETIME_SHORT)}</TableBodyCell>
+    <TableBodyCell tdClass="p-4 font-medium max-w-sm">{link.uses}</TableBodyCell>
+    <TableBodyCell tdClass="p-2 font-medium max-w-sm align-top">
+        <div class="flex justify-center">
             <button title="Edit" on:click|stopPropagation={() => (editModalOpen = true)} class="!p-2"
                 ><EditOutline class="h-6 w-6" /></button
             >

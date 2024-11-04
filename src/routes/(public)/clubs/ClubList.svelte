@@ -42,7 +42,7 @@
 		<Search size="md" placeholder="Search" bind:value={search} />
 	</div>
 </div>
-<Table striped shadow>
+<Table striped shadow class="table-fixed">
 	<TableHead>
 		<TableHeadCell>Name</TableHeadCell>
 		<TableHeadCell>Day</TableHeadCell>

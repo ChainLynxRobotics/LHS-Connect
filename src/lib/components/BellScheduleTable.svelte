@@ -52,7 +52,7 @@
 	}
 </script>
 
-<Table divClass="relative mx-auto border dark:border-gray-700" striped>
+<Table class="table-fixed" divClass="relative mx-auto border dark:border-gray-700" striped>
 	<TableBody tableBodyClass="divide-y text-center">
 		{#each schedule?.periods || [] as period, i}
 			<TableBodyRow class={getRowClass(i)}>

@@ -40,7 +40,7 @@
         <AutoImportClubsButton on:submit={(e)=>clubs = e.detail} />
     </div>
 
-    <Table striped shadow>
+    <Table striped shadow class="table-fixed">
         <TableHead>
             <TableHeadCell>Name</TableHeadCell>
             <TableHeadCell>Day</TableHeadCell>
