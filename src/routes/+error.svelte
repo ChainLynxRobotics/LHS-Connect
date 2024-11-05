@@ -7,6 +7,8 @@
 	<title>LHS Connect | Error</title>
 </svelte:head>
 
-<div class="flex w-full flex-col flex-wrap items-center p-4 pt-16 pb-16">
-	<ErrorCard status={$page.status} error={$page.error} />
+<div class="min-h-screen bg-white dark:bg-gray-900">
+	<div class="flex w-full flex-col flex-wrap items-center p-4 pt-16 pb-16">
+		<ErrorCard status={$page.status} error={$page.error} />
+	</div>
 </div>
