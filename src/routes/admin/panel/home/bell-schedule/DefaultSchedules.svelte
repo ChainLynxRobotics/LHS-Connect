@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { BellSchedule } from '$lib/types/HomePageData';
 	import {
 		Select,
 		Table,
@@ -7,19 +6,19 @@
 		TableBodyRow,
 		TableBodyCell,
 		TableHead,
-		TableHeadCell
+		TableHeadCell,
+
+		type SelectOptionType
+
 	} from 'flowbite-svelte';
 
 	interface Props {
-		schedules?: readonly BellSchedule[];
+		scheduleOptions: SelectOptionType<number>[];
 		defaults?: number[];
 	}
 
-	let { schedules = [], defaults = [] }: Props = $props();
+	let { scheduleOptions = [], defaults = $bindable([]) }: Props = $props();
 
-	let selectOptions = $derived(
-		schedules.map((item) => ({ value: item.id, name: item?.name || 'Unknown' }))
-	);
 </script>
 
 <div class="w-full">
@@ -35,11 +34,11 @@
 		</TableHead>
 		<TableBody>
 			<TableBodyRow>
-				{#each defaults as defaultSchedule, i}
+				{#each defaults as _, i}
 					<TableBodyCell class="px-1">
 						<Select
-							value={defaults[i]}
-							items={selectOptions}
+							bind:value={defaults[i]}
+							items={scheduleOptions}
 							size="sm"
 							placeholder="Choose Schedule"
 						/>

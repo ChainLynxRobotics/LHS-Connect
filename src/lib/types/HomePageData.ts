@@ -37,6 +37,7 @@ export interface SavedScheduleData {
 export type ScheduleId = number;
 
 export interface ScheduleOverride {
+	id: number;
 	date: number; // Epoch timestamp at midnight (seattle timezone) before the day
 	scheduleId: ScheduleId;
 }

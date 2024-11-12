@@ -13,34 +13,35 @@
 	import { DateTime } from 'luxon';
 
 	interface Props {
-		i: number;
 		special: ScheduleOverride;
 		scheduleOptions: SelectOptionType<number>[];
-		onEdit: (e: ScheduleOverride) => void;
+		onUpdate: (e: ScheduleOverride) => void;
 		onDuplicate: () => void;
-		onDelete: () => void;
+		onRemove: () => void;
 	}
 
-	let { i, special, scheduleOptions, onEdit: edit, onDuplicate: duplicate, onDelete: _delete }: Props = $props();
+	let { special, scheduleOptions, onUpdate, onDuplicate, onRemove }: Props = $props();
 
 	let date = $state(DateTime.fromMillis(special.date).toISODate()); // To avoid reactivity issues with the sorted array
 	let scheduleId = $state(special.scheduleId);
 
 	function submit() {
-		special.date = DateTime.fromISO(date || '')
-			.setZone('America/Los_Angeles')
-			.startOf('day')
-			.toMillis();
-		special.scheduleId = scheduleId;
-		edit(special);
+		onUpdate({
+			id: special.id,
+			date: DateTime.fromISO(date || '')
+				.setZone('America/Los_Angeles')
+				.startOf('day')
+				.toMillis(),
+			scheduleId
+		});
 	}
 </script>
 
 <TableBodyRow>
 	<TableBodyCell class="px-1">
 		<input
-			id={`special-date-${i}`}
-			name={`special-date-${i}`}
+			id={`special-date-${special.id}`}
+			name={`special-date-${special.id}`}
 			type="date"
 			aria-label="Date of schedule override"
 			bind:value={date}
@@ -59,11 +60,11 @@
 	</TableBodyCell>
 	<TableBodyCell class="px-1">
 		<div class="flex justify-end">
-			<button title="Duplicate" onclick={stopPropagation(duplicate)} class="!p-2"
+			<button title="Duplicate" onclick={onDuplicate} class="!p-2"
 				><FileCopyOutline class="h-6 w-6" /></button
 			>
 			<Tooltip>Duplicate</Tooltip>
-			<button title="Delete" onclick={stopPropagation(_delete)} class="!p-2"
+			<button title="Delete" onclick={onRemove} class="!p-2"
 				><TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" /></button
 			>
 			<Tooltip>Delete</Tooltip>

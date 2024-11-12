@@ -74,22 +74,19 @@
     function duplicate(id: number) {
         if (!canDuplicate) return;
 
-        console.log('duplicate', id, items, order);
+        const item = items.find(item => item.id === id);
+        if (item === undefined) return;
 
-        const index = items.findIndex(item => item.id === id);
-        if (index === -1) return;
-
-        const clonedItem = JSON.parse(JSON.stringify(items[index]))
+        const clonedItem = JSON.parse(JSON.stringify(item));
         const newId = generateRandomId();
-        items.splice(index + 1, 0, {...clonedItem, id: newId});
+        items.push({...clonedItem, id: newId}); // Can add to the end, because the order doesn't matter here
         items = items; // Force reactivity
 
         if (canReorder) {
+            const index = order!.indexOf(id);
             order!.splice(index + 1, 0, newId); // Keep order in sync
             order = order; // Force reactivity
         }
-
-        console.log('duplicated', id, items, order);
     }
 
     function update(id: number, item: Item) {
