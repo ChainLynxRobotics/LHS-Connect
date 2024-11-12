@@ -95,13 +95,21 @@
     }
 
     function sort(_items: ItemWithId[]) {
-        if (sortFn) return _items.sort(sortFn);
+        if (canReorder) return order.map(i => items[i]);
+        else if (sortFn) return [..._items].sort(sortFn);
         else return _items;
     }
 
     function reorder(newOrder: number[]) {
+        if (!canReorder) return;
+
+        // Make sure the new order is valid
+        newOrder = newOrder
+            .filter((item, pos, self) => self.indexOf(item) == pos)  // Remove duplicates
+            .filter(id => items.findIndex(i => i.id === id) !== -1); // Ensure all ids in "newOrder" are present in "items"
+        if (items.some(i => newOrder.indexOf(i.id) === -1)) return;  // Ensure all items have an id in "newOrder"
+
         order = newOrder;
-        items = order.map(i => items[i]);
     }
 </script>
 
