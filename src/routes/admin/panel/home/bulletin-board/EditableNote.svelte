@@ -4,21 +4,21 @@
 	import { Modal } from 'flowbite-svelte';
 	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { dragHandle } from 'svelte-dnd-action';
-	import EditNoteForm from './EditNoteForm.svelte';
+	import EditableNoteForm from './EditableNoteForm.svelte';
 
 	interface Props {
 		note: Note;
-		onEdit: (e: Note) => void;
+		onUpdate: (e: Note) => void;
 		onDuplicate: () => void;
 		onDelete: () => void;
 	}
 
-	let { note, onEdit: edit, onDuplicate: duplicate, onDelete: _delete }: Props = $props();
+	let { note, onUpdate, onDuplicate, onDelete }: Props = $props();
 
 	let editModalOpen = $state(false);
 
 	function handleEditModalSubmit(_note: Note) {
-		edit(_note);
+		onUpdate(_note);
 		editModalOpen = false;
 	}
 </script>
@@ -37,17 +37,17 @@
 		<button title="Edit" onclick={() => (editModalOpen = true)} class="!p-2"
 			><EditOutline class="h-6 w-6" /></button
 		>
-		<button title="Duplicate" onclick={duplicate} class="!p-2"
+		<button title="Duplicate" onclick={onDuplicate} class="!p-2"
 			><FileCopyOutline class="h-6 w-6" /></button
 		>
-		<button title="Delete" onclick={_delete} class="!p-2"
+		<button title="Delete" onclick={onDelete} class="!p-2"
 			><TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" /></button
 		>
 	</div>
 </div>
 
 <Modal bind:open={editModalOpen} size="md" autoclose={false}>
-	<EditNoteForm
+	<EditableNoteForm
 		{note}
 		onSubmit={handleEditModalSubmit}
 		onCancel={() => (editModalOpen = false)}

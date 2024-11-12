@@ -54,6 +54,7 @@ export interface BellScheduleData {
  * Represents a note on the bulletin board.
  */
 export interface Note {
+	id: number;
 	title: string;
 	content: string;
 	link?: string;

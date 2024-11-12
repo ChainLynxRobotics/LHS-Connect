@@ -1,16 +1,17 @@
-<script lang="ts" generics="Item extends {}, Sortable">
+<script lang="ts" generics="Item extends {}">
 	import { generateRandomId } from '$lib/util/randomId';
 	import type { Snippet } from 'svelte';
 
     type ItemWithId = Item & { id: number };
 
-    interface ListDisplayProps {
+    interface ItemListDisplayProps {
         items: ItemDisplayProps[];
         create: () => void;
         reorder: (order: number[]) => void;
     }
 
     interface ItemDisplayProps {
+        id: number; // Unique identifier, copied from the item's id
         item: ItemWithId;
         index: number;
         create: () => void;
@@ -22,7 +23,7 @@
     interface BaseProps {
         initialItems: ItemWithId[];
         generateNewItem: () => Item;
-        listDisplay: Snippet<[ListDisplayProps]>;
+        items: Snippet<[ItemListDisplayProps]>;
         canCreate?: boolean;
         canDuplicate?: boolean;
         canUpdate?: boolean;
@@ -43,7 +44,7 @@
     let {
         initialItems,
         generateNewItem,
-        listDisplay,
+        items: itemsSnippet,
         canCreate = true,
         canDuplicate = true,
         canUpdate = true,
@@ -55,24 +56,40 @@
     }: Props = $props();
 
     let items: ItemWithId[] = $state(initialItems);
-    let order: number[] = $state(initialOrder ?? []);
+    let order: number[]|undefined = $state(canReorder ? sanitizeOrder(initialOrder!) : undefined);
 
     function create() {
         if (!canCreate) return;
 
-        items.push({...generateNewItem(), id: generateRandomId()});
+        const newId = generateRandomId();
+        items.push({...generateNewItem(), id: newId});
         items = items; // Force reactivity
+
+        if (canReorder) {
+            order!.push(newId); // Keep order in sync
+            order = order; // Force reactivity
+        }
     }
 
     function duplicate(id: number) {
         if (!canDuplicate) return;
 
+        console.log('duplicate', id, items, order);
+
         const index = items.findIndex(item => item.id === id);
         if (index === -1) return;
 
         const clonedItem = JSON.parse(JSON.stringify(items[index]))
-        items.splice(index + 1, 0, {...clonedItem, id: generateRandomId()});
+        const newId = generateRandomId();
+        items.splice(index + 1, 0, {...clonedItem, id: newId});
         items = items; // Force reactivity
+
+        if (canReorder) {
+            order!.splice(index + 1, 0, newId); // Keep order in sync
+            order = order; // Force reactivity
+        }
+
+        console.log('duplicated', id, items, order);
     }
 
     function update(id: number, item: Item) {
@@ -92,10 +109,15 @@
 
         items.splice(index, 1);
         items = items; // Force reactivity
+
+        if (canReorder) {
+            order!.splice(order!.indexOf(id), 1); // Keep order in sync
+            order = order; // Force reactivity
+        }
     }
 
     function sort(_items: ItemWithId[]) {
-        if (canReorder) return order.map(i => items[i]);
+        if (canReorder) return order!.map(id => items.find(i => i.id === id)!);
         else if (sortFn) return [..._items].sort(sortFn);
         else return _items;
     }
@@ -104,17 +126,23 @@
         if (!canReorder) return;
 
         // Make sure the new order is valid
-        newOrder = newOrder
-            .filter((item, pos, self) => self.indexOf(item) == pos)  // Remove duplicates
-            .filter(id => items.findIndex(i => i.id === id) !== -1); // Ensure all ids in "newOrder" are present in "items"
-        if (items.some(i => newOrder.indexOf(i.id) === -1)) return;  // Ensure all items have an id in "newOrder"
+        newOrder = sanitizeOrder(newOrder);
 
         order = newOrder;
     }
+
+    function sanitizeOrder(newOrder: number[]) {
+        newOrder = newOrder
+            .filter((item, pos, self) => self.indexOf(item) == pos)  // Remove duplicates
+            .filter(id => items.findIndex(i => i.id === id) !== -1); // Ensure all ids in "newOrder" are present in "items"
+        if (items.some(i => newOrder.indexOf(i.id) === -1)) throw new Error("Invalid CRUD order of items");  // Ensure all items have an id in "newOrder"
+        return newOrder;
+    }
 </script>
 
-{@render listDisplay({
+{@render itemsSnippet({
     items: sort(items).map((_item, index) => ({
+        id: _item.id,
         item: _item,
         index,
         create,

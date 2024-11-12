@@ -1,34 +1,27 @@
-<script lang="ts" module>
-	export type DraggableItem<A> = {
-		id: number;
-		data: A;
-	};
-</script>
-
-<script lang="ts" generics="A">
+<script lang="ts" generics="Item extends { id: number }">
 	import { flip } from 'svelte/animate';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { dragHandleZone, type Options } from 'svelte-dnd-action';
 	import type { Snippet } from 'svelte';
 
 	interface Props {
-		items?: A[];
-		update?: (items: A[]) => void;
+		items?: Item[];
+		updateOrder?: (order: number[]) => void;
 		flipDurationMs?: number;
 		dragZoneType?: string;
-		dragZoneOptions?: Partial<Options<DraggableItem<A>>>;
+		dragZoneOptions?: Partial<Options<Item>>;
 		sectionElement?: string;
 		sectionClass?: string;
 		sectionProps?: HTMLAttributes<HTMLElement>;
 		dragWrapperElement?: string;
 		dragWrapperClass?: string;
 		dragWrapperProps?: HTMLAttributes<HTMLElement>;
-		children?: Snippet<[{ item: A; index: number }]>;
+		item?: Snippet<[{ item: Item; index: number }]>;
 	}
 
 	let {
 		items = [],
-		update = () => {},
+		updateOrder,
 		flipDurationMs = 300,
 		dragZoneType = '',
 		dragZoneOptions = {},
@@ -38,27 +31,21 @@
 		dragWrapperElement = 'div',
 		dragWrapperClass = '',
 		dragWrapperProps = {},
-		children
+		item
 	}: Props = $props();
 
-	let visualItems: DraggableItem<A>[] = $state([]);
-	$effect(() => {
-		visualItems = items.map((data, i) => ({ id: Date.now() + i, data }));
+	let visualItems = $state([...items]);
+	$effect.pre(() => {
+		visualItems = [...items]; // Reset visualItems when items change
 	});
 
-	function handleDndConsider(e: CustomEvent<{ items: DraggableItem<A>[] }>) {
+
+	function handleDndConsider(e: CustomEvent<{ items: Item[] }>) {
 		visualItems = e.detail.items;
 	}
-	function handleDndFinalize(e: CustomEvent<{ items: DraggableItem<A>[] }>) {
+	function handleDndFinalize(e: CustomEvent<{ items: Item[] }>) {
 		visualItems = e.detail.items;
-		// Check if order has changed before updating state and history
-		let changed = visualItems.length !== items.length; // If the length is different, then the order has changed, if they are not continue with the array comparison
-		for (let i = 0; i < e.detail.items.length && !changed; i++) {
-			if (visualItems[i].data !== items[i]) {
-				changed = true;
-			}
-		}
-		if (changed) update(visualItems.map((item) => item.data)); // Update the actual state now that its finalized
+		updateOrder?.(e.detail.items.map((item) => item.id));
 	}
 </script>
 
@@ -76,14 +63,14 @@
 	class={sectionClass}
 	{...sectionProps}
 >
-	{#each visualItems as item (item.id)}
+	{#each visualItems as _item, index (_item.id)}
 		<svelte:element
 			this={dragWrapperElement}
 			animate:flip={{ duration: flipDurationMs }}
 			class={dragWrapperClass}
 			{...dragWrapperProps}
 		>
-			{@render children?.({ item: item.data, index: items.findIndex((i) => i === item.data) })}
+			{@render item?.({ item: _item, index })}
 		</svelte:element>
 	{/each}
 </svelte:element>

@@ -23,12 +23,12 @@
 
 	async function onsubmit(e: Event) {
 		e.preventDefault();
-		const note = {
+		submit({
+			id: note.id,
 			title: await titleInput!.validate(),
 			content: await contentInput!.validate(),
 			link: await linkInput!.validate()
-		};
-		submit(note);
+		});
 	}
 </script>
 
