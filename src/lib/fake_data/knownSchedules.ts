@@ -244,7 +244,67 @@ const knownSchedules: SavedScheduleData = {
 					end: '15:40'
 				}
 			]
-		}
+		},
+        {
+            id: 5,
+            name: 'Play Preview',
+            desc: 'Get a sneak peak of the upcoming production She Kills Monsters by the Lincoln theatre group',
+            periods: [
+                {
+                    name: 'Period 1',
+                    start: '08:50',
+                    end: '09:45'
+                },
+                {
+                    name: 'Period 2',
+                    start: '09:50',
+                    end: '10:45'
+                },
+                {
+                    name: 'Group A - Auditorium',
+                    start: '10:50',
+                    end: '11:15',
+                    emphasis: true
+                },
+                {
+                    name: 'Group A - 3rd Period',
+                    start: '11:20',
+                    end: '12:20',
+                    emphasis: true
+                },
+                {
+                    name: 'Group B - 3rd Period',
+                    start: '10:50',
+                    end: '11:15'
+                },
+                {
+                    name: 'Group B - Auditorium',
+                    start: '11:20',
+                    end: '12:20'
+                },
+                {
+                    name: 'Lunch',
+                    start: '12:25',
+                    end: '12:55',
+                    emphasis: true
+                },
+                {
+                    name: 'Period 4',
+                    start: '13:00',
+                    end: '13:50'
+                },
+                {
+                    name: 'Period 5',
+                    start: '13:55',
+                    end: '14:45'
+                },
+                {
+                    name: 'Period 6',
+                    start: '14:50',
+                    end: '15:40'
+                }
+            ]
+        }
 	]
 };
 
