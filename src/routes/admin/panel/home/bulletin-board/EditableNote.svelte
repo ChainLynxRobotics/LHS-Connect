@@ -10,10 +10,10 @@
 		note: Note;
 		onUpdate: (e: Note) => void;
 		onDuplicate: () => void;
-		onDelete: () => void;
+		onRemove: () => void;
 	}
 
-	let { note, onUpdate, onDuplicate, onDelete }: Props = $props();
+	let { note, onUpdate, onDuplicate, onRemove }: Props = $props();
 
 	let editModalOpen = $state(false);
 
@@ -40,7 +40,7 @@
 		<button title="Duplicate" onclick={onDuplicate} class="!p-2"
 			><FileCopyOutline class="h-6 w-6" /></button
 		>
-		<button title="Delete" onclick={onDelete} class="!p-2"
+		<button title="Delete" onclick={onRemove} class="!p-2"
 			><TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" /></button
 		>
 	</div>

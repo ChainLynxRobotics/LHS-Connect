@@ -23,7 +23,7 @@
 			canReorder
 			initialOrder={data.notes.map((note) => note.id)}
 		>
-			{#snippet items({ items, create, reorder })}
+			{#snippet renderItems({ items, create, reorder })}
 				<div class="mb-8 flex justify-center">
 					<Button color="alternative" on:click={create}>Add Note</Button>
 				</div>
@@ -34,12 +34,12 @@
 					sectionClass="flex max-w-lg flex-col gap-4 py-4 mx-auto"
 					dragWrapperClass="w-full"
 				>
-					{#snippet item({ item: row })}
+					{#snippet item({ item, update, duplicate, remove })}
 						<EditableNote
-							note={row.item}
-							onUpdate={row.update}
-							onDuplicate={row.duplicate}
-							onDelete={row.remove}
+							note={item}
+							onUpdate={update}
+							onDuplicate={duplicate}
+							onRemove={remove}
 						/>
 					{/snippet}
 				</DraggableList>

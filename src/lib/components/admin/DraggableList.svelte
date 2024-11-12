@@ -16,7 +16,7 @@
 		dragWrapperElement?: string;
 		dragWrapperClass?: string;
 		dragWrapperProps?: HTMLAttributes<HTMLElement>;
-		item?: Snippet<[{ item: Item; index: number }]>;
+		item?: Snippet<[Item, number]>;
 	}
 
 	let {
@@ -70,7 +70,7 @@
 			class={dragWrapperClass}
 			{...dragWrapperProps}
 		>
-			{@render item?.({ item: _item, index })}
+			{@render item?.( _item, index )}
 		</svelte:element>
 	{/each}
 </svelte:element>

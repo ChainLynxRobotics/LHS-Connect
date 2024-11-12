@@ -23,7 +23,7 @@
     interface BaseProps {
         initialItems: ItemWithId[];
         generateNewItem: () => Item;
-        items: Snippet<[ItemListDisplayProps]>;
+        renderItems: Snippet<[ItemListDisplayProps]>;
         canCreate?: boolean;
         canDuplicate?: boolean;
         canUpdate?: boolean;
@@ -44,7 +44,7 @@
     let {
         initialItems,
         generateNewItem,
-        items: itemsSnippet,
+        renderItems,
         canCreate = true,
         canDuplicate = true,
         canUpdate = true,
@@ -137,7 +137,7 @@
     }
 </script>
 
-{@render itemsSnippet({
+{@render renderItems({
     items: sort(items).map((_item, index) => ({
         id: _item.id,
         item: _item,
@@ -146,7 +146,7 @@
         duplicate: () => duplicate(_item.id),
         update: (item: Item) => update(_item.id, item),
         remove: () => remove(_item.id)
-    })),
+    } as ItemDisplayProps)),
     create,
     reorder
 })}

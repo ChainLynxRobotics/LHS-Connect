@@ -38,7 +38,7 @@
 			canReorder={false}
 			sortFn={(a, b) => a.date - b.date}
 		>
-			{#snippet items({ items, create})}
+			{#snippet renderItems({ items, create})}
 				<div class="mb-8 flex justify-center gap-8">
 					<Button color="alternative" on:click={create}>Add Schedule Override</Button>
 				</div>

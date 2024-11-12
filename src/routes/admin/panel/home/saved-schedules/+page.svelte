@@ -34,7 +34,7 @@
 			canReorder={true}
 			initialOrder={data.schedules.map((item) => item.id)}
 		>
-			{#snippet items({ items, create, reorder })}
+			{#snippet renderItems({ items, create, reorder })}
 				<div class="mb-8 flex justify-center">
 					<Button color="alternative" on:click={create}>New Schedule</Button>
 				</div>
@@ -47,12 +47,12 @@
 						sectionClass="py-4"
 						dragWrapperClass="bg-white dark:bg-gray-900"
 					>
-						{#snippet item({ item: _item })}
+						{#snippet item({ item, update, duplicate, remove })}
 							<SavedScheduleItem
-								schedule={_item.item}
-								onEdit={_item.update}
-								onDuplicate={_item.duplicate}
-								onDelete={_item.remove}
+								schedule={item}
+								onUpdate={update}
+								onDuplicate={duplicate}
+								onRemove={remove}
 							/>
 						{/snippet}
 					</DraggableList>
