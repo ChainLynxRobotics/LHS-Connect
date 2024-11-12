@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import ThemeSwitch from '$components/ThemeSwitch.svelte';
 
-	$: activeUrl = $page.url.pathname;
+	let activeUrl = $derived($page.url.pathname);
 
 	const activeClass = 'rounded-none md:border-b-4 border-primary-500';
 	const inactiveClass = 'rounded-none';

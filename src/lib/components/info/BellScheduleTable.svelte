@@ -1,15 +1,14 @@
 <script lang="ts">
 	import type { BellSchedule, TimeString } from '$lib/types/HomePageData';
-	import {
-		Table,
-		TableBody,
-		TableBodyCell,
-		TableBodyRow,
-	} from 'flowbite-svelte';
+	import { Table, TableBody, TableBodyCell, TableBodyRow } from 'flowbite-svelte';
 	import { DateTime } from 'luxon';
 
-	export let schedule: BellSchedule | undefined;
-	export let reactive: boolean = false;
+	interface Props {
+		schedule?: BellSchedule;
+		reactive?: boolean;
+	}
+
+	let { schedule, reactive = false }: Props = $props();
 
 	function formatTime(time: TimeString): string {
 		const [hours, minutes] = time.split(':');
@@ -45,9 +44,9 @@
 	}
 
 	function currentlyWithinTime(startStr: TimeString, endStr: TimeString): boolean {
-		const now = DateTime.now().setZone("America/Los_Angeles").toMillis();
-		const start = DateTime.fromFormat(startStr, "HH:mm").setZone("America/Los_Angeles").toMillis();
-		const end = DateTime.fromFormat(endStr, "HH:mm").setZone("America/Los_Angeles").toMillis();
+		const now = DateTime.now().setZone('America/Los_Angeles').toMillis();
+		const start = DateTime.fromFormat(startStr, 'HH:mm').setZone('America/Los_Angeles').toMillis();
+		const end = DateTime.fromFormat(endStr, 'HH:mm').setZone('America/Los_Angeles').toMillis();
 		return now >= start && now <= end;
 	}
 </script>

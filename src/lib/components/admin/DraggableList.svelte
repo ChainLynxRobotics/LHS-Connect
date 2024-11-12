@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	export type DraggableItem<A> = {
 		id: number;
 		data: A;
@@ -9,25 +9,42 @@
 	import { flip } from 'svelte/animate';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { dragHandleZone, type Options } from 'svelte-dnd-action';
+	import type { Snippet } from 'svelte';
 
-	export let items: A[] = [];
-	export let update: (items: A[]) => void = () => {};
+	interface Props {
+		items?: A[];
+		update?: (items: A[]) => void;
+		flipDurationMs?: number;
+		dragZoneType?: string;
+		dragZoneOptions?: Partial<Options<DraggableItem<A>>>;
+		sectionElement?: string;
+		sectionClass?: string;
+		sectionProps?: HTMLAttributes<HTMLElement>;
+		dragWrapperElement?: string;
+		dragWrapperClass?: string;
+		dragWrapperProps?: HTMLAttributes<HTMLElement>;
+		children?: Snippet<[{ item: A; index: number }]>;
+	}
 
-	export let flipDurationMs = 300;
+	let {
+		items = [],
+		update = () => {},
+		flipDurationMs = 300,
+		dragZoneType = '',
+		dragZoneOptions = {},
+		sectionElement = 'section',
+		sectionClass = '',
+		sectionProps = {},
+		dragWrapperElement = 'div',
+		dragWrapperClass = '',
+		dragWrapperProps = {},
+		children
+	}: Props = $props();
 
-	export let dragZoneType: string = '';
-	export let dragZoneOptions: Partial<Options<DraggableItem<A>>> = {};
-
-	export let sectionElement = 'section';
-	export let sectionClass = '';
-	export let sectionProps: HTMLAttributes<HTMLElement> = {};
-
-	export let dragWrapperElement = 'div';
-	export let dragWrapperClass = '';
-	export let dragWrapperProps: HTMLAttributes<HTMLElement> = {};
-
-	let visualItems: DraggableItem<A>[];
-	$: visualItems = items.map((data, i) => ({ id: Date.now() + i, data }));
+	let visualItems: DraggableItem<A>[] = $state([]);
+	$effect(() => {
+		visualItems = items.map((data, i) => ({ id: Date.now() + i, data }));
+	});
 
 	function handleDndConsider(e: CustomEvent<{ items: DraggableItem<A>[] }>) {
 		visualItems = e.detail.items;
@@ -54,8 +71,8 @@
 		dropTargetStyle: {},
 		...dragZoneOptions
 	}}
-	on:consider={handleDndConsider}
-	on:finalize={handleDndFinalize}
+	onconsider={handleDndConsider}
+	onfinalize={handleDndFinalize}
 	class={sectionClass}
 	{...sectionProps}
 >
@@ -66,7 +83,7 @@
 			class={dragWrapperClass}
 			{...dragWrapperProps}
 		>
-			<slot item={item.data} index={items.findIndex((i) => i === item.data)} />
+			{@render children?.({ item: item.data, index: items.findIndex((i) => i === item.data) })}
 		</svelte:element>
 	{/each}
 </svelte:element>

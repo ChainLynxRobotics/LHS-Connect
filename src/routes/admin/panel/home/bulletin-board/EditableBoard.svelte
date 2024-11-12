@@ -4,7 +4,11 @@
 	import { Button } from 'flowbite-svelte';
 	import DraggableList from '$components/admin/DraggableList.svelte';
 
-	export let notes: Note[];
+	interface Props {
+		notes: Note[];
+	}
+
+	let { notes = $bindable([]) }: Props = $props();
 
 	//////////////// Editing //////////////////
 
@@ -26,15 +30,16 @@
 	}
 
 	function handleDelete(index: number) {
+		console.log('delete', index);
 		notes.splice(index, 1);
 		notes = notes; // Force update
 	}
 </script>
 
 <div class="w-full">
-    <div class="flex justify-center mb-8">
-        <Button color="alternative" on:click={handleNew}>Add Note</Button>
-    </div>
+	<div class="mb-8 flex justify-center">
+		<Button color="alternative" on:click={handleNew}>Add Note</Button>
+	</div>
 
 	<DraggableList
 		dragZoneType="notes"
@@ -42,14 +47,14 @@
 		update={(items) => (notes = items)}
 		sectionClass="flex max-w-lg flex-col gap-4 py-4 mx-auto"
 		dragWrapperClass="w-full"
-		let:item
-		let:index
 	>
-		<EditableNote
-			note={item}
-			on:edit={(e) => handleEdit(index, e.detail)}
-			on:duplicate={() => handleDuplicate(index)}
-			on:delete={() => handleDelete(index)}
-		/>
+		{#snippet children({ item, index })}
+			<EditableNote
+				note={item}
+				onEdit={(e) => handleEdit(index, e)}
+				onDuplicate={() => handleDuplicate(index)}
+				onDelete={() => handleDelete(index)}
+			/>
+		{/snippet}
 	</DraggableList>
 </div>

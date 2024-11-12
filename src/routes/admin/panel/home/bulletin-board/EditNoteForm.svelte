@@ -4,34 +4,35 @@
 	import bulletinBoardSchema from '$lib/schemas/bulletinBoardSchema';
 	import type { Note } from '$lib/types/HomePageData';
 	import { Button, Helper } from 'flowbite-svelte';
-	import { createEventDispatcher } from 'svelte';
 
-	export let note: Note;
+	interface Props {
+		note: Note;
+		onSubmit: (note: Note) => void;
+		onCancel: () => void;
+	}
 
-	const dispatch = createEventDispatcher<{
-		submit: Note;
-		cancel: null;
-	}>();
+	let { note, onSubmit: submit, onCancel: cancel }: Props = $props();
 
-	let title = note.title;
-	let content = note.content;
-	let link = note.link;
+	let title = $state(note.title);
+	let content = $state(note.content);
+	let link = $state(note.link);
 
-	let titleInput: ValidatedInput<'title'>;
-	let contentInput: ValidatedTextarea<'content'>;
-	let linkInput: ValidatedInput<'link'>;
+	let titleInput: ValidatedInput<'title'>|undefined = $state();
+	let contentInput: ValidatedTextarea<'content'>|undefined = $state();
+	let linkInput: ValidatedInput<'link'>|undefined = $state();
 
-	async function handleEditModalSubmit(e: SubmitEvent) {
+	async function onsubmit(e: Event) {
+		e.preventDefault();
 		const note = {
-			title: await titleInput.validate(),
-			content: await contentInput.validate(),
-			link: await linkInput.validate()
+			title: await titleInput!.validate(),
+			content: await contentInput!.validate(),
+			link: await linkInput!.validate()
 		};
-		dispatch('submit', note);
+		submit(note);
 	}
 </script>
 
-<form class="flex flex-col space-y-6" on:submit|preventDefault={handleEditModalSubmit}>
+<form class="flex flex-col space-y-6" {onsubmit}>
 	<div>
 		<h3 class="mb-2 text-xl font-medium text-gray-900 dark:text-white">Edit Note</h3>
 		<Helper>Markdown is supported</Helper>
@@ -65,8 +66,8 @@
 			validatorObject={bulletinBoardSchema}
 		/>
 	</div>
-	<div class="flex gap-4 justify-center">
-		<Button type="button" color="alternative" on:click={() => dispatch('cancel')}>Cancel</Button>
+	<div class="flex justify-center gap-4">
+		<Button type="button" color="alternative" on:click={cancel}>Cancel</Button>
 		<Button type="submit">Save</Button>
 	</div>
 </form>

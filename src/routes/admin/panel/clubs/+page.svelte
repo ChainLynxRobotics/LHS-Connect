@@ -1,10 +1,13 @@
 <script lang="ts">
-	import SectionHeader from "$components/SectionHeader.svelte";
-	import type { ClubPageData } from "$lib/types/ClubPageData";
-	import EditableClubList from "./EditableClubList.svelte";
+	import SectionHeader from '$components/SectionHeader.svelte';
+	import type { ClubPageData } from '$lib/types/ClubPageData';
+	import EditableClubList from './EditableClubList.svelte';
 
-    export let data: ClubPageData;
+	interface Props {
+		data: ClubPageData;
+	}
 
+	let { data }: Props = $props();
 </script>
 
 <div class="flex flex-col items-center p-4">

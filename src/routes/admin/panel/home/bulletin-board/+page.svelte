@@ -3,7 +3,11 @@
 	import SectionHeader from '$components/SectionHeader.svelte';
 	import type { BulletinBoardData } from '$lib/types/HomePageData';
 
-	export let data: BulletinBoardData;
+	interface Props {
+		data: BulletinBoardData;
+	}
+
+	let { data }: Props = $props();
 </script>
 
 <div class="flex flex-col items-center p-4">

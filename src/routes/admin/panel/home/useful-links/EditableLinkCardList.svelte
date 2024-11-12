@@ -4,7 +4,11 @@
 	import { Button } from 'flowbite-svelte';
 	import EditableLinkCard from './EditableLinkCard.svelte';
 
-	export let cards: LinkCard[];
+	interface Props {
+		cards: LinkCard[];
+	}
+
+	let { cards = $bindable() }: Props = $props();
 
 	//////////////// Editing //////////////////
 
@@ -32,23 +36,23 @@
 </script>
 
 <div class="w-full">
-    <div class="flex justify-center mb-8">
-        <Button color="alternative" on:click={handleNew}>New Card</Button>
-    </div>
+	<div class="mb-8 flex justify-center">
+		<Button color="alternative" on:click={handleNew}>New Card</Button>
+	</div>
 
 	<DraggableList
 		dragZoneType="cards"
 		items={cards}
 		update={(items) => (cards = items)}
 		sectionClass="flex flex-wrap gap-4 py-4 justify-center"
-		let:item
-		let:index
 	>
-		<EditableLinkCard
-			card={item}
-			on:edit={(e) => handleEdit(index, e.detail)}
-			on:duplicate={() => handleDuplicate(index)}
-			on:delete={() => handleDelete(index)}
-		/>
+		{#snippet children({ item, index })}
+			<EditableLinkCard
+				card={item}
+				onEdit={(e) => handleEdit(index, e)}
+				onDuplicate={() => handleDuplicate(index)}
+				onDelete={() => handleDelete(index)}
+			/>
+		{/snippet}
 	</DraggableList>
 </div>

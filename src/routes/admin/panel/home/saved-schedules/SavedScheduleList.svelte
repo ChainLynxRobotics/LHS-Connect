@@ -4,7 +4,11 @@
 	import SavedScheduleItem from './SavedScheduleItem.svelte';
 	import DraggableList from '$components/admin/DraggableList.svelte';
 
-	export let schedules: BellSchedule[];
+	interface Props {
+		schedules: BellSchedule[];
+	}
+
+	let { schedules = $bindable() }: Props = $props();
 
 	//////////////// Editing //////////////////
 
@@ -39,9 +43,9 @@
 </script>
 
 <div class="w-full">
-    <div class="flex justify-center mb-8">
-        <Button color="alternative" on:click={handleNew}>New Schedule</Button>
-    </div>
+	<div class="mb-8 flex justify-center">
+		<Button color="alternative" on:click={handleNew}>New Schedule</Button>
+	</div>
 
 	<Accordion flush defaultClass="w-full max-w-lg mx-auto">
 		<DraggableList
@@ -50,15 +54,15 @@
 			update={(items) => (schedules = items)}
 			sectionClass="py-4"
 			dragWrapperClass="bg-white dark:bg-gray-900"
-			let:item
-			let:index
 		>
-			<SavedScheduleItem
-				schedule={item}
-				on:edit={(e) => handleEdit(index, e.detail)}
-				on:duplicate={() => handleDuplicate(index)}
-				on:delete={() => handleDelete(index)}
-			/>
+			{#snippet children({ item, index })}
+				<SavedScheduleItem
+					schedule={item}
+					onEdit={(e) => handleEdit(index, e)}
+					onDuplicate={() => handleDuplicate(index)}
+					onDelete={() => handleDelete(index)}
+				/>
+			{/snippet}
 		</DraggableList>
 	</Accordion>
 </div>

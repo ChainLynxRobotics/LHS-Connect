@@ -2,7 +2,11 @@
 	import type { LinkCard } from '$lib/types/HomePageData';
 	import ExternalLink from '../ExternalLink.svelte';
 
-	export let card: LinkCard;
+	interface Props {
+		card: LinkCard;
+	}
+
+	let { card }: Props = $props();
 </script>
 
 <div

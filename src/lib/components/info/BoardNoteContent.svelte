@@ -3,7 +3,11 @@
 	import { ChevronRightOutline } from 'flowbite-svelte-icons';
 	import SvelteMarkdown from 'svelte-markdown';
 
-	export let note: Note;
+	interface Props {
+		note: Note;
+	}
+
+	let { note }: Props = $props();
 </script>
 
 <div

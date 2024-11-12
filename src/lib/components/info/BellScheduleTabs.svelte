@@ -7,54 +7,59 @@
 	import { onMount } from 'svelte';
 
 	// Import the data from the parent component
-	export let data: BellScheduleData;
+	interface Props {
+		data: BellScheduleData;
+	}
+
+	let { data }: Props = $props();
 
 	// Precalculate the shown tabs and the selected tab
 
-	let tabs: ScheduleId[] = [];
-	let selectedTab = 0;
-	let upcomingSpecialSchedules: { date: number; scheduleId: ScheduleId, dateStr: string }[] = [];
+	let tabs: ScheduleId[] = $state([]);
+	let selectedTab = $state(0);
 
-	let now = DateTime.now().setZone("America/Los_Angeles");
-	$: dayOfWeek = now.get("weekday");
-	let dateEpoch = DateTime.now().setZone("America/Los_Angeles").startOf("day").toMillis();
-	$: {
+	let now = $state(DateTime.now().setZone('America/Los_Angeles'));
+	let dayOfWeek = $derived(now.get('weekday'));
+	let dateEpoch = $state(DateTime.now().setZone('America/Los_Angeles').startOf('day').toMillis());
+	
+	$effect.pre(() => {
 		// Default day schedules
-		const addedSchedules = new Set();
-		tabs = [];
+		let newTabs: ScheduleId[] = [];
 		for (let i = 0; i < data.defaults.length; i++) {
-        const scheduleId = data.defaults[i];
-			if (!addedSchedules.has(scheduleId)) {
-				tabs.push(scheduleId);
-				addedSchedules.add(scheduleId);
+			const scheduleId = data.defaults[i];
+			if (!newTabs.includes(scheduleId)) {
+				newTabs.push(scheduleId);
 			}
-			if (dayOfWeek === i) selectedTab = tabs.indexOf(scheduleId);
+			if (dayOfWeek === i) selectedTab = newTabs.indexOf(scheduleId);
 		}
 
 		// Get the special schedule for today
 		const specials = data.specials.filter((item) => item.date === dateEpoch);
 		for (let i = 0; i < specials.length; i++) {
 			const scheduleId = specials[i].scheduleId;
-			if (tabs.includes(scheduleId)) continue;
-			tabs.unshift(scheduleId);
+			if (newTabs.includes(scheduleId)) continue;
+			newTabs.unshift(scheduleId);
 			selectedTab = 0;
 		}
 
-		// Add any future special schedules
-		upcomingSpecialSchedules = data.specials
-			.filter((item) => item.date > dateEpoch)
-			.map((item) => ({
-				...item,
-				dateStr: DateTime.fromMillis(item.date).toFormat('L/d/yy')
-			}));
-	}
+		tabs = newTabs;
+	});
+
+	// Add any future special schedules
+	let upcomingSpecialSchedules: { date: number; scheduleId: ScheduleId; dateStr: string }[] = $derived(data.specials
+		.filter((item) => item.date > dateEpoch)
+		.map((item) => ({
+			...item,
+			dateStr: DateTime.fromMillis(item.date).toFormat('L/d/yy')
+		}))
+	);
 
 	// setInterval to update reactive data
 	onMount(() => {
 		// Update the current time every 10 seconds
 		let clear = setInterval(() => {
-			now = DateTime.now().setZone("America/Los_Angeles");
-			dateEpoch = DateTime.now().setZone("America/Los_Angeles").startOf("day").toMillis();
+			now = DateTime.now().setZone('America/Los_Angeles');
+			dateEpoch = DateTime.now().setZone('America/Los_Angeles').startOf('day').toMillis();
 		}, 10000);
 		return () => clearInterval(clear);
 	});
@@ -68,23 +73,19 @@
 >
 	{#each tabs as scheduleId, i}
 		{@const schedule = data.schedules.find((s) => s.id === scheduleId)}
-		<TabItem open={i === selectedTab}>
-			<span slot="title">{schedule?.name || "Unknown"}</span>
-			<BellScheduleTable schedule={schedule} reactive={i === selectedTab} />
+		<TabItem open={i === selectedTab} title={schedule?.name || 'Unknown'}>
+			<BellScheduleTable {schedule} reactive={i === selectedTab} />
 		</TabItem>
 	{/each}
 
 	{#if upcomingSpecialSchedules.length > 0}
-		<TabItem>
-			<div slot="title" class="flex items-center gap-2">Upcoming...</div>
+		<TabItem title="Upcoming...">
 			<Accordion multiple>
 				{#each upcomingSpecialSchedules as special}
 					{@const schedule = data.schedules.find((s) => s.id === special.scheduleId)}
 					<AccordionItem>
-						<span slot="header"
-							>{schedule?.name || "Unknown"} - {special.dateStr}</span
-						>
-						<BellScheduleTable schedule={schedule} />
+						<span slot="header">{schedule?.name || 'Unknown'} - {special.dateStr}</span>
+						<BellScheduleTable {schedule} />
 					</AccordionItem>
 				{/each}
 			</Accordion>

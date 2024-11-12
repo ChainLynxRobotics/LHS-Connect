@@ -1,5 +1,3 @@
-<svelte:options accessors />
-
 <script lang="ts" generics="ID extends string = string">
 	import { Input, Label, Select } from 'flowbite-svelte';
 	import type { LabelProps } from 'flowbite-svelte/Label.svelte';
@@ -8,44 +6,55 @@
 	import ValidatedHelper from './util/ValidatedHelper.svelte';
 	import { ObjectSchema, type StringSchema, ValidationError } from 'yup';
 
-	/**
-	 * The id of the input element
-	 */
-	export let id: ID;
-	/**
-	 * The label of the input element, shown above the input. Also used for error messages if `contentName` is not provided
-	 */
-	export let label: string | undefined = undefined;
-	/**
-	 * The value of the input element, used for two-way binding
-	 */
-	export let value: string = '';
+	interface Props {
+		/**
+		 * The id of the input element
+		 */
+		id: ID;
+		/**
+		 * The label of the input element, shown above the input. Also used for error messages if `contentName` is not provided
+		 */
+		label?: string | undefined;
+		/**
+		 * The value of the input element, used for two-way binding
+		 */
+		value?: string;
+		/**
+		 * The validator for the input element
+		 */
+		validator?: StringSchema<string | undefined, any, any, any> | undefined;
+		/**
+		 * The validator for the input element, but uses the `validateAt` method of an object schema with the provided id as the argument
+		 */
+		validatorObject?: ObjectSchema<{ [k in ID]: any }> | undefined;
+		/**
+		 * VISUAL ONLY, whether the input is required or not, and should have a red asterisk
+		 */
+		visuallyRequired?: boolean | undefined;
+		/**
+		 * Props to pass to the {@link Input} component
+		 */
+		selectProps?: SelectProps;
+		/**
+		 * Props to pass to the {@link Label} component
+		 */
+		labelProps?: LabelProps;
+	}
 
-	/**
-	 * The validator for the input element
-	 */
-	export let validator: StringSchema<string|undefined, any, any, any> | undefined = undefined;
-	/**
-	 * The validator for the input element, but uses the `validateAt` method of an object schema with the provided id as the argument
-	 */
-	export let validatorObject: ObjectSchema<{ [k in ID]: any }> | undefined = undefined;
+	let {
+		id,
+		label = undefined,
+		value = $bindable(),
+		validator = undefined,
+		validatorObject = undefined,
+		visuallyRequired = false,
+		selectProps = {},
+		labelProps = {}
+	}: Props = $props();
 
-	/**
-	 * VISUAL ONLY, whether the input is required or not, and should have a red asterisk
-	 */
-	export let visuallyRequired: boolean | undefined = false;
-	/**
-	 * Props to pass to the {@link Input} component
-	 */
-	export let selectProps: SelectProps = {};
-	/**
-	 * Props to pass to the {@link Label} component
-	 */
-	export let labelProps: LabelProps = {};
+	let checkValidation = $state(false);
 
-	let checkValidation = false;
-
-	let errorMessage = '';
+	let errorMessage = $state('');
 
 	/**
 	 * Check if the input is valid, and set the error message if it is not.
@@ -54,18 +63,18 @@
 	 * @throws ValidationError - If the input is not valid
 	 * @returns The value of the input element
 	 */
-	 export async function validate(cast: boolean = true): Promise<string> {
+	export async function validate(cast: boolean = true): Promise<string> {
 		checkValidation = true;
 		try {
 			if (validatorObject) {
 				let casted = await validatorObject.validateAt(id, { [id]: value });
-				if (cast) value = casted || '';
+				if (cast) value = casted;
 			} else if (validator) {
 				let casted = await validator.validate(value);
-				if (cast) value = casted || '';
+				if (cast) value = casted;
 			}
 			errorMessage = '';
-			return value;
+			return value || '';
 		} catch (error: unknown) {
 			if (error instanceof ValidationError) {
 				errorMessage = error.message;
@@ -76,7 +85,7 @@
 		}
 	}
 
-	$: isValid = errorMessage === '';
+	let isValid = $derived(errorMessage === '');
 </script>
 
 <ValidatedLabel {id} {label} {isValid} required={visuallyRequired} {labelProps} />

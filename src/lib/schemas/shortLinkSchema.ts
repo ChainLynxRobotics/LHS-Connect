@@ -7,7 +7,7 @@ const shortLinkSchema = object({
 		.required()
 		.matches(/^[a-zA-Z0-9-]{1,32}$/, 'Suffix must only contain letters, numbers, and dashes')
 		.label('Suffix'),
-	password: string().optional().label('Password'),
+	password: string().optional().label('Password')
 });
 
 export default shortLinkSchema;

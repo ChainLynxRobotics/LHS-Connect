@@ -1,15 +1,19 @@
 <script lang="ts">
 	import { Helper } from 'flowbite-svelte';
 
-	/**
-	 * Whether the input is valid or not, only renders the error message if false
-	 * @default true
-	 */
-	export let isValid = true;
-	/**
-	 * The error message to display if the input is not valid
-	 */
-	export let errorMessage: string | undefined = undefined;
+	interface Props {
+		/**
+		 * Whether the input is valid or not, only renders the error message if false
+		 * @default true
+		 */
+		isValid?: boolean;
+		/**
+		 * The error message to display if the input is not valid
+		 */
+		errorMessage?: string;
+	}
+
+	let { isValid = true, errorMessage }: Props = $props();
 </script>
 
 {#if !isValid && errorMessage}

@@ -1,42 +1,41 @@
 <script lang="ts">
-	import ValidatedInput from "$components/form/ValidatedInput.svelte";
-	import shortLinkSchema from "$lib/schemas/shortLinkSchema";
-	import type { ShortLinkData } from "$lib/types/LinkGeneratorData";
-	import { Button } from "flowbite-svelte";
-	import { createEventDispatcher } from "svelte";
+	import ValidatedInput from '$components/form/ValidatedInput.svelte';
+	import shortLinkSchema from '$lib/schemas/shortLinkSchema';
+	import type { ShortLinkData } from '$lib/types/LinkGeneratorData';
+	import { Button } from 'flowbite-svelte';
 
+	interface Props {
+		link: ShortLinkData;
+		onSubmit: (link: ShortLinkData) => void;
+		onCancel: () => void;
+	}
 
-    export let link: ShortLinkData;
+	let { link, onSubmit: submit, onCancel: cancel }: Props = $props();
 
-    const dispatch = createEventDispatcher<{
-        submit: ShortLinkData;
-        cancel: null;
-    }>();
+	let suffix = $state(link.suffix);
+	let url = $state(link.url);
+	let password = $state(link.password);
 
-    let suffix = link.suffix;
-    let url = link.url;
-    let password = link.password;
+	let suffixInput: ValidatedInput<'suffix'>|undefined = $state();
+	let urlInput: ValidatedInput<'url'>|undefined = $state();
+	let passwordInput: ValidatedInput<'password'>|undefined = $state();
 
-    let suffixInput: ValidatedInput<'suffix'>;
-    let urlInput: ValidatedInput<'url'>;
-    let passwordInput: ValidatedInput<'password'>;
-
-    async function handleEditModalSubmit(e: SubmitEvent) {
-        const link = {
-            suffix: await suffixInput.validate(),
-            url: await urlInput.validate(),
-            password: await passwordInput.validate()
-        };
-        dispatch('submit', link);
-    }
-
+	async function onsubmit(e: Event) {
+		e.preventDefault();
+		const link = {
+			suffix: await suffixInput!.validate(),
+			url: await urlInput!.validate(),
+			password: await passwordInput!.validate()
+		};
+		submit(link);
+	}
 </script>
 
-<form class="flex flex-col space-y-6" on:submit|preventDefault={handleEditModalSubmit}>
-    <div>
+<form class="flex flex-col space-y-6" {onsubmit}>
+	<div>
 		<h3 class="mb-2 text-xl font-medium text-gray-900 dark:text-white">Edit Club</h3>
 	</div>
-    <div>
+	<div>
 		<ValidatedInput
 			bind:this={suffixInput}
 			id="suffix"
@@ -46,30 +45,29 @@
 			visuallyRequired
 		/>
 	</div>
-    <div>
-        <ValidatedInput
-            bind:this={urlInput}
-            id="url"
-            label="Url"
-            bind:value={url}
-            validatorObject={shortLinkSchema}
-            visuallyRequired
-            inputProps={{ type: 'url' }}
-        />
-    </div>
-    <div>
-        <ValidatedInput
-            bind:this={passwordInput}
-            id="password"
-            label="Password"
-            bind:value={password}
-            validatorObject={shortLinkSchema}
-        />
-    </div>
+	<div>
+		<ValidatedInput
+			bind:this={urlInput}
+			id="url"
+			label="Url"
+			bind:value={url}
+			validatorObject={shortLinkSchema}
+			visuallyRequired
+			inputProps={{ type: 'url' }}
+		/>
+	</div>
+	<div>
+		<ValidatedInput
+			bind:this={passwordInput}
+			id="password"
+			label="Password"
+			bind:value={password}
+			validatorObject={shortLinkSchema}
+		/>
+	</div>
 
-    <div class="mb-4 mt-6 flex gap-4 justify-center">
-		<Button type="button" color="alternative" on:click={() => dispatch('cancel')}>Cancel</Button>
+	<div class="mb-4 mt-6 flex justify-center gap-4">
+		<Button type="button" color="alternative" on:click={cancel}>Cancel</Button>
 		<Button type="submit">Save</Button>
 	</div>
 </form>
-

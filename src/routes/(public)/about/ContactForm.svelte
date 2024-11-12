@@ -15,17 +15,17 @@
 		{ value: 'other', name: 'Other' }
 	];
 
-	let emailInput: ValidatedInput<'email'>;
-	let typeInput: ValidatedSelect<'type'>;
-	let messageInput: ValidatedTextarea<'message'>;
+	let emailInput: ValidatedInput<'email'>|undefined = $state();
+	let typeInput: ValidatedSelect<'type'>|undefined = $state();
+	let messageInput: ValidatedTextarea<'message'>|undefined = $state();
 
-	let email = '';
-	let type = $page.url.searchParams.get('type') || '';
-	let message = '';
+	let email = $state('');
+	let type = $state($page.url.searchParams.get('type') || '');
+	let message = $state('');
 </script>
 
 <SectionHeader title="Contact Us" />
-<form on:submit|preventDefault={() => alert('TODO')}>
+<form onsubmit={(e) => {e.preventDefault();alert('TODO')}}>
 	<div class="grid gap-6 md:grid-cols-2">
 		<div class="mb-6">
 			<ValidatedInput

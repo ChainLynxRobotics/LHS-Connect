@@ -1,28 +1,34 @@
 <script lang="ts">
-	import type { Club } from "$lib/types/ClubPageData";
-	import { Button, Table, TableBody, TableHead, TableHeadCell } from "flowbite-svelte";
-	import EditableClub from "./EditableClub.svelte";
-	import AutoImportClubsButton from "./AutoImportClubsButton.svelte";
+	import type { Club } from '$lib/types/ClubPageData';
+	import { Button, Table, TableBody, TableHead, TableHeadCell } from 'flowbite-svelte';
+	import EditableClub from './EditableClub.svelte';
+	import AutoImportClubsButton from './AutoImportClubsButton.svelte';
 
-    export let clubs: Club[] = [];
-    $: clubs = clubs.sort((a, b) => a.name.localeCompare(b.name));
+	interface Props {
+		clubs: Club[];
+	}
 
-    function handleNew() {
-        clubs.push({
-            name: "_New Club",
-            day: "",
-            time: "",
-            location: "",
-            advisor: "",
-        });
-        clubs = clubs; // Force update
-    }
+	let { clubs }: Props = $props();
+	$effect(() => {
+		clubs = clubs.sort((a, b) => a.name.localeCompare(b.name));
+	});
 
-    function handleEdit(index: number, club: Club) {
-        clubs[index] = club;
-    }
+	function handleNew() {
+		clubs.push({
+			name: '_New Club',
+			day: '',
+			time: '',
+			location: '',
+			advisor: ''
+		});
+		clubs = clubs; // Force update
+	}
 
-    function handleDuplicate(index: number) {
+	function handleEdit(index: number, club: Club) {
+		clubs[index] = club;
+	}
+
+	function handleDuplicate(index: number) {
 		clubs.splice(index, 0, JSON.parse(JSON.stringify(clubs[index])));
 		clubs = clubs; // Force update
 	}
@@ -31,33 +37,33 @@
 		clubs.splice(index, 1);
 		clubs = clubs; // Force update
 	}
-
 </script>
 
 <div class="w-full">
-    <div class="flex justify-center mb-8 gap-8">
-        <Button color="alternative" on:click={handleNew}>Add Club</Button>
-        <AutoImportClubsButton on:submit={(e)=>clubs = e.detail} />
-    </div>
+	<div class="mb-8 flex justify-center gap-8">
+		<Button color="alternative" on:click={handleNew}>Add Club</Button>
+		<AutoImportClubsButton onSubmit={(_clubs) => (clubs = _clubs)} />
+	</div>
 
-    <Table striped shadow class="table-fixed">
-        <TableHead>
-            <TableHeadCell>Name</TableHeadCell>
-            <TableHeadCell>Day</TableHeadCell>
-            <TableHeadCell>Time</TableHeadCell>
-            <TableHeadCell>Location</TableHeadCell>
-            <TableHeadCell>Advisor</TableHeadCell>
-            <TableHeadCell>Instagram</TableHeadCell>
-            <TableHeadCell>Actions</TableHeadCell>
-        </TableHead>
-        <TableBody>
-            {#each clubs as club, index}
-                <EditableClub {club} 
-                    on:edit={(e) => handleEdit(index, e.detail)}
-                    on:duplicate={() => handleDuplicate(index)}
-                    on:delete={() => handleDelete(index)}
-                />
-            {/each}
-        </TableBody>
-    </Table>
+	<Table striped shadow class="table-fixed">
+		<TableHead>
+			<TableHeadCell>Name</TableHeadCell>
+			<TableHeadCell>Day</TableHeadCell>
+			<TableHeadCell>Time</TableHeadCell>
+			<TableHeadCell>Location</TableHeadCell>
+			<TableHeadCell>Advisor</TableHeadCell>
+			<TableHeadCell>Instagram</TableHeadCell>
+			<TableHeadCell>Actions</TableHeadCell>
+		</TableHead>
+		<TableBody>
+			{#each clubs as club, index}
+				<EditableClub
+					{club}
+					onEdit={(club) => handleEdit(index, club)}
+					onDuplicate={() => handleDuplicate(index)}
+					onDelete={() => handleDelete(index)}
+				/>
+			{/each}
+		</TableBody>
+	</Table>
 </div>

@@ -3,7 +3,11 @@
 	import type { LinkCardListData } from '$lib/types/HomePageData';
 	import EditableLinkCardList from '../useful-links/EditableLinkCardList.svelte';
 
-	export let data: LinkCardListData;
+	interface Props {
+		data: LinkCardListData;
+	}
+
+	let { data }: Props = $props();
 </script>
 
 <div class="flex flex-col items-center p-4">

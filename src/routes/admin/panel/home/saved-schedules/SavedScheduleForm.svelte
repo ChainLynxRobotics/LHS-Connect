@@ -5,30 +5,29 @@
 		bellSchedulePeriodSchemaName
 	} from '$lib/schemas/bellScheduleSchema';
 	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
-	import { Button, Table, TableBodyCell, TableHead, TableHeadCell } from 'flowbite-svelte';
-	import { createEventDispatcher } from 'svelte';
+	import { Button, Checkbox, Table, TableBodyCell, TableHead, TableHeadCell } from 'flowbite-svelte';
 	import { dragHandle, dragHandleZone } from 'svelte-dnd-action';
 	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
-	import CheckboxWithAccessors from '$components/form/CheckboxWithAccessors.svelte';
 	import { flip } from 'svelte/animate';
 
 	const flipDurationMs = 300;
 
-	export let schedule: BellSchedule;
+	interface Props {
+		schedule: BellSchedule;
+		onSubmit: (schedule: BellSchedule) => void;
+		onCancel: () => void;
+	}
 
-	const dispatch = createEventDispatcher<{
-		submit: BellSchedule;
-		cancel: null;
-	}>();
+	let { schedule, onSubmit: submit, onCancel: cancel }: Props = $props();
 
-	let name = schedule.name;
-	let desc = schedule.desc;
-	let periods = schedule.periods.map((period) => ({ ...period, id: Math.random() }));
+	let name = $state(schedule.name);
+	let desc = $state(schedule.desc);
+	let periods = $state(schedule.periods.map((period) => ({ ...period, id: Math.random() })));
 
-	let nameInput: ValidatedInput<'name'>;
-	let descInput: ValidatedTextarea<'desc'>;
-	let periodNameInputs: ValidatedInput<string>[] = [];
+	let nameInput: ValidatedInput<'name'>|undefined = $state();
+	let descInput: ValidatedTextarea<'desc'>|undefined = $state();
+	let periodNameInputs: ValidatedInput<string>[] = $state([]);
 
 	function handleAdd() {
 		periods.push({
@@ -51,16 +50,17 @@
 		periods = periods; // Force update
 	}
 
-	async function handleSave() {
+	async function onsubmit(event: Event) {
+		event.preventDefault();
 		// Validate all inputs
 		for (let periodInput of periodNameInputs) {
 			await periodInput.validate();
 		}
 
-		dispatch('submit', {
+		submit({
 			id: schedule.id,
-			name: await nameInput.validate(),
-			desc: await descInput.validate(),
+			name: await nameInput!.validate(),
+			desc: await descInput!.validate(),
 			periods: periods.map((period) => ({ ...period, id: undefined }))
 		});
 	}
@@ -73,7 +73,7 @@
 	}
 </script>
 
-<form on:submit|preventDefault={handleSave} class="flex flex-col items-center gap-2">
+<form {onsubmit} class="flex flex-col items-center gap-2">
 	<div>
 		<h3 class="mb-2 text-xl font-medium text-gray-900 dark:text-white">Edit Schedule</h3>
 	</div>
@@ -109,8 +109,8 @@
 			</TableHead>
 			<tbody
 				use:dragHandleZone={{ type: 'periods', items: periods, flipDurationMs }}
-				on:consider={handleDragConsider}
-				on:finalize={handleDragFinalize}
+				onconsider={handleDragConsider}
+				onfinalize={handleDragFinalize}
 			>
 				{#each periods as period, index (period.id)}
 					<tr
@@ -152,21 +152,19 @@
 							/>
 						</TableBodyCell>
 						<TableBodyCell>
-							<CheckboxWithAccessors
-								checkboxProps={{
-									id: `period-${index}-emphasize`,
-									name: `period-${index}-emphasize`,
-									'aria-label': 'Emphasize'
-								}}
+							<Checkbox
+								id={`period-${index}-emphasize`}
+								name={`period-${index}-emphasize`}
+								aria-label="Emphasize"
 								bind:checked={period.emphasis}
 							/>
 						</TableBodyCell>
 						<TableBodyCell>
 							<div class="flex">
-								<button type="button" on:click={() => handleDuplicate(index)} class="!p-2"
+								<button type="button" onclick={() => handleDuplicate(index)} class="!p-2"
 									><FileCopyOutline class="h-6 w-6" /></button
 								>
-								<button type="button" on:click={() => handleDelete(index)} class="!p-2"
+								<button type="button" onclick={() => handleDelete(index)} class="!p-2"
 									><TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" /></button
 								>
 							</div>
@@ -181,8 +179,8 @@
 		<Button type="button" color="alternative" on:click={handleAdd}>Add Period</Button>
 	</div>
 
-	<div class="mb-4 mt-6 flex gap-4 justify-center">
-		<Button type="button" color="alternative" on:click={() => dispatch('cancel')}>Cancel</Button>
+	<div class="mb-4 mt-6 flex justify-center gap-4">
+		<Button type="button" color="alternative" on:click={cancel}>Cancel</Button>
 		<Button type="submit">Save</Button>
 	</div>
 </form>

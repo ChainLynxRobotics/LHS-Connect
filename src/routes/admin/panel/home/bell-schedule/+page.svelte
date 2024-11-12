@@ -3,8 +3,12 @@
 	import type { BellScheduleData } from '$lib/types/HomePageData';
 	import DefaultSchedules from './DefaultSchedules.svelte';
 	import SpecialScheduleList from './SpecialScheduleList.svelte';
-    
-    export let data: BellScheduleData;
+
+	interface Props {
+		data: BellScheduleData;
+	}
+
+	let { data }: Props = $props();
 </script>
 
 <div class="flex flex-col items-center p-4">

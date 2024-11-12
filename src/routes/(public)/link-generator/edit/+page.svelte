@@ -6,16 +6,18 @@
 	import { ArrowLeftOutline, InfoCircleSolid } from 'flowbite-svelte-icons';
 	import LinkEditForm from './LinkEditForm.svelte';
 
-    let suffix: string;
-	let password: string;
-	
-	function handleLogin(event: CustomEvent<{ suffix: string; password: string }>) {
-		suffix = event.detail.suffix;
-		password = event.detail.password;
+	let suffix: string = $state('');
+	let password: string = $state('');
+
+	function handleLogin(linkLoginData: { suffix: string; password: string }) {
+		suffix = linkLoginData.suffix;
+		password = linkLoginData.password;
 		refreshData();
 	}
 
-	let linkData: Promise<{ suffix: string, url: string, hits: number, createdAt: number }>|undefined = undefined;
+	let linkData:
+		| Promise<{ suffix: string; url: string; hits: number; createdAt: number }>
+		| undefined = $state(undefined);
 	function refreshData() {
 		linkData = new Promise((resolve, reject) => {
 			setTimeout(() => {
@@ -36,23 +38,32 @@
 <div class="flex w-full flex-col items-center gap-16 p-4 pb-16">
 	<div class="w-full max-w-4xl">
 		<div class="mb-8">
-			<Button outline color="alternative" href="/link-generator"><ArrowLeftOutline/> Back to Link Generator</Button>
+			<Button outline color="alternative" href="/link-generator"
+				><ArrowLeftOutline /> Back to Link Generator</Button
+			>
 		</div>
 		<SectionHeader title="Short Link Editor" />
 		<p class="mb-12 mt-4 indent-8">
-			If you already created a short link, you can edit it here. Just paste the short link in the box below with its password and click "Verify" to proceed.
+			If you already created a short link, you can edit it here. Just paste the short link in the
+			box below with its password and click "Verify" to proceed.
 		</p>
 
-		<LinkLoginForm bind:suffix bind:password on:submit={handleLogin} />
+		<LinkLoginForm bind:suffix bind:password onSubmit={handleLogin} />
 
 		{#if linkData}
 			{#await linkData}
-				<div class="mt-16 w-full flex justify-center">
-					<Spinner class="w-12 h-12 text-primary-500" />
+				<div class="mt-16 flex w-full justify-center">
+					<Spinner class="h-12 w-12 text-primary-500" />
 				</div>
-			{:then data} 
+			{:then data}
 				<div class="mt-16" transition:slide>
-					<LinkEditForm {suffix} {password} url={"https://example.com/"} hits={134} createdAt={Date.now()} />
+					<LinkEditForm
+						{suffix}
+						{password}
+						url={'https://example.com/'}
+						hits={134}
+						createdAt={Date.now()}
+					/>
 				</div>
 			{:catch error}
 				<div class="mt-8" transition:slide>
