@@ -21,7 +21,7 @@
 	let now = $state(DateTime.now().setZone('America/Los_Angeles'));
 	let dayOfWeek = $derived(now.get('weekday'));
 	let dateEpoch = $state(DateTime.now().setZone('America/Los_Angeles').startOf('day').toMillis());
-	
+
 	$effect.pre(() => {
 		// Default day schedules
 		let newTabs: ScheduleId[] = [];
@@ -46,13 +46,15 @@
 	});
 
 	// Add any future special schedules
-	let upcomingSpecialSchedules: { date: number; scheduleId: ScheduleId; dateStr: string }[] = $derived(data.specials
-		.filter((item) => item.date > dateEpoch)
-		.map((item) => ({
-			...item,
-			dateStr: DateTime.fromMillis(item.date).toFormat('L/d/yy')
-		}))
-	);
+	let upcomingSpecialSchedules: { date: number; scheduleId: ScheduleId; dateStr: string }[] =
+		$derived(
+			data.specials
+				.filter((item) => item.date > dateEpoch)
+				.map((item) => ({
+					...item,
+					dateStr: DateTime.fromMillis(item.date).toFormat('L/d/yy')
+				}))
+		);
 
 	// setInterval to update reactive data
 	onMount(() => {

@@ -4,10 +4,10 @@
 	import { Button, Checkbox, Modal } from 'flowbite-svelte';
 	import { ExclamationCircleOutline } from 'flowbite-svelte-icons';
 
-	let form: HTMLFormElement|undefined = $state();
+	let form: HTMLFormElement | undefined = $state();
 
-	let emailInput: ValidatedInput<'email'>|undefined = $state();
-	let passwordInput: ValidatedInput<'password'>|undefined = $state();
+	let emailInput: ValidatedInput<'email'> | undefined = $state();
+	let passwordInput: ValidatedInput<'password'> | undefined = $state();
 
 	let isSubmitting = false;
 	async function onsubmit(event: Event) {
@@ -26,13 +26,7 @@
 	let passwordInfoOpen = $state(false);
 </script>
 
-<form
-	bind:this={form}
-	{onsubmit}
-	method="post"
-	novalidate
-	class="flex flex-col space-y-6"
->
+<form bind:this={form} {onsubmit} method="post" novalidate class="flex flex-col space-y-6">
 	<h3 class="text-xl font-medium text-gray-900 dark:text-white">Sign in to LHS Connect Admin</h3>
 	<div class="">
 		<ValidatedInput

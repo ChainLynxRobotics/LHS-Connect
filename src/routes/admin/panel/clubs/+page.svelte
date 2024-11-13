@@ -36,7 +36,7 @@
 					<AutoImportClubsButton onSubmit={updateAll} />
 				</div>
 
-				<Table striped shadow class="table-fixed min-w-[1024px]">
+				<Table striped shadow class="min-w-[1024px] table-fixed">
 					<TableHead>
 						<TableHeadCell>Name</TableHeadCell>
 						<TableHeadCell>Day</TableHeadCell>

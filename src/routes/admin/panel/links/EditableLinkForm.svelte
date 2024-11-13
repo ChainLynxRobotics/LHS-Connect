@@ -16,9 +16,9 @@
 	let url = $state(link.url);
 	let password = $state(link.password);
 
-	let suffixInput: ValidatedInput<'suffix'>|undefined = $state();
-	let urlInput: ValidatedInput<'url'>|undefined = $state();
-	let passwordInput: ValidatedInput<'password'>|undefined = $state();
+	let suffixInput: ValidatedInput<'suffix'> | undefined = $state();
+	let urlInput: ValidatedInput<'url'> | undefined = $state();
+	let passwordInput: ValidatedInput<'password'> | undefined = $state();
 
 	async function onsubmit(e: Event) {
 		e.preventDefault();

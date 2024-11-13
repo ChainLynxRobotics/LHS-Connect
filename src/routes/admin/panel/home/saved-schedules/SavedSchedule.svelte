@@ -41,10 +41,8 @@
 				><EditOutline class="h-6 w-6" /></button
 			>
 			<Tooltip>Edit</Tooltip>
-			<button
-				title="Duplicate"
-				onclick={onDuplicate}
-				class="!p-2"><FileCopyOutline class="h-6 w-6" /></button
+			<button title="Duplicate" onclick={onDuplicate} class="!p-2"
+				><FileCopyOutline class="h-6 w-6" /></button
 			>
 			<Tooltip>Duplicate</Tooltip>
 			<button title="Delete" onclick={onRemove} class="!p-2"

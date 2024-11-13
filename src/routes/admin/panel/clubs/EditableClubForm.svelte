@@ -21,13 +21,13 @@
 	let instagram = $state(club.instagram);
 	let desc = $state(club.desc);
 
-	let nameInput: ValidatedInput<'name'>|undefined = $state();
-	let dayInput: ValidatedInput<'day'>|undefined = $state();
-	let timeInput: ValidatedInput<'time'>|undefined = $state();
-	let locationInput: ValidatedInput<'location'>|undefined = $state();
-	let advisorInput: ValidatedInput<'advisor'>|undefined = $state();
-	let instagramInput: ValidatedInput<'instagram'>|undefined = $state();
-	let descInput: ValidatedTextarea<'desc'>|undefined = $state();
+	let nameInput: ValidatedInput<'name'> | undefined = $state();
+	let dayInput: ValidatedInput<'day'> | undefined = $state();
+	let timeInput: ValidatedInput<'time'> | undefined = $state();
+	let locationInput: ValidatedInput<'location'> | undefined = $state();
+	let advisorInput: ValidatedInput<'advisor'> | undefined = $state();
+	let instagramInput: ValidatedInput<'instagram'> | undefined = $state();
+	let descInput: ValidatedTextarea<'desc'> | undefined = $state();
 
 	async function onsubmit(e: Event) {
 		e.preventDefault();

@@ -3,12 +3,12 @@
 	import adminRegisterSchema from '$lib/schemas/adminRegisterSchema';
 	import { Button, Checkbox, Helper } from 'flowbite-svelte';
 
-	let form: HTMLFormElement|undefined = $state();
+	let form: HTMLFormElement | undefined = $state();
 
-	let emailInput: ValidatedInput<'email'>|undefined = $state();
-	let passwordInput: ValidatedInput<'password'>|undefined = $state();
-	let confirmPasswordInput: ValidatedInput<'confirmPassword'>|undefined = $state();
-	let keyInput: ValidatedInput<'key'>|undefined = $state();
+	let emailInput: ValidatedInput<'email'> | undefined = $state();
+	let passwordInput: ValidatedInput<'password'> | undefined = $state();
+	let confirmPasswordInput: ValidatedInput<'confirmPassword'> | undefined = $state();
+	let keyInput: ValidatedInput<'key'> | undefined = $state();
 
 	let isSubmitting = false;
 	async function onsubmit(event: Event) {

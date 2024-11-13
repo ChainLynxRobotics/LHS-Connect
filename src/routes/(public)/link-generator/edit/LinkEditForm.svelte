@@ -13,7 +13,7 @@
 
 	let { suffix, password, url = $bindable(''), hits = 0, createdAt = 0 }: Props = $props();
 
-	let urlInput: ValidatedInput<'url'>|undefined = $state();
+	let urlInput: ValidatedInput<'url'> | undefined = $state();
 
 	async function onsubmit() {
 		const shortLinkData = {

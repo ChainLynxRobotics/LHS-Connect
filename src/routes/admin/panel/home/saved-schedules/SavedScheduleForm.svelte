@@ -5,7 +5,14 @@
 		bellSchedulePeriodSchemaName
 	} from '$lib/schemas/bellScheduleSchema';
 	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
-	import { Button, Checkbox, Table, TableBodyCell, TableHead, TableHeadCell } from 'flowbite-svelte';
+	import {
+		Button,
+		Checkbox,
+		Table,
+		TableBodyCell,
+		TableHead,
+		TableHeadCell
+	} from 'flowbite-svelte';
 	import { dragHandle, dragHandleZone } from 'svelte-dnd-action';
 	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
@@ -25,8 +32,8 @@
 	let desc = $state(schedule.desc);
 	let periods = $state(schedule.periods.map((period) => ({ ...period, id: Math.random() })));
 
-	let nameInput: ValidatedInput<'name'>|undefined = $state();
-	let descInput: ValidatedTextarea<'desc'>|undefined = $state();
+	let nameInput: ValidatedInput<'name'> | undefined = $state();
+	let descInput: ValidatedTextarea<'desc'> | undefined = $state();
 	let periodNameInputs: ValidatedInput<string>[] = $state([]);
 
 	function handleAdd() {

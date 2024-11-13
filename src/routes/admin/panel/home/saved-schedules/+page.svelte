@@ -42,7 +42,7 @@
 				<Accordion flush defaultClass="w-full max-w-lg mx-auto">
 					<DraggableList
 						dragZoneType="schedules"
-						items={items}
+						{items}
 						updateOrder={reorder}
 						sectionClass="py-4"
 						dragWrapperClass="bg-white dark:bg-gray-900"

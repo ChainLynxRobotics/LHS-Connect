@@ -28,7 +28,7 @@
 
 	let fillColor = $derived(!dark ? '#000000' : '#ffffff');
 	let backgroundFillColor = $derived(transparent ? 'transparent' : !dark ? '#ffffff' : '#000000');
-	
+
 	let qrConfig: ImgQRParameter = $derived({
 		data: debouncedData,
 		width: 512,

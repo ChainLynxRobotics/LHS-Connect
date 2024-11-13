@@ -16,9 +16,9 @@
 
 	let modalOpen = $state(false);
 
-	let startInput: ValidatedInput|undefined = $state();
-	let endInput: ValidatedInput|undefined = $state();
-	let csvInput: ValidatedTextarea|undefined = $state();
+	let startInput: ValidatedInput | undefined = $state();
+	let endInput: ValidatedInput | undefined = $state();
+	let csvInput: ValidatedTextarea | undefined = $state();
 
 	async function onsubmit(event: Event) {
 		event.preventDefault();

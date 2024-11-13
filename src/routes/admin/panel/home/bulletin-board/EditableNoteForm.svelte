@@ -17,9 +17,9 @@
 	let content = $state(note.content);
 	let link = $state(note.link);
 
-	let titleInput: ValidatedInput<'title'>|undefined = $state();
-	let contentInput: ValidatedTextarea<'content'>|undefined = $state();
-	let linkInput: ValidatedInput<'link'>|undefined = $state();
+	let titleInput: ValidatedInput<'title'> | undefined = $state();
+	let contentInput: ValidatedTextarea<'content'> | undefined = $state();
+	let linkInput: ValidatedInput<'link'> | undefined = $state();
 
 	async function onsubmit(e: Event) {
 		e.preventDefault();

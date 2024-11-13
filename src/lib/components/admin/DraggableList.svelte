@@ -39,7 +39,6 @@
 		visualItems = [...items]; // Reset visualItems when items change
 	});
 
-
 	function handleDndConsider(e: CustomEvent<{ items: Item[] }>) {
 		visualItems = e.detail.items;
 	}
@@ -70,7 +69,7 @@
 			class={dragWrapperClass}
 			{...dragWrapperProps}
 		>
-			{@render item?.( _item, index )}
+			{@render item?.(_item, index)}
 		</svelte:element>
 	{/each}
 </svelte:element>

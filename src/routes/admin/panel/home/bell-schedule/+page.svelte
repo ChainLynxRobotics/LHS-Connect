@@ -31,14 +31,14 @@
 		<p class="mb-8">Special schedules that override the default schedules on specific dates.</p>
 		<CrudList
 			initialItems={data.specials}
-			generateNewItem={()=>({
+			generateNewItem={() => ({
 				date: DateTime.now().setZone('America/Los_Angeles').startOf('day').toMillis(),
 				scheduleId: data.schedules[0]?.id
 			})}
 			canReorder={false}
 			sortFn={(a, b) => a.date - b.date}
 		>
-			{#snippet renderItems({ items, create})}
+			{#snippet renderItems({ items, create })}
 				<div class="mb-8 flex justify-center gap-8">
 					<Button color="alternative" on:click={create}>Add Schedule Override</Button>
 				</div>

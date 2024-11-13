@@ -28,14 +28,7 @@
 		children?: Snippet;
 	}
 
-	let {
-		id,
-		label,
-		labelProps = {},
-		isValid = true,
-		required = false,
-		children
-	}: Props = $props();
+	let { id, label, labelProps = {}, isValid = true, required = false, children }: Props = $props();
 </script>
 
 {#if label}

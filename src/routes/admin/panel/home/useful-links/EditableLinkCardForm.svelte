@@ -25,8 +25,8 @@
 	let subtitle = $state(card.subtitle);
 	let links = $state(card.links.map((link) => ({ ...link, id: Math.random() })));
 
-	let titleInput: ValidatedInput<'title'>|undefined = $state();
-	let subtitleInput: ValidatedInput<'subtitle'>|undefined = $state();
+	let titleInput: ValidatedInput<'title'> | undefined = $state();
+	let subtitleInput: ValidatedInput<'subtitle'> | undefined = $state();
 	let linkNameInputs: ValidatedInput<string>[] = $state([]);
 	let linkUrlInputs: ValidatedInput<string>[] = $state([]);
 

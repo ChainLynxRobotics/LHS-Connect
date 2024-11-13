@@ -32,7 +32,7 @@
 				</div>
 				<DraggableList
 					dragZoneType="cards"
-					items={items}
+					{items}
 					updateOrder={reorder}
 					sectionClass="flex flex-col gap-4 py-4 items-center"
 				>

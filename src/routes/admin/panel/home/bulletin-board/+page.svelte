@@ -29,18 +29,13 @@
 				</div>
 				<DraggableList
 					dragZoneType="notes"
-					items={items}
+					{items}
 					updateOrder={reorder}
 					sectionClass="flex max-w-lg flex-col gap-4 py-4 mx-auto"
 					dragWrapperClass="w-full"
 				>
 					{#snippet item({ item, update, duplicate, remove })}
-						<EditableNote
-							note={item}
-							onUpdate={update}
-							onDuplicate={duplicate}
-							onRemove={remove}
-						/>
+						<EditableNote note={item} onUpdate={update} onDuplicate={duplicate} onRemove={remove} />
 					{/snippet}
 				</DraggableList>
 			{/snippet}

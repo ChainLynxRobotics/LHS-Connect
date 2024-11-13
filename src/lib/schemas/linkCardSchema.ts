@@ -2,10 +2,7 @@ import { array, object, string, type InferType } from 'yup';
 import urlRegex from './url';
 
 export const linkCardSchemaLinkName = string().required().max(64).label('Name');
-export const linkCardSchemaLinkUrl = string()
-	.required()
-	.max(512)
-	.label('URL');
+export const linkCardSchemaLinkUrl = string().required().max(512).label('URL');
 
 export const linkCardLinkSchema = object({
 	name: linkCardSchemaLinkName,

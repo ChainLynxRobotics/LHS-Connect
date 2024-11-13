@@ -68,7 +68,7 @@
 			{:catch error}
 				<div class="mt-8" transition:slide>
 					<Alert type="error">
-						<InfoCircleSolid slot="icon" class="w-5 h-5" />
+						<InfoCircleSolid slot="icon" class="h-5 w-5" />
 						<span>Error: {error.message}</span>
 					</Alert>
 				</div>

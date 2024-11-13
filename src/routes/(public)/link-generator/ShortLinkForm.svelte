@@ -12,9 +12,9 @@
 	} from 'flowbite-svelte-icons';
 	import { slide } from 'svelte/transition';
 
-	let suffixInput: ValidatedInputGroup<'suffix'>|undefined = $state();
-	let urlInput: ValidatedInput<'url'>|undefined = $state();
-	let passwordInput: ValidatedInputGroup<'password'>|undefined = $state();
+	let suffixInput: ValidatedInputGroup<'suffix'> | undefined = $state();
+	let urlInput: ValidatedInput<'url'> | undefined = $state();
+	let passwordInput: ValidatedInputGroup<'password'> | undefined = $state();
 
 	let suffix: string = $state('');
 	let url: string = $state('');

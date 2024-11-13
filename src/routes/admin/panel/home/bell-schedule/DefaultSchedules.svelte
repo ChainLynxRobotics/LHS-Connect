@@ -7,9 +7,7 @@
 		TableBodyCell,
 		TableHead,
 		TableHeadCell,
-
 		type SelectOptionType
-
 	} from 'flowbite-svelte';
 
 	interface Props {
@@ -18,7 +16,6 @@
 	}
 
 	let { scheduleOptions = [], defaults = $bindable([]) }: Props = $props();
-
 </script>
 
 <div class="w-full">

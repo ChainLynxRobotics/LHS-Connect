@@ -38,11 +38,7 @@
 					</TableHead>
 					<TableBody>
 						{#each items as { item, update, remove } (item.id)}
-							<EditableLink
-								link={item}
-								onUpdate={update}
-								onRemove={remove}
-							/>
+							<EditableLink link={item} onUpdate={update} onRemove={remove} />
 						{/each}
 					</TableBody>
 				</Table>

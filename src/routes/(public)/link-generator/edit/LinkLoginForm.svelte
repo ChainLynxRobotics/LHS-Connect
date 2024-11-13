@@ -22,8 +22,8 @@
 		suffix = suffix.replace('https://lhs.cx/', '');
 	});
 
-	let suffixInput: ValidatedInput<'suffix'>|undefined = $state();
-	let passwordInput: ValidatedInput<'password'>|undefined = $state();
+	let suffixInput: ValidatedInput<'suffix'> | undefined = $state();
+	let passwordInput: ValidatedInput<'password'> | undefined = $state();
 
 	async function onsubmit(event: Event) {
 		event.preventDefault();

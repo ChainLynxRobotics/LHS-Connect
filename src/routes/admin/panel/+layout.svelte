@@ -85,7 +85,7 @@
 
 	let breakPoint: number = 1024;
 	let width: number = $state(0);
-	let mobile = $derived(width < breakPoint)
+	let mobile = $derived(width < breakPoint);
 
 	let drawerHidden = $state(false);
 
@@ -119,7 +119,7 @@
 	}}
 	width="w-64"
 	class="pb-32"
-	divClass="overflow-y-auto z-40 p-4 bg-white dark:bg-gray-800"
+	divClass="overflow-y-auto z-40 p-4 bg-gray-100 dark:bg-gray-800"
 >
 	<div class="flex items-center">
 		<CloseButton on:click={() => (drawerHidden = true)} class="mb-4 dark:text-white lg:hidden" />
