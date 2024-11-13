@@ -4,7 +4,7 @@
 	import SectionHeader from '$components/SectionHeader.svelte';
 	import type { SavedScheduleData, TimeString } from '$lib/types/HomePageData';
 	import { Button, Accordion } from 'flowbite-svelte';
-	import SavedScheduleItem from './SavedScheduleItem.svelte';
+	import SavedSchedule from './SavedSchedule.svelte';
 
 	interface Props {
 		data: SavedScheduleData;
@@ -48,7 +48,7 @@
 						dragWrapperClass="bg-white dark:bg-gray-900"
 					>
 						{#snippet item({ item, update, duplicate, remove })}
-							<SavedScheduleItem
+							<SavedSchedule
 								schedule={item}
 								onUpdate={update}
 								onDuplicate={duplicate}

@@ -4,7 +4,7 @@
 	import { Modal } from 'flowbite-svelte';
 	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { dragHandle } from 'svelte-dnd-action';
-	import EditLinkCardForm from './EditLinkCardForm.svelte';
+	import EditableLinkCardForm from './EditableLinkCardForm.svelte';
 
 	interface Props {
 		card: LinkCard;
@@ -41,7 +41,7 @@
 </div>
 
 <Modal bind:open={editModalOpen} size="md" autoclose={false}>
-	<EditLinkCardForm
+	<EditableLinkCardForm
 		{card}
 		onSubmit={handleEditModalSubmit}
 		onCancel={() => (editModalOpen = false)}

@@ -5,7 +5,7 @@
 	import { Modal, TableBodyCell, TableBodyRow, Tooltip, A } from 'flowbite-svelte';
 	import { EditOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { DateTime } from 'luxon';
-	import EditLinkForm from './EditLinkForm.svelte';
+	import EditableLinkForm from './EditableLinkForm.svelte';
 
 	interface Props {
 		link: AdminShortLinkData;
@@ -54,7 +54,7 @@
 </TableBodyRow>
 
 <Modal bind:open={editModalOpen} size="sm" autoclose={false}>
-	<EditLinkForm
+	<EditableLinkForm
 		{link}
 		onSubmit={handleEditModalSubmit}
 		onCancel={() => (editModalOpen = false)}

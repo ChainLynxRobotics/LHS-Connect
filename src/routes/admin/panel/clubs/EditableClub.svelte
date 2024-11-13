@@ -10,7 +10,7 @@
 		TrashBinOutline,
 		InfoCircleOutline
 	} from 'flowbite-svelte-icons';
-	import EditClubForm from './EditClubForm.svelte';
+	import EditableClubForm from './EditableClubForm.svelte';
 
 	interface Props {
 		club: Club;
@@ -67,7 +67,7 @@
 </TableBodyRow>
 
 <Modal bind:open={editModalOpen} size="sm" autoclose={false}>
-	<EditClubForm
+	<EditableClubForm
 		{club}
 		onSubmit={handleEditModalSubmit}
 		onCancel={() => (editModalOpen = false)}
