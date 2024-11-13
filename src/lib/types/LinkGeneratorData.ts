@@ -15,13 +15,17 @@ export interface ShortLinkData {
 
 export interface AdminShortLinkData extends ShortLinkData {
 	/**
+	 * The internal id of the link.
+	 */
+	id: number;
+	/**
 	 * The date the link was created in epoch time.
 	 */
 	readonly createdAt: number;
 	/**
 	 * The number of times the link has been clicked.
 	 */
-	uses: number;
+	readonly uses: number;
 }
 
 export interface AdminShortLinkListData {

@@ -20,10 +20,13 @@
         remove: () => void;
     }
 
-    interface BaseProps {
+    interface Props {
         initialItems: Item[];
-        generateNewItem: () => ItemWithoutID;
-        renderItems: Snippet<[ItemListDisplayProps]>;
+        /**
+         * Function to generate a new item. Required if `canCreate` is true (which it defaults to).
+         */
+        generateNewItem?: () => ItemWithoutID;
+        renderItems?: Snippet<[ItemListDisplayProps]>;
         canCreate?: boolean;
         canDuplicate?: boolean;
         canUpdate?: boolean;
@@ -31,15 +34,11 @@
 
         canReorder?: boolean;
         sortFn?: (a: Item, b: Item) => number;
+        /**
+         * The initial order of the items. This is required if `canReorder` is true.
+         */
         initialOrder?: number[];
     }
-
-    type Props = BaseProps & ({
-        canReorder: false;
-    } | {
-        canReorder: true;
-        initialOrder: number[]; // Required if canReorder is true
-    });
 
     let {
         initialItems,
@@ -56,10 +55,11 @@
     }: Props = $props();
 
     let items: Item[] = $state(initialItems);
-    let order: number[]|undefined = $state(canReorder ? sanitizeOrder(initialOrder!) : undefined);
+    let order: number[]|undefined = $state(canReorder && initialOrder ? sanitizeOrder(initialOrder) : undefined);
 
     function create() {
         if (!canCreate) return;
+        if (!generateNewItem) throw new Error("Missing generateNewItem function");
 
         const newId = generateRandomId();
         items.push({...generateNewItem(), id: newId} as Item);
@@ -146,7 +146,7 @@
     }
 </script>
 
-{@render renderItems({
+{@render renderItems?.({
     items: sort(items).map((_item, index) => ({
         id: _item.id,
         item: _item,

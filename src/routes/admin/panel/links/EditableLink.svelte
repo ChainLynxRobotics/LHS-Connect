@@ -9,16 +9,19 @@
 
 	interface Props {
 		link: AdminShortLinkData;
-		onEdit: (e: ShortLinkData) => void;
-		onDelete: () => void;
+		onUpdate: (e: AdminShortLinkData) => void;
+		onRemove: () => void;
 	}
 
-	let { link, onEdit: edit, onDelete: _delete }: Props = $props();
+	let { link, onUpdate, onRemove }: Props = $props();
 
 	let editModalOpen = $state(false);
 
 	function handleEditModalSubmit(e: ShortLinkData) {
-		edit(e);
+		onUpdate({
+			...link,
+			...e
+		});
 		editModalOpen = false;
 	}
 </script>
@@ -40,12 +43,12 @@
 	<TableBodyCell tdClass="p-4 py-4 font-medium max-w-sm">{link.uses}</TableBodyCell>
 	<TableBodyCell tdClass="p-2 py-4 font-medium max-w-sm align-top">
 		<div class="flex justify-center">
-			<button title="Edit" onclick={stopPropagation(() => (editModalOpen = true))} class="!p-2"
+			<button title="Edit" onclick={() => (editModalOpen = true)} class="!p-2"
 				><EditOutline class="h-6 w-6" /></button
 			>
 			<Tooltip>Edit</Tooltip>
 
-			<button title="Delete" onclick={stopPropagation(_delete)} class="!p-2"
+			<button title="Delete" onclick={onRemove} class="!p-2"
 				><TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" /></button
 			>
 			<Tooltip>Delete</Tooltip>
