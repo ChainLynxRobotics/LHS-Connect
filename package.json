@@ -45,5 +45,8 @@
 		"yup": "^1.4.0"
 	},
 	"type": "module",
-	"packageManager": "pnpm@9.9.0"
+	"packageManager": "pnpm@9.9.0",
+	"dependencies": {
+		"mongoose": "^8.8.1"
+	}
 }
