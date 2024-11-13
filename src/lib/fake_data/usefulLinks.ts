@@ -3,6 +3,7 @@ import type { LinkCardListData } from '$lib/types/HomePageData';
 const usefulLinks: LinkCardListData = {
 	cards: [
 		{
+			id: 1,
 			title: 'Lincoln Media',
 			links: [
 				{
@@ -28,6 +29,7 @@ const usefulLinks: LinkCardListData = {
 			]
 		},
 		{
+			id: 2,
 			title: 'Athletics',
 			links: [
 				{
@@ -49,6 +51,7 @@ const usefulLinks: LinkCardListData = {
 			]
 		},
 		{
+			id: 3,
 			title: 'Merch & Fundraisers',
 			links: [
 				{
@@ -58,6 +61,7 @@ const usefulLinks: LinkCardListData = {
 			]
 		},
 		{
+			id: 4,
 			title: 'Other',
 			links: [
 				{

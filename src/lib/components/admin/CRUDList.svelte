@@ -1,8 +1,8 @@
-<script lang="ts" generics="Item extends {}">
+<script lang="ts" generics="Item extends { id: number }">
 	import { generateRandomId } from '$lib/util/randomId';
 	import type { Snippet } from 'svelte';
 
-    type ItemWithId = Item & { id: number };
+    type ItemWithoutID = Omit<Item, 'id'>;
 
     interface ItemListDisplayProps {
         items: ItemDisplayProps[];
@@ -12,17 +12,17 @@
 
     interface ItemDisplayProps {
         id: number; // Unique identifier, copied from the item's id
-        item: ItemWithId;
+        item: Item;
         index: number;
         create: () => void;
         duplicate: () => void;
-        update: (item: Item) => void;
+        update: (item: ItemWithoutID) => void;
         remove: () => void;
     }
 
     interface BaseProps {
-        initialItems: ItemWithId[];
-        generateNewItem: () => Item;
+        initialItems: Item[];
+        generateNewItem: () => ItemWithoutID;
         renderItems: Snippet<[ItemListDisplayProps]>;
         canCreate?: boolean;
         canDuplicate?: boolean;
@@ -30,7 +30,7 @@
         canRemove?: boolean;
 
         canReorder?: boolean;
-        sortFn?: (a: ItemWithId, b: ItemWithId) => number;
+        sortFn?: (a: Item, b: Item) => number;
         initialOrder?: number[];
     }
 
@@ -55,14 +55,14 @@
         sortFn
     }: Props = $props();
 
-    let items: ItemWithId[] = $state(initialItems);
+    let items: Item[] = $state(initialItems);
     let order: number[]|undefined = $state(canReorder ? sanitizeOrder(initialOrder!) : undefined);
 
     function create() {
         if (!canCreate) return;
 
         const newId = generateRandomId();
-        items.push({...generateNewItem(), id: newId});
+        items.push({...generateNewItem(), id: newId} as Item);
         items = items; // Force reactivity
 
         if (canReorder) {
@@ -89,13 +89,13 @@
         }
     }
 
-    function update(id: number, item: Item) {
+    function update(id: number, item: ItemWithoutID) {
         if (!canUpdate) return;
 
         const index = items.findIndex(i => i.id === id);
         if (index === -1) return;
 
-        items[index] = { ...item, id: id };
+        items[index] = { ...item, id: id } as Item;
     }
 
     function remove(id: number) {
@@ -113,7 +113,7 @@
         }
     }
 
-    function sort(_items: ItemWithId[]) {
+    function sort(_items: Item[]) {
         if (canReorder) return order!.map(id => items.find(i => i.id === id)!);
         else if (sortFn) return [..._items].sort(sortFn);
         else return _items;
@@ -144,7 +144,7 @@
         index,
         create,
         duplicate: () => duplicate(_item.id),
-        update: (item: Item) => update(_item.id, item),
+        update: (item: ItemWithoutID) => update(_item.id, item),
         remove: () => remove(_item.id)
     } as ItemDisplayProps)),
     create,

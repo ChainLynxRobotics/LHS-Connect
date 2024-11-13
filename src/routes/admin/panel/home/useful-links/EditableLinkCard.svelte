@@ -8,17 +8,17 @@
 
 	interface Props {
 		card: LinkCard;
-		onEdit: (e: LinkCard) => void;
+		onUpdate: (e: LinkCard) => void;
 		onDuplicate: () => void;
-		onDelete: () => void;
+		onRemove: () => void;
 	}
 
-	let { card, onEdit: edit, onDuplicate: duplicate, onDelete: _delete }: Props = $props();
+	let { card, onUpdate, onDuplicate, onRemove }: Props = $props();
 
 	let editModalOpen = $state(false);
 
 	function handleEditModalSubmit(e: LinkCard) {
-		edit(e)
+		onUpdate(e);
 		editModalOpen = false;
 	}
 </script>
@@ -31,10 +31,10 @@
 		<button title="Edit" onclick={() => (editModalOpen = true)} class="!p-2"
 			><EditOutline class="h-6 w-6" /></button
 		>
-		<button title="Duplicate" onclick={duplicate} class="!p-2"
+		<button title="Duplicate" onclick={onDuplicate} class="!p-2"
 			><FileCopyOutline class="h-6 w-6" /></button
 		>
-		<button title="Delete" onclick={_delete} class="!p-2"
+		<button title="Delete" onclick={onRemove} class="!p-2"
 			><TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" /></button
 		>
 	</div>

@@ -49,11 +49,14 @@
 		links = links; // Force update
 	}
 
-	async function onsubmit() {
+	async function onsubmit(event: Event) {
+		event.preventDefault();
+
 		await Promise.all(linkNameInputs.map((input) => input.validate()));
 		await Promise.all(linkUrlInputs.map((input) => input.validate()));
 
 		submit({
+			id: card.id,
 			title: await titleInput!.validate(),
 			subtitle: await subtitleInput!.validate(),
 			links: links.map((link) => ({ ...link, id: undefined }))

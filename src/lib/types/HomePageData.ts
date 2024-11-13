@@ -72,6 +72,7 @@ export interface BulletinBoardData {
  * Represents a card with a title, subtitle, and a list of links.
  */
 export interface LinkCard {
+	id: number;
 	title: string;
 	subtitle?: string;
 	links: {
