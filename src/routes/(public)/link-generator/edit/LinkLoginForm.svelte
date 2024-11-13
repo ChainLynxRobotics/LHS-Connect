@@ -1,69 +1,83 @@
 <script lang="ts">
-	import { page } from "$app/stores";
-	import ValidatedInput from "$components/form/ValidatedInput.svelte";
-	import ValidatedInputGroup from "$components/form/ValidatedInputGroup.svelte";
-	import shortLinkSchema from "$lib/schemas/shortLinkSchema";
-	import { Button, InputAddon } from "flowbite-svelte";
-	import { EyeOutline, EyeSlashOutline } from "flowbite-svelte-icons";
-	import { createEventDispatcher } from "svelte";
+	import { page } from '$app/stores';
+	import ValidatedInput from '$components/form/ValidatedInput.svelte';
+	import ValidatedInputGroup from '$components/form/ValidatedInputGroup.svelte';
+	import shortLinkSchema from '$lib/schemas/shortLinkSchema';
+	import { Button, InputAddon } from 'flowbite-svelte';
+	import { EyeOutline, EyeSlashOutline } from 'flowbite-svelte-icons';
 
-    export let suffix = $page.url.searchParams.get('suffix') || '';
-    export let password = '';
+	interface Props {
+		suffix?: any;
+		password?: string;
+		onSubmit: (linkLoginData: { suffix: string; password: string }) => void;
+	}
 
-    $: suffix = suffix.replace('https://lhs.cx/', '');
+	let {
+		suffix = $bindable($page.url.searchParams.get('suffix') || ''),
+		password = $bindable(''),
+		onSubmit: submit
+	}: Props = $props();
 
-    let suffixInput: ValidatedInput<'suffix'>;
-    let passwordInput: ValidatedInput<'password'>;
+	$effect(() => {
+		suffix = suffix.replace('https://lhs.cx/', '');
+	});
 
-    const dispatch = createEventDispatcher<{
-        submit: { suffix: string; password: string; }
-    }>();
+	let suffixInput: ValidatedInput<'suffix'> | undefined = $state();
+	let passwordInput: ValidatedInput<'password'> | undefined = $state();
 
-    async function handleSubmit() {
-        const linkLoginData = {
-            suffix: await suffixInput.validate(),
-            password: await passwordInput.validate()
-        }
-        dispatch('submit', linkLoginData);
-    }
+	async function onsubmit(event: Event) {
+		event.preventDefault();
+		const linkLoginData = {
+			suffix: await suffixInput!.validate(),
+			password: await passwordInput!.validate()
+		};
+		submit(linkLoginData);
+	}
 
-    let passwordVisible = false;
+	let passwordVisible = $state(false);
 </script>
 
-<form class="w-full flex gap-8 flex-col md:flex-row" on:submit|preventDefault={handleSubmit}>
-    <div class="flex-1">
-        <ValidatedInputGroup
-            bind:this={suffixInput}
-            id="suffix"
-            label="Short Url (Only letters, numbers, and hyphens)"
-            bind:value={suffix}
-            visuallyRequired
-            validatorObject={shortLinkSchema}
-            inputProps={{ type: 'text' }}
-            on:change={() => console.log(suffix)}
-        >
-            <InputAddon slot="before"><span class="text-nowrap">https://lhs.cx/</span></InputAddon>
-        </ValidatedInputGroup>
-    </div>
-    <div class="flex-1 flex gap-8">
-        <div class="w-full">
-            <ValidatedInputGroup
-                bind:this={passwordInput}
-                id="password"
-                label="Password"
-                bind:value={password}
-                validatorObject={shortLinkSchema}
-                inputProps={{ type: passwordVisible ? 'text' : 'password' }}
-            >
-                <Button slot="before" type="button" on:click={() => (passwordVisible = !passwordVisible)} class="pointer-events-auto">
-                    {#if passwordVisible}
-                        <EyeOutline class="w-6 h-6" />
-                    {:else}
-                        <EyeSlashOutline class="w-6 h-6" />
-                    {/if}
-                </Button>
-            </ValidatedInputGroup>
-        </div>
-        <Button type="submit" class="h-min mt-7">Verify</Button>
-    </div>
+<form class="flex w-full flex-col gap-8 md:flex-row" {onsubmit}>
+	<div class="flex-1">
+		<ValidatedInputGroup
+			bind:this={suffixInput}
+			id="suffix"
+			label="Short Url (Only letters, numbers, and hyphens)"
+			bind:value={suffix}
+			visuallyRequired
+			validatorObject={shortLinkSchema}
+			inputProps={{ type: 'text' }}
+		>
+			{#snippet before()}
+				<InputAddon><span class="text-nowrap">https://lhs.cx/</span></InputAddon>
+			{/snippet}
+		</ValidatedInputGroup>
+	</div>
+	<div class="flex flex-1 gap-8">
+		<div class="w-full">
+			<ValidatedInputGroup
+				bind:this={passwordInput}
+				id="password"
+				label="Password"
+				bind:value={password}
+				validatorObject={shortLinkSchema}
+				inputProps={{ type: passwordVisible ? 'text' : 'password' }}
+			>
+				{#snippet before()}
+					<Button
+						type="button"
+						on:click={() => (passwordVisible = !passwordVisible)}
+						class="pointer-events-auto"
+					>
+						{#if passwordVisible}
+							<EyeOutline class="h-6 w-6" />
+						{:else}
+							<EyeSlashOutline class="h-6 w-6" />
+						{/if}
+					</Button>
+				{/snippet}
+			</ValidatedInputGroup>
+		</div>
+		<Button type="submit" class="mt-7 h-min">Verify</Button>
+	</div>
 </form>

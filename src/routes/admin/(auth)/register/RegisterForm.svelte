@@ -3,34 +3,31 @@
 	import adminRegisterSchema from '$lib/schemas/adminRegisterSchema';
 	import { Button, Checkbox, Helper } from 'flowbite-svelte';
 
-	let form: HTMLFormElement;
+	let form: HTMLFormElement | undefined = $state();
 
-	let emailInput: ValidatedInput<'email'>;
-	let passwordInput: ValidatedInput<'password'>;
-	let confirmPasswordInput: ValidatedInput<'confirmPassword'>;
-	let keyInput: ValidatedInput<'key'>;
+	let emailInput: ValidatedInput<'email'> | undefined = $state();
+	let passwordInput: ValidatedInput<'password'> | undefined = $state();
+	let confirmPasswordInput: ValidatedInput<'confirmPassword'> | undefined = $state();
+	let keyInput: ValidatedInput<'key'> | undefined = $state();
 
 	let isSubmitting = false;
-	async function handleSubmit() {
+	async function onsubmit(event: Event) {
+		event.preventDefault();
 		if (isSubmitting) return;
 		isSubmitting = true;
 
 		const loginData = {
-			email: await emailInput.validate(),
-			password: await passwordInput.validate(),
-			confirmPassword: await confirmPasswordInput.validate(),
-			key: await keyInput.validate()
+			email: await emailInput!.validate(),
+			password: await passwordInput!.validate(),
+			confirmPassword: await confirmPasswordInput!.validate(),
+			key: await keyInput!.validate()
 		};
 		console.log(loginData);
 		alert('TODO');
 	}
 </script>
 
-<form
-	bind:this={form}
-	on:submit|preventDefault={handleSubmit}
-	class="flex flex-col space-y-6"
->
+<form bind:this={form} {onsubmit} class="flex flex-col space-y-6">
 	<h3 class="text-xl font-medium text-gray-900 dark:text-white">
 		Register an LHS Connect Admin account
 	</h3>

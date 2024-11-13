@@ -6,12 +6,14 @@ const bellSchedules: BellScheduleData = {
 	defaults: [0, 0, 1, 2, 1, 0, 0],
 	specials: [
 		{
+			id: 0,
 			date: 1725519600000,
 			scheduleId: 0
 		},
 		{
-			date: 1731398400000,
-			scheduleId: 5
+			id: 1,
+			date: 1729234800000,
+			scheduleId: 4
 		}
 	]
 };

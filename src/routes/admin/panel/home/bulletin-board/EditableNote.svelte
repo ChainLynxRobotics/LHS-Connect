@@ -3,22 +3,22 @@
 	import type { Note } from '$lib/types/HomePageData';
 	import { Modal } from 'flowbite-svelte';
 	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
-	import { createEventDispatcher } from 'svelte';
 	import { dragHandle } from 'svelte-dnd-action';
-	import EditNoteForm from './EditNoteForm.svelte';
+	import EditableNoteForm from './EditableNoteForm.svelte';
 
-	export let note: Note;
+	interface Props {
+		note: Note;
+		onUpdate: (e: Note) => void;
+		onDuplicate: () => void;
+		onRemove: () => void;
+	}
 
-	const dispatch = createEventDispatcher<{
-		edit: Note;
-		duplicate: null;
-		delete: null;
-	}>();
+	let { note, onUpdate, onDuplicate, onRemove }: Props = $props();
 
-	let editModalOpen = false;
+	let editModalOpen = $state(false);
 
-	function handleEditModalSubmit(e: CustomEvent<Note>) {
-		dispatch('edit', e.detail);
+	function handleEditModalSubmit(_note: Note) {
+		onUpdate(_note);
 		editModalOpen = false;
 	}
 </script>
@@ -34,22 +34,22 @@
 		{/if}
 	</div>
 	<div class="flex flex-col">
-		<button title="Edit" on:click={() => (editModalOpen = true)} class="!p-2"
+		<button title="Edit" onclick={() => (editModalOpen = true)} class="!p-2"
 			><EditOutline class="h-6 w-6" /></button
 		>
-		<button title="Duplicate" on:click={() => dispatch('duplicate')} class="!p-2"
+		<button title="Duplicate" onclick={onDuplicate} class="!p-2"
 			><FileCopyOutline class="h-6 w-6" /></button
 		>
-		<button title="Delete" on:click={() => dispatch('delete')} class="!p-2"
+		<button title="Delete" onclick={onRemove} class="!p-2"
 			><TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" /></button
 		>
 	</div>
 </div>
 
 <Modal bind:open={editModalOpen} size="md" autoclose={false}>
-	<EditNoteForm
+	<EditableNoteForm
 		{note}
-		on:submit={handleEditModalSubmit}
-		on:cancel={() => (editModalOpen = false)}
+		onSubmit={handleEditModalSubmit}
+		onCancel={() => (editModalOpen = false)}
 	/>
 </Modal>

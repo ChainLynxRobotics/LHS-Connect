@@ -4,34 +4,29 @@
 	import { Button, Checkbox, Modal } from 'flowbite-svelte';
 	import { ExclamationCircleOutline } from 'flowbite-svelte-icons';
 
-	let form: HTMLFormElement;
+	let form: HTMLFormElement | undefined = $state();
 
-	let emailInput: ValidatedInput<'email'>;
-	let passwordInput: ValidatedInput<'password'>;
+	let emailInput: ValidatedInput<'email'> | undefined = $state();
+	let passwordInput: ValidatedInput<'password'> | undefined = $state();
 
 	let isSubmitting = false;
-	async function handleSubmit() {
+	async function onsubmit(event: Event) {
+		event.preventDefault();
 		if (isSubmitting) return;
 		isSubmitting = true;
-		
+
 		const loginData = {
-			email: await emailInput.validate(),
-			password: await passwordInput.validate()
+			email: await emailInput!.validate(),
+			password: await passwordInput!.validate()
 		};
 		console.log(loginData);
 		alert('TODO');
 	}
 
-	let passwordInfoOpen = false;
+	let passwordInfoOpen = $state(false);
 </script>
 
-<form
-	bind:this={form}
-	on:submit={handleSubmit}
-	method="post"
-	novalidate
-	class="flex flex-col space-y-6"
->
+<form bind:this={form} {onsubmit} method="post" novalidate class="flex flex-col space-y-6">
 	<h3 class="text-xl font-medium text-gray-900 dark:text-white">Sign in to LHS Connect Admin</h3>
 	<div class="">
 		<ValidatedInput
@@ -57,7 +52,7 @@
 		<Checkbox id="remember" name="remember">Remember Me</Checkbox>
 		<button
 			type="button"
-			on:click={() => (passwordInfoOpen = true)}
+			onclick={() => (passwordInfoOpen = true)}
 			class="ms-auto inline text-sm text-primary-700 hover:underline dark:text-primary-500"
 		>
 			Forgot Password?

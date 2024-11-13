@@ -37,6 +37,7 @@ export interface SavedScheduleData {
 export type ScheduleId = number;
 
 export interface ScheduleOverride {
+	id: number;
 	date: number; // Epoch timestamp at midnight (seattle timezone) before the day
 	scheduleId: ScheduleId;
 }
@@ -54,6 +55,7 @@ export interface BellScheduleData {
  * Represents a note on the bulletin board.
  */
 export interface Note {
+	id: number;
 	title: string;
 	content: string;
 	link?: string;
@@ -70,6 +72,7 @@ export interface BulletinBoardData {
  * Represents a card with a title, subtitle, and a list of links.
  */
 export interface LinkCard {
+	id: number;
 	title: string;
 	subtitle?: string;
 	links: {

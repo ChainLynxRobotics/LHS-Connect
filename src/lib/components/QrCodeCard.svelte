@@ -3,29 +3,33 @@
 	import { qr, type ImgQRParameter } from '@svelte-put/qr/img';
 	import { Button, Card, Select, Toggle, type SelectOptionType } from 'flowbite-svelte';
 
-	/**
-	 * The data for the QR code
-	 */
-	export let data: string;
-	$: debounce(data);
+	interface Props {
+		/**
+		 * The data for the QR code
+		 */
+		data: string;
+	}
 
-	let debouncedData = data;
+	let { data }: Props = $props();
 
-	let timer: number;
+	let debouncedData = $state(data);
+
+	let timer: NodeJS.Timeout;
 	const debounce = (data: string) => {
 		clearTimeout(timer);
 		timer = setTimeout(() => {
 			debouncedData = data;
 		}, 500);
 	};
+	$effect(() => debounce(data));
 
-	let transparent = false;
-	let dark = false;
-	$: fillColor = !dark ? '#000000' : '#ffffff';
-	$: backgroundFillColor = transparent ? 'transparent' : !dark ? '#ffffff' : '#000000';
+	let transparent = $state(false);
+	let dark = $state(false);
 
-	let qrConfig: ImgQRParameter;
-	$: qrConfig = {
+	let fillColor = $derived(!dark ? '#000000' : '#ffffff');
+	let backgroundFillColor = $derived(transparent ? 'transparent' : !dark ? '#ffffff' : '#000000');
+
+	let qrConfig: ImgQRParameter = $derived({
 		data: debouncedData,
 		width: 512,
 		height: 512,
@@ -34,9 +38,9 @@
 		anchorInnerFill: fillColor,
 		anchorOuterFill: fillColor,
 		backgroundFill: backgroundFillColor
-	};
+	});
 
-	let downloadType = 'png';
+	let downloadType = $state('png');
 	const downloadTypes: SelectOptionType<string>[] = [
 		{ value: 'png', name: 'PNG' },
 		{ value: 'svg', name: 'SVG' }

@@ -1,7 +1,11 @@
 <script lang="ts">
 	import type { FooterData } from '$lib/types/GlobalPageData';
 
-	export let data: FooterData;
+	interface Props {
+		data: FooterData;
+	}
+
+	let { data }: Props = $props();
 </script>
 
 <footer class="mt-16 w-full bg-gray-100 p-8 text-gray-500 dark:bg-gray-800 dark:text-gray-500">

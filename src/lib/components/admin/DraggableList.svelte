@@ -1,47 +1,50 @@
-<script lang="ts" context="module">
-	export type DraggableItem<A> = {
-		id: number;
-		data: A;
-	};
-</script>
-
-<script lang="ts" generics="A">
+<script lang="ts" generics="Item extends { id: number }">
 	import { flip } from 'svelte/animate';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { dragHandleZone, type Options } from 'svelte-dnd-action';
+	import type { Snippet } from 'svelte';
 
-	export let items: A[] = [];
-	export let update: (items: A[]) => void = () => {};
+	interface Props {
+		items?: Item[];
+		updateOrder?: (order: number[]) => void;
+		flipDurationMs?: number;
+		dragZoneType?: string;
+		dragZoneOptions?: Partial<Options<Item>>;
+		sectionElement?: string;
+		sectionClass?: string;
+		sectionProps?: HTMLAttributes<HTMLElement>;
+		dragWrapperElement?: string;
+		dragWrapperClass?: string;
+		dragWrapperProps?: HTMLAttributes<HTMLElement>;
+		item?: Snippet<[Item, number]>;
+	}
 
-	export let flipDurationMs = 300;
+	let {
+		items = [],
+		updateOrder,
+		flipDurationMs = 300,
+		dragZoneType = '',
+		dragZoneOptions = {},
+		sectionElement = 'section',
+		sectionClass = '',
+		sectionProps = {},
+		dragWrapperElement = 'div',
+		dragWrapperClass = '',
+		dragWrapperProps = {},
+		item
+	}: Props = $props();
 
-	export let dragZoneType: string = '';
-	export let dragZoneOptions: Partial<Options<DraggableItem<A>>> = {};
+	let visualItems = $state([...items]);
+	$effect.pre(() => {
+		visualItems = [...items]; // Reset visualItems when items change
+	});
 
-	export let sectionElement = 'section';
-	export let sectionClass = '';
-	export let sectionProps: HTMLAttributes<HTMLElement> = {};
-
-	export let dragWrapperElement = 'div';
-	export let dragWrapperClass = '';
-	export let dragWrapperProps: HTMLAttributes<HTMLElement> = {};
-
-	let visualItems: DraggableItem<A>[];
-	$: visualItems = items.map((data, i) => ({ id: Date.now() + i, data }));
-
-	function handleDndConsider(e: CustomEvent<{ items: DraggableItem<A>[] }>) {
+	function handleDndConsider(e: CustomEvent<{ items: Item[] }>) {
 		visualItems = e.detail.items;
 	}
-	function handleDndFinalize(e: CustomEvent<{ items: DraggableItem<A>[] }>) {
+	function handleDndFinalize(e: CustomEvent<{ items: Item[] }>) {
 		visualItems = e.detail.items;
-		// Check if order has changed before updating state and history
-		let changed = visualItems.length !== items.length; // If the length is different, then the order has changed, if they are not continue with the array comparison
-		for (let i = 0; i < e.detail.items.length && !changed; i++) {
-			if (visualItems[i].data !== items[i]) {
-				changed = true;
-			}
-		}
-		if (changed) update(visualItems.map((item) => item.data)); // Update the actual state now that its finalized
+		updateOrder?.(e.detail.items.map((item) => item.id));
 	}
 </script>
 
@@ -54,19 +57,19 @@
 		dropTargetStyle: {},
 		...dragZoneOptions
 	}}
-	on:consider={handleDndConsider}
-	on:finalize={handleDndFinalize}
+	onconsider={handleDndConsider}
+	onfinalize={handleDndFinalize}
 	class={sectionClass}
 	{...sectionProps}
 >
-	{#each visualItems as item (item.id)}
+	{#each visualItems as _item, index (_item.id)}
 		<svelte:element
 			this={dragWrapperElement}
 			animate:flip={{ duration: flipDurationMs }}
 			class={dragWrapperClass}
 			{...dragWrapperProps}
 		>
-			<slot item={item.data} index={items.findIndex((i) => i === item.data)} />
+			{@render item?.(_item, index)}
 		</svelte:element>
 	{/each}
 </svelte:element>

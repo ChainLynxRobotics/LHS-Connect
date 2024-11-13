@@ -10,28 +10,35 @@
 		TableBodyRow,
 		TableHead,
 		TableHeadCell,
-		Popover,
+		Popover
 	} from 'flowbite-svelte';
 	import { InfoCircleOutline } from 'flowbite-svelte-icons';
 	import Fuse from 'fuse.js';
 
-	export let clubs: Club[];
+	interface Props {
+		clubs: Club[];
+	}
 
-	let search = '';
+	let { clubs }: Props = $props();
 
-	$: fuse = new Fuse(clubs, {
-		keys: [
-			{ name: 'name', weight: 5 },
-			{ name: 'desc', weight: 4 },
-			{ name: 'day', weight: 1 },
-			{ name: 'time', weight: 1 },
-			{ name: 'location', weight: 1 },
-			{ name: 'advisor', weight: 1 }
-		]
-	});
+	let search = $state('');
 
-	$: searchedClubs =
-		search.trim().length === 0 ? clubs : fuse.search(search).map((result) => result.item);
+	let fuse = $derived(
+		new Fuse(clubs, {
+			keys: [
+				{ name: 'name', weight: 5 },
+				{ name: 'desc', weight: 4 },
+				{ name: 'day', weight: 1 },
+				{ name: 'time', weight: 1 },
+				{ name: 'location', weight: 1 },
+				{ name: 'advisor', weight: 1 }
+			]
+		})
+	);
+
+	let searchedClubs = $derived(
+		search.trim().length === 0 ? clubs : fuse.search(search).map((result) => result.item)
+	);
 </script>
 
 <div class="px-4">

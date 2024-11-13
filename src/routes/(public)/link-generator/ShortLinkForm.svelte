@@ -4,35 +4,41 @@
 	import { InputAddon, Button, Helper } from 'flowbite-svelte';
 	import QrCodeCard from '$components/QrCodeCard.svelte';
 	import shortLinkSchema from '$lib/schemas/shortLinkSchema';
-	import { AngleDownOutline, AngleUpOutline, EyeOutline, EyeSlashOutline } from 'flowbite-svelte-icons';
+	import {
+		AngleDownOutline,
+		AngleUpOutline,
+		EyeOutline,
+		EyeSlashOutline
+	} from 'flowbite-svelte-icons';
 	import { slide } from 'svelte/transition';
 
-	let suffixInput: ValidatedInputGroup<'suffix'>;
-	let urlInput: ValidatedInput<'url'>;
-	let passwordInput: ValidatedInputGroup<'password'>;
+	let suffixInput: ValidatedInputGroup<'suffix'> | undefined = $state();
+	let urlInput: ValidatedInput<'url'> | undefined = $state();
+	let passwordInput: ValidatedInputGroup<'password'> | undefined = $state();
 
-	let suffix: string = '';
-	let url: string = '';
-	let password: string = '';
+	let suffix: string = $state('');
+	let url: string = $state('');
+	let password: string = $state('');
 
 	let qrOpen: boolean = false;
 
-	let advancedOpen: boolean = false;
-	let passwordVisible: boolean = false;
+	let advancedOpen: boolean = $state(false);
+	let passwordVisible: boolean = $state(false);
 
-	async function handleSubmit() {
+	async function onsubmit(event: Event) {
+		event.preventDefault();
 		const shortLinkData = {
-			suffix: await suffixInput.validate(),
-			url: await urlInput.validate(),
-			password: await passwordInput.validate()
-		}
+			suffix: await suffixInput!.validate(),
+			url: await urlInput!.validate(),
+			password: await passwordInput!.validate()
+		};
 		console.log(shortLinkData);
 		alert('TODO');
 	}
 </script>
 
 <div class="flex w-full flex-col items-center justify-center gap-8 pt-8 md:flex-row">
-	<form on:submit|preventDefault={handleSubmit} class="w-full max-w-md">
+	<form {onsubmit} class="w-full max-w-md">
 		<div class="mb-6">
 			<ValidatedInputGroup
 				bind:this={suffixInput}
@@ -43,7 +49,9 @@
 				validatorObject={shortLinkSchema}
 				inputProps={{ type: 'text' }}
 			>
-				<InputAddon slot="before"><span class="text-nowrap">https://lhs.cx/</span></InputAddon>
+				{#snippet before()}
+					<InputAddon><span class="text-nowrap">https://lhs.cx/</span></InputAddon>
+				{/snippet}
 			</ValidatedInputGroup>
 		</div>
 
@@ -52,7 +60,7 @@
 				bind:this={urlInput}
 				id="url"
 				label="Redirect Url"
-				bind:value={url}
+				value={url}
 				visuallyRequired
 				validatorObject={shortLinkSchema}
 				inputProps={{ type: 'url', placeholder: 'Paste URL Here' }}
@@ -63,7 +71,11 @@
 			<Button type="submit">Generate Short Link</Button>
 		</div>
 
-		<button type="button" class="flex items-center gap-2 text-primary-500" on:click={()=>advancedOpen = ! advancedOpen}>
+		<button
+			type="button"
+			class="flex items-center gap-2 text-primary-500"
+			onclick={() => (advancedOpen = !advancedOpen)}
+		>
 			{#if advancedOpen}
 				<AngleUpOutline />
 			{:else}
@@ -84,25 +96,33 @@
 							validatorObject={shortLinkSchema}
 							inputProps={{ type: passwordVisible ? 'text' : 'password' }}
 						>
-							<Button slot="before" type="button" on:click={() => (passwordVisible = !passwordVisible)} class="pointer-events-auto">
-								{#if passwordVisible}
-									<EyeOutline class="w-6 h-6" />
-								{:else}
-									<EyeSlashOutline class="w-6 h-6" />
-								{/if}
-							</Button>
+							{#snippet before()}
+								<Button
+									type="button"
+									on:click={() => (passwordVisible = !passwordVisible)}
+									class="pointer-events-auto"
+								>
+									{#if passwordVisible}
+										<EyeOutline class="h-6 w-6" />
+									{:else}
+										<EyeSlashOutline class="h-6 w-6" />
+									{/if}
+								</Button>
+							{/snippet}
 						</ValidatedInputGroup>
 					</div>
 					<Helper>
-						Adding a password when creating a link allows you to come back and edit it or view how many clicks it has.
+						Adding a password when creating a link allows you to come back and edit it or view how
+						many clicks it has.
 					</Helper>
-					<div class="my-8 h-[1px] bg-gray-500 mx-4"></div>
-					<div class="flex justify-center mt-8">
-						<Button type="button" color="alternative" href="/link-generator/edit">Edit Existing Link</Button>
+					<div class="mx-4 my-8 h-[1px] bg-gray-500"></div>
+					<div class="mt-8 flex justify-center">
+						<Button type="button" color="alternative" href="/link-generator/edit"
+							>Edit Existing Link</Button
+						>
 					</div>
 				</div>
 			</div>
-			
 		{/if}
 	</form>
 	{#if qrOpen}

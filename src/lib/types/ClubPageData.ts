@@ -2,6 +2,7 @@
  * Represents a club on the club page.
  */
 export interface Club {
+	id: number;
 	name: string;
 	day: string;
 	time: string;

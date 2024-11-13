@@ -8,8 +8,8 @@
 	import { DiscordSolid, InstagramSolid, MailBoxOutline } from 'flowbite-svelte-icons';
 	import ContactForm from './ContactForm.svelte';
 
-	let copyTextModal = false;
-	let copyTextContent = '';
+	let copyTextModal = $state(false);
+	let copyTextContent = $state('');
 	function copyText(text: string) {
 		navigator.clipboard.writeText(text);
 		copyTextContent = text;

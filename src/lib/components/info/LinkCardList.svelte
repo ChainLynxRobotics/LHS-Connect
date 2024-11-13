@@ -3,8 +3,12 @@
 	import SectionHeader from '$components/SectionHeader.svelte';
 	import type { LinkCardListData } from '$lib/types/HomePageData';
 
-	export let title: string;
-	export let data: LinkCardListData;
+	interface Props {
+		title: string;
+		data: LinkCardListData;
+	}
+
+	let { title, data }: Props = $props();
 </script>
 
 <SectionHeader {title} />

@@ -2,7 +2,7 @@
 	import QrCodeCard from '$components/QrCodeCard.svelte';
 	import { Input, Label } from 'flowbite-svelte';
 
-	let data = '';
+	let data = $state('');
 </script>
 
 <div class="flex w-full flex-col items-center gap-8 md:flex-row md:items-start">

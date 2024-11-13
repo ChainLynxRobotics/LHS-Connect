@@ -26,7 +26,13 @@
 		UserCircleOutline
 	} from 'flowbite-svelte-icons';
 	import Menu from 'flowbite-svelte/Menu.svelte';
+	import type { Snippet } from 'svelte';
 	import { sineIn } from 'svelte/easing';
+	interface Props {
+		children?: Snippet;
+	}
+
+	let { children }: Props = $props();
 
 	const pages = [
 		{
@@ -78,17 +84,20 @@
 	];
 
 	let breakPoint: number = 1024;
-	let width: number;
+	let width: number = $state(0);
+	let mobile = $derived(width < breakPoint);
 
-	let drawerHidden = false;
+	let drawerHidden = $state(false);
 
-	$: mobile = width < breakPoint;
-	$: if (!mobile) drawerHidden = false; // Default to closed on mobile
-
-	$: activeUrl = $page.url.pathname;
+	$effect(() => {
+		if (!mobile) drawerHidden = false;
+	}); // Default to closed on mobile
 
 	// Close drawer on navigation
-	$: if (activeUrl && mobile) drawerHidden = true;
+	let activeUrl = $derived($page.url.pathname);
+	$effect(() => {
+		if (activeUrl && mobile) drawerHidden = true;
+	});
 </script>
 
 <svelte:head>
@@ -110,7 +119,7 @@
 	}}
 	width="w-64"
 	class="pb-32"
-	divClass="overflow-y-auto z-40 p-4 bg-white dark:bg-gray-800"
+	divClass="overflow-y-auto z-40 p-4 bg-gray-100 dark:bg-gray-800"
 >
 	<div class="flex items-center">
 		<CloseButton on:click={() => (drawerHidden = true)} class="mb-4 dark:text-white lg:hidden" />
@@ -119,63 +128,58 @@
 		<SidebarWrapper divClass="overflow-y-auto py-4 px-3 rounded">
 			<SidebarGroup>
 				<SidebarItem href="/" label="Back to Public Page">
-					<svelte:fragment slot="icon">
-						<svelte:component
-							this={AngleLeftOutline}
+					{#snippet icon()}
+						<AngleLeftOutline
 							class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
 						/>
-					</svelte:fragment>
+					{/snippet}
 				</SidebarItem>
 			</SidebarGroup>
 			<SidebarGroup border>
-				{#each pages as { label, href, icon, children }, i}
+				{#each pages as { label, href, icon: IconComponent, children }, i}
 					{#if children}
 						<SidebarDropdownWrapper {label}>
-							<svelte:fragment slot="icon">
-								<svelte:component
-									this={icon}
+							{#snippet icon()}
+								<IconComponent
 									class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
 								/>
-							</svelte:fragment>
+							{/snippet}
 							{#each children as { label, href }, i}
 								<SidebarDropdownItem {label} {href} active={activeUrl === href} />
 							{/each}
 						</SidebarDropdownWrapper>
 					{:else}
 						<SidebarItem {href} {label}>
-							<svelte:fragment slot="icon">
-								<svelte:component
-									this={icon}
+							{#snippet icon()}
+								<IconComponent
 									class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
 								/>
-							</svelte:fragment>
+							{/snippet}
 						</SidebarItem>
 					{/if}
 				{/each}
 			</SidebarGroup>
 			<SidebarGroup border>
 				<SidebarItem href="/admin/panel/account" label="Account">
-					<svelte:fragment slot="icon">
-						<svelte:component
-							this={UserCircleOutline}
+					{#snippet icon()}
+						<UserCircleOutline
 							class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
 						/>
-					</svelte:fragment>
+					{/snippet}
 				</SidebarItem>
 				<SidebarItem label="Log Out" spanClass="ms-3 text-red-500 dark:text-red-400">
-					<svelte:fragment slot="icon">
-						<svelte:component
-							this={ArrowLeftToBracketOutline}
+					{#snippet icon()}
+						<ArrowLeftToBracketOutline
 							class="h-6 w-6 text-red-500 transition duration-75 dark:text-red-400"
 						/>
-					</svelte:fragment>
+					{/snippet}
 				</SidebarItem>
 			</SidebarGroup>
 		</SidebarWrapper>
 	</Sidebar>
 </Drawer>
 
-<main class="min-h-screen bg-white dark:bg-gray-900 w-full lg:pl-64">
+<main class="min-h-screen w-full bg-white dark:bg-gray-900 lg:pl-64">
 	<Navbar class="sticky start-0 top-0 z-20 w-full px-4">
 		<div>
 			<Menu on:click={() => (drawerHidden = false)} class="lg:hidden" />
@@ -190,6 +194,6 @@
 		<ThemeSwitch />
 	</Navbar>
 	<div>
-		<slot />
+		{@render children?.()}
 	</div>
 </main>
