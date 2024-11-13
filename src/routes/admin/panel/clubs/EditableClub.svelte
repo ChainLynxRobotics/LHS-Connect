@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { stopPropagation } from 'svelte/legacy';
-
 	import ExternalLink from '$components/ExternalLink.svelte';
 	import type { Club } from '$lib/types/ClubPageData';
 	import { Modal, TableBodyCell, TableBodyRow, Tooltip, Popover } from 'flowbite-svelte';
@@ -14,17 +12,17 @@
 
 	interface Props {
 		club: Club;
-		onEdit: (club: Club) => void;
+		onUpdate: (club: Club) => void;
 		onDuplicate: () => void;
-		onDelete: () => void;
+		onRemove: () => void;
 	}
 
-	let { club, onEdit, onDuplicate, onDelete }: Props = $props();
+	let { club, onUpdate, onDuplicate, onRemove }: Props = $props();
 
 	let editModalOpen = $state(false);
 
 	function handleEditModalSubmit(_club: Club) {
-		onEdit(_club);
+		onUpdate(_club);
 		editModalOpen = false;
 	}
 </script>
@@ -50,15 +48,15 @@
 	</TableBodyCell>
 	<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm align-top">
 		<div class="flex">
-			<button title="Edit" onclick={stopPropagation(() => (editModalOpen = true))} class="!p-2"
+			<button title="Edit" onclick={() => (editModalOpen = true)} class="!p-2"
 				><EditOutline class="h-6 w-6" /></button
 			>
 			<Tooltip>Edit</Tooltip>
-			<button title="Duplicate" onclick={stopPropagation(() => onDuplicate())} class="!p-2"
+			<button title="Duplicate" onclick={onDuplicate} class="!p-2"
 				><FileCopyOutline class="h-6 w-6" /></button
 			>
 			<Tooltip>Duplicate</Tooltip>
-			<button title="Delete" onclick={stopPropagation(() => onDelete)} class="!p-2"
+			<button title="Delete" onclick={onRemove} class="!p-2"
 				><TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" /></button
 			>
 			<Tooltip>Delete</Tooltip>

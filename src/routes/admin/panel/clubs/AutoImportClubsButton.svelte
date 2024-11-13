@@ -6,6 +6,7 @@
 	import { string } from 'yup';
 	import type { Club } from '$lib/types/ClubPageData';
 	import Papa from 'papaparse';
+	import { generateRandomId } from '$lib/util/randomId';
 
 	interface Props {
 		onSubmit: (clubs: Club[]) => void;
@@ -53,6 +54,7 @@
 					if (instaUrlSearch != null) insta = instaUrlSearch[1];
 
 					records.push({
+						id: generateRandomId(),
 						name: row[0].replace('\n', ' ').trim(),
 						day: row[2].replace('\n', ' ').trim(),
 						time: row[3].replace('\n', ' ').trim(),
@@ -63,6 +65,8 @@
 					});
 				},
 				complete() {
+					console.log('Parsed', records.length, 'clubs', records);
+					console.log(JSON.stringify(records, null, 2));
 					submit(records);
 					modalOpen = false;
 				}
@@ -98,9 +102,9 @@
 					validator={string()
 						.optional()
 						.matches(/^\d*$/, 'Must be a number')
-						.max(3 /* Characters */)
+						.max(4 /* Characters */)
 						.label('Start Row')}
-					inputProps={{ type: 'number', min: 1 }}
+					inputProps={{ type: 'number' }}
 				/>
 			</div>
 			<div>
@@ -111,9 +115,9 @@
 					validator={string()
 						.optional()
 						.matches(/^\d*$/, 'Must be a number')
-						.max(3 /* Characters */)
+						.max(4 /* Characters */)
 						.label('End Row')}
-					inputProps={{ type: 'number', min: 1 }}
+					inputProps={{ type: 'number' }}
 				/>
 			</div>
 		</div>

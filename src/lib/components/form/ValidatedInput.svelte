@@ -34,11 +34,11 @@
 		/**
 		 * Props to pass to the {@link Input} component
 		 */
-		inputProps?: InputProps;
+		inputProps?: InputProps & { [key: string]: any };
 		/**
 		 * Props to pass to the {@link Label} component
 		 */
-		labelProps?: LabelProps;
+		labelProps?: LabelProps & { [key: string]: any };
 	}
 
 	let {

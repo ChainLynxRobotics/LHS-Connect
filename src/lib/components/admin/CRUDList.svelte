@@ -8,13 +8,13 @@
         items: ItemDisplayProps[];
         create: () => void;
         reorder: (order: number[]) => void;
+        updateAll: (items: Item[], newOrder?: number[]) => void;
     }
 
     interface ItemDisplayProps {
         id: number; // Unique identifier, copied from the item's id
         item: Item;
         index: number;
-        create: () => void;
         duplicate: () => void;
         update: (item: ItemWithoutID) => void;
         remove: () => void;
@@ -113,6 +113,15 @@
         }
     }
 
+    function updateAll(newItems: Item[], newOrder?: number[]) {
+        items = newItems;
+
+        if (canReorder) {
+            if (!newOrder) throw new Error("Missing order when updating all items");
+            order = sanitizeOrder(newOrder!); // Ensure the order is still valid
+        }
+    }
+
     function sort(_items: Item[]) {
         if (canReorder) return order!.map(id => items.find(i => i.id === id)!);
         else if (sortFn) return [..._items].sort(sortFn);
@@ -142,11 +151,11 @@
         id: _item.id,
         item: _item,
         index,
-        create,
         duplicate: () => duplicate(_item.id),
         update: (item: ItemWithoutID) => update(_item.id, item),
         remove: () => remove(_item.id)
     } as ItemDisplayProps)),
     create,
-    reorder
+    reorder,
+    updateAll
 })}
