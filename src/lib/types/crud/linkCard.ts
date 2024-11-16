@@ -1,9 +1,9 @@
-import type { ICrudType } from "./globalCrud";
+import type { ICrudListType } from "./globalCrud";
 
 /**
  * Represents a card with a title, subtitle, and a list of links.
  */
-export interface ILinkCard extends ICrudType {
+export interface ILinkCard extends ICrudListType {
 	title: string;
 	subtitle?: string;
 	links: {

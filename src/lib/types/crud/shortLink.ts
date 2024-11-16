@@ -1,4 +1,4 @@
-import type { ICrudType } from "./globalCrud";
+import type { ICrudListType } from "./globalCrud";
 
 export interface IShortLinkCreate {
 	/**
@@ -15,7 +15,7 @@ export interface IShortLinkCreate {
 	password?: string;
 }
 
-export interface IShortLink extends ICrudType, IShortLinkCreate {
+export interface IShortLink extends ICrudListType, IShortLinkCreate {
 	/**
 	 * The date the link was created in epoch time.
 	 */

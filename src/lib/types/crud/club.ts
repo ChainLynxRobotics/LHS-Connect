@@ -1,9 +1,9 @@
-import type { ICrudType } from "./globalCrud";
+import type { ICrudListType } from "./globalCrud";
 
 /**
  * Represents a club on the club page.
  */
-export interface IClub extends ICrudType {
+export interface IClub extends ICrudListType {
 	name: string;
 	day: string;
 	time: string;

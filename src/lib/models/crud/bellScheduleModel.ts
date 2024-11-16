@@ -13,4 +13,4 @@ export const bellScheduleSchema = new mongoose.Schema<IBellSchedule>({
 	}]
 });
 
-export const BellSchedule = mongoose.model('BellSchedule', bellScheduleSchema);
+export const BellSchedule = mongoose.model('BellSchedule', bellScheduleSchema); // List of bell schedules

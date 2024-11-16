@@ -1,9 +1,9 @@
-import type { ICrudType } from "./globalCrud";
+import type { ICrudListType } from "./globalCrud";
 
 /**
  * Declares the structure of a bell schedule
  */
-export interface IBellSchedule extends ICrudType {
+export interface IBellSchedule extends ICrudListType {
 	name: string;
 	desc?: string;
 	periods: {

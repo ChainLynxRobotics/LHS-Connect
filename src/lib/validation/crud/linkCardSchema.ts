@@ -1,5 +1,5 @@
 import { array, object, ObjectSchema, string } from 'yup';
-import { crudValidation } from './globalCrudSchema';
+import { crudListValidation } from './globalCrudSchema';
 import type { ILinkCard } from '$lib/types/crud/linkCard';
 
 export const linkCardLinkNameValidation = string().required().max(64).label('Name');
@@ -10,7 +10,7 @@ export const linkCardLinkValidation = object({
 	url: linkCardLinkUrlValidation
 });
 
-export const linkCardValidation: ObjectSchema<ILinkCard> = crudValidation.shape({
+export const linkCardValidation: ObjectSchema<ILinkCard> = crudListValidation.shape({
 	title: string().required().max(64),
 	subtitle: string().optional().max(256),
 	links: array().of(linkCardLinkValidation).required().min(1).max(16)
