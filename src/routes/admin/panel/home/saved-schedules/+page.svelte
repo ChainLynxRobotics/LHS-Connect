@@ -20,7 +20,7 @@
 			These are the saved schedules that can be then referenced on the Bell Schedule page.
 		</p>
 		<CrudList
-			initialItems={data.schedules}
+			items={data.schedules}
 			generateNewItem={() => ({
 				name: 'New Schedule',
 				periods: [

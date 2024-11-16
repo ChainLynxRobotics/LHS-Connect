@@ -18,7 +18,7 @@
 		<SectionHeader title="Contact Info" />
 		<p class="mb-8"></p>
 		<CrudList
-			initialItems={data.cards}
+			items={data.cards}
 			generateNewItem={() => ({
 				title: 'New Card',
 				links: []

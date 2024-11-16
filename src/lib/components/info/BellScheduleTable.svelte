@@ -6,9 +6,10 @@
 	interface Props {
 		schedule?: IBellSchedule;
 		reactive?: boolean;
+		customTime?: DateTime;
 	}
 
-	let { schedule, reactive = false }: Props = $props();
+	let { schedule, reactive = false, customTime }: Props = $props();
 
 	function formatTime(time: string): string {
 		const [hours, minutes] = time.split(':');
@@ -19,15 +20,17 @@
 		return `${formattedHour}:${formattedMinute}`;
 	}
 
-	function getRowClass(periodIndex: number): string {
+	function getRowClass(periodIndex: number, reactive: boolean, customTime: DateTime|undefined): string {
 		let c = 'text-base';
 		if (!schedule) return c;
+
+		console.log('customTime', customTime);
 
 		const period = schedule.periods[periodIndex];
 		if (period.emphasis) {
 			c += ' !bg-gray-100 dark:!bg-gray-600';
 		}
-		if (reactive && currentlyWithinTime(period.start, period.end)) {
+		if (reactive && currentlyWithinTime(period.start, period.end, customTime)) {
 			c += ' !border-2 !border-primary-500';
 		} else {
 			c += ' border-b last:border-b-0 dark:border-gray-700';
@@ -35,7 +38,7 @@
 			if (
 				reactive &&
 				schedule.periods[periodIndex - 1] &&
-				currentlyWithinTime(schedule.periods[periodIndex - 1].end, period.start)
+				currentlyWithinTime(schedule.periods[periodIndex - 1].end, period.start, customTime)
 			) {
 				c += ' !border-t-2 !border-t-primary-500';
 			}
@@ -43,18 +46,18 @@
 		return c;
 	}
 
-	function currentlyWithinTime(startStr: string, endStr: string): boolean {
-		const now = DateTime.now().setZone('America/Los_Angeles').toMillis();
+	function currentlyWithinTime(startStr: string, endStr: string, customTime: DateTime|undefined): boolean {
+		const millis = (customTime || DateTime.now()).setZone('America/Los_Angeles').toMillis();
 		const start = DateTime.fromFormat(startStr, 'HH:mm').setZone('America/Los_Angeles').toMillis();
 		const end = DateTime.fromFormat(endStr, 'HH:mm').setZone('America/Los_Angeles').toMillis();
-		return now >= start && now <= end;
+		return millis >= start && millis <= end;
 	}
 </script>
 
 <Table class="table-fixed" divClass="relative mx-auto border dark:border-gray-700" striped>
 	<TableBody tableBodyClass="divide-y text-center">
 		{#each schedule?.periods || [] as period, i}
-			<TableBodyRow class={getRowClass(i)}>
+			<TableBodyRow class={getRowClass(i, reactive, customTime)}>
 				<TableBodyCell>
 					{period.name}
 				</TableBodyCell>

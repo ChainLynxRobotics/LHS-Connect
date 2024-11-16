@@ -21,7 +21,10 @@
 	}
 
 	interface Props {
-		initialItems: Item[];
+		/**
+		 * The items to display in the list. Bindable.
+		 */
+		items: Item[];
 		/**
 		 * Function to generate a new item. Required if `canCreate` is true (which it defaults to).
 		 */
@@ -41,7 +44,7 @@
 	}
 
 	let {
-		initialItems,
+		items: initialItems = $bindable([]),
 		generateNewItem,
 		renderItems,
 		canCreate = true,
@@ -55,6 +58,10 @@
 	}: Props = $props();
 
 	let items: Item[] = $state(initialItems);
+	$effect(() => {
+		initialItems = sort(items); // Sync the prop with the state
+	});
+
 	let order: Item['id'][] | undefined = $state(
 		canReorder && initialOrder ? sanitizeOrder(initialOrder) : undefined
 	);

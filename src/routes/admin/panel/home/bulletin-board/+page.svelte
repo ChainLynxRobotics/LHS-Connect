@@ -18,7 +18,7 @@
 		<SectionHeader title="Bulletin Board" />
 		<p class="mb-8">The title and content support markdown, and you can drag the notes around.</p>
 		<CrudList
-			initialItems={data.notes}
+			items={data.notes}
 			generateNewItem={() => ({ title: 'New Note', content: 'content' })}
 			canReorder
 			initialOrder={data.notes.map((note) => note.id)}

@@ -18,7 +18,7 @@
 		<SectionHeader title="Club List" />
 		<p class="mb-8">Alphabetical list of clubs</p>
 		<CrudList
-			initialItems={data.clubs}
+			items={data.clubs}
 			generateNewItem={() => ({
 				name: '_New Club',
 				day: '',

@@ -20,7 +20,7 @@
 			These links are rendered at the bottom of the page in a footer on all public pages
 		</p>
 		<CrudList
-			initialItems={data.cards}
+			items={data.cards}
 			generateNewItem={() => ({
 				title: 'New Card',
 				links: []

@@ -21,7 +21,7 @@
 			>.
 		</p>
 		<CrudList
-			initialItems={data.links}
+			items={data.links}
 			canCreate={false}
 			canDuplicate={false}
 			sortFn={(a, b) => b.createdAt - a.createdAt}

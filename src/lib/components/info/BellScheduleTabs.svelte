@@ -10,18 +10,22 @@
 	// Import the data from the parent component
 	interface Props {
 		data: BellScheduleData;
+		customTime?: DateTime;
 	}
 
-	let { data }: Props = $props();
+	let { data, customTime }: Props = $props();
 
 	// Precalculate the shown tabs and the selected tab
 
 	let tabs: IBellSchedule['id'][] = $state([]);
 	let selectedTab = $state(0);
 
-	let now = $state(DateTime.now().setZone('America/Los_Angeles'));
+	let now = $state(customTime || DateTime.now());
+	$effect(() => {
+		if (customTime) now = customTime; // Update the time if it's custom
+	});
 	let dayOfWeek = $derived(now.get('weekday'));
-	let dateEpoch = $state(DateTime.now().setZone('America/Los_Angeles').startOf('day').toMillis());
+	let dateEpoch = $derived(DateTime.fromMillis(now.toMillis()).setZone('America/Los_Angeles').startOf('day').toMillis());
 
 	$effect.pre(() => {
 		// Default day schedules
@@ -59,10 +63,10 @@
 
 	// setInterval to update reactive data
 	onMount(() => {
+		if (customTime) return;
 		// Update the current time every 10 seconds
 		let clear = setInterval(() => {
-			now = DateTime.now().setZone('America/Los_Angeles');
-			dateEpoch = DateTime.now().setZone('America/Los_Angeles').startOf('day').toMillis();
+			now = DateTime.now();
 		}, 10000);
 		return () => clearInterval(clear);
 	});
@@ -77,7 +81,7 @@
 	{#each tabs as scheduleId, i}
 		{@const schedule = data.schedules.find((s) => s.id === scheduleId)}
 		<TabItem open={i === selectedTab} title={schedule?.name || 'Unknown'}>
-			<BellScheduleTable {schedule} reactive={i === selectedTab} />
+			<BellScheduleTable {schedule} reactive={i === selectedTab} {customTime} />
 		</TabItem>
 	{/each}
 
