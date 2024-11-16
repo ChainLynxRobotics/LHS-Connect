@@ -15,7 +15,7 @@
 	let activeUrl = $derived($page.url.pathname);
 
 	const activeClass = 'rounded-none md:border-b-4 border-primary-500';
-	const inactiveClass = 'rounded-none';
+	const nonActiveClass = 'rounded-none';
 </script>
 
 <Navbar
@@ -31,7 +31,7 @@
 		<NavHamburger />
 	</div>
 
-	<NavUl {activeUrl} {activeClass} {inactiveClass}>
+	<NavUl {activeUrl} {activeClass} {nonActiveClass}>
 		<NavLi href="/">Home</NavLi>
 		<NavLi href="/clubs">Club List</NavLi>
 		<NavLi href="/calendar">Calendar</NavLi>

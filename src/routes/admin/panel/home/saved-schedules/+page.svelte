@@ -2,7 +2,7 @@
 	import CrudList from '$components/admin/CRUDList.svelte';
 	import DraggableList from '$components/admin/DraggableList.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import type { SavedScheduleData, TimeString } from '$lib/types/HomePageData';
+	import type { SavedScheduleData } from '$lib/types/HomePageData';
 	import { Button, Accordion } from 'flowbite-svelte';
 	import SavedSchedule from './SavedSchedule.svelte';
 
@@ -26,8 +26,8 @@
 				periods: [
 					{
 						name: 'Period 1',
-						start: '8:00' as TimeString,
-						end: '9:00' as TimeString
+						start: '8:00',
+						end: '9:00'
 					}
 				]
 			})}

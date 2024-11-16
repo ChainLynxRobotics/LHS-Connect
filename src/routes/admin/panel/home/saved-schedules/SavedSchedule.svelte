@@ -1,17 +1,16 @@
 <script lang="ts">
-	import { stopPropagation } from 'svelte/legacy';
-
 	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
 	import BellScheduleTable from '$components/info/BellScheduleTable.svelte';
-	import type { BellSchedule } from '$lib/types/HomePageData';
 	import { AccordionItem, Modal, Tooltip } from 'flowbite-svelte';
 	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { dragHandle } from 'svelte-dnd-action';
 	import SavedScheduleForm from './SavedScheduleForm.svelte';
+	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
+	import type { WithoutID } from '$lib/types/crud/globalCrud';
 
 	interface Props {
-		schedule: BellSchedule;
-		onUpdate: (e: BellSchedule) => void;
+		schedule: IBellSchedule;
+		onUpdate: (e: WithoutID<IBellSchedule>) => void;
 		onDuplicate: () => void;
 		onRemove: () => void;
 	}
@@ -20,7 +19,7 @@
 
 	let editModalOpen = $state(false);
 
-	function handleEditModalSubmit(e: BellSchedule) {
+	function handleEditModalSubmit(e: WithoutID<IBellSchedule>) {
 		onUpdate(e);
 		editModalOpen = false;
 	}

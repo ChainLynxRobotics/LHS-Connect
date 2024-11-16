@@ -3,7 +3,6 @@
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import { InputAddon, Button, Helper } from 'flowbite-svelte';
 	import QrCodeCard from '$components/QrCodeCard.svelte';
-	import shortLinkSchema from '$lib/schemas/shortLinkSchema';
 	import {
 		AngleDownOutline,
 		AngleUpOutline,
@@ -11,6 +10,7 @@
 		EyeSlashOutline
 	} from 'flowbite-svelte-icons';
 	import { slide } from 'svelte/transition';
+	import { shortLinkValidation } from '$lib/validation/crud/shortLinkSchema';
 
 	let suffixInput: ValidatedInputGroup<'suffix'> | undefined = $state();
 	let urlInput: ValidatedInput<'url'> | undefined = $state();
@@ -46,7 +46,7 @@
 				label="Short Url (Only letters, numbers, and hyphens)"
 				bind:value={suffix}
 				visuallyRequired
-				validatorObject={shortLinkSchema}
+				validatorObject={shortLinkValidation}
 				inputProps={{ type: 'text' }}
 			>
 				{#snippet before()}
@@ -62,7 +62,7 @@
 				label="Redirect Url"
 				value={url}
 				visuallyRequired
-				validatorObject={shortLinkSchema}
+				validatorObject={shortLinkValidation}
 				inputProps={{ type: 'url', placeholder: 'Paste URL Here' }}
 			/>
 		</div>
@@ -93,7 +93,7 @@
 							id="password"
 							label="Password"
 							bind:value={password}
-							validatorObject={shortLinkSchema}
+							validatorObject={shortLinkValidation}
 							inputProps={{ type: passwordVisible ? 'text' : 'password' }}
 						>
 							{#snippet before()}

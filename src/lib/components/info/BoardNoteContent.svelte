@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { Note } from '$lib/types/HomePageData';
+	import type { IBulletinBoardNote } from '$lib/types/crud/bulletinBoard';
 	import { ChevronRightOutline } from 'flowbite-svelte-icons';
 	import SvelteMarkdown from 'svelte-markdown';
 
 	interface Props {
-		note: Note;
+		note: IBulletinBoardNote;
 	}
 
 	let { note }: Props = $props();

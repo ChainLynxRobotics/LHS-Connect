@@ -1,9 +1,5 @@
 <script lang="ts">
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import type { BellSchedule } from '$lib/types/HomePageData';
-	import bellScheduleSchema, {
-		bellSchedulePeriodSchemaName
-	} from '$lib/schemas/bellScheduleSchema';
 	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
 	import {
 		Button,
@@ -17,12 +13,15 @@
 	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { flip } from 'svelte/animate';
+	import { bellSchedulePeriodNameValidation, bellScheduleValidation } from '$lib/validation/crud/bellScheduleSchema';
+	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
+	import type { WithoutID } from '$lib/types/crud/globalCrud';
 
 	const flipDurationMs = 300;
 
 	interface Props {
-		schedule: BellSchedule;
-		onSubmit: (schedule: BellSchedule) => void;
+		schedule: IBellSchedule;
+		onSubmit: (schedule: WithoutID<IBellSchedule>) => void;
 		onCancel: () => void;
 	}
 
@@ -65,7 +64,6 @@
 		}
 
 		submit({
-			id: schedule.id,
 			name: await nameInput!.validate(),
 			desc: await descInput!.validate(),
 			periods: periods.map((period) => ({ ...period, id: undefined }))
@@ -90,7 +88,7 @@
 			id="name"
 			label="Name"
 			bind:value={name}
-			validatorObject={bellScheduleSchema}
+			validatorObject={bellScheduleValidation}
 			visuallyRequired
 		/>
 	</div>
@@ -100,7 +98,7 @@
 			id="desc"
 			label="Description"
 			bind:value={desc}
-			validatorObject={bellScheduleSchema}
+			validatorObject={bellScheduleValidation}
 		/>
 	</div>
 
@@ -134,7 +132,7 @@
 								bind:this={periodNameInputs[index]}
 								id={`period-${index}-name`}
 								bind:value={period.name}
-								validator={bellSchedulePeriodSchemaName}
+								validator={bellSchedulePeriodNameValidation}
 								visuallyRequired
 							/>
 						</TableBodyCell>

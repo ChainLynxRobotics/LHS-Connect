@@ -2,7 +2,7 @@ import type { ClubPageData } from "$lib/types/ClubPageData";
 
 const clubs = [
     {
-      "id": 1992415261070887,
+      "id": "756731f700efdb1b415ca125",
       "name": "ASB",
       "day": "Tuesday",
       "time": "Morning",
@@ -12,7 +12,7 @@ const clubs = [
       "desc": "N/A"
     },
     {
-      "id": 1318337571594578,
+      "id": "1b7f7a4a36ec9c26c708d115",
       "name": "c/o 2025",
       "day": "Friday",
       "time": "8:15 a.m.",
@@ -21,7 +21,7 @@ const clubs = [
       "instagram": "lincolnseattle2025"
     },
     {
-      "id": 3258827772466337,
+      "id": "3a684fd41b5f5aed364d7c5b",
       "name": "c/o 2026",
       "day": "Alt Fridays",
       "time": "Lunch",
@@ -30,7 +30,7 @@ const clubs = [
       "instagram": "lincolnhs2026"
     },
     {
-      "id": 3851708928648149,
+      "id": "77a4e296aaffb1afbfff7d2b",
       "name": "c/o 2027",
       "day": "2nd Monday",
       "time": "Lunch",
@@ -39,7 +39,7 @@ const clubs = [
       "instagram": "lincolnclassof27"
     },
     {
-      "id": 8701711777850175,
+      "id": "bccca87f1e5cd63a9bb50724",
       "name": "House Reps",
       "day": "alt Wednesday",
       "time": "Lunch",
@@ -47,7 +47,7 @@ const clubs = [
       "advisor": "Goehring"
     },
     {
-      "id": 35493945995305,
+      "id": "359ec1507950eb7664b49ce1",
       "name": "Spirit Committee",
       "day": "Thursday",
       "time": "Lunch",
@@ -56,7 +56,7 @@ const clubs = [
       "instagram": "lincolnseattle"
     },
     {
-      "id": 3806368685120388,
+      "id": "bf42ce9412964edb9c299614",
       "name": "LHS Consent Coalition",
       "day": "",
       "time": "",
@@ -65,7 +65,7 @@ const clubs = [
       "instagram": "lhs.consent.coalition"
     },
     {
-      "id": 2133647940507445,
+      "id": "3a3bed9c79d315544d13eeac",
       "name": "Art Club",
       "day": "Thursdays",
       "time": "Lunch",
@@ -75,7 +75,7 @@ const clubs = [
       "desc": "Art Club meets Thursdays during lunch each week! We love art, from a wide variety of projects (like group posters, individual projects, etc. ), to talking about it, to just hanging out and having lunch. You do not need any materials or skill level to join, were just here to have fun!"
     },
     {
-      "id": 1372252878167168,
+      "id": "67246ce814b34a53e4234443",
       "name": "Animal Welfare Club",
       "day": "Tuesdays",
       "time": "Lunch",
@@ -84,7 +84,7 @@ const clubs = [
       "desc": "Animal Welfare Club is open to any students that are interested in working to protect animals and learn more about animal welfare! We meet the first Tuesday of every month, and have many volunteer opportunities and fun field trips."
     },
     {
-      "id": 3800357657111788,
+      "id": "055d808c46329dbfbf9a6b15",
       "name": "Astronomy Club",
       "day": "Monday",
       "time": "Lunch",
@@ -93,7 +93,7 @@ const clubs = [
       "desc": "Astronomy club has presentations on space, physics, and of course astronomy. We are currently working on restoring the schools telescopes!"
     },
     {
-      "id": 2696379361626361,
+      "id": "90cb8290c7125ac84daabccf",
       "name": "ASU",
       "day": "Wednesday",
       "time": "Lunch",
@@ -103,7 +103,7 @@ const clubs = [
       "desc": "Lincoln's ASU is dedicated to creating a familiar, welcoming space for all Asian students! We host movie nights, fundraise snack boxes, and aim to share our diverse, expansive culture with our Lincoln community. We're excited to meet you!"
     },
     {
-      "id": 8581710175102927,
+      "id": "ad264a02d1d1aab08386b850",
       "name": "Baking Club",
       "day": "Mondays at lunch",
       "time": "",
@@ -112,7 +112,7 @@ const clubs = [
       "desc": "Baking club is open to anyone who loves to bake, and eat home baked goods! We decide on a theme every week and bring baked goods we made over the weekend to make Monday mornings a little better"
     },
     {
-      "id": 6739725215415799,
+      "id": "8ca4eea8d02bb8723b13bc9c",
       "name": "Botany Club",
       "day": "",
       "time": "",
@@ -121,7 +121,7 @@ const clubs = [
       "desc": "Botany Club meets up at lunch to discuss and grow plants, and to do plant-related activities. All levels of interest welcome!"
     },
     {
-      "id": 7971937973954154,
+      "id": "410ada2853375d9aec8f9e7a",
       "name": "Boys' Volleyball Club",
       "day": "Wednesdays and Fridays",
       "time": "7:45 AM",
@@ -131,7 +131,7 @@ const clubs = [
       "desc": "Boys' volleyball club is open to boys of all experience levels at Lincoln who are interested in volleyball. Bring your school and team spirit, and join us at our practices! We play scrimmages and games against Lincoln's girls' volleyball team and against other schools' clubs. Come try it and see if it's for you!"
     },
     {
-      "id": 7813875850691928,
+      "id": "46210e80686a0d5c39d7925e",
       "name": "Bread Club",
       "day": "Mondays",
       "time": "",
@@ -140,7 +140,7 @@ const clubs = [
       "desc": "it's bread club"
     },
     {
-      "id": 8399981392191208,
+      "id": "dec6651911e7d29440651bdb",
       "name": "Career Exploration",
       "day": "Tuesdays",
       "time": "Lunch",
@@ -149,7 +149,7 @@ const clubs = [
       "desc": "Female Finance teaches girls at our school how to manage and think of their finances so that they are empowered when it comes to their daily lives as they head into their future. Meet guest speakers, contribute to an investment portfolio, and gain financial knowledge!"
     },
     {
-      "id": 8705191461305948,
+      "id": "f1774fd61be099f6d853b7e5",
       "name": "Chainlynx Robotics",
       "day": "",
       "time": "",
@@ -158,7 +158,7 @@ const clubs = [
       "desc": "ChainLynx is Lincoln's robotics team, with no experience required! We do 3D modeling, programming, building robots, managing finances, and work with social media. We meet Tuesdays and Thursdays at 3:40 in room 167."
     },
     {
-      "id": 7177549372891964,
+      "id": "9522b0baeade214cd409ead0",
       "name": "Chainlynx Robotics",
       "day": "Monday (6-7:30), Tuesday (3:45-5:30), Thursday (3:45-5:30)",
       "time": "",
@@ -167,7 +167,7 @@ const clubs = [
       "desc": "ChainLynx Robotics is Lincoln's FRC team! No experience required to join! We do 3D modeling, programming, building robots, strategic planning, managing finances, and working with social media. We meet Mondays, Tuesdays, and Thursdays in room 167. (6pm Mondays, 3:40 Tuesdays and Thursdays)"
     },
     {
-      "id": 1454299780096897,
+      "id": "01de254b8acf8ff5ebeee31c",
       "name": "Charcuterie Club",
       "day": "tuesday",
       "time": "Lunch",
@@ -176,7 +176,7 @@ const clubs = [
       "desc": "Charcuterie Club hangs out in room 232 on alternating tuesdays. We mostly just eat lunch, bring food to share, and talk with eachother."
     },
     {
-      "id": 5511575423490246,
+      "id": "a1692563ab8cbd0b659c34aa",
       "name": "Chess Club",
       "day": "Wednesday's at lunch",
       "time": "",
@@ -185,7 +185,7 @@ const clubs = [
       "desc": "Chess club meets every Wednesday at lunch.  We play matches and hang out to music and food.  Come and join us any time, we welcome any new members."
     },
     {
-      "id": 1456692877107237,
+      "id": "2ad2725f051b5af715d608d8",
       "name": "Chinese Club",
       "day": "Thursdays",
       "time": "Lunch",
@@ -195,7 +195,7 @@ const clubs = [
       "desc": "Chinese Club is a club for anyone interested in Chinese culture or history! We meet every Thursday to eat snacks, play games and learn more about Chinese culture. Everyone is welcome!"
     },
     {
-      "id": 1796445474921527,
+      "id": "d332dd7a982904a7a2ff3476",
       "name": "Calisthenics Club",
       "day": "fridays",
       "time": "Lunch",
@@ -203,7 +203,7 @@ const clubs = [
       "advisor": "Savauge"
     },
     {
-      "id": 633014909736406,
+      "id": "a879182df3ab180335e8f0fe",
       "name": "Climbing Club",
       "day": "",
       "time": "",
@@ -212,7 +212,7 @@ const clubs = [
       "desc": "Climbing club is an environment for climbers of all skill levels to meet and talk. We help connect the climbing community of LHS and can provide day passes for those getting into the sport!"
     },
     {
-      "id": 5792624922844769,
+      "id": "f63e46e146d8b5687593bcaf",
       "name": "Color Guard",
       "day": "Tuesday",
       "time": "Lunch",
@@ -222,7 +222,7 @@ const clubs = [
       "desc": "Color Guard Club is a vibrant community where members come together to explore the artistry of flag spinning and dance. Engage in creative routines, develop precision in performances, and foster teamwork while showcasing the visual appeal of color guard and Lincoln pride. Join us to enhance your skills, express creativity, and be part of dynamic performances throughout the year!"
     },
     {
-      "id": 4791675438166545,
+      "id": "67c7b3bf20411dd2326b4c88",
       "name": "Craft Club",
       "day": "Thursday Lunch",
       "time": "",
@@ -231,7 +231,7 @@ const clubs = [
       "desc": "Craft Club is for students who enjoy fun weekly crafts and want to make a change in the community! We do crafts that benefit the community like origami for hospitals and cards for veterans!"
     },
     {
-      "id": 5373097266372509,
+      "id": "fc6d30aa985b8310beecf59b",
       "name": "Cultural Education Comittee",
       "day": "Tuesday",
       "time": "Lunch",
@@ -240,7 +240,7 @@ const clubs = [
       "desc": "Cultural Education Committee is for students passionate about sharing diverse cultures! We visit local elementary schools to teach kids about traditions, customs, and languages from around the world through fun, interactive activities. Join us to inspire young minds and celebrate cultural diversity"
     },
     {
-      "id": 5167270876073838,
+      "id": "b8976a4ca83ff501c635f257",
       "name": "Dance Team",
       "day": "",
       "time": "",
@@ -249,7 +249,7 @@ const clubs = [
       "desc": "Dance Team is open to anyone no matter the skill level, who loves to dance! We perform in assemblies, games, and showcases and have a lot of fun!"
     },
     {
-      "id": 7514041176314363,
+      "id": "0b3e27b58b4d8442ce3d55d0",
       "name": "Dance Team",
       "day": "Mondays (3:45-4:45), Wednesdays (2:30-3:30)",
       "time": "",
@@ -258,7 +258,7 @@ const clubs = [
       "desc": "Lincoln Dance Team is an all gender hip hop based team that preforms at assembly's, football games, and showcases. We are open to all levels of dance experience and meet twice a week for practice."
     },
     {
-      "id": 7534684809344304,
+      "id": "d2783dd123fd7550cd760e7d",
       "name": "Debate",
       "day": "Tuesdays",
       "time": "Lunch",
@@ -268,7 +268,7 @@ const clubs = [
       "desc": "Debate Club is open to debaters of all skill level! We learn how to debate and work on public speaking, which we use at district-wide competitions!!"
     },
     {
-      "id": 6302126693021645,
+      "id": "27dba93e4e276238ab795f9a",
       "name": "DECA",
       "day": "",
       "time": "",
@@ -277,7 +277,7 @@ const clubs = [
       "desc": "DECA is  a student-led organization that helps prepare students for college and careers in business. We meet every Friday in room 271, and we attend district, state, and national competitions against other schools."
     },
     {
-      "id": 6034678110896163,
+      "id": "469d6d45d70b59efb2d2f5b7",
       "name": "Diabetes Student Union",
       "day": "Tuesday during lunch",
       "time": "",
@@ -286,7 +286,7 @@ const clubs = [
       "desc": "diabetes student union for those who would like to be surrounded by other diabetics that may be going through the same thing. we talk about all sorts of different things on and off the subject of diabetes, as well as meet once a week during lunch !!!"
     },
     {
-      "id": 5203465458309381,
+      "id": "861edcd3a2489a2ad441a09a",
       "name": "Dungenous and Dragons Club",
       "day": "Monday",
       "time": "3:40-5:30",
@@ -294,7 +294,7 @@ const clubs = [
       "advisor": ""
     },
     {
-      "id": 6666913845965989,
+      "id": "6216e76898ae1f480a40d66e",
       "name": "Disabled Student Union",
       "day": "Tuesday",
       "time": "",
@@ -303,7 +303,7 @@ const clubs = [
       "desc": "do you have a disability of some sort come join the DSU and meet all new friends we stand to show that all people with disabilities should not be treated differently because of our disability's  everyone's welcome"
     },
     {
-      "id": 7281799020593250,
+      "id": "5cc9dba72886231b70e89d6b",
       "name": "Drama Club",
       "day": "Wednesday",
       "time": "Lunch",
@@ -313,7 +313,7 @@ const clubs = [
       "desc": "Drama Club is a club celebrating the love of theatre! We play games, learn about historic theatre people and events, and go see shows together! We are partners with our Thespian Troupe, a more career-focused theatre club. All are welcome at both! We meet Wednesdays at lunch."
     },
     {
-      "id": 3985607478931146,
+      "id": "6c081383e767b35ea39e8afb",
       "name": "DSU",
       "day": "Tuesdays",
       "time": "Lunch",
@@ -323,7 +323,7 @@ const clubs = [
       "desc": "DSU meets in room 111 during lunch on Tuesdays we meet up and talk about disabilities and more and all are welcome to come to our meeting no matter what."
     },
     {
-      "id": 6325499571940006,
+      "id": "22d5541f364d64aa7ef0b631",
       "name": "Economics Club",
       "day": "Monday",
       "time": "Lunch",
@@ -333,7 +333,7 @@ const clubs = [
       "desc": "Investing club competes in economics competitions, deca events and teach lessons on finance with guest speakers! Whether your a beginner or have experience, this club is your chance to grow your investing knowledge."
     },
     {
-      "id": 3750489125293422,
+      "id": "a9f6573ea5a906c4c727244e",
       "name": "Environmental Club",
       "day": "mondays",
       "time": "Lunch",
@@ -343,7 +343,7 @@ const clubs = [
       "desc": "Environmental Club is for everyone who loves the environment! We aim to create a more sustainable high school through fun and engaging activities about the environment."
     },
     {
-      "id": 339721669695090,
+      "id": "adefd0d23275dffdc610e3da",
       "name": "Ethics Bowl",
       "day": "wed, 8:00am",
       "time": "",
@@ -352,7 +352,7 @@ const clubs = [
       "desc": "Ethics Bowl meets once a week- Wednesdays at 8:00am in room 351- to prepare for the *optional* ethics bowl competition ??!!   During the meetings we go over an ethical prompt/dilemma ? and work collaboratively as a group to come up with as many perspectives as possible, along with some central questions. We will also bring snacks ?? and treats ?? to share for some meetings!!  \n\nNo experience is needed, and new members are always welcome!!! If you have any questions, feel free to email 1smleblang@seattleschools.org or 1maminer@seattleschools.org . \n\nMake sure to follow our Instagram @lhs.ethicsbowl ! ????"
     },
     {
-      "id": 7339558991432822,
+      "id": "0233ad2c3afaf17ceffb1211",
       "name": "Ethnic Food Club",
       "day": "Every Other Friday (1st and 3rd)",
       "time": "",
@@ -360,7 +360,7 @@ const clubs = [
       "advisor": "Ms. Montgomery"
     },
     {
-      "id": 1734713434707330,
+      "id": "cf399125e9d7b1e1ece62317",
       "name": "Fabrication club",
       "day": "Monday",
       "time": "3:45-4:45",
@@ -369,7 +369,7 @@ const clubs = [
       "desc": "Fabrication Club is allowing all students of LHS access to the Fab Lab and tools inside. We meet on Mondays after school, during BASH. We also tutor for HCD classes if you need help with any of the projects. The students of Fabrication Club can help you convert your projects into actionable plans and items to manufacture."
     },
     {
-      "id": 3514851336976627,
+      "id": "5b12e12b3b62f3d206d25676",
       "name": "Female Finance Club",
       "day": "every other Tuesday",
       "time": "lunch",
@@ -379,7 +379,7 @@ const clubs = [
       "desc": "Female Finance Club meets up every other Tuesday to learn about Finance, talk about investments, meet guest speakers, and become more financially aware! We even hope to fundraise for FWA (Financial Women’s Association)."
     },
     {
-      "id": 8206531209963224,
+      "id": "03e7647569b37a387a68130b",
       "name": "Fashion Club",
       "day": "Wednesday",
       "time": "lunch",
@@ -387,7 +387,7 @@ const clubs = [
       "advisor": "Nimni"
     },
     {
-      "id": 8266748076279741,
+      "id": "5f3e6976509d249d312180d3",
       "name": "Femensim Club",
       "day": "Every other Tuesday",
       "time": "Lunch",
@@ -396,7 +396,7 @@ const clubs = [
       "desc": "Feminism club is a club for people to learn about and collaborate on issues around feminism affecting society and us right, and to be a welcoming space for female-identifying students or anyone that cares about feminism!"
     },
     {
-      "id": 7051182883907904,
+      "id": "81b1f43e6faaeadb91dbaff2",
       "name": "Film Club",
       "day": "Thursdays at lunch",
       "time": "",
@@ -405,7 +405,7 @@ const clubs = [
       "desc": "Film Club is for students interested in film production and movies! We make videos for the community, learn new film skills, and compete at SkillsUSA."
     },
     {
-      "id": 2191807658361233,
+      "id": "8154e00cc797244a169980a4",
       "name": "Fishing Club",
       "day": "",
       "time": "",
@@ -415,7 +415,7 @@ const clubs = [
       "desc": "The fishing club meets every Wednesday in room 235. During meetings we hangout and learn new techniques of fishing! Over the weekends, we explore local bodies of water such as Green Lake, Lake Washington and the Puget Sound. In the future, our goal is to get as many people as we can to enjoy fishing as much as we do."
     },
     {
-      "id": 6067231486642722,
+      "id": "fb30cafbac7fa385f41304dc",
       "name": "French Club",
       "day": "Tuesday Lunch",
       "time": "",
@@ -424,7 +424,7 @@ const clubs = [
       "desc": "French Club meets to talk in French and learn about French culture. Everyone is welcome, ANY level of French."
     },
     {
-      "id": 3384070291541132,
+      "id": "4f5e84490f56f9a09c4098ab",
       "name": "Genome Science Club",
       "day": "Thursdays",
       "time": "Lunch",
@@ -433,7 +433,7 @@ const clubs = [
       "desc": "Genome Science Club is for any student with a passion for genetics. Key highlights of our club include research, field trips, and book clubs!"
     },
     {
-      "id": 2678408222317902,
+      "id": "51c8ab982d23633b0f8ac5ff",
       "name": "German Culture Appreciation Club",
       "day": "Thursdays",
       "time": "Lunch",
@@ -441,7 +441,7 @@ const clubs = [
       "advisor": "Profe Martin"
     },
     {
-      "id": 8994342922126854,
+      "id": "82ac8a085867c603fa722275",
       "name": "Golf Club",
       "day": "Tuesday at lunch",
       "time": "",
@@ -450,7 +450,7 @@ const clubs = [
       "desc": "Lincoln golf club is a great opportunity for golfers of all skills. At our meetings, we focus on learning the basics of golf and the history of the sport. Additionally, every year we host a variety of tournaments at local golf courses."
     },
     {
-      "id": 5611046021081773,
+      "id": "e703fd2efae54451544155ed",
       "name": "Honk Band",
       "day": "Tuesdays after school, about 3:50 to 4:50",
       "time": "",
@@ -459,7 +459,7 @@ const clubs = [
       "desc": "HONK! Band plays music inspired by jazz, pop, and brass bands. Anyone is welcome, regardless of instrument or playing level; our goal is to bring the joy of music to everyone!"
     },
     {
-      "id": 2234194923644140,
+      "id": "39ec84cbd104db0d22bb5a0a",
       "name": "HOSA",
       "day": "Wednesday",
       "time": "Lunch",
@@ -468,7 +468,7 @@ const clubs = [
       "desc": "Minal Gowda and An-Li (Presidents), Natalia Fortuna (Vice President), Clementine Davis-Hall (Secretery), Lulu Scalzo Zakharenko (Social Media Manager)"
     },
     {
-      "id": 2468880308492516,
+      "id": "f8ebdece8ea23360a126e422",
       "name": "IYNA- Neuroscience Club",
       "day": "mondays",
       "time": "lunch",
@@ -477,7 +477,7 @@ const clubs = [
       "desc": "Neuroscience clubs meet to learn about neuroscience with the help of IYNA, an international association for students interested in neuroscience."
     },
     {
-      "id": 7442797157442954,
+      "id": "b73a7257af8627a5a010c9c4",
       "name": "Japanese Conversation Club",
       "day": "Tuesdays",
       "time": "Lunch",
@@ -486,7 +486,7 @@ const clubs = [
       "instagram": "lhs.japanese."
     },
     {
-      "id": 276627018127019,
+      "id": "75b6d18eeb2d7fa4956c2c07",
       "name": "JSU",
       "day": "Mondays during lunch",
       "time": "",
@@ -495,7 +495,7 @@ const clubs = [
       "desc": "JSU (Jewish Student Union) is a place where Jewish kids from all backgrounds can come together and bond on our culture and traditions. There will be food (most of the time) and fun activities and events!"
     },
     {
-      "id": 1701765785507618,
+      "id": "80d17c6808057debd8768bc8",
       "name": "Junior State of America",
       "day": "tuesdays at lunch",
       "time": "",
@@ -504,7 +504,7 @@ const clubs = [
       "desc": "political science club is to learn about politics and organize community service projects"
     },
     {
-      "id": 1524424707676519,
+      "id": "d6f5e17de67b8dc0b9d5eae0",
       "name": "K-Dance Club",
       "day": "Mondays and Thursdays during lunch",
       "time": "",
@@ -513,7 +513,7 @@ const clubs = [
       "desc": "Lincoln K-dance club is club centered around K-pop dance choreography! We learn dances together, film dance covers, and perform a couple times each year! We meet twice a week in school, and occasionally meet outside of school as well."
     },
     {
-      "id": 3329250248436095,
+      "id": "3ce67b3cafc955411c25ac66",
       "name": "Keystone Club",
       "day": "Every Other Tuesday",
       "time": "Lunch",
@@ -523,7 +523,7 @@ const clubs = [
       "desc": "Keystone Club helps connect Lincoln students to local community service and volunteer opportunities. Everyone is welcome; come get your hours!"
     },
     {
-      "id": 2829128849440198,
+      "id": "f24ab15d3017ad1183f0ce23",
       "name": "Leukemia and Lymphoma Society",
       "day": "Monday",
       "time": "Lunch",
@@ -533,7 +533,7 @@ const clubs = [
       "desc": "Leukemia and Lymphoma Society Club supports the funding of treatments, research, and advocacy for blood cancer patients. We do this through student led fundraising. It is an opportunity to further students’ leadership and outreach skills, while also helping blood cancer patients."
     },
     {
-      "id": 8278132595406762,
+      "id": "42bb3b32c237bd5e772aa8e8",
       "name": "LHOG (Lincoln Hiking outdoors group)",
       "day": "Tuesdays",
       "time": "Lunch",
@@ -541,7 +541,7 @@ const clubs = [
       "advisor": "Michener"
     },
     {
-      "id": 384436286469191,
+      "id": "25574d247df921375725f8bc",
       "name": "Living Outside",
       "day": "Tuesday",
       "time": "Lunch",
@@ -549,7 +549,7 @@ const clubs = [
       "advisor": "Hawley"
     },
     {
-      "id": 3247586721886993,
+      "id": "cf4c3417ea2add0b1ba965af",
       "name": "LHS for Climate Justice",
       "day": "Thursdays",
       "time": "Lunch",
@@ -558,7 +558,7 @@ const clubs = [
       "desc": "At LHS 4 Climate Justice, we focus on an intersectional approach to making climate justice-related legislation at the city and statewide level accessible to LHS students."
     },
     {
-      "id": 1437015256588374,
+      "id": "03a45a29ac287d674232e1f5",
       "name": "Lynx Badminton Club",
       "day": "fridays (fall and winter) after school spring",
       "time": "",
@@ -567,7 +567,7 @@ const clubs = [
       "instagram": "lynxbadminton"
     },
     {
-      "id": 5440344462264164,
+      "id": "8f5f84f47f292965967e0246",
       "name": "Lincoln Go Club",
       "day": "Thursdays",
       "time": "Lunch",
@@ -576,7 +576,7 @@ const clubs = [
       "desc": "Lincoln Go Club is a club for all who are interested in learning and playing the four-thousand year old board game of Go! If you are even remotely curious, show up to a meeting on a Thursday lunch and check it out with no commitment."
     },
     {
-      "id": 1271157856715067,
+      "id": "5de000a1b8300b7116eaf9d2",
       "name": "LSU",
       "day": "wednesday during lunch",
       "time": "",
@@ -585,7 +585,7 @@ const clubs = [
       "desc": "LSU Is a space where all students of Hispanic or Latin decent can thrive and hangout"
     },
     {
-      "id": 8104619830037211,
+      "id": "981c14678c0644dab7be81d7",
       "name": "Magic: the gathering club",
       "day": "friday",
       "time": "Lunch",
@@ -593,7 +593,7 @@ const clubs = [
       "advisor": "Mr. Myers"
     },
     {
-      "id": 6752037005040554,
+      "id": "db124647b7160a383773e009",
       "name": "Math Club",
       "day": "Mondays,  Fridays",
       "time": "Mondays at lunch and fridays after school",
@@ -603,7 +603,7 @@ const clubs = [
       "desc": "Math Club competes in a variety of nationally recognized competitions, organizes math competitions and tutoring events for elementary schoolers, hosts professor guest lecturers, and teaches all members new math concepts in an interactive environment!"
     },
     {
-      "id": 3933608852211755,
+      "id": "99211b515a1e07e849493cc4",
       "name": "Microbiology Club",
       "day": "Wednesday",
       "time": "Lunch",
@@ -612,7 +612,7 @@ const clubs = [
       "desc": "Microbiology Club is a club that is dedicated to doing simple experiments involving microbes and generally just looking at things under microscopes!"
     },
     {
-      "id": 1856767228326817,
+      "id": "b80084ab64889db532e0235c",
       "name": "Medlife Chapter at Lincoln",
       "day": "1st/3rd Tuesdays of each month during lunch",
       "time": "",
@@ -621,7 +621,7 @@ const clubs = [
       "desc": "Medlife is a non profit organization that works to improve access to medicine, education, and more in low income communities across the world. As a member of this club, you will be able to get volunteer hours, add to your resume in a meaningful and impactful way, and have opportunities for travel abroad with discounted prices and guaranteed scholarships!"
     },
     {
-      "id": 452004425112953,
+      "id": "91e1e689f465d43eff9026f7",
       "name": "Mock Trial",
       "day": "Mondays",
       "time": "after school",
@@ -630,7 +630,7 @@ const clubs = [
       "desc": "Mock Trial club meets with real lawyers every week to prepare for our district wide competition each year!"
     },
     {
-      "id": 5120750737727156,
+      "id": "c71999d1f383de3c0caf2f55",
       "name": "Model UN",
       "day": "Tuesday during lunch and sometimes Thursday after school",
       "time": "",
@@ -639,7 +639,7 @@ const clubs = [
       "desc": "Model UN is a community and collaboration oriented club that is a mock simulation of the United Nations. Our club promotes learning public speaking and debate skills, learning more about the world, and learning how to do research!"
     },
     {
-      "id": 4576671991347963,
+      "id": "bc42f8e782d82ceef425b072",
       "name": "Music Appreciation Club",
       "day": "Wednesday 11:55 - 12:25 (Lunch)",
       "time": "",
@@ -648,7 +648,7 @@ const clubs = [
       "desc": "Music Appreciation club is for any LHS student looking to expand or improve their music taste. We review albums, talk about music listening habits, and share out favorite music creators."
     },
     {
-      "id": 1685243797620049,
+      "id": "8a3a2419125a4fe4b23fb41c",
       "name": "NAMI on campus",
       "day": "mondays",
       "time": "Lunch",
@@ -656,7 +656,7 @@ const clubs = [
       "advisor": "Mr. Reed"
     },
     {
-      "id": 5534587756091909,
+      "id": "5549facab3e1354c96175211",
       "name": "Origami Club",
       "day": "Wednesday",
       "time": "lunch",
@@ -665,7 +665,7 @@ const clubs = [
       "desc": "Origami Club is for any students who want to learn the ancient art of paper folding! We will plan to meet every week to learn origami from more experienced students, online tutorials, books, or just to hang out and have fun. All levels of folders are welcome!"
     },
     {
-      "id": 790388474664738,
+      "id": "b3510099c26462490517d1cf",
       "name": "Philosophy Club",
       "day": "Mondays",
       "time": "Lunch",
@@ -674,7 +674,7 @@ const clubs = [
       "desc": "in Philosophy Club, we both look at ideas from all around the world and discuss ideas of our own. No prior knowledge needed to join."
     },
     {
-      "id": 8882715998590627,
+      "id": "7dabf53339d40718786fe8b9",
       "name": "Playing Music Club",
       "day": "Thursdays",
       "time": "lunch",
@@ -684,7 +684,7 @@ const clubs = [
       "desc": "Playing Music Club meets to play acoustic song covers and original compositions in the orchestra room at lunch on Thursdays. All skill level and acoustic instruments, including voice, are welcome. Just bring or borrow an instrument from the orchestra room!"
     },
     {
-      "id": 2463287517694143,
+      "id": "749131579fad5d8d496c1225",
       "name": "Photography Club",
       "day": "Friday",
       "time": "lunch",
@@ -693,7 +693,7 @@ const clubs = [
       "desc": "Photography Club meets weekly to share photos, learn skills and techniques, and build a community of photographers at Lincoln. Anyone is welcome, regardless of experience or equipment!"
     },
     {
-      "id": 2100937749049657,
+      "id": "110f98972627dca2d4354987",
       "name": "Poetry Club",
       "day": "Thursdays at lunch",
       "time": "lunch",
@@ -702,7 +702,7 @@ const clubs = [
       "desc": "Poetry club is for people to come and write, read, and talk about poetry. We meet once a week to learn all we can and participate in some competitions and events to promote or share poetry!"
     },
     {
-      "id": 1077874505093102,
+      "id": "e6785e148cc34eeb791008f2",
       "name": "Potluck Club",
       "day": "First Monday of the month",
       "time": "",
@@ -711,7 +711,7 @@ const clubs = [
       "desc": "Potluck Club meets once a month to share food and have potlucks! You don’t have to bring something every time, but any type of store-bought or homemade food is welcome!"
     },
     {
-      "id": 5668568682273539,
+      "id": "b573b83fb60a9bc02c974272",
       "name": "RC Club of LHS",
       "day": "Alt Tuesdays",
       "time": "Lunch",
@@ -721,7 +721,7 @@ const clubs = [
       "desc": "RC Club meets to explore the rc hobby and learn about course building and competitions"
     },
     {
-      "id": 3574372393161832,
+      "id": "576bf52d9673ce358358dcd8",
       "name": "Red Cross Club",
       "day": "Wednesday",
       "time": "Lunch",
@@ -731,7 +731,7 @@ const clubs = [
       "desc": "Red Cross Club is for students looking to have an impact on their communities through training programs, certifications, and service projects! Work to earn medical licenses and partner with community organizations while having fun and educating others!"
     },
     {
-      "id": 7052542973424143,
+      "id": "c176353b46c67249b96b0fff",
       "name": "Rocket Club",
       "day": "Thursdays at 4:00",
       "time": "",
@@ -740,7 +740,7 @@ const clubs = [
       "desc": "Rocketry/Aerospace club meets to discuss anything that gets off the ground, as well as competing in he American Rocketry Challenge and GAMA, a competition about creating planes."
     },
     {
-      "id": 6372712189643431,
+      "id": "061dc8429d2f5593546a08f2",
       "name": "SAGA",
       "day": "Thursdays after school",
       "time": "",
@@ -749,7 +749,7 @@ const clubs = [
       "desc": "The Sexuality and Gender Alliance (SAGA) is an affinity group for queer students to find community, learn about queer history, and engage in activism. All are welcome to join!"
     },
     {
-      "id": 3960162409433096,
+      "id": "4ce80cbcd0ae5f3d1100cd99",
       "name": "Skate Club",
       "day": "Friday",
       "time": "lunch",
@@ -758,7 +758,7 @@ const clubs = [
       "desc": "Lincoln skate club is not just for skaters its welcome for all people! We meet mostly on Fridays for lunch and everyone is welcome and feel free to bring your friends. We can teach people how to skate as well as help with information on purchasing skate parts and boards."
     },
     {
-      "id": 123962728185003,
+      "id": "0070622813b30744f8dd4368",
       "name": "Science Fair Club",
       "day": "Fridays",
       "time": "Lunch",
@@ -767,7 +767,7 @@ const clubs = [
       "desc": "We make our own science or engineering projects and present them at the Washington State Science and Engineering Fair with possibilities to win scholarships and monetary prizes."
     },
     {
-      "id": 8389720755099186,
+      "id": "9dee2cc60503f420a996c786",
       "name": "Science Olympiad",
       "day": "monday lunches",
       "time": "",
@@ -776,7 +776,7 @@ const clubs = [
       "desc": "We make our own science or engineering projects and present them at the Washington State Science and Engineering Fair with possibilities to win scholarships and monetary prizes."
     },
     {
-      "id": 5849632471611976,
+      "id": "3b43bf91197c605d9c897378",
       "name": "Teen Eclipse Fundraising",
       "day": "Monday",
       "time": "lunch",
@@ -786,7 +786,7 @@ const clubs = [
       "desc": "Teen Eclipse is a fundraising group that raises money for cancer research at Seattle Children's Hospital. Come by our Monday meetings in 441 and get leadership, organization, and volunteer experience in a super fun environment!"
     },
     {
-      "id": 419757873803509,
+      "id": "7e95ce98e9faf5ae832325bb",
       "name": "Thespian Troupe",
       "day": "Wednesday’s at lunch (combined with drama club)",
       "time": "",
@@ -795,7 +795,7 @@ const clubs = [
       "desc": "Troupe 10127 is for all your career-focused theatre enthusiasm! We meet the first wednesday of every month in the black box at lunch. All are welcome!"
     },
     {
-      "id": 5357824121727489,
+      "id": "ca1ffa586e78016fa3a90dd6",
       "name": "T-Mobile Club",
       "day": "Tuesday",
       "time": "Lunch",
@@ -805,7 +805,7 @@ const clubs = [
       "desc": "T-Mobile Club is an active community of avid T-Mobile enthusiasts! We get rewards, hear from guest speakers, and all around just appreciate T-Mobile. Everyone is welcome, no matter their cell plan!"
     },
     {
-      "id": 4825157599457665,
+      "id": "17b44543ceab10a376ea52d8",
       "name": "Unconventional Activities Club",
       "day": "Fridays",
       "time": "Lunch",
@@ -814,7 +814,7 @@ const clubs = [
       "desc": "Unconventional Activities is a social club for folks looking to play fun card games and have unconventional mini-competitions."
     },
     {
-      "id": 4452142552021872,
+      "id": "3b3ad462198179fc03a8d8e7",
       "name": "UNICEF",
       "day": "Thursdays",
       "time": "lunch",
@@ -823,7 +823,7 @@ const clubs = [
       "desc": "As a member of UNICEF, you will help our mission to protect children's rights, help children meet their basic needs, and expand their opportunities."
     },
     {
-      "id": 6763070338230866,
+      "id": "2f89e36097052fadb81bea5f",
       "name": "Unified Sports",
       "day": "Wed",
       "time": "",
@@ -832,7 +832,7 @@ const clubs = [
       "desc": "Unified Club on Wednesdays! Make new friends and make Lincoln a better place!"
     },
     {
-      "id": 3514202435365913,
+      "id": "c5768d39481334b9368c82ec",
       "name": "UThfrift",
       "day": "Every other Wednesday at Lunch",
       "time": "",
@@ -841,7 +841,7 @@ const clubs = [
       "desc": "Lincoln Uthrift has monthly thrift swaps where any student can come to donate, and pick up free clothing! We also hold informational meetings talking about the environmental impacts of clothing consumption."
     },
     {
-      "id": 7567845107195282,
+      "id": "0c894c0b2f017f9e0e63d751",
       "name": "Voice in Sports Chapter",
       "day": "1st,3rd,5th Thursday of the month",
       "time": "Lunch",
@@ -851,7 +851,7 @@ const clubs = [
       "desc": "Lincoln VIS is an advocacy group and safe space for all female and non-binary athletes at Lincoln! If you are interested in advocating for equity in sports, want to learn more about athlete health, or just need a space to hang out, VIS has a place for you!"
     },
     {
-      "id": 6833414173309098,
+      "id": "4ed2721b872d81e5280ada0c",
       "name": "Water1st Club",
       "day": "Tuesday",
       "time": "lunch",
@@ -860,7 +860,7 @@ const clubs = [
       "desc": "Water1st Club is for students who are passionate about helping people all around the world! We meet once a week to discuss and educate ourselves on the global water issue, and cause change in our community here at Lincoln."
     },
     {
-      "id": 8066049192264511,
+      "id": "3798c92fa28fb79d668b92cd",
       "name": "Wheels and Reels Biking",
       "day": "Thursdays",
       "time": "lunch",
@@ -869,7 +869,7 @@ const clubs = [
       "desc": "Wheels and Reels is here to encourage students of all abilities to come together through biking and nature appreciation through weekly meetings inside and outside of school"
     },
     {
-      "id": 2413057858573156,
+      "id": "8d84bd34b95f14b536e41f22",
       "name": "Wiffle Ball Club",
       "day": "Tuesdays",
       "time": "lunch",
@@ -878,7 +878,7 @@ const clubs = [
       "desc": "Wiffleball Club is a club involving anyone who wants to join that is interested in wiffleball! We have an active league of many teams, and a draft at the beginning of the year."
     },
     {
-      "id": 5068197923561616,
+      "id": "5bd7937b4b14fb57945e2488",
       "name": "WiB",
       "day": "Thursdays",
       "time": "lunch",
@@ -887,7 +887,7 @@ const clubs = [
       "desc": "The Women in Business Club if for students who are interested in learning about business. Club activities include bake sales, guest speakers, field trips, and other business related activities."
     },
     {
-      "id": 4738570800689199,
+      "id": "4df343dcda3c77d25f559d08",
       "name": "WiM (Women in Music)",
       "day": "Friday",
       "time": "lunch",
@@ -896,7 +896,7 @@ const clubs = [
       "desc": "WIM is a club that strives to build a community of people that support women in all forms of music and performing arts. We meet once a week to talk about our favorite female artists, jam, and celebrate the amazing and talented women in music."
     },
     {
-      "id": 7464772096301700,
+      "id": "cd8a5284e0bbe529bcfbb99c",
       "name": "Women in STEM",
       "day": "Frid+B95+C96",
       "time": "lunch",
@@ -905,7 +905,7 @@ const clubs = [
       "desc": "Women in STEM is a place where students can come to get help from upperclassmen with STEM classes, learn about college or job applications through guest speakers, and most importantly - addressing and spreading knowledge about the gender disparity that is so prevalent in STEM education/careers."
     },
     {
-      "id": 2255674366773052,
+      "id": "5343b6c35fec33ad4cb16b08",
       "name": "Writing Club",
       "day": "Wednesday",
       "time": "Lunch",
@@ -914,7 +914,7 @@ const clubs = [
       "desc": "Writing Club meets Wednesdays at lunch in room 363! Join us for writing games, projects, novel writing, and more!"
     },
     {
-      "id": 1383423055922526,
+      "id": "478a0f92aa7f9fc6b972cad3",
       "name": "Yarn Club",
       "day": "Tuesdays and Mondays",
       "time": "Lunch",
@@ -923,7 +923,7 @@ const clubs = [
       "desc": "Yarn club is a chill space for anybody who currently does or is interested in knitting, crocheting, or any other yarn craft to meet and create together!"
     },
     {
-      "id": 682836273585787,
+      "id": "5e7dc66a7017ed41cd9c7e06",
       "name": "Youth economic initiative",
       "day": "Wednesdays",
       "time": "Lunch",

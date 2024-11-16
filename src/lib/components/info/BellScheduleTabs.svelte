@@ -1,7 +1,8 @@
 <script lang="ts">
 	import BellScheduleTable from '$components/info/BellScheduleTable.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import type { BellScheduleData, ScheduleId } from '$lib/types/HomePageData';
+	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
+	import type { BellScheduleData } from '$lib/types/HomePageData';
 	import { Accordion, AccordionItem, TabItem, Tabs } from 'flowbite-svelte';
 	import { DateTime } from 'luxon';
 	import { onMount } from 'svelte';
@@ -15,7 +16,7 @@
 
 	// Precalculate the shown tabs and the selected tab
 
-	let tabs: ScheduleId[] = $state([]);
+	let tabs: IBellSchedule['id'][] = $state([]);
 	let selectedTab = $state(0);
 
 	let now = $state(DateTime.now().setZone('America/Los_Angeles'));
@@ -24,7 +25,7 @@
 
 	$effect.pre(() => {
 		// Default day schedules
-		let newTabs: ScheduleId[] = [];
+		let newTabs: IBellSchedule['id'][] = [];
 		for (let i = 0; i < data.defaults.length; i++) {
 			const scheduleId = data.defaults[i];
 			if (!newTabs.includes(scheduleId)) {
@@ -46,7 +47,7 @@
 	});
 
 	// Add any future special schedules
-	let upcomingSpecialSchedules: { date: number; scheduleId: ScheduleId; dateStr: string }[] =
+	let upcomingSpecialSchedules: { date: number; scheduleId: IBellSchedule['id']; dateStr: string }[] =
 		$derived(
 			data.specials
 				.filter((item) => item.date > dateEpoch)

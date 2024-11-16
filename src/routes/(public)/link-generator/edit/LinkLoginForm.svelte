@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import ValidatedInputGroup from '$components/form/ValidatedInputGroup.svelte';
-	import shortLinkSchema from '$lib/schemas/shortLinkSchema';
+	import { shortLinkValidation } from '$lib/validation/crud/shortLinkSchema';
 	import { Button, InputAddon } from 'flowbite-svelte';
 	import { EyeOutline, EyeSlashOutline } from 'flowbite-svelte-icons';
 
@@ -45,7 +45,7 @@
 			label="Short Url (Only letters, numbers, and hyphens)"
 			bind:value={suffix}
 			visuallyRequired
-			validatorObject={shortLinkSchema}
+			validatorObject={shortLinkValidation}
 			inputProps={{ type: 'text' }}
 		>
 			{#snippet before()}
@@ -60,7 +60,7 @@
 				id="password"
 				label="Password"
 				bind:value={password}
-				validatorObject={shortLinkSchema}
+				validatorObject={shortLinkValidation}
 				inputProps={{ type: passwordVisible ? 'text' : 'password' }}
 			>
 				{#snippet before()}

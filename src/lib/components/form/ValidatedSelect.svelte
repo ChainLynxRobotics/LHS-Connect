@@ -93,9 +93,8 @@
 	{id}
 	name={id}
 	bind:value
-	formnovalidate
 	on:blur={() => validate(false)}
 	on:input={() => checkValidation && validate(false)}
-	{...selectProps}
+	{...selectProps as any}
 ></Select>
 <ValidatedHelper {isValid} {errorMessage} />

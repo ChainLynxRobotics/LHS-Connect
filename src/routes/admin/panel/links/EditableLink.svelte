@@ -1,15 +1,14 @@
 <script lang="ts">
-	import { stopPropagation } from 'svelte/legacy';
-
-	import type { AdminShortLinkData, ShortLinkData } from '$lib/types/LinkGeneratorData';
 	import { Modal, TableBodyCell, TableBodyRow, Tooltip, A } from 'flowbite-svelte';
 	import { EditOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { DateTime } from 'luxon';
 	import EditableLinkForm from './EditableLinkForm.svelte';
+	import type { IShortLink } from '$lib/types/crud/shortLink';
+	import type { WithoutID } from '$lib/types/crud/globalCrud';
 
 	interface Props {
-		link: AdminShortLinkData;
-		onUpdate: (e: AdminShortLinkData) => void;
+		link: IShortLink;
+		onUpdate: (e: WithoutID<IShortLink>) => void;
 		onRemove: () => void;
 	}
 
@@ -17,7 +16,7 @@
 
 	let editModalOpen = $state(false);
 
-	function handleEditModalSubmit(e: ShortLinkData) {
+	function handleEditModalSubmit(e: WithoutID<IShortLink>) {
 		onUpdate({
 			...link,
 			...e

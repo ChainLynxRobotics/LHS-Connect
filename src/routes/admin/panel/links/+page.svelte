@@ -1,12 +1,12 @@
 <script lang="ts">
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import type { AdminShortLinkListData } from '$lib/types/LinkGeneratorData';
 	import { A, Table, TableBody, TableHead, TableHeadCell } from 'flowbite-svelte';
 	import CrudList from '$components/admin/CRUDList.svelte';
 	import EditableLink from './EditableLink.svelte';
+	import type { AdminShortLinkPageData } from '$lib/types/AdminShortLinkPageData';
 
 	interface Props {
-		data: AdminShortLinkListData;
+		data: AdminShortLinkPageData;
 	}
 
 	let { data }: Props = $props();

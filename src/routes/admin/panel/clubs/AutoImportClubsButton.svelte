@@ -4,12 +4,12 @@
 	import { GradientButton, Helper, Modal, Tooltip } from 'flowbite-svelte';
 	import { InfoCircleOutline } from 'flowbite-svelte-icons';
 	import { string } from 'yup';
-	import type { Club } from '$lib/types/ClubPageData';
 	import Papa from 'papaparse';
 	import { generateRandomId } from '$lib/util/randomId';
+	import type { IClub } from '$lib/types/crud/club';
 
 	interface Props {
-		onSubmit: (clubs: Club[]) => void;
+		onSubmit: (clubs: IClub[]) => void;
 	}
 
 	let { onSubmit: submit }: Props = $props();
@@ -27,7 +27,7 @@
 		let end = await endInput!.validate();
 
 		try {
-			const records: Club[] = [];
+			const records: IClub[] = [];
 
 			let line = 0;
 			Papa.parse(strData, {

@@ -1,21 +1,19 @@
 <script lang="ts">
-	import type { LinkCard } from '$lib/types/HomePageData';
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
 	import { Table, TableHead, TableHeadCell, TableBodyCell, Button } from 'flowbite-svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { dragHandleZone, dragHandle } from 'svelte-dnd-action';
 	import { flip } from 'svelte/animate';
-	import linkCardSchema, {
-		linkCardSchemaLinkName,
-		linkCardSchemaLinkUrl
-	} from '$lib/schemas/linkCardSchema';
+	import type { WithoutID } from '$lib/types/crud/globalCrud';
+	import type { ILinkCard } from '$lib/types/crud/linkCard';
+	import { linkCardLinkNameValidation, linkCardLinkUrlValidation, linkCardValidation } from '$lib/validation/crud/linkCardSchema';
 
 	const flipDurationMs = 300;
 
 	interface Props {
-		card: LinkCard;
-		onSubmit: (card: LinkCard) => void;
+		card: ILinkCard;
+		onSubmit: (card: WithoutID<ILinkCard>) => void;
 		onCancel: () => void;
 	}
 
@@ -56,7 +54,6 @@
 		await Promise.all(linkUrlInputs.map((input) => input.validate()));
 
 		submit({
-			id: card.id,
 			title: await titleInput!.validate(),
 			subtitle: await subtitleInput!.validate(),
 			links: links.map((link) => ({ ...link, id: undefined }))
@@ -81,7 +78,7 @@
 			id="title"
 			label="Card Title"
 			bind:value={title}
-			validatorObject={linkCardSchema}
+			validatorObject={linkCardValidation}
 			visuallyRequired
 		/>
 	</div>
@@ -91,7 +88,7 @@
 			id="subtitle"
 			label="Card Subtitle"
 			bind:value={subtitle}
-			validatorObject={linkCardSchema}
+			validatorObject={linkCardValidation}
 		/>
 	</div>
 
@@ -122,7 +119,7 @@
 								bind:this={linkNameInputs[index]}
 								id={`link-${index}-name`}
 								bind:value={link.title}
-								validator={linkCardSchemaLinkName}
+								validator={linkCardLinkNameValidation}
 								visuallyRequired
 							/>
 						</TableBodyCell>
@@ -131,7 +128,7 @@
 								bind:this={linkUrlInputs[index]}
 								id={`link-${index}-url`}
 								bind:value={link.url}
-								validator={linkCardSchemaLinkUrl}
+								validator={linkCardLinkUrlValidation}
 								visuallyRequired
 							/>
 						</TableBodyCell>

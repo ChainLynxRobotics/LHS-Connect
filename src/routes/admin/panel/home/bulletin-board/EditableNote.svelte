@@ -1,14 +1,15 @@
 <script lang="ts">
 	import BoardNoteContent from '$components/info/BoardNoteContent.svelte';
-	import type { Note } from '$lib/types/HomePageData';
 	import { Modal } from 'flowbite-svelte';
 	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { dragHandle } from 'svelte-dnd-action';
 	import EditableNoteForm from './EditableNoteForm.svelte';
+	import type { WithoutID } from '$lib/types/crud/globalCrud';
+	import type { IBulletinBoardNote } from '$lib/types/crud/bulletinBoard';
 
 	interface Props {
-		note: Note;
-		onUpdate: (e: Note) => void;
+		note: IBulletinBoardNote;
+		onUpdate: (e: WithoutID<IBulletinBoardNote>) => void;
 		onDuplicate: () => void;
 		onRemove: () => void;
 	}
@@ -17,7 +18,7 @@
 
 	let editModalOpen = $state(false);
 
-	function handleEditModalSubmit(_note: Note) {
+	function handleEditModalSubmit(_note: WithoutID<IBulletinBoardNote>) {
 		onUpdate(_note);
 		editModalOpen = false;
 	}

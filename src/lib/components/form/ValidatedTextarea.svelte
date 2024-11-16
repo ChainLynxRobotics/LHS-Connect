@@ -94,9 +94,8 @@
 	name={id}
 	bind:value
 	color={isValid ? 'base' : 'red'}
-	formnovalidate
 	on:blur={() => validate(false)}
 	on:input={() => checkValidation && validate(false)}
-	{...textareaProps}
+	{...textareaProps as any}
 ></Textarea>
 <ValidatedHelper {isValid} {errorMessage} />

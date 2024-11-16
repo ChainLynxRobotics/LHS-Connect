@@ -3,7 +3,7 @@ import type { SavedScheduleData } from '$lib/types/HomePageData';
 const knownSchedules: SavedScheduleData = {
 	schedules: [
 		{
-			id: 0,
+			id: '0',
 			name: 'Monday & Friday',
 			periods: [
 				{
@@ -50,7 +50,7 @@ const knownSchedules: SavedScheduleData = {
 			]
 		},
 		{
-			id: 1,
+			id: '1',
 			name: 'Tuesday & Thursday',
 			desc: 'This is the schedule for Tuesday and Thursday.',
 			periods: [
@@ -93,7 +93,7 @@ const knownSchedules: SavedScheduleData = {
 			]
 		},
 		{
-			id: 2,
+			id: '2',
 			name: 'Wednesday',
 			periods: [
 				{
@@ -140,7 +140,7 @@ const knownSchedules: SavedScheduleData = {
 			]
 		},
 		{
-			id: 3,
+			id: '3',
 			name: 'First Day',
 			desc: 'Welcome back to school! Doors open for 9th graders at 8:30, and 12:40 for everybody else. Classes start at 1:15.',
 			periods: [
@@ -197,7 +197,7 @@ const knownSchedules: SavedScheduleData = {
 			]
 		},
 		{
-			id: 4,
+			id: '4',
 			name: 'Assembly',
 			desc: 'Assembly during mentorship time, still go to your mentorship class first for instructions',
 			periods: [
@@ -246,7 +246,7 @@ const knownSchedules: SavedScheduleData = {
 			]
 		},
         {
-            id: 5,
+            id: '5',
             name: 'Play Preview',
             desc: 'Get a sneak peak of the upcoming production She Kills Monsters by the Lincoln theatre group',
             periods: [

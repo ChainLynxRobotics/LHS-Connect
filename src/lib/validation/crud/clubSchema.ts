@@ -1,0 +1,19 @@
+import { ObjectSchema, string } from 'yup';
+import { crudValidation } from './globalCrudSchema';
+import type { IClub } from '$lib/types/crud/club';
+
+export const INSTAGRAM_REGEX = /^[a-zA-Z0-9._]*$/;
+
+export const clubValidation: ObjectSchema<IClub> = crudValidation.shape({
+	name: string().required().max(250),
+	day: string().required().max(250),
+	time: string().required().max(250),
+	location: string().required().max(250),
+	advisor: string().required().max(250),
+	instagram: string()
+		.optional()
+		.trim()
+		.matches(INSTAGRAM_REGEX, 'Must be a valid instagram username (without the @)')
+		.max(250),
+	desc: string().optional().max(500)
+});

@@ -1,12 +1,13 @@
 <script lang="ts">
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import shortLinkSchema from '$lib/schemas/shortLinkSchema';
-	import type { ShortLinkData } from '$lib/types/LinkGeneratorData';
+	import type { WithoutID } from '$lib/types/crud/globalCrud';
+	import type { IShortLink } from '$lib/types/crud/shortLink';
+	import { shortLinkValidation } from '$lib/validation/crud/shortLinkSchema';
 	import { Button } from 'flowbite-svelte';
 
 	interface Props {
-		link: ShortLinkData;
-		onSubmit: (link: ShortLinkData) => void;
+		link: IShortLink;
+		onSubmit: (link: WithoutID<IShortLink>) => void;
 		onCancel: () => void;
 	}
 
@@ -22,12 +23,12 @@
 
 	async function onsubmit(e: Event) {
 		e.preventDefault();
-		const link = {
+		submit({
+			...link,
 			suffix: await suffixInput!.validate(),
 			url: await urlInput!.validate(),
 			password: await passwordInput!.validate()
-		};
-		submit(link);
+		});
 	}
 </script>
 
@@ -41,7 +42,7 @@
 			id="suffix"
 			label="Suffix"
 			bind:value={suffix}
-			validatorObject={shortLinkSchema}
+			validatorObject={shortLinkValidation}
 			visuallyRequired
 		/>
 	</div>
@@ -51,7 +52,7 @@
 			id="url"
 			label="Url"
 			bind:value={url}
-			validatorObject={shortLinkSchema}
+			validatorObject={shortLinkValidation}
 			visuallyRequired
 			inputProps={{ type: 'url' }}
 		/>
@@ -62,7 +63,7 @@
 			id="password"
 			label="Password"
 			bind:value={password}
-			validatorObject={shortLinkSchema}
+			validatorObject={shortLinkValidation}
 		/>
 	</div>
 

@@ -1,22 +1,23 @@
-import type { AdminShortLinkData, AdminShortLinkListData } from '$lib/types/LinkGeneratorData';
+import type { AdminShortLinkPageData } from '$lib/types/AdminShortLinkPageData';
+import type { IShortLink } from '$lib/types/crud/shortLink';
 
-const shortLinks: AdminShortLinkData[] = [
+const shortLinks: IShortLink[] = [
 	{
-		id: 1,
+		id: '1',
 		suffix: 'lhs',
 		url: 'https://lhs.cx',
 		createdAt: 1631990400,
 		uses: 0
 	},
 	{
-		id: 2,
+		id: '2',
 		suffix: 'lhslog',
 		url: 'https://lhslog.com',
 		createdAt: 1631990400,
 		uses: 0
 	},
 	{
-		id: 3,
+		id: '3',
 		suffix: 'laptopform',
 		url: 'https://example.com',
 		password: 'password123',
@@ -25,4 +26,4 @@ const shortLinks: AdminShortLinkData[] = [
 	}
 ];
 
-export default { links: shortLinks } as AdminShortLinkListData;
+export default { links: shortLinks } as AdminShortLinkPageData;

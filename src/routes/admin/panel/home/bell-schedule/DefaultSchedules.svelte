@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
 	import {
 		Select,
 		Table,
@@ -11,8 +12,8 @@
 	} from 'flowbite-svelte';
 
 	interface Props {
-		scheduleOptions: SelectOptionType<number>[];
-		defaults?: number[];
+		scheduleOptions: SelectOptionType<IBellSchedule['id']>[];
+		defaults?: IBellSchedule['id'][];
 	}
 
 	let { scheduleOptions = [], defaults = $bindable([]) }: Props = $props();

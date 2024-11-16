@@ -1,13 +1,14 @@
 <script lang="ts">
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
-	import clubSchema from '$lib/schemas/clubSchema';
-	import type { Club } from '$lib/types/ClubPageData';
+	import { clubValidation } from '$lib/validation/crud/clubSchema';
+	import type { IClub } from '$lib/types/crud/club';
+	import type { WithoutID } from '$lib/types/crud/globalCrud';
 	import { Button } from 'flowbite-svelte';
 
 	interface Props {
-		club: Club;
-		onSubmit: (club: Club) => void;
+		club: IClub;
+		onSubmit: (club: WithoutID<IClub>) => void;
 		onCancel: () => void;
 	}
 
@@ -54,7 +55,7 @@
 			id="name"
 			label="Name"
 			bind:value={name}
-			validatorObject={clubSchema}
+			validatorObject={clubValidation}
 			visuallyRequired
 		/>
 	</div>
@@ -64,7 +65,7 @@
 			id="day"
 			label="Day"
 			bind:value={day}
-			validatorObject={clubSchema}
+			validatorObject={clubValidation}
 			visuallyRequired
 		/>
 	</div>
@@ -74,7 +75,7 @@
 			id="time"
 			label="Time"
 			bind:value={time}
-			validatorObject={clubSchema}
+			validatorObject={clubValidation}
 			visuallyRequired
 		/>
 	</div>
@@ -84,7 +85,7 @@
 			id="location"
 			label="Location"
 			bind:value={location}
-			validatorObject={clubSchema}
+			validatorObject={clubValidation}
 			visuallyRequired
 		/>
 	</div>
@@ -94,7 +95,7 @@
 			id="advisor"
 			label="Advisor"
 			bind:value={advisor}
-			validatorObject={clubSchema}
+			validatorObject={clubValidation}
 			visuallyRequired
 		/>
 	</div>
@@ -104,7 +105,7 @@
 			id="instagram"
 			label="Instagram"
 			bind:value={instagram}
-			validatorObject={clubSchema}
+			validatorObject={clubValidation}
 		/>
 	</div>
 	<div>
@@ -113,7 +114,7 @@
 			id="desc"
 			label="Description"
 			bind:value={desc}
-			validatorObject={clubSchema}
+			validatorObject={clubValidation}
 		/>
 	</div>
 

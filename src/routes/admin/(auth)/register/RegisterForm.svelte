@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import adminRegisterSchema from '$lib/schemas/adminRegisterSchema';
+	import adminRegisterSchema from '$lib/validation/adminRegisterSchema';
 	import { Button, Checkbox, Helper } from 'flowbite-svelte';
 
 	let form: HTMLFormElement | undefined = $state();

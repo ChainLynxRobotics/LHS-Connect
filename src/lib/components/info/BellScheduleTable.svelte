@@ -1,16 +1,16 @@
 <script lang="ts">
-	import type { BellSchedule, TimeString } from '$lib/types/HomePageData';
+	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
 	import { Table, TableBody, TableBodyCell, TableBodyRow } from 'flowbite-svelte';
 	import { DateTime } from 'luxon';
 
 	interface Props {
-		schedule?: BellSchedule;
+		schedule?: IBellSchedule;
 		reactive?: boolean;
 	}
 
 	let { schedule, reactive = false }: Props = $props();
 
-	function formatTime(time: TimeString): string {
+	function formatTime(time: string): string {
 		const [hours, minutes] = time.split(':');
 		const hour = parseInt(hours);
 		const minute = parseInt(minutes);
@@ -43,7 +43,7 @@
 		return c;
 	}
 
-	function currentlyWithinTime(startStr: TimeString, endStr: TimeString): boolean {
+	function currentlyWithinTime(startStr: string, endStr: string): boolean {
 		const now = DateTime.now().setZone('America/Los_Angeles').toMillis();
 		const start = DateTime.fromFormat(startStr, 'HH:mm').setZone('America/Los_Angeles').toMillis();
 		const end = DateTime.fromFormat(endStr, 'HH:mm').setZone('America/Los_Angeles').toMillis();

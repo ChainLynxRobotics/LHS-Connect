@@ -1,14 +1,15 @@
 <script lang="ts">
 	import LinkCardContent from '$components/info/LinkCardContent.svelte';
-	import type { LinkCard } from '$lib/types/HomePageData';
 	import { Modal } from 'flowbite-svelte';
 	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { dragHandle } from 'svelte-dnd-action';
 	import EditableLinkCardForm from './EditableLinkCardForm.svelte';
+	import type { WithoutID } from '$lib/types/crud/globalCrud';
+	import type { ILinkCard } from '$lib/types/crud/linkCard';
 
 	interface Props {
-		card: LinkCard;
-		onUpdate: (e: LinkCard) => void;
+		card: ILinkCard;
+		onUpdate: (e: WithoutID<ILinkCard>) => void;
 		onDuplicate: () => void;
 		onRemove: () => void;
 	}
@@ -17,7 +18,7 @@
 
 	let editModalOpen = $state(false);
 
-	function handleEditModalSubmit(e: LinkCard) {
+	function handleEditModalSubmit(e: WithoutID<ILinkCard>) {
 		onUpdate(e);
 		editModalOpen = false;
 	}

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import CrudList from '$components/admin/CRUDList.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import clubs from '$lib/fake_data/clubs';
 	import type { ClubPageData } from '$lib/types/ClubPageData';
 	import { Button, Table, TableHead, TableHeadCell, TableBody } from 'flowbite-svelte';
 	import AutoImportClubsButton from './AutoImportClubsButton.svelte';

@@ -1,4 +1,4 @@
-<script lang="ts" generics="Item extends { id: number }">
+<script lang="ts" generics="Item extends { id: any }">
 	import { generateRandomId } from '$lib/util/randomId';
 	import type { Snippet } from 'svelte';
 
@@ -12,7 +12,7 @@
 	}
 
 	interface ItemDisplayProps {
-		id: number; // Unique identifier, copied from the item's id
+		id: Item['id']; // Unique identifier, copied from the item's id
 		item: Item;
 		index: number;
 		duplicate: () => void;
@@ -37,7 +37,7 @@
 		/**
 		 * The initial order of the items. This is required if `canReorder` is true.
 		 */
-		initialOrder?: number[];
+		initialOrder?: Item['id'][];
 	}
 
 	let {
@@ -55,7 +55,7 @@
 	}: Props = $props();
 
 	let items: Item[] = $state(initialItems);
-	let order: number[] | undefined = $state(
+	let order: Item['id'][] | undefined = $state(
 		canReorder && initialOrder ? sanitizeOrder(initialOrder) : undefined
 	);
 
@@ -73,7 +73,7 @@
 		}
 	}
 
-	function duplicate(id: number) {
+	function duplicate(id: Item['id']) {
 		if (!canDuplicate) return;
 
 		const item = items.find((item) => item.id === id);
@@ -91,7 +91,7 @@
 		}
 	}
 
-	function update(id: number, item: ItemWithoutID) {
+	function update(id: Item['id'], item: ItemWithoutID) {
 		if (!canUpdate) return;
 
 		const index = items.findIndex((i) => i.id === id);
@@ -100,7 +100,7 @@
 		items[index] = { ...item, id: id } as Item;
 	}
 
-	function remove(id: number) {
+	function remove(id: Item['id']) {
 		if (!canRemove) return;
 
 		const index = items.findIndex((item) => item.id === id);
@@ -115,7 +115,7 @@
 		}
 	}
 
-	function updateAll(newItems: Item[], newOrder?: number[]) {
+	function updateAll(newItems: Item[], newOrder?: Item['id'][]) {
 		items = newItems;
 
 		if (canReorder) {
@@ -130,7 +130,7 @@
 		else return _items;
 	}
 
-	function reorder(newOrder: number[]) {
+	function reorder(newOrder: Item['id'][]) {
 		if (!canReorder) return;
 
 		// Make sure the new order is valid
@@ -139,7 +139,7 @@
 		order = newOrder;
 	}
 
-	function sanitizeOrder(newOrder: number[]) {
+	function sanitizeOrder(newOrder: Item['id'][]) {
 		newOrder = newOrder
 			.filter((item, pos, self) => self.indexOf(item) == pos) // Remove duplicates
 			.filter((id) => items.findIndex((i) => i.id === id) !== -1); // Ensure all ids in "newOrder" are present in "items"

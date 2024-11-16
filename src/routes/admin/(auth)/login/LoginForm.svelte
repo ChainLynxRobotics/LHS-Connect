@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import adminLoginSchema from '$lib/schemas/adminLoginSchema';
+	import adminLoginSchema from '$lib/validation/adminLoginSchema';
 	import { Button, Checkbox, Modal } from 'flowbite-svelte';
 	import { ExclamationCircleOutline } from 'flowbite-svelte-icons';
 

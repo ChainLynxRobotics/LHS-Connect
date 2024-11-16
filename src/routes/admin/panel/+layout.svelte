@@ -128,51 +128,46 @@
 		<SidebarWrapper divClass="overflow-y-auto py-4 px-3 rounded">
 			<SidebarGroup>
 				<SidebarItem href="/" label="Back to Public Page">
-					{#snippet icon()}
-						<AngleLeftOutline
-							class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-						/>
-					{/snippet}
+					<AngleLeftOutline
+						slot="icon"
+						class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+					/>
 				</SidebarItem>
 			</SidebarGroup>
 			<SidebarGroup border>
 				{#each pages as { label, href, icon: IconComponent, children }, i}
 					{#if children}
 						<SidebarDropdownWrapper {label}>
-							{#snippet icon()}
-								<IconComponent
-									class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-								/>
-							{/snippet}
+							<IconComponent
+								slot="icon"
+								class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+							/>
 							{#each children as { label, href }, i}
 								<SidebarDropdownItem {label} {href} active={activeUrl === href} />
 							{/each}
 						</SidebarDropdownWrapper>
 					{:else}
 						<SidebarItem {href} {label}>
-							{#snippet icon()}
-								<IconComponent
-									class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-								/>
-							{/snippet}
+							<IconComponent
+								slot="icon"
+								class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+							/>
 						</SidebarItem>
 					{/if}
 				{/each}
 			</SidebarGroup>
 			<SidebarGroup border>
 				<SidebarItem href="/admin/panel/account" label="Account">
-					{#snippet icon()}
-						<UserCircleOutline
-							class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-						/>
-					{/snippet}
+					<UserCircleOutline
+						slot="icon"
+						class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+					/>
 				</SidebarItem>
 				<SidebarItem label="Log Out" spanClass="ms-3 text-red-500 dark:text-red-400">
-					{#snippet icon()}
-						<ArrowLeftToBracketOutline
-							class="h-6 w-6 text-red-500 transition duration-75 dark:text-red-400"
-						/>
-					{/snippet}
+					<ArrowLeftToBracketOutline
+						slot="icon"
+						class="h-6 w-6 text-red-500 transition duration-75 dark:text-red-400"
+					/>
 				</SidebarItem>
 			</SidebarGroup>
 		</SidebarWrapper>

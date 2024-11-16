@@ -1,13 +1,14 @@
 <script lang="ts">
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
-	import bulletinBoardSchema from '$lib/schemas/bulletinBoardSchema';
-	import type { Note } from '$lib/types/HomePageData';
+	import { bulletinBoardNoteValidation } from '$lib/validation/crud/bulletinBoardSchema';
 	import { Button, Helper } from 'flowbite-svelte';
+	import type { IBulletinBoardNote } from '$lib/types/crud/bulletinBoard';
+	import type { WithoutID } from '$lib/types/crud/globalCrud';
 
 	interface Props {
-		note: Note;
-		onSubmit: (note: Note) => void;
+		note: IBulletinBoardNote;
+		onSubmit: (note: WithoutID<IBulletinBoardNote>) => void;
 		onCancel: () => void;
 	}
 
@@ -24,7 +25,6 @@
 	async function onsubmit(e: Event) {
 		e.preventDefault();
 		submit({
-			id: note.id,
 			title: await titleInput!.validate(),
 			content: await contentInput!.validate(),
 			link: await linkInput!.validate()
@@ -43,7 +43,7 @@
 			id="title"
 			label="Title"
 			bind:value={title}
-			validatorObject={bulletinBoardSchema}
+			validatorObject={bulletinBoardNoteValidation}
 			visuallyRequired
 		/>
 	</div>
@@ -53,7 +53,7 @@
 			id="content"
 			label="Content"
 			bind:value={content}
-			validatorObject={bulletinBoardSchema}
+			validatorObject={bulletinBoardNoteValidation}
 			visuallyRequired
 		/>
 	</div>
@@ -63,7 +63,7 @@
 			id="link"
 			label="Link"
 			bind:value={link}
-			validatorObject={bulletinBoardSchema}
+			validatorObject={bulletinBoardNoteValidation}
 		/>
 	</div>
 	<div class="flex justify-center gap-4">

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import ExternalLink from '$components/ExternalLink.svelte';
-	import type { Club } from '$lib/types/ClubPageData';
 	import { Modal, TableBodyCell, TableBodyRow, Tooltip, Popover } from 'flowbite-svelte';
 	import {
 		EditOutline,
@@ -9,10 +8,12 @@
 		InfoCircleOutline
 	} from 'flowbite-svelte-icons';
 	import EditableClubForm from './EditableClubForm.svelte';
+	import type { IClub } from '$lib/types/crud/club';
+	import type { WithoutID } from '$lib/types/crud/globalCrud';
 
 	interface Props {
-		club: Club;
-		onUpdate: (club: Club) => void;
+		club: IClub;
+		onUpdate: (club: WithoutID<IClub>) => void;
 		onDuplicate: () => void;
 		onRemove: () => void;
 	}
@@ -21,7 +22,7 @@
 
 	let editModalOpen = $state(false);
 
-	function handleEditModalSubmit(_club: Club) {
+	function handleEditModalSubmit(_club: WithoutID<IClub>) {
 		onUpdate(_club);
 		editModalOpen = false;
 	}

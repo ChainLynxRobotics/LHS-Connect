@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { LinkCard } from '$lib/types/HomePageData';
+	import type { ILinkCard } from '$lib/types/crud/linkCard';
 	import ExternalLink from '../ExternalLink.svelte';
 
 	interface Props {
-		card: LinkCard;
+		card: ILinkCard;
 	}
 
 	let { card }: Props = $props();

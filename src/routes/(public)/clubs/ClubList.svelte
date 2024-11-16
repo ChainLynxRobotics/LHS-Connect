@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ExternalLink from '$components/ExternalLink.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import type { Club } from '$lib/types/ClubPageData';
+	import type { IClub } from '$lib/types/crud/club';
 	import {
 		Search,
 		Table,
@@ -16,7 +16,7 @@
 	import Fuse from 'fuse.js';
 
 	interface Props {
-		clubs: Club[];
+		clubs: IClub[];
 	}
 
 	let { clubs }: Props = $props();

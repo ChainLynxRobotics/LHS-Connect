@@ -9,13 +9,15 @@
 		Tooltip
 	} from 'flowbite-svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
-	import type { ScheduleOverride } from '$lib/types/HomePageData';
 	import { DateTime } from 'luxon';
+	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
+	import type { IBellScheduleOverride } from '$lib/types/crud/bellScheduleOverride';
+	import type { WithoutID } from '$lib/types/crud/globalCrud';
 
 	interface Props {
-		special: ScheduleOverride;
-		scheduleOptions: SelectOptionType<number>[];
-		onUpdate: (e: ScheduleOverride) => void;
+		special: IBellScheduleOverride;
+		scheduleOptions: SelectOptionType<IBellSchedule['id']>[];
+		onUpdate: (e: WithoutID<IBellScheduleOverride>) => void;
 		onDuplicate: () => void;
 		onRemove: () => void;
 	}
@@ -27,7 +29,6 @@
 
 	function submit() {
 		onUpdate({
-			id: special.id,
 			date: DateTime.fromISO(date || '')
 				.setZone('America/Los_Angeles')
 				.startOf('day')

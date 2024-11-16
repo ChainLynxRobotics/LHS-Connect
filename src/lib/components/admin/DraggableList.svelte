@@ -1,4 +1,4 @@
-<script lang="ts" generics="Item extends { id: number }">
+<script lang="ts" generics="Item extends { id: any }">
 	import { flip } from 'svelte/animate';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { dragHandleZone, type Options } from 'svelte-dnd-action';

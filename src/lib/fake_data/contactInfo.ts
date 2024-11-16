@@ -3,7 +3,7 @@ import type { LinkCardListData } from '$lib/types/HomePageData';
 const contactInfo: LinkCardListData = {
 	cards: [
 		{
-			id: 1,
+			id: '1',
 			title: 'Attendance Office',
 			subtitle: 'Room 142, Across from the main office',
 			links: [
@@ -18,7 +18,7 @@ const contactInfo: LinkCardListData = {
 			]
 		},
 		{
-			id: 2,
+			id: '2',
 			title: 'Counseling Office',
 			subtitle: 'Room 245, Towards the library',
 			links: [
@@ -37,7 +37,7 @@ const contactInfo: LinkCardListData = {
 			]
 		},
 		{
-			id: 3,
+			id: '3',
 			title: 'Teen Health Center',
 			subtitle: 'Room 132 - Open 8am to 4:30pm',
 			links: [
@@ -56,7 +56,7 @@ const contactInfo: LinkCardListData = {
 			]
 		},
 		{
-			id: 4,
+			id: '4',
 			title: 'Lincoln Library',
 			subtitle: '2nd Floor, North Side',
 			links: [
