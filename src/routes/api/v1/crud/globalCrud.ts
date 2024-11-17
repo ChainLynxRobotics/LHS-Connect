@@ -1,122 +1,70 @@
+import { BellScheduleDefaults } from "$lib/models/crud/bellScheduleDefaultsModel";
 import { BellSchedule } from "$lib/models/crud/bellScheduleModel";
-import type { WithoutID } from "$lib/types/crud/globalCrud";
-import { idValidation } from "$lib/validation/crud/globalCrudSchema";
-import { json, type RequestHandler } from "@sveltejs/kit";
+import { BellScheduleOverride } from "$lib/models/crud/bellScheduleOverrideModel";
+import { BulletinBoardNote } from "$lib/models/crud/bulletinBoardModel";
+import { Club } from "$lib/models/crud/clubModel";
+import type { Crud } from "$lib/models/crud/globalCrudModel";
+import { ContactInfoLinkCard, UsefulLinksLinkCard } from "$lib/models/crud/linkCardModel";
+import { bellScheduleDefaultsValidation } from "$lib/validation/crud/bellScheduleDefaultsSchema";
+import { bellScheduleOverrideValidation } from "$lib/validation/crud/bellScheduleOverrideSchema";
+import { bellScheduleValidation } from "$lib/validation/crud/bellScheduleSchema";
+import { bulletinBoardNoteValidation } from "$lib/validation/crud/bulletinBoardSchema";
+import { clubValidation } from "$lib/validation/crud/clubSchema";
+import { linkCardValidation } from "$lib/validation/crud/linkCardSchema";
+import { error } from "@sveltejs/kit";
 import type { Model } from "mongoose";
-import { ValidationError, type ObjectSchema } from "yup";
+import { type ObjectSchema } from "yup";
 
-export function getCrudHandlersAtIndex<T>(Model: Model<T>, validator: ObjectSchema<WithoutID<T>>) {
+interface Service {
+    // The db model
+    model: typeof Crud,
+    // The yup schema for validation
+    validator: ObjectSchema<any>,
+    // Whether the service can reorder the items, eg to use an "order" field and allow the user to change the order
+    canReorder?: boolean,
+    // If the service is a singleton, eg there will only be one of these in the db, basically a key-value pair
+    singleton?: boolean
+}
 
-    const GET: RequestHandler = async () => {
-        
-        const docs = await Model.find().exec();
-        
-        return json({
-            success: true,
-            results: docs.map(doc=>doc.toObject())
-        })
-    }
-
-    const POST: RequestHandler = async ({ request }) => {
-        // TODO: Auth
-        
-        try {
-            // Get and validate body
-            const req = await request.json();
-            const validatedReq = await validator.validate(req, { stripUnknown: true });
-
-            // Create doc
-            const doc = new Model(validatedReq);
-            const res = await doc.save();
-
-            return json({
-                success: true,
-                result: res.toObject()
-            })
-        } catch (error) {
-            if (error instanceof ValidationError) {
-                return json({
-                    success: false,
-                    error: error.message
-                }, { status: 400 });
-            }
-            else throw error;
-        }
-    }
-
-    return {
-        GET,
-        POST
+const services: { [key: string]: Service } = {
+    "bellSchedule": {
+        model: BellSchedule as Model<any>,
+        validator: bellScheduleValidation,
+        canReorder: true
+    },
+    "bellScheduleDefaults": {
+        model: BellScheduleDefaults as Model<any>,
+        validator: bellScheduleDefaultsValidation,
+        singleton: true
+    },
+    "bellScheduleOverrides": {
+        model: BellScheduleOverride as Model<any>,
+        validator: bellScheduleOverrideValidation
+    },
+    "bulletinBoard": {
+        model: BulletinBoardNote as Model<any>,
+        validator: bulletinBoardNoteValidation,
+        canReorder: true
+    },
+    "club": {
+        model: Club as Model<any>,
+        validator: clubValidation,
+    },
+    "contactInfoLinkCard": {
+        model: ContactInfoLinkCard as Model<any>,
+        validator: linkCardValidation,
+        canReorder: true
+    },
+    "usefulLinksLinkCard": {
+        model: UsefulLinksLinkCard as Model<any>,
+        validator: linkCardValidation,
+        canReorder: true
     }
 }
 
-export function getCrudHandlersAtSlug<T>(Model: Model<T>, validator: ObjectSchema<WithoutID<T>>) {
+export function getServiceData(serviceId: string) {
+    const service = services[serviceId as keyof typeof services];
+    if (service === undefined) return error(404, { message: "Service not found" });
 
-    const GET: RequestHandler = async ({ params }) => {
-        // Get and validate id slug
-        const id = params['id'];
-        if (!idValidation.isValidSync(id)) return json({ success: false, error: "Invalid id" });
-
-        // Find doc
-        const doc = await Model.findById(id).exec();
-        if (doc === null) return json({ success: false, error: "Not found" }, { status: 404 });
-        
-        return json({
-            success: true,
-            result: doc.toObject()
-        })
-    }
-
-    const PATCH: RequestHandler = async ({ params, request }) => {
-        // TODO: Auth
-
-        try {
-            // Get and validate id slug
-            const id = params['id'];
-            if (!idValidation.isValidSync(id)) return json({ success: false, error: "Invalid id" });
-
-            // Get and validate body
-            const req = await request.json();
-            const validatedReq = await validator.validate(req, { stripUnknown: true });
-
-            // Find and update doc in db
-            const doc = await Model.findByIdAndUpdate(id, validatedReq).exec();
-            if (doc === null) return json({ success: false, error: "Not found" }, { status: 404 });
-
-            return json({
-                success: true,
-                result: doc.toObject()
-            })
-        } catch (error) {
-            if (error instanceof ValidationError) {
-                return json({
-                    success: false,
-                    error: error.message
-                }, { status: 400 });
-            }
-            else throw error;
-        }
-    }
-
-    const DELETE: RequestHandler = async ({ params }) => {
-        // TODO: Auth
-
-        // Get and validate id slug
-        const id = params['id'];
-        if (!idValidation.isValidSync(id)) return json({ success: false, error: "Invalid id" });
-
-        // Find doc
-        const doc = await Model.findByIdAndDelete(id).exec();
-        if (doc === null) return json({ success: false, error: "Not found" }, { status: 404 });
-
-        return json({
-            success: true
-        });
-    }
-
-    return {
-        GET,
-        PATCH,
-        DELETE
-    }
+    return service;
 }
