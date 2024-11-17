@@ -1,6 +1,6 @@
 import { array, boolean, object, ObjectSchema, string } from 'yup';
-import { crudListValidation } from './globalCrudSchema';
 import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
+import type { WithoutID } from '$lib/types/crud/globalCrud';
 
 export const TIME_STRING_REGEX = /^(0?[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
 
@@ -17,7 +17,7 @@ export const bellSchedulePeriodValidation = object({
 	emphasis: boolean().optional()
 });
 
-export const bellScheduleValidation: ObjectSchema<IBellSchedule> = crudListValidation.shape({
+export const bellScheduleValidation: ObjectSchema<WithoutID<IBellSchedule>> = object({
 	name: string().required().max(64),
 	desc: string().optional().max(512),
 	periods: array().of(bellSchedulePeriodValidation).required().min(1).max(16)

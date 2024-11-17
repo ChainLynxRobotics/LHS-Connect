@@ -1,11 +1,11 @@
-import type { ICrudListType } from "$lib/types/crud/globalCrud";
-import { object, ObjectSchema, string } from "yup";
+import { string } from "yup";
 
+/**
+ * Regex for validating string mongodb ObjectIDs
+ */
 export const OBJECT_ID_REGEX = /^[0-9a-fA-F]{24}$/;
 
-export const crudListValidation: ObjectSchema<ICrudListType> = object({
-    id: string()
-        .required()
-        .matches(OBJECT_ID_REGEX, "Invalid ID"),
-});
-
+/**
+ * Validation schema for mongodb ObjectIDs
+ */
+export const idValidation = string().required().matches(OBJECT_ID_REGEX, 'Invalid ID');

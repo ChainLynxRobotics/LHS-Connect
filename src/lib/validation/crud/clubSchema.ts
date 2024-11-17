@@ -1,10 +1,10 @@
-import { ObjectSchema, string } from 'yup';
-import { crudListValidation } from './globalCrudSchema';
+import { object, ObjectSchema, string } from 'yup';
 import type { IClub } from '$lib/types/crud/club';
+import type { WithoutID } from '$lib/types/crud/globalCrud';
 
 export const INSTAGRAM_REGEX = /^[a-zA-Z0-9._]*$/;
 
-export const clubValidation: ObjectSchema<IClub> = crudListValidation.shape({
+export const clubValidation: ObjectSchema<WithoutID<IClub>> = object({
 	name: string().required().max(250),
 	day: string().required().max(250),
 	time: string().required().max(250),

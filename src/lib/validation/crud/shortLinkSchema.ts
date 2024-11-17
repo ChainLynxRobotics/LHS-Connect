@@ -1,6 +1,6 @@
 import { number, object, ObjectSchema, string } from 'yup';
-import { crudListValidation } from './globalCrudSchema';
 import type { IShortLink, IShortLinkCreate } from '$lib/types/crud/shortLink';
+import type { WithoutID } from '$lib/types/crud/globalCrud';
 
 export const shortLinkCreateValidation: ObjectSchema<IShortLinkCreate> = object({
 	url: string().trim().required().url().max(2048).label('URL'),
@@ -12,9 +12,7 @@ export const shortLinkCreateValidation: ObjectSchema<IShortLinkCreate> = object(
 	password: string().optional().label('Password')
 });
 
-export const shortLinkValidation: ObjectSchema<IShortLink> = crudListValidation
-	.concat(shortLinkCreateValidation)
-	.shape({
+export const shortLinkValidation: ObjectSchema<WithoutID<IShortLink>> = shortLinkCreateValidation.shape({
 		createdAt: number().required().label('Created At'),
 		uses: number().required().label('Uses')
 });
