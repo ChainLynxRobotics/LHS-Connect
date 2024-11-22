@@ -22,6 +22,10 @@
 
 	interface Props {
 		/**
+		 * The service ID to use for the api calls. Required.
+		 */
+		serviceId: string;
+		/**
 		 * The items to display in the list. Bindable.
 		 */
 		items: Item[];
@@ -44,6 +48,7 @@
 	}
 
 	let {
+		serviceId,
 		items: initialItems = $bindable([]),
 		generateNewItem,
 		renderItems,
@@ -71,8 +76,16 @@
 		if (!generateNewItem) throw new Error('Missing generateNewItem function');
 
 		const newId = generateRandomId();
-		items.push({ ...generateNewItem(), id: newId } as Item);
+		const newItem = generateNewItem();
+
+		items.push({ ...newItem, id: newId } as Item);
 		items = items; // Force reactivity
+
+		fetch(`/api/${serviceId}`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(newItem)
+		}).then(res=>res.json()).then(res=>items = res.results);
 
 		if (canReorder) {
 			order!.push(newId); // Keep order in sync
@@ -88,7 +101,7 @@
 
 		const clonedItem = JSON.parse(JSON.stringify(item));
 		const newId = generateRandomId();
-		items.push({ ...clonedItem, id: newId }); // Can add to the end, because the order doesn't matter here
+		items.push({ ...clonedItem, id: newId });
 		items = items; // Force reactivity
 
 		if (canReorder) {

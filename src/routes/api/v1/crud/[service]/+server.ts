@@ -7,7 +7,7 @@ export const GET: RequestHandler = async ({ params }) => {
     const { model, validator, canReorder, singleton } = getServiceData(params.service);
         
     const query = model.find();
-    if (canReorder) query.sort({ order: "asc" });
+    if (canReorder) query.sort({ order: "asc" }).select('-order');
     const docs = await query.exec();
     
     return json({
@@ -45,7 +45,6 @@ export const POST: RequestHandler = async ({ params, request }) => {
         const res = await doc.save();
 
         return json({
-            success: true,
             result: res.toObject()
         })
     } catch (e) {
