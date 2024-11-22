@@ -11,7 +11,7 @@ export const GET: RequestHandler = async ({ params }) => {
 
     const docs = await model.find().sort({ order: "asc" }).select('_id').exec();
     return json({
-        results: docs.map(doc=>doc.id)
+        order: docs.map(doc=>doc.id)
     });
 }
 
@@ -38,7 +38,9 @@ export const POST: RequestHandler = async ({ params, request }) => {
         }
         await Promise.all(promises);
 
-        return json({});
+        return json({
+            order
+        });
 
     } catch (e) {
         if (e instanceof ValidationError) error(400, e.message);

@@ -1,5 +1,6 @@
 import type { IClub } from "$lib/types/crud/club";
 import mongoose from "mongoose";
+import { crudCollectionSchema } from "../globalCrudModel";
 
 export const clubSchema = new mongoose.Schema<IClub>({
 	name: { type: String, required: true, maxlength: 250 },
@@ -9,6 +10,6 @@ export const clubSchema = new mongoose.Schema<IClub>({
 	advisor: { type: String, required: true, maxlength: 250 },
 	instagram: { type: String, maxlength: 250 },
 	desc: { type: String, maxlength: 500 }
-});
+}).add(crudCollectionSchema); // Extends the crudCollectionSchema
 
 export const Club = mongoose.model('Club', clubSchema);

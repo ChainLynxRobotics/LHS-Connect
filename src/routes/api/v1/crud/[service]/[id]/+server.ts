@@ -3,6 +3,7 @@ import { ValidationError } from 'yup';
 import type { RequestHandler, RouteParams } from './$types';
 import { error, json } from '@sveltejs/kit';
 import { getServiceData } from '../../globalCrud';
+import { _getAllDocs } from '../+server';
 
 export const GET: RequestHandler = async ({ params }) => {
     
@@ -39,7 +40,6 @@ export const PATCH: RequestHandler = async ({ params, request }) => {
         if (doc === null) return error(404, { message: "Not found" });
 
         return json({
-            success: true,
             result: doc.toObject()
         })
     } catch (e) {
@@ -60,7 +60,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
     const doc = await model.findByIdAndDelete(id).exec();
     if (doc === null) return error(404, { message: "Not found" });
 
-    return json({});
+    return _getAllDocs(model, canReorder);
 }
 
 function getId(params: RouteParams) {

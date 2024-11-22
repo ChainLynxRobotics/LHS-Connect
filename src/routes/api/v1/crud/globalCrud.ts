@@ -3,7 +3,7 @@ import { BellSchedule } from "$lib/models/crud/bellScheduleModel";
 import { BellScheduleOverride } from "$lib/models/crud/bellScheduleOverrideModel";
 import { BulletinBoardNote } from "$lib/models/crud/bulletinBoardModel";
 import { Club } from "$lib/models/crud/clubModel";
-import type { Crud } from "$lib/models/crud/globalCrudModel";
+import type { CrudSingleton } from "$lib/models/globalCrudModel";
 import { ContactInfoLinkCard, UsefulLinksLinkCard } from "$lib/models/crud/linkCardModel";
 import { bellScheduleDefaultsValidation } from "$lib/validation/crud/bellScheduleDefaultsSchema";
 import { bellScheduleOverrideValidation } from "$lib/validation/crud/bellScheduleOverrideSchema";
@@ -17,7 +17,7 @@ import { type ObjectSchema } from "yup";
 
 interface Service {
     // The db model
-    model: typeof Crud,
+    model: typeof CrudSingleton,
     // The yup schema for validation
     validator: ObjectSchema<any>,
     // Whether the service can reorder the items, eg to use an "order" field and allow the user to change the order

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Crud } from "./globalCrudModel";
+import { CrudSingleton } from "../globalCrudModel";
 
 export const bellScheduleDefaultsSchema = new mongoose.Schema({
     bellScheduleIDs: {
@@ -11,4 +11,4 @@ export const bellScheduleDefaultsSchema = new mongoose.Schema({
 /**
  * This is a key-value pair that stores the default bell schedules for the school, there will only be one of these.
  */
-export const BellScheduleDefaults =  Crud.discriminator('BellScheduleDefaults', bellScheduleDefaultsSchema);
+export const BellScheduleDefaults =  CrudSingleton.discriminator('BellScheduleDefaults', bellScheduleDefaultsSchema);

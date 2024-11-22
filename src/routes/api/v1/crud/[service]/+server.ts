@@ -2,17 +2,13 @@ import { json, error } from '@sveltejs/kit';
 import { getServiceData } from '../globalCrud';
 import type { RequestHandler } from './$types';
 import { ValidationError } from 'yup';
+import type { Model } from 'mongoose';
 
 export const GET: RequestHandler = async ({ params }) => {
     const { model, validator, canReorder, singleton } = getServiceData(params.service);
         
-    const query = model.find();
-    if (canReorder) query.sort({ order: "asc" }).select('-order');
-    const docs = await query.exec();
-    
-    return json({
-        results: docs.map(doc=>doc.toObject())
-    })
+    // Return all docs
+    return _getAllDocs(model, canReorder);
 }
 
 export const POST: RequestHandler = async ({ params, request }) => {
@@ -44,11 +40,20 @@ export const POST: RequestHandler = async ({ params, request }) => {
         }
         const res = await doc.save();
 
-        return json({
-            result: res.toObject()
-        })
+        // Return all docs
+        return _getAllDocs(model, canReorder);
     } catch (e) {
         if (e instanceof ValidationError) error(400, e.message);
         else throw e;
     }
+}
+
+export async function _getAllDocs(model: Model<any>, canReorder: boolean = false) {
+    const query = model.find();
+    if (canReorder) query.sort({ order: "asc" });
+    const docs = await query.exec();
+    return json({
+        results: docs.map(doc=>doc.toObject()),
+        order: canReorder ? docs.map(doc=>doc.id) : undefined
+    })
 }
