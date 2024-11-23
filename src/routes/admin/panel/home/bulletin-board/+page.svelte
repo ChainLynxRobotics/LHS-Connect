@@ -1,13 +1,13 @@
 <script lang="ts">
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import type { BulletinBoardData } from '$lib/types/HomePageData';
 	import CrudList from '$components/admin/CRUDList.svelte';
 	import { Button } from 'flowbite-svelte';
 	import DraggableList from '$components/admin/DraggableList.svelte';
 	import EditableNote from './EditableNote.svelte';
+	import type { PageData } from './$types';
 
 	interface Props {
-		data: BulletinBoardData;
+		data: PageData;
 	}
 
 	let { data }: Props = $props();
@@ -18,10 +18,11 @@
 		<SectionHeader title="Bulletin Board" />
 		<p class="mb-8">The title and content support markdown, and you can drag the notes around.</p>
 		<CrudList
-			items={data.notes}
+			serviceId="bulletinBoardNotes"
+			items={data.results}
 			generateNewItem={() => ({ title: 'New Note', content: 'content' })}
 			canReorder
-			initialOrder={data.notes.map((note) => note.id)}
+			initialOrder={data.results.map((note) => note.id)}
 		>
 			{#snippet renderItems({ items, create, reorder })}
 				<div class="mb-8 flex justify-center">

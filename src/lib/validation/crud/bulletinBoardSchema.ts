@@ -6,5 +6,9 @@ import type { WithoutID } from '$lib/types/crud/globalCrud';
 export const bulletinBoardNoteValidation: ObjectSchema<WithoutID<IBulletinBoardNote>> = object({
 	title: string().required().min(1).max(64),
 	content: string().required().min(1).max(512),
-	link: string().optional().matches(urlRegex, 'must be a valid url').max(1024)
+	link: string().optional().test(
+		'link',
+		'link must be a valid url',
+		(value) => !value || urlRegex.test(value)
+	).max(1024)
 });

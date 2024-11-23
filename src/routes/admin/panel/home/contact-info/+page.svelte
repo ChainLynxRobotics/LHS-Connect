@@ -2,12 +2,12 @@
 	import CrudList from '$components/admin/CRUDList.svelte';
 	import DraggableList from '$components/admin/DraggableList.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import type { LinkCardListData } from '$lib/types/HomePageData';
 	import { Button } from 'flowbite-svelte';
 	import EditableLinkCard from '../useful-links/EditableLinkCard.svelte';
+	import type { PageData } from './$types';
 
 	interface Props {
-		data: LinkCardListData;
+		data: PageData;
 	}
 
 	let { data }: Props = $props();
@@ -18,13 +18,14 @@
 		<SectionHeader title="Contact Info" />
 		<p class="mb-8"></p>
 		<CrudList
-			items={data.cards}
+			serviceId="contactInfo"
+			items={data.results}
 			generateNewItem={() => ({
 				title: 'New Card',
 				links: []
 			})}
 			canReorder={true}
-			initialOrder={data.cards.map((card) => card.id)}
+			initialOrder={data.order}
 		>
 			{#snippet renderItems({ items, create, reorder })}
 				<div class="mb-8 flex justify-center">

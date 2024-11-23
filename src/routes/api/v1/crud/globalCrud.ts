@@ -27,7 +27,7 @@ interface Service {
 }
 
 const services: { [key: string]: Service } = {
-    "bellSchedule": {
+    "bellSchedules": {
         model: BellSchedule as Model<any>,
         validator: bellScheduleValidation,
         canReorder: true
@@ -41,21 +41,21 @@ const services: { [key: string]: Service } = {
         model: BellScheduleOverride as Model<any>,
         validator: bellScheduleOverrideValidation
     },
-    "bulletinBoard": {
+    "bulletinBoardNotes": {
         model: BulletinBoardNote as Model<any>,
         validator: bulletinBoardNoteValidation,
         canReorder: true
     },
-    "club": {
+    "clubs": {
         model: Club as Model<any>,
         validator: clubValidation,
     },
-    "contactInfoLinkCard": {
+    "contactInfo": {
         model: ContactInfoLinkCard as Model<any>,
         validator: linkCardValidation,
         canReorder: true
     },
-    "usefulLinksLinkCard": {
+    "usefulLinks": {
         model: UsefulLinksLinkCard as Model<any>,
         validator: linkCardValidation,
         canReorder: true

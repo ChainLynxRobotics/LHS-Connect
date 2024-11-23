@@ -2,12 +2,12 @@
 	import CrudList from '$components/admin/CRUDList.svelte';
 	import DraggableList from '$components/admin/DraggableList.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import type { SavedScheduleData } from '$lib/types/HomePageData';
 	import { Button, Accordion } from 'flowbite-svelte';
 	import SavedSchedule from './SavedSchedule.svelte';
+	import type { PageData } from './$types';
 
 	interface Props {
-		data: SavedScheduleData;
+		data: PageData;
 	}
 
 	let { data }: Props = $props();
@@ -20,7 +20,8 @@
 			These are the saved schedules that can be then referenced on the Bell Schedule page.
 		</p>
 		<CrudList
-			items={data.schedules}
+			serviceId="bellSchedules"
+			items={data.results}
 			generateNewItem={() => ({
 				name: 'New Schedule',
 				periods: [
@@ -32,7 +33,7 @@
 				]
 			})}
 			canReorder={true}
-			initialOrder={data.schedules.map((item) => item.id)}
+			initialOrder={data.order}
 		>
 			{#snippet renderItems({ items, create, reorder })}
 				<div class="mb-8 flex justify-center">

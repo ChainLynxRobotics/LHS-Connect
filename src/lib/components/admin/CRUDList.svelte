@@ -1,8 +1,6 @@
 <script lang="ts" generics="Item extends { id: any }">
-	import { generateRandomId } from '$lib/util/randomId';
 	import type { Snippet } from 'svelte';
-	import client from './client';
-	import ThemeSwitch from '$components/ThemeSwitch.svelte';
+	import adminApiClient from '$lib/util/adminApiClient';
 
 	type ItemWithoutID = Omit<Item, 'id'>;
 
@@ -73,6 +71,13 @@
 		canReorder && initialOrder ? sanitizeOrder(initialOrder) : undefined
 	);
 
+	function refetch() {
+		adminApiClient.getAll<Item>(serviceId).then((res) => {
+			items = res.results;
+			if (canReorder && res.order) order = res.order;
+		});
+	}
+
 	function create() {
 		if (!canCreate) return;
 		if (!generateNewItem) throw new Error('Missing generateNewItem function');
@@ -90,10 +95,10 @@
 		}*/
 
 		const newItem = generateNewItem();
-		client.create<Item>(serviceId, newItem).then((res) => {
+		adminApiClient.create<Item>(serviceId, newItem).then((res) => {
 			items = res.results;
 			if (canReorder && res.order) order = res.order;
-		});
+		}).catch(console.error);
 	}
 
 	function duplicate(id: Item['id']) {
@@ -115,10 +120,11 @@
 			order = order; // Force reactivity
 		}*/
 
-		client.create<Item>(serviceId, item).then((res) => {
+		adminApiClient.create<Item>(serviceId, item).then((res) => {
+			console.log("test", res);
 			items = res.results;
 			if (canReorder && res.order) order = res.order;
-		});
+		}).catch(console.error);
 	}
 
 	function update(id: Item['id'], item: ItemWithoutID) {
@@ -130,11 +136,14 @@
 		// We can update it immediately, as the server will return the updated item
 		items[index] = { ...item, id: id } as Item;
 
-		client.update<Item>(serviceId, id, item).then((res) => {
+		adminApiClient.update<Item>(serviceId, id, item).then((res) => {
 			// Update the item with the result from the server, in case it was modified
 			const index = items.findIndex((i) => i.id === id);
 			if (index === -1) return;
 			items[index] = res.result;
+		}).catch((err) => {
+			console.error(err);
+			refetch(); // Re-fetch the items to ensure they are in sync
 		});
 	}
 
@@ -153,9 +162,12 @@
 			order = order; // Force reactivity
 		}
 
-		client.remove<Item>(serviceId, id).then((res) => {
+		adminApiClient.remove<Item>(serviceId, id).then((res) => {
 			items = res.results;
 			if (canReorder && res.order) order = res.order;
+		}).catch((err) => {
+			console.error(err);
+			refetch(); // Re-fetch the items to ensure they are in sync
 		});
 	}
 
@@ -171,7 +183,7 @@
 	}
 
 	function sort(_items: Item[]) {
-		if (canReorder) return order!.map((id) => items.find((i) => i.id === id)!);
+		if (canReorder) return [..._items].sort((a, b)=>order!.indexOf(a.id) - order!.indexOf(b.id));
 		else if (sortFn) return [..._items].sort(sortFn);
 		else return _items;
 	}
@@ -184,7 +196,7 @@
 
 		order = newOrder;
 
-		client.reorder<Item>(serviceId, newOrder).then((res) => {
+		adminApiClient.reorder<Item>(serviceId, newOrder).then((res) => {
 			order = res.order;
 		});
 	}

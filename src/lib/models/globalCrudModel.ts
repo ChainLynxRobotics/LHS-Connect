@@ -22,7 +22,6 @@ export const crudOrderableSchema = new mongoose.Schema({
         select: false,
     },
 }).add(crudCollectionSchema); // Extends the crudCollectionSchema
-crudOrderableSchema.virtual('order').get(()=>undefined);
 
 /**
  * The base model for all the single doc information that will be stored in the database.

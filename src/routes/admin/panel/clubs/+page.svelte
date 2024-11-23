@@ -1,13 +1,13 @@
 <script lang="ts">
 	import CrudList from '$components/admin/CRUDList.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import type { ClubPageData } from '$lib/types/ClubPageData';
 	import { Button, Table, TableHead, TableHeadCell, TableBody } from 'flowbite-svelte';
 	import AutoImportClubsButton from './AutoImportClubsButton.svelte';
 	import EditableClub from './EditableClub.svelte';
+	import type { PageData } from './$types';
 
 	interface Props {
-		data: ClubPageData;
+		data: PageData;
 	}
 
 	let { data }: Props = $props();
@@ -18,13 +18,14 @@
 		<SectionHeader title="Club List" />
 		<p class="mb-8">Alphabetical list of clubs</p>
 		<CrudList
-			items={data.clubs}
+			serviceId="clubs"
+			items={data.results}
 			generateNewItem={() => ({
-				name: '_New Club',
-				day: '',
-				time: '',
-				location: '',
-				advisor: ''
+				name: 'New Club',
+				day: 'unknown',
+				time: 'unknown',
+				location: 'unknown',
+				advisor: 'unknown'
 			})}
 			sortFn={(a, b) => a.name.localeCompare(b.name)}
 			canReorder={false}

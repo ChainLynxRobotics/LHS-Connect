@@ -36,8 +36,10 @@ export const PATCH: RequestHandler = async ({ params, request }) => {
         const validatedReq = await validator.validate(req, { stripUnknown: true });
 
         // Find and update doc in db
-        const doc = await model.findByIdAndUpdate(id, validatedReq).exec();
+        const doc = await model.findById(id).exec();
         if (doc === null) return error(404, { message: "Not found" });
+        doc.set(validatedReq);
+        await doc.save();
 
         return json({
             result: doc.toObject()

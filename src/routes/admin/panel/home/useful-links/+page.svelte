@@ -2,12 +2,12 @@
 	import CrudList from '$components/admin/CRUDList.svelte';
 	import DraggableList from '$components/admin/DraggableList.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import type { LinkCardListData } from '$lib/types/HomePageData';
 	import { Button } from 'flowbite-svelte';
 	import EditableLinkCard from './EditableLinkCard.svelte';
+	import type { PageData } from './$types';
 
 	interface Props {
-		data: LinkCardListData;
+		data: PageData;
 	}
 
 	let { data }: Props = $props();
@@ -20,13 +20,14 @@
 			These links are rendered at the bottom of the page in a footer on all public pages
 		</p>
 		<CrudList
-			items={data.cards}
+			serviceId="usefulLinks"
+			items={data.results}
 			generateNewItem={() => ({
 				title: 'New Card',
 				links: []
 			})}
 			canReorder={true}
-			initialOrder={data.cards.map((card) => card.id)}
+			initialOrder={data.order}
 		>
 			{#snippet renderItems({ items, create, reorder })}
 				<div class="mb-8 flex justify-center">

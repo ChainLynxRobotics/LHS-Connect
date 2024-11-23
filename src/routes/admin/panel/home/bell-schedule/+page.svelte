@@ -1,15 +1,15 @@
 <script lang="ts">
 	import CrudList from '$components/admin/CRUDList.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import type { BellScheduleData } from '$lib/types/HomePageData';
 	import { Button, Table, TableHead, TableHeadCell, TableBody, Label } from 'flowbite-svelte';
 	import { DateTime } from 'luxon';
 	import DefaultSchedules from './DefaultSchedules.svelte';
 	import SpecialScheduleRow from './SpecialScheduleRow.svelte';
 	import BellScheduleTabs from '$components/info/BellScheduleTabs.svelte';
+	import type { PageData } from './$types';
 
 	interface Props {
-		data: BellScheduleData;
+		data: PageData;
 	}
 
 	let { data }: Props = $props();
@@ -37,6 +37,7 @@
 		<SectionHeader title="Schedule Overrides" />
 		<p class="mb-8">Special schedules that override the default schedules on specific dates.</p>
 		<CrudList
+			serviceId="bellScheduleOverrides"
 			items={specials}
 			generateNewItem={() => ({
 				date: DateTime.now().setZone('America/Los_Angeles').startOf('day').toMillis(),
