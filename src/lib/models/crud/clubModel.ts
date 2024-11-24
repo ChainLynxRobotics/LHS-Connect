@@ -9,7 +9,7 @@ export const clubSchema = new mongoose.Schema<IClub>({
 	location: { type: String, required: true, maxlength: 250 },
 	advisor: { type: String, required: true, maxlength: 250 },
 	instagram: { type: String, maxlength: 250 },
-	desc: { type: String, maxlength: 500 }
+	desc: { type: String, maxlength: 1000 }
 }).add(crudCollectionSchema); // Extends the crudCollectionSchema
 
 export const Club = mongoose.model('Club', clubSchema);

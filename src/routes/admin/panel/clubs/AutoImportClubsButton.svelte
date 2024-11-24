@@ -5,11 +5,12 @@
 	import { InfoCircleOutline } from 'flowbite-svelte-icons';
 	import { string } from 'yup';
 	import Papa from 'papaparse';
-	import { generateRandomId } from '$lib/util/randomId';
 	import type { IClub } from '$lib/types/crud/club';
+	import type { WithoutID } from '$lib/types/crud/globalCrud';
+	import { generateRandomId } from '$lib/util/randomId';
 
 	interface Props {
-		onSubmit: (clubs: IClub[]) => void;
+		onSubmit: (clubs: WithoutID<IClub>[]) => void;
 	}
 
 	let { onSubmit: submit }: Props = $props();
@@ -27,7 +28,7 @@
 		let end = await endInput!.validate();
 
 		try {
-			const records: IClub[] = [];
+			const records: WithoutID<IClub>[] = [];
 
 			let line = 0;
 			Papa.parse(strData, {
@@ -54,12 +55,11 @@
 					if (instaUrlSearch != null) insta = instaUrlSearch[1];
 
 					records.push({
-						id: generateRandomId(),
-						name: row[0].replace('\n', ' ').trim(),
-						day: row[2].replace('\n', ' ').trim(),
-						time: row[3].replace('\n', ' ').trim(),
-						location: row[1].replace('\n', ' ').trim(),
-						advisor: row[6].replace('\n', ' ').trim(),
+						name: row[0].replace('\n', ' ').trim() || 'Unknown',
+						day: row[2].replace('\n', ' ').trim() || 'Unknown',
+						time: row[3].replace('\n', ' ').trim() || 'Unknown',
+						location: row[1].replace('\n', ' ').trim() || 'Unknown',
+						advisor: row[6].replace('\n', ' ').trim() || 'Unknown',
 						instagram: insta.replace('@', '') || undefined,
 						desc: row[7].replace('\n', ' ').trim() || undefined
 					});

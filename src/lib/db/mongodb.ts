@@ -1,5 +1,6 @@
 import { MONGO_DB_URI } from '$env/static/private'
 import mongoose from 'mongoose';
+import { dev } from '$app/environment';
 
 export default async function connect() {
     mongoose.set('toJSON', {
@@ -12,5 +13,6 @@ export default async function connect() {
         versionKey:false,
         transform: function (doc, ret) {   delete ret._id  }
     });
-    return await mongoose.connect(MONGO_DB_URI);
+    const db = dev ? 'dev' : 'prod';
+    return await mongoose.connect(MONGO_DB_URI, { dbName: db });
 }

@@ -53,6 +53,10 @@ async function reorder<T extends {id: any}>(serviceId: string, order: T['id'][])
     return baseApiRequest('POST', `/crud/${serviceId}/order`, order);
 }
 
+async function overwriteAll<T extends {id: any}>(serviceId: string, data: Omit<T, 'id'>[]): Promise<GetAllResults<T>> {
+    return baseApiRequest('POST', `/crud/${serviceId}/all`, data);
+}
+
 export default {
     getAll,
     create,
@@ -61,4 +65,5 @@ export default {
     remove,
     getOrder,
     reorder,
+    overwriteAll,
 };

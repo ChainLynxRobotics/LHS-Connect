@@ -15,5 +15,5 @@ export const clubValidation: ObjectSchema<WithoutID<IClub>> = object({
 		.trim()
 		.matches(INSTAGRAM_REGEX, 'Must be a valid instagram username (without the @)')
 		.max(250),
-	desc: string().optional().max(500)
+	desc: string().optional().max(1000)
 });
