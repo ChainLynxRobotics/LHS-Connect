@@ -18,9 +18,7 @@
 		ArrowLeftToBracketOutline,
 		CalendarMonthOutline,
 		ChartPieOutline,
-		ChartPieSolid,
 		HomeOutline,
-		HomeSolid,
 		LinkOutline,
 		TableRowOutline,
 		UserCircleOutline
@@ -28,6 +26,7 @@
 	import Menu from 'flowbite-svelte/Menu.svelte';
 	import type { Snippet } from 'svelte';
 	import { sineIn } from 'svelte/easing';
+	
 	interface Props {
 		children?: Snippet;
 	}

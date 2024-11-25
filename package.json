@@ -12,6 +12,7 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
+		"@auth/sveltekit": "^1.7.4",
 		"@popperjs/core": "^2.11.8",
 		"@svelte-put/qr": "^1.2.1",
 		"@sveltejs/adapter-auto": "^3.0.0",
@@ -28,6 +29,7 @@
 		"flowbite-svelte-icons": "^2.0.2",
 		"fuse.js": "^7.0.0",
 		"luxon": "^3.5.0",
+		"mongoose": "^8.8.1",
 		"papaparse": "^5.4.1",
 		"postcss": "^8.4.38",
 		"prettier": "^3.1.1",
@@ -45,8 +47,5 @@
 		"yup": "^1.4.0"
 	},
 	"type": "module",
-	"packageManager": "pnpm@9.9.0",
-	"dependencies": {
-		"mongoose": "^8.8.1"
-	}
+	"packageManager": "pnpm@9.9.0"
 }

@@ -6,3 +6,6 @@ connect().then(() => {
 }).catch((err) => {
     console.error("Failed to connect to MongoDB", err);
 });
+
+// Export the handle function from the auth hook
+export { handle } from "./auth";
