@@ -28,7 +28,7 @@
 <TableBodyRow>
 	<TableBodyCell tdClass="p-4 py-4 font-medium max-w-sm">{link.suffix}</TableBodyCell>
 	<TableBodyCell tdClass="p-4 py-4 font-medium max-w-sm"
-		><A href={link.url} target="_blank" rel="noreferrer">{link.url}</A></TableBodyCell
+		><A href={link.url} target="_blank" rel="noreferrer" class="line-clamp-6">{link.url}</A></TableBodyCell
 	>
 	<TableBodyCell tdClass="p-4 py-4 font-medium max-w-sm">
 		{#if link.password}

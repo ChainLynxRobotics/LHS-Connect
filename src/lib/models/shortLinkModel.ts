@@ -8,5 +8,6 @@ export const shortLinkSchema = new mongoose.Schema<IShortLink>({
 	createdAt: { type: Number, required: true },
 	uses: { type: Number, default: 0 }
 });
+shortLinkSchema.index({ suffix: "text", url: "text" });
 
 export const ShortLink = mongoose.model('ShortLink', shortLinkSchema);
