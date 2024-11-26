@@ -110,6 +110,28 @@
 						I'm a LHS Senior who likes to program as a hobby. In my free time I enjoy working on
 						cars, skiing, snowboarding, mountain biking, and wakeboarding.
 					</p>
+
+					<div class="mt-4 flex gap-4">
+						<Button
+							on:click={() => copyText('.kanakun')}
+							title="Discord"
+							color="light"
+							class="dark:text-white"
+						>
+							<DiscordSolid size="lg" />
+						</Button>
+						<Button
+							href="https://www.instagram.com/kanakun2007/"
+							target="_blank"
+							rel="noopener"
+							title="Instagram"
+							color="light"
+							class="dark:text-white"
+						>
+							<InstagramSolid size="lg" />
+						</Button>
+					</div>
+
 				</div>
 			</Card>
 		</div>
