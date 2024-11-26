@@ -1,6 +1,6 @@
 import type { ICrudListType } from "./globalCrud";
 
-export interface IShortLinkCreate {
+export interface IShortLinkBare {
 	/**
 	 * The short id of the link, https://lhs.cx/[suffix] will redirect to the URL.
 	 */
@@ -9,6 +9,9 @@ export interface IShortLinkCreate {
 	 * The URL of the link.
 	 */
 	url: string;
+}
+
+export interface IShortLinkCreate extends IShortLinkBare {
 	/**
 	 * The password of the link, if it exists.
 	 */

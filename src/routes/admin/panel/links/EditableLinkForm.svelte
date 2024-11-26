@@ -7,7 +7,7 @@
 
 	interface Props {
 		link: IShortLink;
-		onSubmit: (link: WithoutID<IShortLink>) => void;
+		onSubmit: (link: IShortLinkCreate) => void;
 		onCancel: () => void;
 	}
 

@@ -3,12 +3,12 @@
 	import { EditOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { DateTime } from 'luxon';
 	import EditableLinkForm from './EditableLinkForm.svelte';
-	import type { IShortLink } from '$lib/types/crud/shortLink';
+	import type { IShortLink, IShortLinkCreate } from '$lib/types/crud/shortLink';
 	import type { WithoutID } from '$lib/types/crud/globalCrud';
 
 	interface Props {
 		link: IShortLink;
-		onUpdate: (e: WithoutID<IShortLink>) => void;
+		onUpdate: (e: IShortLinkCreate) => void;
 		onRemove: () => void;
 	}
 
@@ -16,7 +16,7 @@
 
 	let editModalOpen = $state(false);
 
-	function handleEditModalSubmit(e: WithoutID<IShortLink>) {
+	function handleEditModalSubmit(e: IShortLinkCreate) {
 		onUpdate({
 			...link,
 			...e

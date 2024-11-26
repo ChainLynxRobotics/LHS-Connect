@@ -4,7 +4,8 @@
 	import EditableLink from './EditableLink.svelte';
 	import type { AdminShortLinkPageData } from '$lib/types/AdminShortLinkPageData';
 	import adminApiClient from '$lib/util/adminApiClient';
-	import type { IShortLink } from '$lib/types/crud/shortLink';
+	import type { IShortLink, IShortLinkCreate } from '$lib/types/crud/shortLink';
+	import { ref } from 'yup';
 
 	interface Props {
 		data: AdminShortLinkPageData;
@@ -23,12 +24,14 @@
 	let order = $state<'desc'|'asc'>('desc');
 
 
-	$effect(() => {
+	$effect(refresh);
+	
+	function refresh() {
 		adminApiClient.baseApiRequest('GET', `/crud/shortLinks?page=${page}&pageSize=${itemsPerPage}&search=${search}&orderBy=${orderBy}&order=${order}`).then((res) => {
 			list = res.results;
 			total = res.total;
 		}).catch(console.error);
-	});
+	}
 
 	function next() {
 		if (page * itemsPerPage < total) {
@@ -40,6 +43,20 @@
 		if (page > 1) {
 			page--;
 		}
+	}
+
+	function update(id: IShortLink['id'], link: IShortLinkCreate) {
+		adminApiClient.baseApiRequest('PATCH', `/crud/shortLinks/${id}`, link).then((res) => {
+			const index = list.findIndex((item) => item.id === id);
+			list[index] = res.result;
+		}).catch(console.error);
+	}
+
+	function remove(id: IShortLink['id']) {
+		list = list.filter((item) => item.id !== id);
+		adminApiClient.baseApiRequest('DELETE', `/crud/shortLinks/${id}`)
+			.catch(console.error)
+			.finally(refresh);
 	}
 
 	const pageSizes = [
@@ -74,15 +91,15 @@
 		<div class="w-full flex items-center justify-center gap-6 mb-6">
 			<div>
 				<Label for="search" class="mb-2">Search</Label>
-      			<Input bind:value={search} type="text" id="search" placeholder="Suffix or link" />
+      			<Input bind:value={search} on:change={() => page = 1} type="text" id="search" placeholder="Suffix or link" />
 			</div>
 			<div>
 				<Label for="search" class="mb-2">Order By</Label>
-				<Select bind:value={orderBy} id="orderby" size="sm" items={sortByOptions} />
+				<Select bind:value={orderBy} on:change={() => page = 1} id="orderby" size="sm" items={sortByOptions} />
 			</div>
 			<div>
 				<Label for="desc" class="mb-2">Order</Label>
-				<Select bind:value={order} id="order" size="sm" items={sortOptions} />
+				<Select bind:value={order} on:change={() => page = 1} id="order" size="sm" items={sortOptions} />
 			</div>
 		</div>
 
@@ -97,7 +114,7 @@
 			</TableHead>
 			<TableBody>
 				{#each list as item (item.id)}
-					<EditableLink link={item} onUpdate={()=>console.log("TODO")} onRemove={()=>console.log("TODO")} />
+					<EditableLink link={item} onUpdate={(i)=>update(item.id, i)} onRemove={()=>remove(item.id)} />
 				{/each}
 			</TableBody>
 		</Table>
