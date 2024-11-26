@@ -25,8 +25,6 @@
 
 	<NavUl {activeUrl} {activeClass} {nonActiveClass}>
 		<NavLi href="/">Back to Home</NavLi>
-		<NavLi href="/admin/login">Log In</NavLi>
-		<NavLi href="/admin/register">Register</NavLi>
-		<NavLi href="/admin/panel">Panel</NavLi>
+		<NavLi href="/admin/login">Login</NavLi>
 	</NavUl>
 </Navbar>
