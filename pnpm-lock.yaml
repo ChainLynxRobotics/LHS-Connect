@@ -7,6 +7,13 @@ settings:
 importers:
 
   .:
+    dependencies:
+      svelte-infinite-loading:
+        specifier: ^1.4.0
+        version: 1.4.0
+      svelte-tiny-virtual-list:
+        specifier: ^2.1.2
+        version: 2.1.2
     devDependencies:
       '@auth/sveltekit':
         specifier: ^1.7.4
@@ -1521,6 +1528,9 @@ packages:
     peerDependencies:
       svelte: '>=3.23.0 || ^5.0.0-next.0'
 
+  svelte-infinite-loading@1.4.0:
+    resolution: {integrity: sha512-Jo+f/yr/HmZQuIiiKKzAHVFXdAUWHW2RBbrcQTil8JVk1sCm/riy7KTJVzjBgQvHasrFQYKF84zvtc9/Y4lFYg==}
+
   svelte-markdown@0.4.1:
     resolution: {integrity: sha512-pOlLY6EruKJaWI9my/2bKX8PdTeP5CM0s4VMmwmC2prlOkjAf+AOmTM4wW/l19Y6WZ87YmP8+ZCJCCwBChWjYw==}
     peerDependencies:
@@ -1530,6 +1540,9 @@ packages:
     resolution: {integrity: sha512-T6mqZrySltPCDwfKXWQ6zehipVLk4GWfH1zCMGgRtLlOIFPuw58ZxVYxVvotMJgJaurKi1i14viB2GIRKXeJTQ==}
     peerDependencies:
       svelte: ^3.0.0 || ^4.0.0 || ^5.0.0-next.1
+
+  svelte-tiny-virtual-list@2.1.2:
+    resolution: {integrity: sha512-jeP/WMvgFUR4mYXHGPiCexjX5DuzSO+3xzHNhxfcsFyy+uYPtnqI5UGb383swpzQAyXB0OBqYfzpYihD/5gxnA==}
 
   svelte@5.1.15:
     resolution: {integrity: sha512-cs2JYADrEorRCB4AUCHMvwperwAKcn/mz7w1xzVOv3fG6TmAS2n13JYHH8/uDCFbqVyRSXXlL+vA5RDwGUXEZg==}
@@ -2894,6 +2907,8 @@ snapshots:
     dependencies:
       svelte: 5.1.15
 
+  svelte-infinite-loading@1.4.0: {}
+
   svelte-markdown@0.4.1(svelte@5.1.15):
     dependencies:
       '@types/marked': 5.0.2
@@ -2903,6 +2918,8 @@ snapshots:
   svelte-parse-markup@0.1.5(svelte@5.1.15):
     dependencies:
       svelte: 5.1.15
+
+  svelte-tiny-virtual-list@2.1.2: {}
 
   svelte@5.1.15:
     dependencies:

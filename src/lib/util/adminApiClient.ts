@@ -58,6 +58,7 @@ async function overwriteAll<T extends {id: any}>(serviceId: string, data: Omit<T
 }
 
 export default {
+    baseApiRequest,
     getAll,
     create,
     get,
