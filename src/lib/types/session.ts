@@ -1,7 +1,7 @@
-import type { IUser } from "./user";
+import type { ISessionUser } from "./user";
 
-export type ISession = {
+export interface ISession {
     id: Buffer;
-    user: IUser;
+    user: ISessionUser;
     expires: Date;
 }

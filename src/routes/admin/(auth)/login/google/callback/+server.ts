@@ -4,6 +4,7 @@ import { decodeIdToken, type OAuth2Tokens } from "arctic";
 import { google } from "$lib/auth/oauth";
 import { User } from "$lib/models/userModel";
 import { createSession, setSessionTokenCookie } from "$lib/auth/session";
+import { Permission, Permissions } from "$lib/auth/Permissions";
 
 export const GET: RequestHandler = async ({ url, cookies }) => {
     const code = url.searchParams.get("code");
@@ -39,12 +40,15 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
         return redirect(302, "/admin/panel");
     }
 
+    const permissions = new Permissions();
+    permissions.add(Permission.VIEW);
+
     const user = new User({
         googleId,
         name,
         email,
         pfp,
-        permissions: 0,
+        permissions: permissions.get(),
         firstLogin: new Date(),
         lastLogin: new Date(),
     });

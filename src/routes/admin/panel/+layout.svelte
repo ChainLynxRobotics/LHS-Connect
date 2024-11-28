@@ -26,12 +26,14 @@
 	import Menu from 'flowbite-svelte/Menu.svelte';
 	import type { Snippet } from 'svelte';
 	import { sineIn } from 'svelte/easing';
+	import type { PageData } from './$types';
 	
 	interface Props {
+		data: PageData;
 		children?: Snippet;
 	}
 
-	let { children }: Props = $props();
+	let { data, children }: Props = $props();
 
 	const pages = [
 		{

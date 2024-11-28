@@ -1,4 +1,4 @@
-export type IUser = {
+export interface IUser extends ISessionUser {
     id: string;
     googleId: string;
     name: string;
@@ -7,4 +7,12 @@ export type IUser = {
     permissions: number;
     firstLogin: Date;
     lastLogin: Date;
+}
+
+export interface ISessionUser {
+    id: string;
+    name: string;
+    email: string;
+    pfp: string;
+    permissions: number;
 }

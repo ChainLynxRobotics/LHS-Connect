@@ -1,5 +1,6 @@
 import { Session } from "$lib/models/sessionModel";
 import type { ISession } from "$lib/types/session";
+import type { ISessionUser } from "$lib/types/user";
 import { sha256 } from "@oslojs/crypto/sha2";
 import { encodeBase32LowerCaseNoPadding } from "@oslojs/encoding";
 import type { Cookies } from "@sveltejs/kit";
@@ -41,9 +42,11 @@ export async function validateAndRenewSession(token: any): Promise<ISession | nu
     if (!token || typeof token !== "string" || token.length !== 32) {
         return null;
     }
+
+    const newExpires = new Date(Date.now() + SESSION_DURATION);
     
     const tokenHash = Buffer.from(sha256(new TextEncoder().encode(token)));
-    const session = await Session.findOneAndUpdate({ _id: tokenHash }, { $set: { expires: new Date(Date.now() + SESSION_DURATION) } });
+    const session = await Session.findOneAndUpdate({ _id: tokenHash }, { $set: { expires: newExpires } }).populate<{user: ISessionUser}>("user", "_id name email pfp permissions").exec();
 
     if (!session) {
         return null;
@@ -55,6 +58,7 @@ export async function validateAndRenewSession(token: any): Promise<ISession | nu
         await Session.deleteOne({ _id: tokenHash });
         return null;
     }
+    session.expires = newExpires; // Update the expires field to the new expiry date
 
     return session.toObject();
 }
