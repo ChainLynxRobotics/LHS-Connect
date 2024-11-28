@@ -12,6 +12,8 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
+		"@oslojs/crypto": "^1.0.1",
+		"@oslojs/encoding": "^1.1.0",
 		"@popperjs/core": "^2.11.8",
 		"@svelte-put/qr": "^1.2.1",
 		"@sveltejs/adapter-auto": "^3.0.0",
@@ -22,6 +24,7 @@
 		"@tailwindcss/typography": "^0.5.13",
 		"@types/luxon": "^3.4.2",
 		"@types/papaparse": "^5.3.14",
+		"arctic": "^2.3.0",
 		"autoprefixer": "^10.4.19",
 		"flowbite": "^2.5.2",
 		"flowbite-svelte": "^0.47.3",
