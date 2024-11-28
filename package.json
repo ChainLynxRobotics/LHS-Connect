@@ -12,7 +12,6 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-		"@auth/sveltekit": "^1.7.4",
 		"@popperjs/core": "^2.11.8",
 		"@svelte-put/qr": "^1.2.1",
 		"@sveltejs/adapter-auto": "^3.0.0",

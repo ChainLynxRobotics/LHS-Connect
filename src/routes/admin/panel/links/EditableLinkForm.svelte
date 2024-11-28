@@ -1,7 +1,6 @@
 <script lang="ts">
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import type { WithoutID } from '$lib/types/crud/globalCrud';
-	import type { IShortLink } from '$lib/types/crud/shortLink';
+	import type { IShortLink, IShortLinkCreate } from '$lib/types/crud/shortLink';
 	import { shortLinkValidation } from '$lib/validation/crud/shortLinkSchema';
 	import { Button } from 'flowbite-svelte';
 

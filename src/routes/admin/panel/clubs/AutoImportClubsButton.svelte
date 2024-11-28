@@ -7,7 +7,6 @@
 	import Papa from 'papaparse';
 	import type { IClub } from '$lib/types/crud/club';
 	import type { WithoutID } from '$lib/types/crud/globalCrud';
-	import { generateRandomId } from '$lib/util/randomId';
 
 	interface Props {
 		onSubmit: (clubs: WithoutID<IClub>[]) => void;
