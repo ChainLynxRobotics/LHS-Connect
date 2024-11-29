@@ -27,7 +27,7 @@ export const POST: RequestHandler = async ({ locals, params, request }) => {
             if (docs.length > 0) {
                 docs[0].set(validatedReq).save();
                 for (let doc of docs.slice(1)) await doc.deleteOne().exec(); // Delete all other docs in case there are more than one
-                return json({ result: docs[0].toObject() });
+                return json({ results: [docs[0].toObject()] });
             }
             // Else, continue to create the doc
         }

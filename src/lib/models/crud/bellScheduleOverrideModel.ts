@@ -5,12 +5,17 @@ import { crudCollectionSchema } from "../globalCrudModel";
 export const scheduleOverrideSchema = new mongoose.Schema<IBellScheduleOverride>({
     date: { type: Number, required: true },
     scheduleId: { type: String, required: true }
-}).add(crudCollectionSchema); // Extends the crudCollectionSchema
-scheduleOverrideSchema.virtual('scheduleObj', {
-    ref: 'BellSchedule',
-    localField: 'scheduleId',
-    foreignField: '_id',
-    justOne: true
+}, {
+    virtuals: {
+        bellScheduleIds: {
+            options: {
+                ref: 'BellSchedule',
+                localField: 'scheduleId',
+                foreignField: '_id',
+                justOne: true,
+            }
+        }
+    }
 });
 
 export const BellScheduleOverride: Model<IBellScheduleOverride> = mongoose.models.BellScheduleOverride ?? mongoose.model('BellScheduleOverride', scheduleOverrideSchema);

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
+	import adminApiClient from '$lib/util/adminApiClient';
 	import {
 		Select,
 		Table,
@@ -17,6 +18,19 @@
 	}
 
 	let { scheduleOptions = [], defaults = $bindable([]) }: Props = $props();
+
+	const refresh = async () => {
+		const res = await adminApiClient.baseApiRequest('GET', '/crud/bellScheduleDefaults')
+		defaults = res.results?.[0]?.bellScheduleIDs || [];
+	};
+
+	const update = async () => {
+		await adminApiClient.baseApiRequest('POST', '/crud/bellScheduleDefaults', {bellScheduleIDs: defaults}).catch((e)=>{
+			refresh();
+			console.error(e);
+		});
+	};
+
 </script>
 
 <div class="w-full">
@@ -36,6 +50,7 @@
 					<TableBodyCell class="px-1">
 						<Select
 							bind:value={defaults[i]}
+							onchange={update}
 							items={scheduleOptions}
 							size="sm"
 							placeholder="Choose Schedule"

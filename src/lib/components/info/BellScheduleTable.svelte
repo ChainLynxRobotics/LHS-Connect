@@ -24,8 +24,6 @@
 		let c = 'text-base';
 		if (!schedule) return c;
 
-		console.log('customTime', customTime);
-
 		const period = schedule.periods[periodIndex];
 		if (period.emphasis) {
 			c += ' !bg-gray-100 dark:!bg-gray-600';

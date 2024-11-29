@@ -19,7 +19,7 @@
 		data.schedules.map((item) => ({ value: item.id, name: item?.name || 'Unknown' }))
 	);
 
-	let defaults = $state(data.defaults);
+	let defaults = $state(data.defaults[0]?.bellScheduleIDs || []);
 	let specials = $state(data.specials);
 
 	let previewTime = $state(DateTime.now().toFormat(`yyyy-LL-dd'T'HH:mm`))!;

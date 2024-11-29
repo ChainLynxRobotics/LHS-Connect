@@ -5,7 +5,16 @@ import mongoose, { Model } from "mongoose";
  * This schema is the base for all the key-value pairs that will be stored in the database.
  * The keys are in the discriminator key, and the values are in the discriminator schema.
  */
-export const crudSingletonSchema = new mongoose.Schema({});
+export const crudSingletonSchema = new mongoose.Schema({}, {
+    toJSON: {
+        virtuals: true,
+        transform: function (doc, ret) { delete ret.__t; delete ret._id; }
+    },
+    toObject: {
+        virtuals: true,
+        transform: function (doc, ret) { delete ret.__t; delete ret._id; }
+    }
+});
 
 /**
  * This schema is the base for all the lists of data that will be stored in the database.
