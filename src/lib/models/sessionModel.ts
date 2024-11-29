@@ -1,9 +1,10 @@
 import type { ISession } from "$lib/types/session";
 import mongoose, { Types } from "mongoose";
+import { User } from "./userModel";
 
 const sessionSchema = new mongoose.Schema<ISession & { _id: Buffer }>({
     _id: { type: Buffer, required: true },
-    user: { type: Types.ObjectId, ref: 'User', required: true },
+    user: { type: Types.ObjectId, ref: User.modelName, required: true },
     expires: { type: Date, required: true, expires: 0 },
 });
 sessionSchema.virtual('id').get(function() {

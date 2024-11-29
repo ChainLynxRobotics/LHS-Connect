@@ -4,9 +4,10 @@ import type { RequestHandler, RouteParams } from './$types';
 import { error, json } from '@sveltejs/kit';
 import { getServiceData } from '../../globalCrud';
 import { _getAllDocs } from '../+server';
+import { Permission } from '$lib/auth/Permissions';
 
-export const GET: RequestHandler = async ({ params }) => {
-    
+export const GET: RequestHandler = async ({ locals, params }) => {
+    if (!locals.permissions.has(Permission.VIEW)) error(403, "You do not have permission to view this resource.");
     const { model, validator, canReorder, singleton } = getServiceData(params.service);
     const id = getId(params);
 
@@ -21,9 +22,8 @@ export const GET: RequestHandler = async ({ params }) => {
     })
 }
 
-export const PATCH: RequestHandler = async ({ params, request }) => {
-    // TODO: Auth
-
+export const PATCH: RequestHandler = async ({ locals, params, request }) => {
+    if (!locals.permissions.has(Permission.EDIT)) error(403, "You do not have permission to edit this resource.");
     const { model, validator, canReorder, singleton } = getServiceData(params.service);
     const id = getId(params);
 
@@ -50,9 +50,8 @@ export const PATCH: RequestHandler = async ({ params, request }) => {
     }
 }
 
-export const DELETE: RequestHandler = async ({ params }) => {
-    // TODO: Auth
-
+export const DELETE: RequestHandler = async ({ locals, params }) => {
+    if (!locals.permissions.has(Permission.EDIT)) error(403, "You do not have permission to edit this resource.");
     const { model, validator, canReorder, singleton } = getServiceData(params.service);
     const id = getId(params);
 

@@ -3,17 +3,18 @@ import { getServiceData } from '../globalCrud';
 import type { RequestHandler } from './$types';
 import { ValidationError } from 'yup';
 import type { Model } from 'mongoose';
+import { Permission } from '$lib/auth/Permissions';
 
-export const GET: RequestHandler = async ({ params }) => {
+export const GET: RequestHandler = async ({ locals, params }) => {
+    if (!locals.permissions.has(Permission.VIEW)) error(403, "You do not have permission to view this resource.");
     const { model, validator, canReorder, singleton } = getServiceData(params.service);
         
     // Return all docs
     return _getAllDocs(model, canReorder);
 }
 
-export const POST: RequestHandler = async ({ params, request }) => {
-    // TODO: Auth
-
+export const POST: RequestHandler = async ({ locals, params, request }) => {
+    if (!locals.permissions.has(Permission.EDIT)) error(403, "You do not have permission to edit this resource.");
     const { model, validator, canReorder, singleton } = getServiceData(params.service);
     
     try {

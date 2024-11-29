@@ -3,8 +3,10 @@ import { getServiceData } from '../../globalCrud';
 import type { RequestHandler } from './$types';
 import { ValidationError } from 'yup';
 import { idArrayValidation } from '$lib/validation/crud/globalCrudSchema';
+import { Permission } from '$lib/auth/Permissions';
 
-export const GET: RequestHandler = async ({ params }) => {
+export const GET: RequestHandler = async ({ locals, params }) => {
+    if (!locals.permissions.has(Permission.VIEW)) error(403, "You do not have permission to view this resource.");
     
     const { model, validator, canReorder, singleton } = getServiceData(params.service);
     if (!canReorder) return error(405, { message: "Method not allowed" });
@@ -15,7 +17,8 @@ export const GET: RequestHandler = async ({ params }) => {
     });
 }
 
-export const POST: RequestHandler = async ({ params, request }) => {
+export const POST: RequestHandler = async ({ locals, params, request }) => {
+    if (!locals.permissions.has(Permission.EDIT)) error(403, "You do not have permission to edit this resource.");
 
     const { model, validator, canReorder, singleton } = getServiceData(params.service);
     if (!canReorder) return error(405, { message: "Method not allowed" });

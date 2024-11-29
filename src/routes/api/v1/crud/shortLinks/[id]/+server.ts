@@ -4,8 +4,10 @@ import type { RequestHandler, RouteParams } from "./$types";
 import { error, json } from "@sveltejs/kit";
 import { shortLinkCreateValidation } from "$lib/validation/crud/shortLinkSchema";
 import { ShortLink } from "$lib/models/shortLinkModel";
+import { Permission } from "$lib/auth/Permissions";
 
-export const PATCH: RequestHandler = async ({ params, request }) => {
+export const PATCH: RequestHandler = async ({ locals, params, request }) => {
+    if (!locals.permissions.has(Permission.MANAGE_SHORT_LINKS)) error(403, "You do not have permission to manage short links.");
 
     const id = getId(params);
 
@@ -24,7 +26,8 @@ export const PATCH: RequestHandler = async ({ params, request }) => {
     })
 };
 
-export const DELETE: RequestHandler = async ({ params }) => {
+export const DELETE: RequestHandler = async ({ locals, params }) => {
+    if (!locals.permissions.has(Permission.MANAGE_SHORT_LINKS)) error(403, "You do not have permission to manage short links.");
 
     const id = getId(params);
 

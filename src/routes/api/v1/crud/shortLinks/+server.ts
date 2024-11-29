@@ -2,6 +2,7 @@ import { ShortLink } from "$lib/models/shortLinkModel";
 import { number, string, ValidationError } from "yup";
 import type { RequestHandler } from "./$types";
 import { error, json } from "@sveltejs/kit";
+import { Permission } from "$lib/auth/Permissions";
 
 const pageValidator = number().min(1).default(1).label("page");
 const pageSizeValidator = number().min(5).max(100).default(50).label("pageSize");
@@ -9,14 +10,8 @@ const searchValidator = string().trim().max(512).label("search");
 const orderByValidator = string().oneOf(["suffix", "url", "createdAt", "uses"]).default("createdAt").label("orderBy");
 const orderValidator = string().oneOf(["asc", "desc"]).default("desc").label("order");
 
-export const GET: RequestHandler = async ({ url }) => {
-    // for (let i = 0; i < 50; i++) {
-    //     await ShortLink.create({
-    //         suffix: "test-" + Math.random().toString(36).substring(7),
-    //         url: "https://example.com/" + i,
-    //         createdAt: Date.now(),
-    //     });
-    // }
+export const GET: RequestHandler = async ({ locals, url }) => {
+    if (!locals.permissions.has(Permission.MANAGE_SHORT_LINKS)) error(403, "You do not have permission to view short links.");
     try {
         const page = await pageValidator.validate(url.searchParams.get("page"));
         const pageSize = await pageSizeValidator.validate(url.searchParams.get("pageSize"));
