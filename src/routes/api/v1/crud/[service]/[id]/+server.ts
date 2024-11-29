@@ -1,10 +1,10 @@
-import { idValidation } from '$lib/validation/crud/globalCrudSchema';
 import { ValidationError } from 'yup';
 import type { RequestHandler, RouteParams } from './$types';
 import { error, json } from '@sveltejs/kit';
 import { getServiceData } from '../../globalCrud';
 import { _getAllDocs } from '../+server';
 import { Permission } from '$lib/auth/Permissions';
+import { idValidator } from '$lib/validation/crud/globalCrudValidator';
 
 export const GET: RequestHandler = async ({ locals, params }) => {
     if (!locals.permissions.has(Permission.VIEW)) error(403, "You do not have permission to view this resource.");
@@ -66,7 +66,7 @@ export const DELETE: RequestHandler = async ({ locals, params }) => {
 
 function getId(params: RouteParams) {
     try {
-        return idValidation.validateSync(params['id']);
+        return idValidator.validateSync(params['id']);
     } catch (e) {
         if (e instanceof ValidationError) return error(400, { message: e.message });
         else throw e;

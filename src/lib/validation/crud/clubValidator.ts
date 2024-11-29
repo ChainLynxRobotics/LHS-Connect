@@ -4,7 +4,7 @@ import type { WithoutID } from '$lib/types/crud/globalCrud';
 
 export const INSTAGRAM_REGEX = /^[a-zA-Z0-9._]*$/;
 
-export const clubValidation: ObjectSchema<WithoutID<IClub>> = object({
+export default object({
 	name: string().required().max(250),
 	day: string().required().max(250),
 	time: string().required().max(250),
@@ -16,4 +16,4 @@ export const clubValidation: ObjectSchema<WithoutID<IClub>> = object({
 		.matches(INSTAGRAM_REGEX, 'Must be a valid instagram username (without the @)')
 		.max(250),
 	desc: string().optional().max(1000)
-});
+}) as ObjectSchema<WithoutID<IClub>>;

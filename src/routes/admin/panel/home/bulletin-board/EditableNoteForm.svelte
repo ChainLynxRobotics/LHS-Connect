@@ -1,10 +1,10 @@
 <script lang="ts">
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
-	import { bulletinBoardNoteValidation } from '$lib/validation/crud/bulletinBoardSchema';
 	import { Button, Helper } from 'flowbite-svelte';
 	import type { IBulletinBoardNote } from '$lib/types/crud/bulletinBoard';
 	import type { WithoutID } from '$lib/types/crud/globalCrud';
+	import bulletinBoardNoteValidator from '$lib/validation/crud/bulletinBoardNoteValidator';
 
 	interface Props {
 		note: IBulletinBoardNote;
@@ -43,7 +43,7 @@
 			id="title"
 			label="Title"
 			bind:value={title}
-			validatorObject={bulletinBoardNoteValidation}
+			validatorObject={bulletinBoardNoteValidator}
 			visuallyRequired
 		/>
 	</div>
@@ -53,7 +53,7 @@
 			id="content"
 			label="Content"
 			bind:value={content}
-			validatorObject={bulletinBoardNoteValidation}
+			validatorObject={bulletinBoardNoteValidator}
 			visuallyRequired
 		/>
 	</div>
@@ -63,7 +63,7 @@
 			id="link"
 			label="Link"
 			bind:value={link}
-			validatorObject={bulletinBoardNoteValidation}
+			validatorObject={bulletinBoardNoteValidator}
 		/>
 	</div>
 	<div class="flex justify-center gap-4">

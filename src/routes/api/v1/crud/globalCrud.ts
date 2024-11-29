@@ -5,20 +5,20 @@ import { BulletinBoardNote } from "$lib/models/crud/bulletinBoardModel";
 import { Club } from "$lib/models/crud/clubModel";
 import type { CrudSingleton } from "$lib/models/globalCrudModel";
 import { ContactInfoLinkCard, UsefulLinksLinkCard } from "$lib/models/crud/linkCardModel";
-import { bellScheduleDefaultsValidation } from "$lib/validation/crud/bellScheduleDefaultsSchema";
-import { bellScheduleOverrideValidation } from "$lib/validation/crud/bellScheduleOverrideSchema";
-import { bellScheduleValidation } from "$lib/validation/crud/bellScheduleSchema";
-import { bulletinBoardNoteValidation } from "$lib/validation/crud/bulletinBoardSchema";
-import { clubValidation } from "$lib/validation/crud/clubSchema";
-import { linkCardValidation } from "$lib/validation/crud/linkCardSchema";
 import { error } from "@sveltejs/kit";
 import type { Model } from "mongoose";
 import { type ObjectSchema } from "yup";
+import bellScheduleDefaultsValidator from "$lib/validation/crud/bellScheduleDefaultsValidator";
+import bellScheduleOverrideValidator from "$lib/validation/crud/bellScheduleOverrideValidator";
+import bellScheduleValidator from "$lib/validation/crud/bellScheduleValidator";
+import clubValidator from "$lib/validation/crud/clubValidator";
+import linkCardValidator from "$lib/validation/crud/linkCardValidator";
+import bulletinBoardNoteValidator from "$lib/validation/crud/bulletinBoardNoteValidator";
 
 interface Service {
     // The db model
     model: typeof CrudSingleton,
-    // The yup schema for validation
+    // The yup schema for Validator
     validator: ObjectSchema<any>,
     // Whether the service can reorder the items, eg to use an "order" field and allow the user to change the order
     canReorder?: boolean,
@@ -29,35 +29,35 @@ interface Service {
 const services: { [key: string]: Service } = {
     "bellSchedules": {
         model: BellSchedule as Model<any>,
-        validator: bellScheduleValidation,
+        validator: bellScheduleValidator,
         canReorder: true
     },
     "bellScheduleDefaults": {
         model: BellScheduleDefaults as Model<any>,
-        validator: bellScheduleDefaultsValidation,
+        validator: bellScheduleDefaultsValidator,
         singleton: true
     },
     "bellScheduleOverrides": {
         model: BellScheduleOverride as Model<any>,
-        validator: bellScheduleOverrideValidation
+        validator: bellScheduleOverrideValidator
     },
     "bulletinBoardNotes": {
         model: BulletinBoardNote as Model<any>,
-        validator: bulletinBoardNoteValidation,
+        validator: bulletinBoardNoteValidator,
         canReorder: true
     },
     "clubs": {
         model: Club as Model<any>,
-        validator: clubValidation,
+        validator: clubValidator,
     },
     "contactInfo": {
         model: ContactInfoLinkCard as Model<any>,
-        validator: linkCardValidation,
+        validator: linkCardValidator,
         canReorder: true
     },
     "usefulLinks": {
         model: UsefulLinksLinkCard as Model<any>,
-        validator: linkCardValidation,
+        validator: linkCardValidator,
         canReorder: true
     }
 }

@@ -13,9 +13,9 @@
 	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { flip } from 'svelte/animate';
-	import { bellSchedulePeriodNameValidation, bellScheduleValidation } from '$lib/validation/crud/bellScheduleSchema';
 	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
 	import type { WithoutID } from '$lib/types/crud/globalCrud';
+	import bellScheduleValidator, { bellSchedulePeriodNameValidator } from '$lib/validation/crud/bellScheduleValidator';
 
 	const flipDurationMs = 300;
 
@@ -88,7 +88,7 @@
 			id="name"
 			label="Name"
 			bind:value={name}
-			validatorObject={bellScheduleValidation}
+			validatorObject={bellScheduleValidator}
 			visuallyRequired
 		/>
 	</div>
@@ -98,7 +98,7 @@
 			id="desc"
 			label="Description"
 			bind:value={desc}
-			validatorObject={bellScheduleValidation}
+			validatorObject={bellScheduleValidator}
 		/>
 	</div>
 
@@ -132,7 +132,7 @@
 								bind:this={periodNameInputs[index]}
 								id={`period-${index}-name`}
 								bind:value={period.name}
-								validator={bellSchedulePeriodNameValidation}
+								validator={bellSchedulePeriodNameValidator}
 								visuallyRequired
 							/>
 						</TableBodyCell>

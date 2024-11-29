@@ -10,7 +10,7 @@
 		EyeSlashOutline
 	} from 'flowbite-svelte-icons';
 	import { slide } from 'svelte/transition';
-	import { shortLinkValidation } from '$lib/validation/crud/shortLinkSchema';
+	import shortLinkValidator from '$lib/validation/crud/shortLinkValidator';
 
 	let suffixInput: ValidatedInputGroup<'suffix'> | undefined = $state();
 	let urlInput: ValidatedInput<'url'> | undefined = $state();
@@ -46,7 +46,7 @@
 				label="Short Url (Only letters, numbers, and hyphens)"
 				bind:value={suffix}
 				visuallyRequired
-				validatorObject={shortLinkValidation}
+				validatorObject={shortLinkValidator}
 				inputProps={{ type: 'text' }}
 			>
 				{#snippet before()}
@@ -62,7 +62,7 @@
 				label="Redirect Url"
 				value={url}
 				visuallyRequired
-				validatorObject={shortLinkValidation}
+				validatorObject={shortLinkValidator}
 				inputProps={{ type: 'url', placeholder: 'Paste URL Here' }}
 			/>
 		</div>
@@ -93,7 +93,7 @@
 							id="password"
 							label="Password"
 							bind:value={password}
-							validatorObject={shortLinkValidation}
+							validatorObject={shortLinkValidator}
 							inputProps={{ type: passwordVisible ? 'text' : 'password' }}
 						>
 							{#snippet before()}

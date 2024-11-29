@@ -1,5 +1,5 @@
 import { type IBellSchedule } from "$lib/types/crud/bellSchedule";
-import { TIME_STRING_REGEX } from "$lib/validation/crud/bellScheduleSchema";
+import { TIME_STRING_REGEX } from "$lib/validation/crud/bellScheduleValidator";
 import mongoose, { Model } from "mongoose";
 import { crudOrderableSchema } from "../globalCrudModel";
 

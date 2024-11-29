@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import type { IShortLink, IShortLinkCreate } from '$lib/types/crud/shortLink';
-	import { shortLinkValidation } from '$lib/validation/crud/shortLinkSchema';
+	import shortLinkValidator from '$lib/validation/crud/shortLinkValidator';
 	import { Button } from 'flowbite-svelte';
 
 	interface Props {
@@ -41,7 +41,7 @@
 			id="suffix"
 			label="Suffix"
 			bind:value={suffix}
-			validatorObject={shortLinkValidation}
+			validatorObject={shortLinkValidator}
 			visuallyRequired
 		/>
 	</div>
@@ -51,7 +51,7 @@
 			id="url"
 			label="Url"
 			bind:value={url}
-			validatorObject={shortLinkValidation}
+			validatorObject={shortLinkValidator}
 			visuallyRequired
 			inputProps={{ type: 'url' }}
 		/>
@@ -62,7 +62,7 @@
 			id="password"
 			label="Password"
 			bind:value={password}
-			validatorObject={shortLinkValidation}
+			validatorObject={shortLinkValidator}
 		/>
 	</div>
 

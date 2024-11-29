@@ -1,8 +1,8 @@
 import type { IBellScheduleDefaults } from "$lib/types/crud/bellScheduleDefaults";
-import { array, object, string, type ObjectSchema } from "yup";
-import { OBJECT_ID_REGEX } from "./globalCrudSchema";
+import { array, object, ObjectSchema, string } from "yup";
+import { OBJECT_ID_REGEX } from "./globalCrudValidator";
 
-export const bellScheduleDefaultsValidation: ObjectSchema<IBellScheduleDefaults> = object({
+export default object({
     bellScheduleIDs: array()
         .of(
             string()
@@ -11,4 +11,4 @@ export const bellScheduleDefaultsValidation: ObjectSchema<IBellScheduleDefaults>
         )
         .required()
         .label('Bell Schedule IDs')
-});
+}) as ObjectSchema<IBellScheduleDefaults>;

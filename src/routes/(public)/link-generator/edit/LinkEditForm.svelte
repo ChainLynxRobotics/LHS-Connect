@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import { shortLinkValidation } from '$lib/validation/crud/shortLinkSchema';
+	import shortLinkValidator from '$lib/validation/crud/shortLinkValidator';
 	import { Button } from 'flowbite-svelte';
 
 	interface Props {
@@ -48,7 +48,7 @@
 					label={(suffix ? `lhs.cx/${suffix}` : 'Short Link') + ' redirects to:'}
 					bind:value={url}
 					visuallyRequired
-					validatorObject={shortLinkValidation}
+					validatorObject={shortLinkValidator}
 					inputProps={{ type: 'url', placeholder: 'Paste URL Here' }}
 				/>
 			</div>

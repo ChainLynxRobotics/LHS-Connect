@@ -4,7 +4,7 @@
 	import ValidatedSelect from '$components/form/ValidatedSelect.svelte';
 	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import contactUsSchema from '$lib/validation/contactUsSchema';
+	import contactUsSchema from '$lib/validation/contactUsValidator';
 	import { Button, type SelectOptionType } from 'flowbite-svelte';
 	import { PaperPlaneOutline } from 'flowbite-svelte-icons';
 

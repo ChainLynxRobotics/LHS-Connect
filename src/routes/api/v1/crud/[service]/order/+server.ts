@@ -2,8 +2,8 @@ import { error, json } from '@sveltejs/kit';
 import { getServiceData } from '../../globalCrud';
 import type { RequestHandler } from './$types';
 import { ValidationError } from 'yup';
-import { idArrayValidation } from '$lib/validation/crud/globalCrudSchema';
 import { Permission } from '$lib/auth/Permissions';
+import { idArrayValidator } from '$lib/validation/crud/globalCrudValidator';
 
 export const GET: RequestHandler = async ({ locals, params }) => {
     if (!locals.permissions.has(Permission.VIEW)) error(403, "You do not have permission to view this resource.");
@@ -26,7 +26,7 @@ export const POST: RequestHandler = async ({ locals, params, request }) => {
     try {
         // Get and validate body
         const req = await request.json();
-        let order = await idArrayValidation.validate(req, { stripUnknown: true });
+        let order = await idArrayValidator.validate(req, { stripUnknown: true });
         if (!order) return error(400, { message: "Invalid IDs" });
 
         // Get all IDs for order checking

@@ -1,10 +1,10 @@
-import { idValidation } from "$lib/validation/crud/globalCrudSchema";
 import { ValidationError } from "yup";
 import type { RequestHandler, RouteParams } from "./$types";
 import { error, json } from "@sveltejs/kit";
-import { shortLinkCreateValidation } from "$lib/validation/crud/shortLinkSchema";
 import { ShortLink } from "$lib/models/shortLinkModel";
 import { Permission } from "$lib/auth/Permissions";
+import shortLinkValidator from "$lib/validation/crud/shortLinkValidator";
+import { idValidator } from "$lib/validation/crud/globalCrudValidator";
 
 export const PATCH: RequestHandler = async ({ locals, params, request }) => {
     if (!locals.permissions.has(Permission.MANAGE_SHORT_LINKS)) error(403, "You do not have permission to manage short links.");
@@ -13,7 +13,7 @@ export const PATCH: RequestHandler = async ({ locals, params, request }) => {
 
     // Get and validate body
     const req = await request.json();
-    const validatedReq = await shortLinkCreateValidation.validate(req, { stripUnknown: true });
+    const validatedReq = await shortLinkValidator.validate(req, { stripUnknown: true });
 
     // Find and update doc in db
     const doc = await ShortLink.findById(id).exec();
@@ -41,7 +41,7 @@ export const DELETE: RequestHandler = async ({ locals, params }) => {
 
 function getId(params: RouteParams) {
     try {
-        return idValidation.validateSync(params['id']);
+        return idValidator.validateSync(params['id']);
     } catch (e) {
         if (e instanceof ValidationError) return error(400, { message: e.message });
         else throw e;

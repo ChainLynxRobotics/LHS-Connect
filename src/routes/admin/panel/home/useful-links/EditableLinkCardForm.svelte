@@ -7,7 +7,7 @@
 	import { flip } from 'svelte/animate';
 	import type { WithoutID } from '$lib/types/crud/globalCrud';
 	import type { ILinkCard } from '$lib/types/crud/linkCard';
-	import { linkCardLinkNameValidation, linkCardLinkUrlValidation, linkCardValidation } from '$lib/validation/crud/linkCardSchema';
+	import linkCardValidator, { linkCardLinkNameValidator, linkCardLinkUrlValidator } from '$lib/validation/crud/linkCardValidator';
 
 	const flipDurationMs = 300;
 
@@ -78,7 +78,7 @@
 			id="title"
 			label="Card Title"
 			bind:value={title}
-			validatorObject={linkCardValidation}
+			validatorObject={linkCardValidator}
 			visuallyRequired
 		/>
 	</div>
@@ -88,7 +88,7 @@
 			id="subtitle"
 			label="Card Subtitle"
 			bind:value={subtitle}
-			validatorObject={linkCardValidation}
+			validatorObject={linkCardValidator}
 		/>
 	</div>
 
@@ -119,7 +119,7 @@
 								bind:this={linkNameInputs[index]}
 								id={`link-${index}-name`}
 								bind:value={link.title}
-								validator={linkCardLinkNameValidation}
+								validator={linkCardLinkNameValidator}
 								visuallyRequired
 							/>
 						</TableBodyCell>
@@ -128,7 +128,7 @@
 								bind:this={linkUrlInputs[index]}
 								id={`link-${index}-url`}
 								bind:value={link.url}
-								validator={linkCardLinkUrlValidation}
+								validator={linkCardLinkUrlValidator}
 								visuallyRequired
 							/>
 						</TableBodyCell>
