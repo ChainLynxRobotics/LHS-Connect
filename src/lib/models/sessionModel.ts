@@ -1,5 +1,5 @@
 import type { ISession } from "$lib/types/session";
-import mongoose, { Types } from "mongoose";
+import mongoose, { Model, Types } from "mongoose";
 import { User } from "./userModel";
 
 const sessionSchema = new mongoose.Schema<ISession & { _id: Buffer }>({
@@ -13,4 +13,4 @@ sessionSchema.virtual('id').get(function() {
     this._id = id;
 });
 
-export const Session = mongoose.model('Session', sessionSchema);
+export const Session: Model<ISession> = mongoose.models.Session ?? mongoose.model('Session', sessionSchema);

@@ -1,6 +1,6 @@
 import { type IBellSchedule } from "$lib/types/crud/bellSchedule";
 import { TIME_STRING_REGEX } from "$lib/validation/crud/bellScheduleSchema";
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { crudOrderableSchema } from "../globalCrudModel";
 
 export const bellScheduleSchema = new mongoose.Schema<IBellSchedule>({
@@ -14,4 +14,4 @@ export const bellScheduleSchema = new mongoose.Schema<IBellSchedule>({
 	}]
 }).add(crudOrderableSchema); // Extends the crudOrderableSchema
 
-export const BellSchedule = mongoose.model('BellSchedule', bellScheduleSchema); // List of bell schedules
+export const BellSchedule: Model<IBellSchedule> = mongoose.models.BellSchedule ?? mongoose.model('BellSchedule', bellScheduleSchema); // List of bell schedules

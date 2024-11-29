@@ -1,5 +1,5 @@
 import type { IBellScheduleOverride } from "$lib/types/crud/bellScheduleOverride";
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { crudCollectionSchema } from "../globalCrudModel";
 
 export const scheduleOverrideSchema = new mongoose.Schema<IBellScheduleOverride>({
@@ -13,4 +13,4 @@ scheduleOverrideSchema.virtual('scheduleObj', {
     justOne: true
 });
 
-export const BellScheduleOverride = mongoose.model('BellScheduleOverride', scheduleOverrideSchema);
+export const BellScheduleOverride: Model<IBellScheduleOverride> = mongoose.models.BellScheduleOverride ?? mongoose.model('BellScheduleOverride', scheduleOverrideSchema);

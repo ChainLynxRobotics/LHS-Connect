@@ -1,5 +1,5 @@
 import type { IUser } from "$lib/types/user";
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 
 const userSchema = new mongoose.Schema<IUser>({
     googleId: { type: String, required: true, unique: true, select: false },
@@ -11,4 +11,4 @@ const userSchema = new mongoose.Schema<IUser>({
     lastLogin: { type: Date, select: false },
 });
 
-export const User = mongoose.model('User', userSchema);
+export const User: Model<IUser> = mongoose.models.User ?? mongoose.model('User', userSchema);

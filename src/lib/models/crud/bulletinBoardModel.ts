@@ -1,6 +1,6 @@
 import type { IBulletinBoardNote } from "$lib/types/crud/bulletinBoard";
 import urlRegex from "$lib/validation/url";
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { crudOrderableSchema } from "../globalCrudModel";
 
 export const bulletinBoardNoteSchema = new mongoose.Schema<IBulletinBoardNote>({
@@ -9,4 +9,4 @@ export const bulletinBoardNoteSchema = new mongoose.Schema<IBulletinBoardNote>({
 	link: { type: String, match: urlRegex, maxlength: 1024 }
 }).add(crudOrderableSchema); // Extends the crudOrderableSchema
 
-export const BulletinBoardNote = mongoose.model('BulletinBoardNote', bulletinBoardNoteSchema);
+export const BulletinBoardNote: Model<IBulletinBoardNote> = mongoose.models.BulletinBoardNote ?? mongoose.model('BulletinBoardNote', bulletinBoardNoteSchema);

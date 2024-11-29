@@ -1,5 +1,5 @@
 import type { ILinkCard } from "$lib/types/crud/linkCard";
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { crudOrderableSchema } from "../globalCrudModel";
 
 export const linkCardSchema = new mongoose.Schema<ILinkCard>({
@@ -11,5 +11,5 @@ export const linkCardSchema = new mongoose.Schema<ILinkCard>({
 	}]
 }).add(crudOrderableSchema); // Extends the crudOrderableSchema
 
-export const ContactInfoLinkCard = mongoose.model('ContactInfoLinkCard', linkCardSchema);
-export const UsefulLinksLinkCard = mongoose.model('UsefulLinksLinkCard', linkCardSchema);
+export const ContactInfoLinkCard: Model<ILinkCard> = mongoose.models.ContactInfoLinkCard ?? mongoose.model('ContactInfoLinkCard', linkCardSchema);
+export const UsefulLinksLinkCard: Model<ILinkCard> = mongoose.models.UsefulLinksLinkCard ?? mongoose.model('UsefulLinksLinkCard', linkCardSchema);

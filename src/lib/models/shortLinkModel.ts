@@ -1,5 +1,5 @@
 import type { IShortLink } from "$lib/types/crud/shortLink";
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 
 export const shortLinkSchema = new mongoose.Schema<IShortLink>({
 	url: { type: String, required: true, maxlength: 2048 },
@@ -10,4 +10,4 @@ export const shortLinkSchema = new mongoose.Schema<IShortLink>({
 });
 shortLinkSchema.index({ suffix: "text", url: "text" });
 
-export const ShortLink = mongoose.model('ShortLink', shortLinkSchema);
+export const ShortLink: Model<IShortLink> = mongoose.models.ShortLink ?? mongoose.model('ShortLink', shortLinkSchema);
