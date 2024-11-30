@@ -29,6 +29,7 @@
 	import type { Snippet } from 'svelte';
 	import { sineIn } from 'svelte/easing';
 	import type { PageData } from './$types';
+	import { Permission, Permissions } from '$lib/auth/permissions';
 	
 	interface Props {
 		data: PageData;
@@ -82,7 +83,8 @@
 		{
 			label: 'Short Links',
 			icon: LinkOutline,
-			href: '/admin/panel/links'
+			href: '/admin/panel/links',
+			permission: Permission.MANAGE_SHORT_LINKS
 		}
 	];
 
@@ -138,24 +140,26 @@
 				</SidebarItem>
 			</SidebarGroup>
 			<SidebarGroup border>
-				{#each pages as { label, href, icon: IconComponent, children }, i}
-					{#if children}
-						<SidebarDropdownWrapper {label}>
-							<IconComponent
-								slot="icon"
-								class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-							/>
-							{#each children as { label, href }, i}
-								<SidebarDropdownItem {label} {href} active={activeUrl === href} />
-							{/each}
-						</SidebarDropdownWrapper>
-					{:else}
-						<SidebarItem {href} {label}>
-							<IconComponent
-								slot="icon"
-								class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-							/>
-						</SidebarItem>
+				{#each pages as { label, href, icon: IconComponent, permission, children }, i}
+					{#if !permission || Permissions.has(data.session, permission)}
+						{#if children}
+							<SidebarDropdownWrapper {label}>
+								<IconComponent
+									slot="icon"
+									class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+								/>
+								{#each children as { label, href }, i}
+									<SidebarDropdownItem {label} {href} active={activeUrl === href} />
+								{/each}
+							</SidebarDropdownWrapper>
+						{:else}
+							<SidebarItem {href} {label}>
+								<IconComponent
+									slot="icon"
+									class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+								/>
+							</SidebarItem>
+						{/if}
 					{/if}
 				{/each}
 			</SidebarGroup>
