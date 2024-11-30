@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { ThemeContext } from '$components/ThemeSwitch.svelte';
+	import NotificationProvider from '$components/NotificationProvider.svelte';
+import type { ThemeContext } from '$components/ThemeSwitch.svelte';
 	import '$lib/styles/tailwind.css';
 	import { onMount, setContext, type Snippet } from 'svelte';
 	import { writable } from 'svelte/store';
@@ -32,4 +33,6 @@
 	});
 </script>
 
-{@render children?.()}
+<NotificationProvider>
+	{@render children?.()}
+</NotificationProvider>

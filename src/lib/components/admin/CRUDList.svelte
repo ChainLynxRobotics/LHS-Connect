@@ -1,6 +1,7 @@
 <script lang="ts" generics="Item extends { id: any }">
 	import type { Snippet } from 'svelte';
 	import adminApiClient from '$lib/util/adminApiClient';
+	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 
 	type ItemWithoutID = Omit<Item, 'id'>;
 
@@ -62,6 +63,8 @@
 		sortFn
 	}: Props = $props();
 
+	const notificationContext = getNotificationContext();
+
 	let items: Item[] = $state(initialItems);
 	$effect(() => {
 		initialItems = sort(items); // Sync the prop with the state
@@ -71,11 +74,15 @@
 		canReorder && initialOrder ? sanitizeOrder(initialOrder) : undefined
 	);
 
+	function onHttpError(err: Error) {
+		notificationContext.show(err.message, 'error');
+	}
+
 	function refetch() {
 		adminApiClient.getAll<Item>(serviceId).then((res) => {
 			items = res.results;
 			if (canReorder && res.order) order = res.order;
-		});
+		}).catch(onHttpError);
 	}
 
 	function create() {
@@ -98,7 +105,7 @@
 		adminApiClient.create<Item>(serviceId, newItem).then((res) => {
 			items = res.results;
 			if (canReorder && res.order) order = res.order;
-		}).catch(console.error);
+		}).catch(onHttpError);
 	}
 
 	function duplicate(id: Item['id']) {
@@ -124,7 +131,7 @@
 			console.log("test", res);
 			items = res.results;
 			if (canReorder && res.order) order = res.order;
-		}).catch(console.error);
+		}).catch(onHttpError);
 	}
 
 	function update(id: Item['id'], item: ItemWithoutID) {
@@ -142,7 +149,7 @@
 			if (index === -1) return;
 			items[index] = res.result;
 		}).catch((err) => {
-			console.error(err);
+			onHttpError(err);
 			refetch(); // Re-fetch the items to ensure they are in sync
 		});
 	}
@@ -166,7 +173,7 @@
 			items = res.results;
 			if (canReorder && res.order) order = res.order;
 		}).catch((err) => {
-			console.error(err);
+			onHttpError(err);
 			refetch(); // Re-fetch the items to ensure they are in sync
 		});
 	}
@@ -183,7 +190,7 @@
 			items = res.results;
 			if (canReorder && res.order) order = res.order;
 		}).catch((err) => {
-			console.error(err);
+			onHttpError(err);
 			refetch(); // Re-fetch the items to ensure they are in sync
 		});
 	}
@@ -204,7 +211,7 @@
 
 		adminApiClient.reorder<Item>(serviceId, newOrder).then((res) => {
 			order = res.order;
-		});
+		}).catch(onHttpError);
 	}
 
 	function sanitizeOrder(newOrder: Item['id'][]) {

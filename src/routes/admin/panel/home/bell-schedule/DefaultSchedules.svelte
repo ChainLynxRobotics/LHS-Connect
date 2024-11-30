@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
 	import adminApiClient from '$lib/util/adminApiClient';
 	import {
@@ -19,15 +20,19 @@
 
 	let { scheduleOptions = [], defaults = $bindable([]) }: Props = $props();
 
+	const notificationContext = getNotificationContext();
+
 	const refresh = async () => {
-		const res = await adminApiClient.baseApiRequest('GET', '/crud/bellScheduleDefaults')
+		const res = await adminApiClient.baseApiRequest('GET', '/crud/bellScheduleDefaults').catch((e) => {
+			notificationContext.show(e.message, 'error');
+		});
 		defaults = res.results?.[0]?.bellScheduleIDs || [];
 	};
 
 	const update = async () => {
 		await adminApiClient.baseApiRequest('POST', '/crud/bellScheduleDefaults', {bellScheduleIDs: defaults}).catch((e)=>{
 			refresh();
-			console.error(e);
+			notificationContext.show(e.message, 'error');
 		});
 	};
 

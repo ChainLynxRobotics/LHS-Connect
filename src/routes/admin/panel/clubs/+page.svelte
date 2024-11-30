@@ -21,7 +21,7 @@
 			serviceId="clubs"
 			items={data.results}
 			generateNewItem={() => ({
-				name: 'New Club',
+				name: '_New Club',
 				day: 'unknown',
 				time: 'unknown',
 				location: 'unknown',

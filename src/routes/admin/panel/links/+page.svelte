@@ -2,16 +2,11 @@
 	import SectionHeader from '$components/SectionHeader.svelte';
 	import { A, Input, Label, Pagination, Select, Table, TableBody, TableHead, TableHeadCell } from 'flowbite-svelte';
 	import EditableLink from './EditableLink.svelte';
-	import type { AdminShortLinkPageData } from '$lib/types/AdminShortLinkPageData';
 	import adminApiClient from '$lib/util/adminApiClient';
 	import type { IShortLink, IShortLinkCreate } from '$lib/types/crud/shortLink';
-	import { ref } from 'yup';
+	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 
-	interface Props {
-		data: AdminShortLinkPageData;
-	}
-
-	let { data }: Props = $props();
+	const notificationContext = getNotificationContext();
 
 	let page = $state(1);
 	let itemsPerPage = $state(10);
@@ -30,7 +25,11 @@
 		adminApiClient.baseApiRequest('GET', `/crud/shortLinks?page=${page}&pageSize=${itemsPerPage}&search=${search}&orderBy=${orderBy}&order=${order}`).then((res) => {
 			list = res.results;
 			total = res.total;
-		}).catch(console.error);
+			if (page > 1 && list.length === 0) {
+				page--;
+				refresh();
+			}
+		}).catch((e)=>notificationContext.show(e.message, 'error'));
 	}
 
 	function next() {
@@ -49,13 +48,13 @@
 		adminApiClient.baseApiRequest('PATCH', `/crud/shortLinks/${id}`, link).then((res) => {
 			const index = list.findIndex((item) => item.id === id);
 			list[index] = res.result;
-		}).catch(console.error);
+		}).catch((e)=>notificationContext.show(e.message, 'error'));
 	}
 
 	function remove(id: IShortLink['id']) {
 		list = list.filter((item) => item.id !== id);
 		adminApiClient.baseApiRequest('DELETE', `/crud/shortLinks/${id}`)
-			.catch(console.error)
+			.catch((e)=>notificationContext.show(e.message, 'error'))
 			.finally(refresh);
 	}
 

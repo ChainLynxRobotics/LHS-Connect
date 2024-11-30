@@ -7,12 +7,15 @@
 	import Papa from 'papaparse';
 	import type { IClub } from '$lib/types/crud/club';
 	import type { WithoutID } from '$lib/types/crud/globalCrud';
+	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 
 	interface Props {
 		onSubmit: (clubs: WithoutID<IClub>[]) => void;
 	}
 
 	let { onSubmit: submit }: Props = $props();
+
+	const notificationContext = getNotificationContext();
 
 	let modalOpen = $state(false);
 
@@ -64,8 +67,7 @@
 					});
 				},
 				complete() {
-					console.log('Parsed', records.length, 'clubs', records);
-					console.log(JSON.stringify(records, null, 2));
+					notificationContext.show('Imported ' + records.length + ' clubs', 'success');
 					submit(records);
 					modalOpen = false;
 				}
