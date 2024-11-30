@@ -1,7 +1,7 @@
 import { deleteSessionTokenCookie, setSessionTokenCookie, validateAndRenewSession } from "$lib/auth/session";
 import connect from "$lib/db/mongodb";
 import type { Handle } from "@sveltejs/kit";
-import { Permissions } from "$lib/auth/Permissions";
+import { Permissions } from "$lib/auth/permissions";
 
 // Connect to MongoDB before starting the server
 connect().then(() => {

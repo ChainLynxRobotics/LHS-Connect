@@ -3,7 +3,7 @@ import type { RequestHandler, RouteParams } from './$types';
 import { error, json } from '@sveltejs/kit';
 import { getServiceData } from '../../globalCrud';
 import { _getAllDocs } from '../+server';
-import { Permission } from '$lib/auth/Permissions';
+import { Permission } from '$lib/auth/permissions';
 import { idValidator } from '$lib/validation/crud/globalCrudValidator';
 
 export const GET: RequestHandler = async ({ locals, params }) => {

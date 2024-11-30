@@ -11,7 +11,10 @@
 		SidebarGroup,
 		SidebarItem,
 		SidebarDropdownWrapper,
-		SidebarDropdownItem
+		SidebarDropdownItem,
+
+		Avatar
+
 	} from 'flowbite-svelte';
 	import {
 		AngleLeftOutline,
@@ -21,7 +24,6 @@
 		HomeOutline,
 		LinkOutline,
 		TableRowOutline,
-		UserCircleOutline
 	} from 'flowbite-svelte-icons';
 	import Menu from 'flowbite-svelte/Menu.svelte';
 	import type { Snippet } from 'svelte';
@@ -158,10 +160,12 @@
 				{/each}
 			</SidebarGroup>
 			<SidebarGroup border>
-				<SidebarItem href="/admin/panel/account" label="Account">
-					<UserCircleOutline
+				<SidebarItem href="/admin/panel/profile" label="Profile">
+					<Avatar
 						slot="icon"
-						class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+						src={data.session.user.pfp}
+						alt="Profile"
+						class="h-6 w-6"
 					/>
 				</SidebarItem>
 				<SidebarItem href="/admin/logout" label="Log Out" spanClass="ms-3 text-red-500 dark:text-red-400">

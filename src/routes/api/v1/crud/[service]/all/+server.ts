@@ -3,7 +3,7 @@ import { _getAllDocs } from "../+server";
 import { getServiceData } from "../../globalCrud";
 import type { RequestHandler } from "./$types";
 import { error } from "@sveltejs/kit";
-import { Permission } from "$lib/auth/Permissions";
+import { Permission } from "$lib/auth/permissions";
 
 export const GET: RequestHandler = async ({ locals, params }) => {
     if (!locals.permissions.has(Permission.VIEW)) error(403, "You do not have permission to view this resource.");

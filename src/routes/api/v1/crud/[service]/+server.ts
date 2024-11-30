@@ -3,7 +3,7 @@ import { getServiceData } from '../globalCrud';
 import type { RequestHandler } from './$types';
 import { ValidationError } from 'yup';
 import type { Model } from 'mongoose';
-import { Permission } from '$lib/auth/Permissions';
+import { Permission } from '$lib/auth/permissions';
 
 export const GET: RequestHandler = async ({ locals, params }) => {
     if (!locals.permissions.has(Permission.VIEW)) error(403, "You do not have permission to view this resource.");

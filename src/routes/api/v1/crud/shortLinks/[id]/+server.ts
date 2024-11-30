@@ -2,7 +2,7 @@ import { ValidationError } from "yup";
 import type { RequestHandler, RouteParams } from "./$types";
 import { error, json } from "@sveltejs/kit";
 import { ShortLink } from "$lib/models/shortLinkModel";
-import { Permission } from "$lib/auth/Permissions";
+import { Permission } from "$lib/auth/permissions";
 import shortLinkValidator from "$lib/validation/crud/shortLinkValidator";
 import { idValidator } from "$lib/validation/crud/globalCrudValidator";
 

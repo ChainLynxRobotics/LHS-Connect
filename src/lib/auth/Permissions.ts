@@ -1,7 +1,7 @@
 import type { ISession } from "$lib/types/session";
 import type { ISessionUser } from "$lib/types/user";
 
-export const enum Permission {
+export enum Permission {
     /**
      * The owner of the website, has all permissions and can give anybody all permissions
      */
@@ -45,10 +45,11 @@ export class Permissions {
 
     /**
      * @param permission The permission to check
+     * @param explicit If the permission is explicitly set, otherwise it will return true if the permission is set or the owner permission is set
      * @returns If the permission is set
      */
-    public has(permission: Permission): boolean {
-        return (this.permissions & permission) === permission || (this.permissions & Permission.OWNER) === Permission.OWNER;
+    public has(permission: Permission, explicit = false): boolean {
+        return (this.permissions & permission) === permission || (!explicit && (this.permissions & Permission.OWNER) === Permission.OWNER);
     }
 
     /**
@@ -98,6 +99,18 @@ export class Permissions {
      */
     public setPermissions(permissions: number): void {
         this.permissions = permissions;
+    }
+
+    /**
+     * @returns The permissions as a string list, separated by commas
+     */
+    public toString(): string {
+        return Object.keys(Permission)
+            .filter(k => isNaN(Number(k)))
+            .map(k => Permission[k as keyof typeof Permission]) // This is a hack to get the list of enum values
+            .filter(p => this.has(p, true)) // Filter out the permissions that are not set
+            .map((k) => Permission[k]) // Convert the permissions to their string values
+            .join(", ");
     }
 
     /**
