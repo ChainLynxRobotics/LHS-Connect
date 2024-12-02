@@ -2,6 +2,7 @@
 	import BellScheduleTable from '$components/info/BellScheduleTable.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
 	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
+	import type { IPopulatedBellScheduleOverride } from '$lib/types/crud/bellScheduleOverride';
 	import type { BellScheduleData } from '$lib/types/HomePageData';
 	import { Accordion, AccordionItem, TabItem, Tabs } from 'flowbite-svelte';
 	import { DateTime } from 'luxon';
@@ -17,7 +18,7 @@
 
 	// Precalculate the shown tabs and the selected tab
 
-	let tabs: IBellSchedule['id'][] = $state([]);
+	let tabs: IBellSchedule[] = $state([]);
 	let selectedTab = $state(0);
 
 	let now = $state(customTime || DateTime.now());
@@ -29,21 +30,27 @@
 
 	$effect.pre(() => {
 		// Default day schedules
-		let newTabs: IBellSchedule['id'][] = [];
+		let newTabs: IBellSchedule[] = [];
+		let newTabIds: IBellSchedule['id'][] = [];
 		for (let i = 0; i < data.defaults.length; i++) {
-			const scheduleId = data.defaults[i];
-			if (!newTabs.includes(scheduleId)) {
-				newTabs.push(scheduleId);
+			const schedule = data.defaults[i];
+			if (!newTabIds.includes(schedule.id)) {
+				newTabs.push(schedule);
+				newTabIds.push(schedule.id);
 			}
-			if (dayOfWeek === i) selectedTab = newTabs.indexOf(scheduleId);
+			if (dayOfWeek === i) selectedTab = newTabIds.indexOf(schedule.id);
 		}
 
 		// Get the special schedule for today
-		const specials = data.specials.filter((item) => item.date === dateEpoch);
-		for (let i = 0; i < specials.length; i++) {
-			const scheduleId = specials[i].scheduleId;
-			if (newTabs.includes(scheduleId)) continue;
-			newTabs.unshift(scheduleId);
+		const overrides = data.overrides.filter((item) => item.date === dateEpoch);
+		for (let i = 0; i < overrides.length; i++) {
+			const schedule = overrides[i].schedule;
+			if (newTabIds.includes(schedule.id)) {
+				selectedTab = newTabIds.indexOf(schedule.id);
+				continue;
+			}
+			newTabs.unshift(schedule);
+			newTabIds.unshift(schedule.id);
 			selectedTab = 0;
 		}
 
@@ -51,9 +58,9 @@
 	});
 
 	// Add any future special schedules
-	let upcomingSpecialSchedules: { date: number; scheduleId: IBellSchedule['id']; dateStr: string }[] =
+	let upcomingOverrides: (IPopulatedBellScheduleOverride & { dateStr: string })[] =
 		$derived(
-			data.specials
+			data.overrides
 				.filter((item) => item.date > dateEpoch)
 				.map((item) => ({
 					...item,
@@ -78,21 +85,19 @@
 	contentClass="pt-4 bg-white dark:bg-gray-900"
 	defaultClass="flex flex-wrap ltr:mr-2 rtl:ml-2"
 >
-	{#each tabs as scheduleId, i}
-		{@const schedule = data.schedules.find((s) => s.id === scheduleId)}
+	{#each tabs as schedule, i}
 		<TabItem open={i === selectedTab} title={schedule?.name || 'Unknown'}>
 			<BellScheduleTable {schedule} reactive={i === selectedTab} {customTime} />
 		</TabItem>
 	{/each}
 
-	{#if upcomingSpecialSchedules.length > 0}
+	{#if upcomingOverrides.length > 0}
 		<TabItem title="Upcoming...">
 			<Accordion multiple>
-				{#each upcomingSpecialSchedules as special}
-					{@const schedule = data.schedules.find((s) => s.id === special.scheduleId)}
+				{#each upcomingOverrides as special}
 					<AccordionItem>
-						<span slot="header">{schedule?.name || 'Unknown'} - {special.dateStr}</span>
-						<BellScheduleTable {schedule} />
+						<span slot="header">{special.schedule?.name || 'Unknown'} - {special.dateStr}</span>
+						<BellScheduleTable schedule={special.schedule} />
 					</AccordionItem>
 				{/each}
 			</Accordion>

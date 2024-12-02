@@ -1,4 +1,4 @@
-import type { IBellScheduleOverride } from "$lib/types/crud/bellScheduleOverride";
+import type { IPopulatedBellScheduleOverride } from "$lib/types/crud/bellScheduleOverride";
 import type { IBellSchedule } from "$lib/types/crud/bellSchedule";
 import type { ILinkCard } from "$lib/types/crud/linkCard";
 import type { IBulletinBoardNote } from "$lib/types/crud/bulletinBoard";
@@ -14,9 +14,8 @@ export interface SavedScheduleData {
  * Represents the bell schedules for a school year, with defaults and special schedules.
  */
 export interface BellScheduleData {
-	readonly schedules: IBellSchedule[];
-	defaults: IBellSchedule['id'][]; // For each day of the week
-	specials: IBellScheduleOverride[];
+	defaults: IBellSchedule[]; // For each day of the week
+	overrides: IPopulatedBellScheduleOverride[];
 }
 
 /**
@@ -49,8 +48,4 @@ export interface HomePageData {
 	 * The contact information for the school.
 	 */
 	contactInfo: LinkCardListData;
-	/**
-	 * A list of useful links.
-	 */
-	usefulLinks: LinkCardListData;
 }

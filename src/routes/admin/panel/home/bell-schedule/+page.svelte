@@ -7,6 +7,7 @@
 	import SpecialScheduleRow from './SpecialScheduleRow.svelte';
 	import BellScheduleTabs from '$components/info/BellScheduleTabs.svelte';
 	import type { PageData } from './$types';
+	import type { BellScheduleData } from '$lib/types/HomePageData';
 
 	interface Props {
 		data: PageData;
@@ -20,10 +21,14 @@
 	);
 
 	let defaults = $state(data.defaults[0]?.bellScheduleIDs || []);
-	let specials = $state(data.specials);
+	let overrides = $state(data.overrides);
 
 	let previewTime = $state(DateTime.now().toFormat(`yyyy-LL-dd'T'HH:mm`))!;
-	$effect(() => console.log(previewTime));
+
+	let bellScheduleData: BellScheduleData = $derived({
+		defaults: defaults.map((id) => data.schedules.find((schedule) => schedule.id === id)!), // Populate the defaults
+		overrides: overrides.map((item) => ({ ...item, schedule: data.schedules.find((schedule) => schedule.id === item.scheduleId)! })) // Populate the overrides
+	});
 </script>
 
 <div class="flex flex-col items-center p-4">
@@ -38,7 +43,7 @@
 		<p class="mb-8">Special schedules that override the default schedules on specific dates.</p>
 		<CrudList
 			serviceId="bellScheduleOverrides"
-			items={specials}
+			items={overrides}
 			generateNewItem={() => ({
 				date: DateTime.now().setZone('America/Los_Angeles').startOf('day').toMillis(),
 				scheduleId: data.schedules[0]?.id
@@ -86,7 +91,7 @@
 			/>
 		</div>
 		<div class="mx-auto max-w-2xl">
-			<BellScheduleTabs data={{ ...data, defaults, specials}} customTime={DateTime.fromISO(previewTime).setZone('America/Los_Angeles')} />
+			<BellScheduleTabs data={bellScheduleData} customTime={DateTime.fromISO(previewTime).setZone('America/Los_Angeles')} />
 		</div>
 	</div>
 </div>

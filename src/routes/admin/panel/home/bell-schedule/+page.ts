@@ -13,7 +13,7 @@ export const load = (async (event) => {
 	const res3 = await event.fetch('/api/v1/crud/bellSchedules');
 	const json3 = await res3.json();
 	return {
-		specials: json.results as IBellScheduleOverride[],
+		overrides: json.results as IBellScheduleOverride[],
 		defaults: json2.results as IBellScheduleDefaults[],
 		schedules: json3.results as IBellSchedule[],
 	};

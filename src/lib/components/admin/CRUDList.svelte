@@ -128,7 +128,6 @@
 		}*/
 
 		adminApiClient.create<Item>(serviceId, item).then((res) => {
-			console.log("test", res);
 			items = res.results;
 			if (canReorder && res.order) order = res.order;
 		}).catch(onHttpError);

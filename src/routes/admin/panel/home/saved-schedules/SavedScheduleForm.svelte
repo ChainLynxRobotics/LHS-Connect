@@ -60,7 +60,7 @@
 		event.preventDefault();
 		// Validate all inputs
 		for (let periodInput of periodNameInputs) {
-			await periodInput.validate();
+			if (periodInput !== null) await periodInput.validate();
 		}
 
 		submit({

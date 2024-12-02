@@ -10,5 +10,5 @@ export interface IBellScheduleOverride extends ICrudListType {
 }
 
 export interface IPopulatedBellScheduleOverride extends IBellScheduleOverride {
-    scheduleObj: IBellSchedule;
+    schedule: IBellSchedule;
 }

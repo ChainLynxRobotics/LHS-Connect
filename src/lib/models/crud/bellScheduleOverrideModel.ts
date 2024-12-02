@@ -1,15 +1,16 @@
 import type { IBellScheduleOverride } from "$lib/types/crud/bellScheduleOverride";
 import mongoose, { Model } from "mongoose";
-import { crudCollectionSchema } from "../globalCrudModel";
+import { BellSchedule } from "./bellScheduleModel";
+import type { IBellSchedule } from "$lib/types/crud/bellSchedule";
 
 export const scheduleOverrideSchema = new mongoose.Schema<IBellScheduleOverride>({
     date: { type: Number, required: true },
     scheduleId: { type: String, required: true }
 }, {
     virtuals: {
-        bellScheduleIds: {
+        schedule: {
             options: {
-                ref: 'BellSchedule',
+                ref: BellSchedule.modelName,
                 localField: 'scheduleId',
                 foreignField: '_id',
                 justOne: true,
@@ -18,4 +19,4 @@ export const scheduleOverrideSchema = new mongoose.Schema<IBellScheduleOverride>
     }
 });
 
-export const BellScheduleOverride: Model<IBellScheduleOverride> = mongoose.models.BellScheduleOverride ?? mongoose.model('BellScheduleOverride', scheduleOverrideSchema);
+export const BellScheduleOverride: Model<IBellScheduleOverride, {}, {}, { schedule: IBellSchedule }> = mongoose.models.BellScheduleOverride ?? mongoose.model('BellScheduleOverride', scheduleOverrideSchema);
