@@ -9,8 +9,12 @@
 		EyeOutline,
 		EyeSlashOutline
 	} from 'flowbite-svelte-icons';
-	import { slide } from 'svelte/transition';
-	import shortLinkValidator from '$lib/validation/crud/shortLinkValidator';
+	import { fade, slide } from 'svelte/transition';
+	import { shortLinkCreateValidator } from '$lib/validation/shortLinkValidator';
+	import { getNotificationContext } from '$components/NotificationProvider.svelte';
+	import apiRequest from '$lib/util/apiClient';
+
+	const notificationContext = getNotificationContext();
 
 	let suffixInput: ValidatedInputGroup<'suffix'> | undefined = $state();
 	let urlInput: ValidatedInput<'url'> | undefined = $state();
@@ -20,7 +24,7 @@
 	let url: string = $state('');
 	let password: string = $state('');
 
-	let qrOpen: boolean = false;
+	let qrOpen: boolean = $state(false);
 
 	let advancedOpen: boolean = $state(false);
 	let passwordVisible: boolean = $state(false);
@@ -30,15 +34,27 @@
 		const shortLinkData = {
 			suffix: await suffixInput!.validate(),
 			url: await urlInput!.validate(),
-			password: await passwordInput!.validate()
+			password: await passwordInput?.validate()
 		};
-		console.log(shortLinkData);
-		alert('TODO');
+		
+		apiRequest('POST', '/shortLink', shortLinkData)
+			.then(()=>{
+				notificationContext.show('Short Link Created', 'success');
+				qrOpen = true;
+			})
+			.catch((error) => notificationContext.show(error.message, 'error'));
+	}
+
+	function reset() {
+		suffix = '';
+		url = '';
+		password = '';
+		qrOpen = false;
 	}
 </script>
 
-<div class="flex w-full flex-col items-center justify-center gap-8 pt-8 md:flex-row">
-	<form {onsubmit} class="w-full max-w-md">
+<div class="flex w-full flex-col items-center md:items-start justify-center gap-8 pt-8 md:flex-row">
+	<form {onsubmit} class="w-full max-w-md relative p-4">
 		<div class="mb-6">
 			<ValidatedInputGroup
 				bind:this={suffixInput}
@@ -46,8 +62,8 @@
 				label="Short Url (Only letters, numbers, and hyphens)"
 				bind:value={suffix}
 				visuallyRequired
-				validatorObject={shortLinkValidator}
-				inputProps={{ type: 'text' }}
+				validatorObject={shortLinkCreateValidator}
+				inputProps={{ type: 'text', disabled: qrOpen }}
 			>
 				{#snippet before()}
 					<InputAddon><span class="text-nowrap">https://lhs.cx/</span></InputAddon>
@@ -62,13 +78,13 @@
 				label="Redirect Url"
 				value={url}
 				visuallyRequired
-				validatorObject={shortLinkValidator}
-				inputProps={{ type: 'url', placeholder: 'Paste URL Here' }}
+				validatorObject={shortLinkCreateValidator}
+				inputProps={{ type: 'url', placeholder: 'Paste URL Here', disabled: qrOpen }}
 			/>
 		</div>
 
 		<div class="mb-6 flex w-full justify-center">
-			<Button type="submit">Generate Short Link</Button>
+			<Button type="submit" disabled={qrOpen}>Generate Short Link</Button>
 		</div>
 
 		<button
@@ -93,8 +109,8 @@
 							id="password"
 							label="Password"
 							bind:value={password}
-							validatorObject={shortLinkValidator}
-							inputProps={{ type: passwordVisible ? 'text' : 'password' }}
+							validatorObject={shortLinkCreateValidator}
+							inputProps={{ type: passwordVisible ? 'text' : 'password', disabled: qrOpen }}
 						>
 							{#snippet before()}
 								<Button
@@ -124,8 +140,22 @@
 				</div>
 			</div>
 		{/if}
+
+		{#if qrOpen}
+			<div transition:fade class="absolute top-0 left-0 w-full h-full z-10 bg-white dark:bg-gray-900 !bg-opacity-60 backdrop-blur-sm flex items-center justify-center">
+				<Button
+					type="button"
+					color="light"
+					on:click={reset}
+				>
+					Generate Another
+				</Button>
+			</div>
+		{/if}
 	</form>
 	{#if qrOpen}
-		<QrCodeCard data={'https://lhs.cx/' + suffix} />
+		<div transition:slide={{ axis: 'x' }}>
+			<QrCodeCard data={'https://lhs.cx/' + suffix} />
+		</div>
 	{/if}
 </div>

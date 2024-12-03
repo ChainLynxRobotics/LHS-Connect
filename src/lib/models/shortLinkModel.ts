@@ -4,7 +4,7 @@ import mongoose, { Model } from "mongoose";
 export const shortLinkSchema = new mongoose.Schema<IShortLink>({
 	url: { type: String, required: true, maxlength: 2048 },
 	suffix: { type: String, required: true, maxlength: 32 },
-	password: { type: String },
+	hash: { type: String },
 	createdAt: { type: Number, required: true },
 	uses: { type: Number, default: 0 }
 });

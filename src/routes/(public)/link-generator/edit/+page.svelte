@@ -5,29 +5,17 @@
 	import { Alert, Button, Spinner } from 'flowbite-svelte';
 	import { ArrowLeftOutline, InfoCircleSolid } from 'flowbite-svelte-icons';
 	import LinkEditForm from './LinkEditForm.svelte';
+	import type { IPublicShortLink, IShortLinkLogin } from '$lib/types/crud/shortLink';
+	import apiRequest from '$lib/util/apiClient';
 
-	let suffix: string = $state('');
-	let password: string = $state('');
 
-	function handleLogin(linkLoginData: { suffix: string; password: string }) {
-		suffix = linkLoginData.suffix;
-		password = linkLoginData.password;
-		refreshData();
-	}
+	let linkData: Promise<IPublicShortLink>|undefined = $state(undefined);
+	let linkPassword: string = $state(''); // We must sync the password between the two forms
 
-	let linkData:
-		| Promise<{ suffix: string; url: string; hits: number; createdAt: number }>
-		| undefined = $state(undefined);
-	function refreshData() {
-		linkData = new Promise((resolve, reject) => {
-			setTimeout(() => {
-				if (suffix === 'error') {
-					reject(new Error('Invalid short link or password.'));
-					return;
-				}
-				resolve({ suffix: 'testing', url: 'https://example.com/', hits: 0, createdAt: Date.now() });
-			}, 1000);
-		});
+	async function handleLogin(linkLoginData: IShortLinkLogin) {
+		linkPassword = linkLoginData.password;
+		linkData = apiRequest('GET', `/shortLink?suffix=${encodeURIComponent(linkLoginData.suffix)}&password=${encodeURIComponent(linkLoginData.password)}`)
+			.then(res=>res.result as IPublicShortLink);
 	}
 </script>
 
@@ -48,7 +36,7 @@
 			box below with its password and click "Verify" to proceed.
 		</p>
 
-		<LinkLoginForm bind:suffix bind:password onSubmit={handleLogin} />
+		<LinkLoginForm onSubmit={handleLogin} onChange={() => (linkData = undefined)} />
 
 		{#if linkData}
 			{#await linkData}
@@ -58,11 +46,9 @@
 			{:then data}
 				<div class="mt-16" transition:slide>
 					<LinkEditForm
-						{suffix}
-						{password}
-						url={'https://example.com/'}
-						hits={134}
-						createdAt={Date.now()}
+						linkData={data}
+						password={linkPassword}
+						onDelete={() => (linkData = undefined)}
 					/>
 				</div>
 			{:catch error}

@@ -2,20 +2,22 @@
 	import { page } from '$app/stores';
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import ValidatedInputGroup from '$components/form/ValidatedInputGroup.svelte';
-	import shortLinkValidator from '$lib/validation/crud/shortLinkValidator';
+	import { shortLinkLoginValidator } from '$lib/validation/shortLinkValidator';
 	import { Button, InputAddon } from 'flowbite-svelte';
 	import { EyeOutline, EyeSlashOutline } from 'flowbite-svelte-icons';
 
 	interface Props {
 		suffix?: any;
 		password?: string;
-		onSubmit: (linkLoginData: { suffix: string; password: string }) => void;
+		onSubmit?: (linkLoginData: { suffix: string; password: string }) => void;
+		onChange?: () => void;
 	}
 
 	let {
 		suffix = $bindable($page.url.searchParams.get('suffix') || ''),
 		password = $bindable(''),
-		onSubmit: submit
+		onSubmit: submit,
+		onChange: oninput
 	}: Props = $props();
 
 	$effect(() => {
@@ -31,7 +33,7 @@
 			suffix: await suffixInput!.validate(),
 			password: await passwordInput!.validate()
 		};
-		submit(linkLoginData);
+		submit?.(linkLoginData);
 	}
 
 	let passwordVisible = $state(false);
@@ -45,8 +47,8 @@
 			label="Short Url (Only letters, numbers, and hyphens)"
 			bind:value={suffix}
 			visuallyRequired
-			validatorObject={shortLinkValidator}
-			inputProps={{ type: 'text' }}
+			validatorObject={shortLinkLoginValidator}
+			inputProps={{ type: 'text', oninput }}
 		>
 			{#snippet before()}
 				<InputAddon><span class="text-nowrap">https://lhs.cx/</span></InputAddon>
@@ -60,8 +62,8 @@
 				id="password"
 				label="Password"
 				bind:value={password}
-				validatorObject={shortLinkValidator}
-				inputProps={{ type: passwordVisible ? 'text' : 'password' }}
+				validatorObject={shortLinkLoginValidator}
+				inputProps={{ type: passwordVisible ? 'text' : 'password', oninput }}
 			>
 				{#snippet before()}
 					<Button
