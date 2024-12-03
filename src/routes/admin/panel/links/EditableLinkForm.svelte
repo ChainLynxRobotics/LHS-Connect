@@ -1,12 +1,12 @@
 <script lang="ts">
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import type { IShortLink, IShortLinkCreate } from '$lib/types/crud/shortLink';
-	import shortLinkValidator from '$lib/validation/crud/shortLinkValidator';
+	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$lib/types/crud/shortLink';
+	import { shortLinkAdminUpdateValidator } from '$lib/validation/shortLinkValidator';
 	import { Button } from 'flowbite-svelte';
 
 	interface Props {
-		link: IShortLink;
-		onSubmit: (link: IShortLinkCreate) => void;
+		link: IPublicShortLink;
+		onSubmit: (link: IShortLinkAdminUpdate) => void;
 		onCancel: () => void;
 	}
 
@@ -14,19 +14,16 @@
 
 	let suffix = $state(link.suffix);
 	let url = $state(link.url);
-	let password = $state(link.password);
 
 	let suffixInput: ValidatedInput<'suffix'> | undefined = $state();
 	let urlInput: ValidatedInput<'url'> | undefined = $state();
-	let passwordInput: ValidatedInput<'password'> | undefined = $state();
 
 	async function onsubmit(e: Event) {
 		e.preventDefault();
 		submit({
 			...link,
 			suffix: await suffixInput!.validate(),
-			url: await urlInput!.validate(),
-			password: await passwordInput!.validate()
+			url: await urlInput!.validate()
 		});
 	}
 </script>
@@ -41,7 +38,7 @@
 			id="suffix"
 			label="Suffix"
 			bind:value={suffix}
-			validatorObject={shortLinkValidator}
+			validatorObject={shortLinkAdminUpdateValidator}
 			visuallyRequired
 		/>
 	</div>
@@ -51,18 +48,9 @@
 			id="url"
 			label="Url"
 			bind:value={url}
-			validatorObject={shortLinkValidator}
+			validatorObject={shortLinkAdminUpdateValidator}
 			visuallyRequired
 			inputProps={{ type: 'url' }}
-		/>
-	</div>
-	<div>
-		<ValidatedInput
-			bind:this={passwordInput}
-			id="password"
-			label="Password"
-			bind:value={password}
-			validatorObject={shortLinkValidator}
 		/>
 	</div>
 

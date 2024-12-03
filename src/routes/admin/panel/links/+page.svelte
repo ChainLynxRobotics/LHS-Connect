@@ -3,7 +3,7 @@
 	import { A, Input, Label, Pagination, Select, Table, TableBody, TableHead, TableHeadCell } from 'flowbite-svelte';
 	import EditableLink from './EditableLink.svelte';
 	import adminApiClient from '$lib/util/adminApiClient';
-	import type { IShortLink, IShortLinkCreate } from '$lib/types/crud/shortLink';
+	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$lib/types/crud/shortLink';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 
 	const notificationContext = getNotificationContext();
@@ -12,7 +12,7 @@
 	let itemsPerPage = $state(10);
 	let total = $state(0);
 
-	let list = $state<IShortLink[]>([]);
+	let list = $state<IPublicShortLink[]>([]);
 
 	let search = $state('');
 	let orderBy = $state('createdAt');
@@ -44,14 +44,14 @@
 		}
 	}
 
-	function update(id: IShortLink['id'], link: IShortLinkCreate) {
+	function update(id: IPublicShortLink['id'], link: IShortLinkAdminUpdate) {
 		adminApiClient.baseApiRequest('PATCH', `/crud/shortLinks/${id}`, link).then((res) => {
 			const index = list.findIndex((item) => item.id === id);
 			list[index] = res.result;
 		}).catch((e)=>notificationContext.show(e.message, 'error'));
 	}
 
-	function remove(id: IShortLink['id']) {
+	function remove(id: IPublicShortLink['id']) {
 		list = list.filter((item) => item.id !== id);
 		adminApiClient.baseApiRequest('DELETE', `/crud/shortLinks/${id}`)
 			.catch((e)=>notificationContext.show(e.message, 'error'))
