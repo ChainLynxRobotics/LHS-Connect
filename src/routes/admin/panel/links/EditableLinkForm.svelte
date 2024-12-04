@@ -1,8 +1,11 @@
 <script lang="ts">
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
+	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$lib/types/crud/shortLink';
+	import apiRequest from '$lib/util/apiClient';
 	import { shortLinkAdminUpdateValidator } from '$lib/validation/shortLinkValidator';
-	import { Button } from 'flowbite-svelte';
+	import { Alert, Button, Label } from 'flowbite-svelte';
+	import { CheckOutline, CloseOutline, InfoCircleSolid } from 'flowbite-svelte-icons';
 
 	interface Props {
 		link: IPublicShortLink;
@@ -12,11 +15,16 @@
 
 	let { link, onSubmit: submit, onCancel: cancel }: Props = $props();
 
+	const notificationContext = getNotificationContext();
+
 	let suffix = $state(link.suffix);
 	let url = $state(link.url);
 
 	let suffixInput: ValidatedInput<'suffix'> | undefined = $state();
 	let urlInput: ValidatedInput<'url'> | undefined = $state();
+
+	let resetPasswordConfirm = $state(false);
+	let newPassword = $state<string|undefined>(undefined);
 
 	async function onsubmit(e: Event) {
 		e.preventDefault();
@@ -26,9 +34,16 @@
 			url: await urlInput!.validate()
 		});
 	}
+
+	async function resetPassword() {
+		const res = await apiRequest('POST', `/crud/shortLinks/${link.id}/resetPassword`)
+			.catch((e) => notificationContext.show(e.message, 'error'));
+		newPassword = res.password;
+		resetPasswordConfirm = false;
+	}
 </script>
 
-<form class="flex flex-col space-y-6" {onsubmit}>
+<form class="flex flex-col gap-y-6" {onsubmit}>
 	<div>
 		<h3 class="mb-2 text-xl font-medium text-gray-900 dark:text-white">Edit Club</h3>
 	</div>
@@ -53,6 +68,26 @@
 			inputProps={{ type: 'url' }}
 		/>
 	</div>
+	<div class="flex items-center">
+		<Label for="hasPassword">Has Password?</Label>
+		{#if link.hasPassword || newPassword}
+			<CheckOutline class="h-6 w-6" />
+		{:else}
+			<CloseOutline class="h-6 w-6" />
+		{/if}
+		{#if !resetPasswordConfirm}
+			<Button type="button" color="light" size="xs" class="ml-2" onclick={()=>resetPasswordConfirm = true}>Generate New Password</Button>
+		{:else}
+			<Button type="button" color="red" outline size="xs" class="ml-2" onclick={resetPassword}>Regenerate</Button>
+			<Button type="button" color="alternative" size="xs" class="ml-2" onclick={()=>resetPasswordConfirm = false}>Cancel</Button>
+		{/if}
+	</div>
+	{#if newPassword}
+		<Alert color="blue" border>
+			<InfoCircleSolid slot="icon" class="w-5 h-5" />
+			<span>The new password is: <code class="text-xl">{newPassword}</code></span>
+		</Alert>
+	{/if}
 
 	<div class="mb-4 mt-6 flex justify-center gap-4">
 		<Button type="button" color="alternative" on:click={cancel}>Cancel</Button>

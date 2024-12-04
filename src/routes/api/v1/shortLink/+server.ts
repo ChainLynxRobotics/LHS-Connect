@@ -4,7 +4,6 @@ import type { RequestHandler } from "./$types";
 import { error, json } from "@sveltejs/kit";
 import { ShortLink } from "$lib/models/shortLinkModel";
 import bcryptjs from "bcryptjs";
-import type { IPublicShortLink } from "$lib/types/crud/shortLink";
 
 // When generating a new short link
 export const POST: RequestHandler = async ({ request }) => {
@@ -42,7 +41,7 @@ export const GET: RequestHandler = async ({ url }) => {
         const suffix = await shortLinkSuffixValidator.validate(url.searchParams.get('suffix'));
         const password = await shortLinkSuffixValidator.validate(url.searchParams.get('password'));
 
-        const found = await ShortLink.findOne({ suffix: suffix });
+        const found = await ShortLink.findOne({ suffix: suffix }).select('+hash');
         if (!found) return error(404, { message: 'Short link not found' });
 
         if (!found.hash) return error(401, { message: 'Short link has no password, and cannot be viewed. If you would still like to view/edit the info, contact us on the about page.' });
@@ -54,8 +53,8 @@ export const GET: RequestHandler = async ({ url }) => {
         return json({
             result: {
                 ...found.toObject(),
-                hash: undefined,
-            } as IPublicShortLink
+                hash: undefined
+            }
         });
 
     } catch (e) {
@@ -73,7 +72,7 @@ export const PATCH: RequestHandler = async ({ request, url }) => {
         const req = await request.json();
         const validatedReq = await shortLinkUrlUpdateValidator.validate(req, { stripUnknown: true });
 
-        const found = await ShortLink.findOne({ suffix: suffix });
+        const found = await ShortLink.findOne({ suffix: suffix }).select('+hash');
         if (!found) return error(404, { message: 'Short link not found' });
 
         if (!found.hash) return error(401, { message: 'Short link has no password, and cannot be edited' });
@@ -88,8 +87,8 @@ export const PATCH: RequestHandler = async ({ request, url }) => {
         return json({
             result: {
                 ...found.toObject(),
-                hash: undefined,
-            } as IPublicShortLink
+                hash: undefined
+            }
         });
 
     } catch (e) {
@@ -104,7 +103,7 @@ export const DELETE: RequestHandler = async ({ url }) => {
         const suffix = await shortLinkSuffixValidator.validate(url.searchParams.get('suffix'));
         const password = await shortLinkSuffixValidator.validate(url.searchParams.get('password'));
 
-        const found = await ShortLink.findOne({ suffix: suffix });
+        const found = await ShortLink.findOne({ suffix: suffix }).select('+hash');
         if (!found) return error(404, { message: 'Short link not found' });
 
         if (!found.hash) return error(401, { message: 'Short link has no password, and cannot be deleting' });

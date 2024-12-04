@@ -15,7 +15,7 @@ export interface IShortLinkCreate {
 	password?: string;
 }
 
-export interface IShortLink extends ICrudListType, IShortLinkCreate {
+export interface IShortLink extends ICrudListType, Omit<IShortLinkCreate, "password"> {
 	/**
 	 * The date the link was created in epoch time.
 	 */
@@ -28,10 +28,11 @@ export interface IShortLink extends ICrudListType, IShortLinkCreate {
 	 * The hash of the password, as stored in the database.
 	 */
 	hash: string;
-	password: undefined;
 }
 
-export interface IPublicShortLink extends Omit<IShortLink, "hash"> {}
+export interface IPublicShortLink extends Omit<IShortLink, "hash"> {
+	hasPassword: boolean;
+}
 
 export interface IShortLinkLogin {
 	suffix: string;

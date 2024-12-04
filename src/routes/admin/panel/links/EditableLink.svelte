@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Modal, TableBodyCell, TableBodyRow, Tooltip, A } from 'flowbite-svelte';
-	import { EditOutline, TrashBinOutline } from 'flowbite-svelte-icons';
+	import { CheckOutline, EditOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { DateTime } from 'luxon';
 	import EditableLinkForm from './EditableLinkForm.svelte';
 	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$lib/types/crud/shortLink';
@@ -30,9 +30,8 @@
 		><A href={link.url} target="_blank" rel="noreferrer" class="line-clamp-6">{link.url}</A></TableBodyCell
 	>
 	<TableBodyCell tdClass="p-4 py-4 font-medium max-w-sm">
-		{#if link.password}
-			<span>••••••••</span>
-			<Tooltip>{link.password}</Tooltip>
+		{#if link.hasPassword}
+			<CheckOutline class="h-6 w-6" />
 		{/if}
 	</TableBodyCell>
 	<TableBodyCell tdClass="p-4 py-4 font-medium max-w-sm"

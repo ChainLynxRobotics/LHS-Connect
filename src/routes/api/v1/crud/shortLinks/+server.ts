@@ -20,7 +20,7 @@ export const GET: RequestHandler = async ({ locals, url }) => {
         const order = await orderValidator.validate(url.searchParams.get("order"));
         
         const totalCount = await ShortLink.countDocuments().exec();
-        const linkQuery = ShortLink.find().select('-hash').sort({ [orderBy]: order });
+        const linkQuery = ShortLink.find().sort({ [orderBy]: order }).select("+hash");
         if (search) linkQuery.find({ $text: { $search: search } });
         const links = await linkQuery.skip((page - 1) * pageSize).limit(pageSize).exec();
 
@@ -28,7 +28,10 @@ export const GET: RequestHandler = async ({ locals, url }) => {
             total: totalCount || 0,
             page: page,
             pageSize: pageSize,
-            results: links.map((link) => link.toObject()),
+            results: links.map((link) => ({
+                ...link.toObject(),
+                hash: undefined
+            })),
         });
     } catch (e) {
         if (e instanceof ValidationError) error(400, e.message);
