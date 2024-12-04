@@ -4,7 +4,7 @@ import type { RequestHandler } from "./$types";
 import { error, json } from "@sveltejs/kit";
 import { ShortLink } from "$lib/models/shortLinkModel";
 import bcryptjs from "bcryptjs";
-import "node:crypto";
+import crypto from "node:crypto";
 
 // When generating a new short link
 export const POST: RequestHandler = async ({ request }) => {
@@ -48,6 +48,7 @@ export const GET: RequestHandler = async ({ url }) => {
         if (!found.hash) return error(401, { message: 'Short link has no password, and cannot be viewed. If you would still like to view/edit the info, contact us on the about page.' });
 
         // Compare the password
+        bcryptjs.setRandomFallback((len) => Array.from(crypto.randomBytes(len)));
         const match = await bcryptjs.compare(password, found.hash);
         if (!match) return error(401, { message: 'Incorrect password' });
 
