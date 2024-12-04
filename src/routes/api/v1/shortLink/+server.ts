@@ -4,6 +4,7 @@ import type { RequestHandler } from "./$types";
 import { error, json } from "@sveltejs/kit";
 import { ShortLink } from "$lib/models/shortLinkModel";
 import bcryptjs from "bcryptjs";
+import "node:crypto";
 
 // When generating a new short link
 export const POST: RequestHandler = async ({ request }) => {

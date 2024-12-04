@@ -6,6 +6,7 @@ import type { RequestHandler } from "./$types";
 import { idValidator } from "$lib/validation/crud/globalCrudValidator";
 import { encodeBase32LowerCaseNoPadding } from "@oslojs/encoding";
 import bcryptjs from "bcryptjs";
+import "node:crypto";
 
 export const POST: RequestHandler = async ({ locals, params }) => {
     if (!locals.permissions.has(Permission.MANAGE_SHORT_LINKS)) error(403, "You do not have permission to manage short links.");
