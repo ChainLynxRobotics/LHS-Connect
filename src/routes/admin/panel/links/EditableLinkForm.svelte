@@ -4,7 +4,7 @@
 	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$lib/types/crud/shortLink';
 	import apiRequest from '$lib/util/apiClient';
 	import { shortLinkAdminUpdateValidator } from '$lib/validation/shortLinkValidator';
-	import { Alert, Button, Label } from 'flowbite-svelte';
+	import { Alert, Button, Label, Modal } from 'flowbite-svelte';
 	import { CheckOutline, CloseOutline, InfoCircleSolid } from 'flowbite-svelte-icons';
 
 	interface Props {
@@ -45,7 +45,7 @@
 
 <form class="flex flex-col gap-y-6" {onsubmit}>
 	<div>
-		<h3 class="mb-2 text-xl font-medium text-gray-900 dark:text-white">Edit Club</h3>
+		<h3 class="mb-2 text-xl font-medium text-gray-900 dark:text-white">Edit Short Link</h3>
 	</div>
 	<div>
 		<ValidatedInput
@@ -75,12 +75,7 @@
 		{:else}
 			<CloseOutline class="h-6 w-6" />
 		{/if}
-		{#if !resetPasswordConfirm}
-			<Button type="button" color="light" size="xs" class="ml-2" onclick={()=>resetPasswordConfirm = true}>Generate New Password</Button>
-		{:else}
-			<Button type="button" color="red" outline size="xs" class="ml-2" onclick={resetPassword}>Regenerate</Button>
-			<Button type="button" color="alternative" size="xs" class="ml-2" onclick={()=>resetPasswordConfirm = false}>Cancel</Button>
-		{/if}
+		<Button type="button" color="light" size="xs" class="ml-2" onclick={()=>resetPasswordConfirm = true}>Generate New Password</Button>
 	</div>
 	{#if newPassword}
 		<Alert color="blue" border>
@@ -94,3 +89,11 @@
 		<Button type="submit">Save</Button>
 	</div>
 </form>
+
+<Modal bind:open={resetPasswordConfirm} title="Generate New Password" autoclose autofocus>
+	<p class="text-gray-700 dark:text-gray-300">Are you sure you want to generate a new password for this link? {#if link.hasPassword}This will overwrite the previous onemptied.{/if}</p>
+	<svelte:fragment slot="footer">
+		<Button color="red" outline on:click={resetPassword}>Yes</Button>
+		<Button color="alternative">Cancel</Button>
+	</svelte:fragment>
+</Modal>

@@ -22,7 +22,7 @@ export const POST: RequestHandler = async ({ locals, params }) => {
         crypto.getRandomValues(bytes);
         const password = encodeBase32LowerCaseNoPadding(bytes);
 
-        const hash = await bcryptjs.hash(password, 10);
+        const hash = await bcryptjs.hash(password, await bcryptjs.genSalt(10));
         doc.hash = hash;
         await doc.save();
 

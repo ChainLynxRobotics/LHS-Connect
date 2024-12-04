@@ -22,7 +22,7 @@ export const POST: RequestHandler = async ({ request }) => {
         });
 
         if (validatedReq.password) {
-            const hash = await bcryptjs.hash(validatedReq.password, 10);
+            const hash = await bcryptjs.hash(validatedReq.password, await bcryptjs.genSalt(10));
             shortLink.hash = hash;
         }
 
