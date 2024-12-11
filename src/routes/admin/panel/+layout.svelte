@@ -172,6 +172,14 @@
 						class="h-6 w-6"
 					/>
 				</SidebarItem>
+				{#if Permissions.has(data.session, Permission.MANAGE_USERS)}
+					<SidebarItem href="/admin/panel/users" label="Accounts">
+						<TableRowOutline
+							slot="icon"
+							class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+						/>
+					</SidebarItem>
+				{/if}
 				<SidebarItem href="/admin/logout" label="Log Out" spanClass="ms-3 text-red-500 dark:text-red-400">
 					<ArrowLeftToBracketOutline
 						slot="icon"

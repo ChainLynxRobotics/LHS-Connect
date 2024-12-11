@@ -24,7 +24,12 @@ export enum Permission {
     VIEW = 1 << 0,
 }
 
+export const PermissionKeys = Object.keys(Permission).filter(k => isNaN(Number(k)));
+export const PermissionValues = Object.values(Permission).filter(v => typeof v === "number");
+
 export class Permissions {
+    
+    public static readonly OWNER = 1 << 30;
 
     private permissions: number;
 
@@ -105,9 +110,7 @@ export class Permissions {
      * @returns The permissions as a string list, separated by commas
      */
     public toString(): string {
-        return Object.keys(Permission)
-            .filter(k => isNaN(Number(k)))
-            .map(k => Permission[k as keyof typeof Permission]) // This is a hack to get the list of enum values
+        return PermissionValues
             .filter(p => this.has(p, true)) // Filter out the permissions that are not set
             .map((k) => Permission[k]) // Convert the permissions to their string values
             .join(", ");
