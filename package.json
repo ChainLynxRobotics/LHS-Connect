@@ -51,5 +51,8 @@
 		"yup": "^1.4.0"
 	},
 	"type": "module",
-	"packageManager": "pnpm@9.9.0"
+	"engines": {
+        "node": ">=18",
+        "pnpm": ">=9"
+    }
 }
