@@ -9,10 +9,19 @@ export interface IUser extends ISessionUser {
     lastLogin: Date;
 }
 
+export interface ISerializedUser extends ISessionUser {
+    firstLogin: string;
+    lastLogin: string;
+}
+
 export interface ISessionUser {
     id: string;
     name: string;
     email: string;
     pfp: string;
+    permissions: number;
+}
+
+export interface IAdminUserUpdate {
     permissions: number;
 }

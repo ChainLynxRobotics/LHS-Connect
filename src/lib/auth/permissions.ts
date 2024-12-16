@@ -33,7 +33,7 @@ export class Permissions {
 
     private permissions: number;
 
-    constructor(obj?: ISession|ISessionUser|number) {
+    constructor(obj?: ISession|ISessionUser|number|Permission[]) {
         if (obj === undefined) {
             this.permissions = 0;
         } else if (typeof obj === "number") {
@@ -42,6 +42,8 @@ export class Permissions {
             this.permissions = obj.permissions;
         } else if ('user' in obj) {
             this.permissions = obj.user.permissions;
+        } else if (Array.isArray(obj)) {
+            this.permissions = obj.reduce((acc, val) => acc | val, 0);
         } else {
             this.permissions = 0;
         }
@@ -114,6 +116,13 @@ export class Permissions {
             .filter(p => this.has(p, true)) // Filter out the permissions that are not set
             .map((k) => Permission[k]) // Convert the permissions to their string values
             .join(", ");
+    }
+
+    /**
+     * @returns The permissions as an array of Permission enum values
+     */
+    public toArray(): Permission[] {
+        return PermissionValues.filter(p => this.has(p, true));
     }
 
     /**

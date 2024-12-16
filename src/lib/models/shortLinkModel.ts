@@ -12,6 +12,5 @@ shortLinkSchema.index({ suffix: "text", url: "text" });
 shortLinkSchema.virtual('hasPassword').get(function(this: IShortLink) {
 	return this.hash !== undefined;
 });
-shortLinkSchema
 
 export const ShortLink: Model<IShortLink, {}, {}, { hasPassword: boolean }> = mongoose.models.ShortLink ?? mongoose.model('ShortLink', shortLinkSchema);
