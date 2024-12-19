@@ -16,11 +16,10 @@
 
     let editModalOpen = $state(false);
 
-    let selectedPermissions = $state(new Permissions(user.permissions).toArray());
+    let selectedPermissions = $derived(new Permissions(user.permissions).toArray());
 
     function handleEditModalSubmit(user: IAdminUserUpdate) {
         editModalOpen = false;
-        selectedPermissions = new Permissions(user.permissions).toArray();
         onUpdate(user);
     }
 </script>
@@ -30,7 +29,7 @@
     <TableBodyCell tdClass="p-4 font-medium max-w-sm">{user.name}</TableBodyCell>
     <TableBodyCell tdClass="p-4 font-medium max-w-sm">{user.email}</TableBodyCell>
     <TableBodyCell tdClass="p-4 font-medium max-w-sm">
-        <div class="flex flex-wrap">
+        <div class="flex flex-wrap gap-2">
             {#each selectedPermissions as p}
                 <Badge large color="dark">{Permission[p]}</Badge>
             {/each}

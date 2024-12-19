@@ -95,6 +95,23 @@ export class Permissions {
     }
 
     /**
+     * Removes all permissions that are not in the Permission enum.
+     * This is useful for sanitizing permissions that may have been set to an invalid value.
+     * 
+     * @returns this, for chaining
+     */
+    public strip(): Permissions {
+        let original = this.permissions;
+        this.permissions = 0;
+        for (let i = 0; i < PermissionValues.length; i++) {
+            if ((original & PermissionValues[i]) === PermissionValues[i]) {
+                this.permissions |= PermissionValues[i];
+            }
+        }
+        return this;
+    }
+
+    /**
      * @returns The permissions as a number
      */
     public get(): number {

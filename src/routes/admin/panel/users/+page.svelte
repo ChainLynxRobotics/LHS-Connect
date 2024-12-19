@@ -5,6 +5,7 @@
 	import adminApiClient from '$lib/util/adminApiClient';
     import { A, Input, Label, Pagination, Select, Table, TableBody, TableHead, TableHeadCell } from 'flowbite-svelte';
 	import EditableUser from './EditableUser.svelte';
+	import { Permission } from '$lib/auth/permissions';
 
     const notificationContext = getNotificationContext();
 
@@ -45,17 +46,20 @@
 	}
 
 	function update(id: ISerializedUser['id'], user: IAdminUserUpdate) {
-		// adminApiClient.baseApiRequest('PATCH', `/crud/shortLinks/${id}`, link).then((res) => {
-		// 	const index = list.findIndex((item) => item.id === id);
-		// 	list[index] = res.result;
-		// }).catch((e)=>notificationContext.show(e.message, 'error'));
+		adminApiClient.baseApiRequest('PATCH', `/crud/users/${id}`, user).then((res) => {
+			const index = list.findIndex((item) => item.id === id);
+			list[index] = res.result;
+		}).catch((e)=>{
+			notificationContext.show(e.message, 'error');
+			refresh();
+		});
 	}
 
 	function remove(id: ISerializedUser['id']) {
-		// list = list.filter((item) => item.id !== id);
-		// adminApiClient.baseApiRequest('DELETE', `/crud/shortLinks/${id}`)
-		// 	.catch((e)=>notificationContext.show(e.message, 'error'))
-		// 	.finally(refresh);
+		list = list.filter((item) => item.id !== id);
+		adminApiClient.baseApiRequest('DELETE', `/crud/users/${id}`)
+			.catch((e)=>notificationContext.show(e.message, 'error'))
+			.finally(refresh);
 	}
 
 	const pageSizes = [
@@ -81,17 +85,20 @@
 
 <div class="flex flex-col items-center p-4">
 	<div class="w-full max-w-4xl">
-		<SectionHeader title="Short Links" />
+		<SectionHeader title="User Accounts" />
 		<p class="mb-6">
-			User created shortened links. If you want to create your own, visit the <A
-				href="/link-generator">Link Generator page</A
-			>.
+			All accounts that have logged in at least once are listed here. You can edit their permissions.
+			The OWNER permission gives full access to the admin panel and the ability to manage other users. 
+			It cannot be given or taken away from this panel. Instead, it must be done manually in the database 
+			by setting the permission field to <code>{Permission.OWNER}</code>. Other than owner, permissions do not cascade.
+			E.g. If a user only has the MANAGE_USERS permission, they can only manage other users and nothing else. Not even edit.
+			Be careful when passing out permissions.
 		</p>
 
 		<div class="w-full flex items-center justify-center gap-6 mb-6">
 			<div>
 				<Label for="search" class="mb-2">Search</Label>
-      			<Input bind:value={search} on:change={() => page = 1} type="text" id="search" placeholder="Suffix or link" />
+      			<Input bind:value={search} on:change={() => page = 1} type="text" id="search" placeholder="Name or Email" />
 			</div>
 			<div>
 				<Label for="search" class="mb-2">Order By</Label>
@@ -103,7 +110,7 @@
 			</div>
 		</div>
 
-		<Table striped shadow>
+		<Table shadow>
 			<TableHead>
 				<TableHeadCell padding="p-2">Pfp</TableHeadCell>
 				<TableHeadCell padding="p-2">Name</TableHeadCell>
