@@ -3,6 +3,9 @@ import connect from "$lib/db/mongodb";
 import type { Handle } from "@sveltejs/kit";
 import { Permissions } from "$lib/auth/permissions";
 
+// Ensure correct time zone
+process.env.TZ = "America/Los_Angeles";
+
 // Connect to MongoDB before starting the server
 connect().then(() => {
     console.log("Connected to MongoDB");
