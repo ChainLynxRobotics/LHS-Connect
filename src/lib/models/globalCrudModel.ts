@@ -13,13 +13,16 @@ export const crudSingletonSchema = new mongoose.Schema({}, {
     toObject: {
         virtuals: true,
         transform: function (doc, ret) { delete ret.__t; delete ret._id; }
-    }
+    },
+    timestamps: true,
 });
 
 /**
  * This schema is the base for all the lists of data that will be stored in the database.
  */
-export const crudCollectionSchema = new mongoose.Schema<ICrudListType>({});
+export const crudCollectionSchema = new mongoose.Schema<ICrudListType>({}, {
+    timestamps: true,
+});
 
 /**
  * This schema is the same as the {@link crudSingletonSchema} but with an added field "order" to make it reorderable.
