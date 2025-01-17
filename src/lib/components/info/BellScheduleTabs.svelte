@@ -66,6 +66,7 @@
 					...item,
 					dateStr: DateTime.fromMillis(item.date).toFormat('L/d/yy')
 				}))
+				.sort((a, b) => a.date - b.date)
 		);
 
 	// setInterval to update reactive data
