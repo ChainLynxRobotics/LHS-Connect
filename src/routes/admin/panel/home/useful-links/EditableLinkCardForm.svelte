@@ -50,8 +50,8 @@
 	async function onsubmit(event: Event) {
 		event.preventDefault();
 
-		await Promise.all(linkNameInputs.map((input) => input.validate()));
-		await Promise.all(linkUrlInputs.map((input) => input.validate()));
+		await Promise.all(linkNameInputs.map((input) => input?.validate()).filter(Boolean));
+		await Promise.all(linkUrlInputs.map((input) => input?.validate()).filter(Boolean));
 
 		submit({
 			title: await titleInput!.validate(),
