@@ -5,3 +5,7 @@
 body {
 	@apply bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200;
 }
+
+.markdown :where(a) {
+	@apply font-medium text-blue-600 underline dark:text-blue-400;
+}

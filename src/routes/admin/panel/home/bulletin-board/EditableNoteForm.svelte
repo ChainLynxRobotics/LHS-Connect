@@ -55,6 +55,7 @@
 			bind:value={content}
 			validatorObject={bulletinBoardNoteValidator}
 			visuallyRequired
+			textareaProps={{ rows: 5 }}
 		/>
 	</div>
 	<div>
