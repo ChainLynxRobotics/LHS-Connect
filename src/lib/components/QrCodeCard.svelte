@@ -14,9 +14,13 @@
 		 * Whether to show the original link above the QR code
 		 */
 		showLink?: boolean;
+		/**
+		 * Whether to show options for saving the QR code, defaults to true
+		 */
+		showSaveOptions?: boolean;
 	}
 
-	let { data, showLink }: Props = $props();
+	let { data, showLink, showSaveOptions = true }: Props = $props();
 
 	let debouncedData = $state(data);
 
@@ -121,18 +125,20 @@
 		<Hr />
 	{/if}
 	<img use:qr={qrConfig} width="512" height="512" alt="QR Code" />
-	<div class="flex w-full flex-col gap-2 py-4">
-		<Toggle bind:checked={transparent}>Transparent</Toggle>
-		<Toggle bind:checked={dark}>Dark Mode</Toggle>
-		<Button
-			on:click={copyImage}
-			color="alternative"
-			size="xs"
-			title="Copy PNG image of this qr code">Copy Image</Button
-		>
-		<div class="grid grid-cols-[2fr,1fr] gap-2">
-			<Button on:click={downloadQr} title="Download PNG or SVG of this qr code">Download</Button>
-			<Select bind:value={downloadType} items={downloadTypes} placeholder="" />
+	{#if showSaveOptions}
+		<div class="flex w-full flex-col gap-2 py-4">
+			<Toggle bind:checked={transparent}>Transparent</Toggle>
+			<Toggle bind:checked={dark}>Dark Mode</Toggle>
+			<Button
+				on:click={copyImage}
+				color="alternative"
+				size="xs"
+				title="Copy PNG image of this qr code">Copy Image</Button
+			>
+			<div class="grid grid-cols-[2fr,1fr] gap-2">
+				<Button on:click={downloadQr} title="Download PNG or SVG of this qr code">Download</Button>
+				<Select bind:value={downloadType} items={downloadTypes} placeholder="" />
+			</div>
 		</div>
-	</div>
+	{/if}
 </Card>
