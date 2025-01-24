@@ -76,7 +76,7 @@
 				bind:this={urlInput}
 				id="url"
 				label="Redirect Url"
-				value={url}
+				bind:value={url}
 				visuallyRequired
 				validatorObject={shortLinkCreateValidator}
 				inputProps={{ type: 'url', placeholder: 'Paste URL Here', disabled: qrOpen }}
@@ -155,7 +155,7 @@
 	</form>
 	{#if qrOpen}
 		<div transition:slide={{ axis: 'x' }}>
-			<QrCodeCard data={'https://lhs.cx/' + suffix} />
+			<QrCodeCard data={'https://lhs.cx/' + suffix} showLink />
 		</div>
 	{/if}
 </div>
