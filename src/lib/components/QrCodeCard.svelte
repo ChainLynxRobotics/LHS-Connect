@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { createQrPngDataUrl, createQrSvgDataUrl } from '@svelte-put/qr';
 	import { qr, type ImgQRParameter } from '@svelte-put/qr/img';
-	import { Button, ButtonGroup, Card, Hr, Input, Label, Select, Toggle, Tooltip, type SelectOptionType } from 'flowbite-svelte';
+	import { Button, ButtonGroup, Card, Helper, Hr, Input, Label, Select, Toggle, Tooltip, type SelectOptionType } from 'flowbite-svelte';
 	import { CheckOutline, FileCopyOutline } from 'flowbite-svelte-icons';
+	import type { Snippet } from 'svelte';
 	import { scale } from 'svelte/transition';
 
 	interface Props {
@@ -15,12 +16,20 @@
 		 */
 		showLink?: boolean;
 		/**
+		 * The label for the link above the QR code, defaults to "Your Link:"
+		 */
+		linkLabel?: string;
+		/**
+		 * Helper text below the link, defaults to nothing and will not render
+		 */
+		linkHelper?: string;
+		/**
 		 * Whether to show options for saving the QR code, defaults to true
 		 */
 		showSaveOptions?: boolean;
 	}
 
-	let { data, showLink, showSaveOptions = true }: Props = $props();
+	let { data, showLink, linkLabel = "Your Link:", linkHelper, showSaveOptions = true }: Props = $props();
 
 	let debouncedData = $state(data);
 
@@ -104,7 +113,9 @@
 
 <Card size="xs">
 	{#if showLink}
-		<Label class="mb-2" for="generated-link">Your Link:</Label>
+		<Label class="mb-2" for="generated-link">
+			{linkLabel}
+		</Label>
 		<ButtonGroup class="w-full" size="md">
 			<Input id="generated-link" type="text" value={data} readonly class="!border-gray-300 dark:!border-gray-500 !ring-0" />
 			<Button color="alternative" class="!p-2" onclick={copyLink} title="Copy link to clipboard">
@@ -122,6 +133,9 @@
 			</Button>
 			<Tooltip>Copy link to clipboard</Tooltip>
 		</ButtonGroup>
+		{#if linkHelper}
+			<Helper class="mt-2">{linkHelper}</Helper>
+		{/if}
 		<Hr />
 	{/if}
 	<img use:qr={qrConfig} width="512" height="512" alt="QR Code" />
