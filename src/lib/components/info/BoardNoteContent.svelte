@@ -1,12 +1,7 @@
 <script lang="ts">
 	import type { IBulletinBoardNote } from '$lib/types/crud/bulletinBoard';
 	import { ChevronRightOutline } from 'flowbite-svelte-icons';
-	import type { MarkedOptions } from 'marked';
 	import SvelteMarkdown from 'svelte-markdown';
-
-	const markedOptions: MarkedOptions = {
-		breaks: true
-	};
 
 	interface Props {
 		note: IBulletinBoardNote;
@@ -21,7 +16,7 @@
 >
 	<div class="w-full p-4">
 		<h2 class="markdown text-lg font-semibold">
-			<SvelteMarkdown source={note.title} options={markedOptions} />
+			<SvelteMarkdown source={note.title} />
 		</h2>
 		<div class="markdown leading-tight text-gray-700 dark:text-gray-400">
 			<SvelteMarkdown source={note.content} />
