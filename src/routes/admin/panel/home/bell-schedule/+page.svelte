@@ -35,7 +35,7 @@
 	<div class="w-full max-w-4xl">
 		<SectionHeader title="Days of the Week" />
 		<p class="mb-8">The default bell schedules that always show up, one of each day of the week.</p>
-		<DefaultSchedules defaults={defaults} {scheduleOptions} />
+		<DefaultSchedules bind:defaults={defaults} {scheduleOptions} />
 
 		<div class="h-24"></div>
 

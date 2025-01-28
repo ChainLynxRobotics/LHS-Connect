@@ -36,6 +36,15 @@
 		});
 	};
 
+	$effect(() => {
+		// Ensure there are 7 defaults
+		if (defaults.length < 7) {
+			defaults = Array(7).fill(scheduleOptions[0]?.value); // May be undefined
+		} else if (defaults.length > 7) {
+			defaults = defaults.slice(0, 7);
+		}
+	});
+
 </script>
 
 <div class="w-full">

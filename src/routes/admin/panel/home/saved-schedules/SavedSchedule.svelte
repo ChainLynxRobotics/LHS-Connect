@@ -36,15 +36,15 @@
 			<span>{schedule.name}</span>
 		</div>
 		<div class="flex">
-			<button title="Edit" onclick={() => (editModalOpen = true)} class="!p-2"
+			<button type="button" title="Edit" onclick={() => (editModalOpen = true)} class="!p-2"
 				><EditOutline class="h-6 w-6" /></button
 			>
 			<Tooltip>Edit</Tooltip>
-			<button title="Duplicate" onclick={onDuplicate} class="!p-2"
+			<button type="button" title="Duplicate" onclick={onDuplicate} tabindex="0" class="!p-2"
 				><FileCopyOutline class="h-6 w-6" /></button
 			>
 			<Tooltip>Duplicate</Tooltip>
-			<button title="Delete" onclick={onRemove} class="!p-2"
+			<button type="button" title="Delete" onclick={onRemove} class="!p-2"
 				><TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" /></button
 			>
 			<Tooltip>Delete</Tooltip>
