@@ -1,5 +1,5 @@
 import { deleteSessionTokenCookie, setSessionTokenCookie, validateAndRenewSession } from "$lib/auth/session";
-import connect from "$lib/db/mongodb";
+import connect, { startFileClearInterval } from "$lib/db/mongodb";
 import type { Handle } from "@sveltejs/kit";
 import { Permissions } from "$lib/auth/permissions";
 
@@ -9,6 +9,7 @@ process.env.TZ = "America/Los_Angeles";
 // Connect to MongoDB before starting the server
 connect().then(() => {
     console.log("Connected to MongoDB");
+    startFileClearInterval();
 }).catch((err) => {
     console.error("Failed to connect to MongoDB", err);
 });

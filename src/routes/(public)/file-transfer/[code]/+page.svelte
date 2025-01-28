@@ -1,5 +1,6 @@
 <script lang="ts">
 	import SectionHeader from '$components/SectionHeader.svelte';
+	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import FileTransfer from './FileTransfer.svelte';
 
@@ -8,6 +9,10 @@
 	}
 
 	const { data }: Props = $props();
+
+	onMount(() => {
+		localStorage.setItem('fileTransferCode', data.code);
+	});
 </script>
 
 <svelte:head>
@@ -23,6 +28,6 @@
 			</p>
 		</div>
 
-		<FileTransfer code={data.code} />
+		<FileTransfer code={data.code} cloudFiles={data.cloudFiles} />
 	</div>
 </div>

@@ -1,33 +1,29 @@
 <script lang="ts">
+	import { invalidate } from "$app/navigation";
 	import FileDropzone from "$components/form/FileDropzone.svelte";
 	import { getNotificationContext } from "$components/NotificationProvider.svelte";
     import QrCodeCard from "$components/QrCodeCard.svelte";
 	import type { CloudFile, LocalFile } from "$lib/types/FileTransferData";
-	import apiRequest from "$lib/util/apiClient";
+	import { BASE_API_URL } from "$lib/util/apiClient";
 	import formatFileSize from "$lib/util/formatFileSize";
 	import { Button, Progressbar, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from "flowbite-svelte";
 	import type { ChangeEventHandler } from "svelte/elements";
 
     interface Props {
         code: string;
+        cloudFiles: CloudFile[];
     }
 
-    const { code }: Props = $props();
+    const { code, cloudFiles: uploadedFiles }: Props = $props();
 
     const notificationContext = getNotificationContext();
 
-    let uploadedFiles: CloudFile[] = $state([]);
+    const sortedFiles = $derived(uploadedFiles.sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime()));
     let localFileQueue: LocalFile[] = $state([]);
     let isUploading = $state(false);
 
     function updateFiles() {
-        apiRequest('GET', `/api/file-transfer/${code}/files`)
-            .then((files) => {
-                uploadedFiles = files;
-            })
-            .catch((err) => {
-                console.error(err);
-            });
+        invalidate(`${BASE_API_URL}/fileTransfer/${code}/files`);
     }
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -65,9 +61,6 @@
             file.uploadProgress = event.loaded / event.total;
             console.log('Upload progress', file.uploadProgress);
         };
-        req.upload.onload = (event) => {
-            notificationContext.show("Uploaded "+file.name);
-        };
         req.upload.onerror = (event) => {
             console.error('Upload error', event);
             notificationContext.show("Failed to upload "+file.name, "error");
@@ -79,7 +72,22 @@
             isUploading = false;
             queueUpload();
         };
-        req.open("POST", `/api/file-transfer/${code}/upload?name=${encodeURIComponent(file.name)}`, true);
+        req.onreadystatechange = () => {
+            if (req.readyState === 4) {
+                if (req.status === 200) {
+                    notificationContext.show("Uploaded "+file.name, "success");
+                } else {
+                    try {
+                        const body = JSON.parse(req.responseText);
+                        notificationContext.show("Failed to upload "+file.name+": "+body.message, "error");
+                    } catch (e) {
+                        console.error('Failed to parse response body', e);
+                        notificationContext.show("Failed to upload "+file.name, "error");
+                    }
+                }
+            }
+        };
+        req.open("POST", `${BASE_API_URL}/fileTransfer/${code}/files?name=${encodeURIComponent(file.name)}`, true);
         req.send(file.localFile);
     }
 </script>
@@ -110,12 +118,12 @@
                         </TableBodyCell>
                     </TableBodyRow>
                 {/each}
-                {#each uploadedFiles as file (file.id)}
+                {#each sortedFiles as file (file.id)}
                     <TableBodyRow>
                         <TableBodyCell tdClass="px-3 py-4 whitespace-nowrap font-medium">{file.name}</TableBodyCell>
                         <TableBodyCell tdClass="px-3 py-4 whitespace-nowrap font-medium">{formatFileSize(file.size)}</TableBodyCell>
                         <TableBodyCell tdClass="px-3 py-4 whitespace-nowrap font-medium">
-                            <Button href={`/api/file-transfer/${code}/download/${file.name}`} download={file.name}>Download</Button>
+                            <Button href={`${BASE_API_URL}/fileTransfer/${code}/files/${file.id}`} download={file.name}>Download</Button>
                         </TableBodyCell>
                     </TableBodyRow>
                 {/each}
