@@ -1,5 +1,6 @@
 
 export interface CloudFile {
+    id: string;
     name: string;
     size: number;
     uploadedAt: number;

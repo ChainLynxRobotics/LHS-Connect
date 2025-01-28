@@ -34,13 +34,14 @@
         if (!event.currentTarget.files) return;
         const files = [...event.currentTarget.files];
 
-        let filesToQueue = files.map((file) => ({
+        let filesToQueue: LocalFile[] = files.map((file) => ({
+            id: Math.random().toString(36).substring(2, 9),
             name: file.name,
             size: file.size,
             uploadedAt: Date.now(),
             localFile: file,
             uploadProgress: 0,
-        } as LocalFile)).filter((file) => file.size <= 100 * 1024 * 1024);
+        })).filter((file) => file.size <= 100 * 1024 * 1024);
 
         if (filesToQueue.length !== files.length) {
             notificationContext.show("Some files were too large to upload (Max 100MB)", "error");
@@ -83,8 +84,8 @@
     }
 </script>
 
-<div class="flex w-full flex-col items-center lg:items-start justify-center gap-8 pt-8 lg:flex-row">
-    <QrCodeCard data="https://lhs.cx/file-transfer/{code}" 
+<div class="flex w-full flex-col items-center lg:items-start justify-center gap-8 lg:flex-row">
+    <QrCodeCard data="https://lhs.cx/files/{code}" 
         showLink 
         linkLabel="Share Link:" 
         linkHelper="Share this room link with other devices to transfer both ways"
@@ -100,7 +101,7 @@
                 <TableHeadCell class="min-w-32">Actions</TableHeadCell>
             </TableHead>
             <TableBody tableBodyClass="divide-y">
-                {#each localFileQueue as file}
+                {#each localFileQueue as file (file.id)}
                     <TableBodyRow>
                         <TableBodyCell tdClass="px-3 py-4 whitespace-nowrap font-medium"><div class="truncate max-w-32 sm:max-w-sm">{file.name}</div></TableBodyCell>
                         <TableBodyCell tdClass="px-3 py-4 whitespace-nowrap font-medium">{formatFileSize(file.size)}</TableBodyCell>
@@ -109,7 +110,7 @@
                         </TableBodyCell>
                     </TableBodyRow>
                 {/each}
-                {#each uploadedFiles as file}
+                {#each uploadedFiles as file (file.id)}
                     <TableBodyRow>
                         <TableBodyCell tdClass="px-3 py-4 whitespace-nowrap font-medium">{file.name}</TableBodyCell>
                         <TableBodyCell tdClass="px-3 py-4 whitespace-nowrap font-medium">{formatFileSize(file.size)}</TableBodyCell>
@@ -125,5 +126,11 @@
                 {/if}
             </TableBody>
         </Table>
+        <div class="w-full mt-4 text-center text-sm italic text-gray-700 dark:text-gray-400">Files expire after 15 minutes</div>
     </div>
+</div>
+
+<div class="w-full mt-16 text-center text-sm italic text-gray-700 dark:text-gray-400">
+    <p>Warning: Do not upload sensitive or personal files. Uploaded files are not encrypted on the server and can be accessed by anyone with the link.</p>
+    <p>If you don't see your files, make sure both devices have the same URL and refresh the page. If you encounter other errors, please <a href="/about?type=bug#contact" class="underline">tell us!</a></p>
 </div>
