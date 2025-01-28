@@ -8,6 +8,7 @@
 	import formatFileSize from "$lib/util/formatFileSize";
 	import { Button, Progressbar, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from "flowbite-svelte";
 	import type { ChangeEventHandler } from "svelte/elements";
+    import { PUBLIC_BASE_SHORT_URL } from "$env/static/public";
 
     interface Props {
         code: string;
@@ -93,7 +94,7 @@
 </script>
 
 <div class="flex w-full flex-col items-center lg:items-start justify-center gap-8 lg:flex-row">
-    <QrCodeCard data="https://lhs.cx/files/{code}" 
+    <QrCodeCard data={new URL(`/files/${code}`, PUBLIC_BASE_SHORT_URL).toString()} 
         showLink 
         linkLabel="Share Link:" 
         linkHelper="Share this room link with other devices to transfer both ways"

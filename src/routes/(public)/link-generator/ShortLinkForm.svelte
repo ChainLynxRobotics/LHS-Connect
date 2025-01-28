@@ -13,6 +13,7 @@
 	import { shortLinkCreateValidator } from '$lib/validation/shortLinkValidator';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 	import apiRequest from '$lib/util/apiClient';
+	import { PUBLIC_BASE_SHORT_URL } from '$env/static/public';
 
 	const notificationContext = getNotificationContext();
 
@@ -66,7 +67,7 @@
 				inputProps={{ type: 'text', disabled: qrOpen }}
 			>
 				{#snippet before()}
-					<InputAddon><span class="text-nowrap">https://lhs.cx/</span></InputAddon>
+					<InputAddon><span class="text-nowrap">{PUBLIC_BASE_SHORT_URL}/</span></InputAddon>
 				{/snippet}
 			</ValidatedInputGroup>
 		</div>
@@ -155,7 +156,7 @@
 	</form>
 	{#if qrOpen}
 		<div transition:slide={{ axis: 'x' }}>
-			<QrCodeCard data={'https://lhs.cx/' + suffix} showLink />
+			<QrCodeCard data={new URL(`/${suffix}`, PUBLIC_BASE_SHORT_URL).toString()} showLink />
 		</div>
 	{/if}
 </div>

@@ -2,7 +2,7 @@ import type { ICrudListType } from "./globalCrud";
 
 export interface IShortLinkCreate {
 	/**
-	 * The short id of the link, https://lhs.cx/[suffix] will redirect to the URL.
+	 * The short id of the link, $BASE_SHORT_URL/[suffix] will redirect to the URL.
 	 */
 	suffix: string;
 	/**

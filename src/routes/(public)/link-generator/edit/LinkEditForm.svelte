@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
+	import { PUBLIC_BASE_SHORT_URL } from '$env/static/public';
 	import type { IPublicShortLink } from '$lib/types/crud/shortLink';
 	import apiRequest from '$lib/util/apiClient';
 	import { shortLinkUrlUpdateValidator } from '$lib/validation/shortLinkValidator';
@@ -59,7 +60,7 @@
 				<ValidatedInput
 					bind:this={urlInput}
 					id="url"
-					label={(linkData.suffix ? `lhs.cx/${linkData.suffix}` : 'Short Link') + ' redirects to:'}
+					label={(linkData.suffix ? `${new URL(PUBLIC_BASE_SHORT_URL).hostname}/${linkData.suffix}` : 'Short Link') + ' redirects to:'}
 					bind:value={url}
 					visuallyRequired
 					validatorObject={shortLinkUrlUpdateValidator}
@@ -81,7 +82,7 @@
 	</div>
 </div>
 <Modal title="Are you sure?" bind:open={deleteConfirmOpen} autoclose>
-	<p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">You are about to delete the short link <code>lhs.cx/{linkData.suffix}</code>. <b>This cannot be undone.</b></p>
+	<p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">You are about to delete the short link <code>{new URL(PUBLIC_BASE_SHORT_URL).hostname}/{linkData.suffix}</code>. <b>This cannot be undone.</b></p>
 	<svelte:fragment slot="footer">
 	  	<Button type="button" color="red" onclick={deleteLink}>Delete</Button>
 	  	<Button type="button" color="alternative">Cancel</Button>

@@ -8,6 +8,7 @@
 	import type { WithoutID } from '$lib/types/crud/globalCrud';
 	import type { ILinkCard } from '$lib/types/crud/linkCard';
 	import linkCardValidator, { linkCardLinkNameValidator, linkCardLinkUrlValidator } from '$lib/validation/crud/linkCardValidator';
+	import { PUBLIC_BASE_URL } from '$env/static/public';
 
 	const flipDurationMs = 300;
 
@@ -31,7 +32,7 @@
 	function handleAddLink() {
 		links.push({
 			title: 'Link',
-			url: 'https://lhsconnect.com',
+			url: PUBLIC_BASE_URL,
 			id: Math.random()
 		});
 		links = links; // Force update

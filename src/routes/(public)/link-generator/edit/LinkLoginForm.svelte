@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import ValidatedInputGroup from '$components/form/ValidatedInputGroup.svelte';
+	import { PUBLIC_BASE_SHORT_URL } from '$env/static/public';
 	import { shortLinkLoginValidator } from '$lib/validation/shortLinkValidator';
 	import { Button, InputAddon } from 'flowbite-svelte';
 	import { EyeOutline, EyeSlashOutline } from 'flowbite-svelte-icons';
@@ -21,7 +22,7 @@
 	}: Props = $props();
 
 	$effect(() => {
-		suffix = suffix.replace('https://lhs.cx/', '');
+		suffix = suffix.replace(PUBLIC_BASE_SHORT_URL+'/', '');
 	});
 
 	let suffixInput: ValidatedInput<'suffix'> | undefined = $state();
@@ -51,7 +52,7 @@
 			inputProps={{ type: 'text', oninput }}
 		>
 			{#snippet before()}
-				<InputAddon><span class="text-nowrap">https://lhs.cx/</span></InputAddon>
+				<InputAddon><span class="text-nowrap">{PUBLIC_BASE_SHORT_URL}/</span></InputAddon>
 			{/snippet}
 		</ValidatedInputGroup>
 	</div>
