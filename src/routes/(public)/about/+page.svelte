@@ -35,13 +35,13 @@
 			Built by students, for students, LHS Connect is a utility website that aims to provide
 			students with a centralized location for all of their school-related information. Started in
 			2022 in CS Projects at LHS, the website has since grown to include a variety of features from
-			a calendar to a short link generator.
+			a short link generator to file transfer services.
 		</p>
 		<br />
 		<p class="indent-8">
 			This website is not affiliated with Lincoln High School nor Seattle Public Schools. However,
-			most of the information on this website is sourced from official school sources and some
-			features are unofficially approved by staff members. If you have any questions or concerns,
+			most of the information on this website is sourced from official school sources and most
+			features are ran by staff members. If you have any questions or concerns,
 			please contact us using the information below.
 		</p>
 	</div>

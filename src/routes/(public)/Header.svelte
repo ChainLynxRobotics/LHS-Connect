@@ -34,7 +34,6 @@
 	<NavUl {activeUrl} {activeClass} {nonActiveClass}>
 		<NavLi href="/">Home</NavLi>
 		<NavLi href="/clubs">Club List</NavLi>
-		<NavLi href="/calendar">Calendar</NavLi>
 		<NavLi class="cursor-pointer">
 			Tools<ChevronDownOutline class="ms-2 inline h-6 w-6 text-primary-800 dark:text-white" />
 		</NavLi>

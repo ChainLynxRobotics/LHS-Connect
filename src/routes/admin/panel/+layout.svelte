@@ -12,14 +12,11 @@
 		SidebarItem,
 		SidebarDropdownWrapper,
 		SidebarDropdownItem,
-
 		Avatar
-
 	} from 'flowbite-svelte';
 	import {
 		AngleLeftOutline,
 		ArrowLeftToBracketOutline,
-		CalendarMonthOutline,
 		ChartPieOutline,
 		HomeOutline,
 		LinkOutline,
@@ -74,11 +71,6 @@
 			label: 'Clubs',
 			icon: TableRowOutline,
 			href: '/admin/panel/clubs'
-		},
-		{
-			label: 'Calendar',
-			icon: CalendarMonthOutline,
-			href: '/admin/panel/calendar'
 		},
 		{
 			label: 'Short Links',
@@ -143,7 +135,7 @@
 				{#each pages as { label, href, icon: IconComponent, permission, children }, i}
 					{#if !permission || Permissions.has(data.session, permission)}
 						{#if children}
-							<SidebarDropdownWrapper {label}>
+							<SidebarDropdownWrapper {label} isOpen>
 								<IconComponent
 									slot="icon"
 									class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
