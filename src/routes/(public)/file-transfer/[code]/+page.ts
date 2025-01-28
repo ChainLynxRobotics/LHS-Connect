@@ -15,7 +15,6 @@ export const load = (async ({ params, fetch }) => {
         }
     } catch (e) {
         if (e instanceof ValidationError) {
-            if ('localStorage' in window) localStorage.removeItem('fileTransferCode');
             return error(400, { message: e.message });
         }
         else throw e;

@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { FooterData } from '$lib/types/GlobalPageData';
+	import { Discord } from 'arctic';
+	import { CogOutline, DiscordSolid, ExclamationCircleOutline, MailBoxOutline } from 'flowbite-svelte-icons';
 
 	interface Props {
 		data: FooterData;
@@ -28,11 +30,17 @@
 	</div>
 	<div class="my-8 h-[1px] bg-current lg:mx-16"></div>
 	<div class="mb-4 text-center">
+		<MailBoxOutline class="inline-block" />
 		<a href="/about#contact" class="underline">Contact</a>
 		<span class="mx-2">•</span>
+		<ExclamationCircleOutline class="inline-block" />
 		<a href="/about?type=report#contact" class="underline">Report Incorrect Information</a>
 		<span class="mx-2">•</span>
+		<DiscordSolid class="inline-block" />
 		<a href="/discord" target="_blank" class="underline">Discord</a>
+		<span class="mx-2">•</span>
+		<CogOutline class="inline-block" />
+		<a href="/admin/panel" class="underline">Admin Panel</a>
 	</div>
 	<p class="text-center text-xs">
 		This website is not affiliated with Lincoln High School or Seattle Public Schools.
