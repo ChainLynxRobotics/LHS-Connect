@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { dev } from '$app/environment';
 	import NotificationProvider from '$components/NotificationProvider.svelte';
-import type { ThemeContext } from '$components/ThemeSwitch.svelte';
+	import type { ThemeContext } from '$components/ThemeSwitch.svelte';
 	import '$lib/styles/tailwind.css';
 	import { onMount, setContext, type Snippet } from 'svelte';
 	import { writable } from 'svelte/store';
@@ -19,6 +20,9 @@ import type { ThemeContext } from '$components/ThemeSwitch.svelte';
 		) {
 			theme.set('dark');
 		}
+
+		if (dev) localStorage.setItem('umami.disabled', '1');
+		else localStorage.removeItem('umami.disabled');
 	});
 
 	$effect(() => {

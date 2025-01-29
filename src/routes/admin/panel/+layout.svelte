@@ -27,6 +27,7 @@
 	import { sineIn } from 'svelte/easing';
 	import type { PageData } from './$types';
 	import { Permission, Permissions } from '$lib/auth/permissions';
+	import pages from './pages';
 	
 	interface Props {
 		data: PageData;
@@ -34,51 +35,6 @@
 	}
 
 	let { data, children }: Props = $props();
-
-	const pages = [
-		{
-			label: 'Dashboard',
-			href: '/admin/panel',
-			icon: ChartPieOutline
-		},
-		{
-			label: 'Home Page',
-			icon: HomeOutline,
-			children: [
-				{
-					label: 'Bulletin Board',
-					href: '/admin/panel/home/bulletin-board'
-				},
-				{
-					label: 'Bell Schedule',
-					href: '/admin/panel/home/bell-schedule'
-				},
-				{
-					label: 'Saved Schedules',
-					href: '/admin/panel/home/saved-schedules'
-				},
-				{
-					label: 'Contact Info',
-					href: '/admin/panel/home/contact-info'
-				},
-				{
-					label: 'Useful Links',
-					href: '/admin/panel/home/useful-links'
-				}
-			]
-		},
-		{
-			label: 'Clubs',
-			icon: TableRowOutline,
-			href: '/admin/panel/clubs'
-		},
-		{
-			label: 'Short Links',
-			icon: LinkOutline,
-			href: '/admin/panel/links',
-			permission: Permission.MANAGE_SHORT_LINKS
-		}
-	];
 
 	let breakPoint: number = 1024;
 	let width: number = $state(0);
@@ -132,8 +88,8 @@
 				</SidebarItem>
 			</SidebarGroup>
 			<SidebarGroup border>
-				{#each pages as { label, href, icon: IconComponent, permission, children }, i}
-					{#if !permission || Permissions.has(data.session, permission)}
+				{#each pages as { label, href, publicHref, icon: IconComponent, permission, children, hidden }, i}
+					{#if !hidden && (!permission || Permissions.has(data.session, permission))}
 						{#if children}
 							<SidebarDropdownWrapper {label} isOpen>
 								<IconComponent
@@ -145,7 +101,7 @@
 								{/each}
 							</SidebarDropdownWrapper>
 						{:else}
-							<SidebarItem {href} {label}>
+							<SidebarItem href={href ?? publicHref} target={href == undefined && publicHref != undefined ? '_blank' : undefined} {label}>
 								<IconComponent
 									slot="icon"
 									class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
