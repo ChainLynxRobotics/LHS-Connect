@@ -91,6 +91,11 @@
         req.open("POST", `${BASE_API_URL}/fileTransfer/${code}/files?name=${encodeURIComponent(file.name)}`, true);
         req.send(file.localFile);
     }
+
+    $effect(() => {
+        const interval = setInterval(updateFiles, 10000); // Update every 10 seconds
+        return () => clearInterval(interval);
+    });
 </script>
 
 <div class="flex w-full flex-col items-center lg:items-start justify-center gap-8 lg:flex-row">
