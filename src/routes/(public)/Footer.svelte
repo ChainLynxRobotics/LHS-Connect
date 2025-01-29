@@ -34,9 +34,11 @@
 			</div>
 		{/each}
 	</div>
-	<div class="text-center mt-2 text-sm italic">
-		Links last updated {updatedAtString}
-	</div>
+	{#if updatedAtString}
+		<div class="text-center mt-2 text-sm italic">
+			Links last updated {updatedAtString}
+		</div>
+	{/if}
 	<div class="my-8 h-[1px] bg-current lg:mx-16"></div>
 	<div class="mb-4 text-center">
 		<MailBoxOutline class="inline-block" />
