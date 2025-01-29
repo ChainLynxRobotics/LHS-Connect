@@ -1,3 +1,4 @@
+import type { WithoutID } from "$lib/types/crud/globalCrud";
 import apiRequest from "./apiClient";
 
 export const BASE_API_URL = '/api/v1';
@@ -20,7 +21,7 @@ async function getAll<T extends {id: any}>(serviceId: string): Promise<GetAllRes
     return baseApiRequest('GET', `/crud/${serviceId}`);
 }
 
-async function create<T extends {id: any}>(serviceId: string, data: Omit<T, 'id'>): Promise<GetAllResults<T>> {
+async function create<T extends {id: any}>(serviceId: string, data: WithoutID<T>): Promise<GetAllResults<T>> {
     return baseApiRequest('POST', `/crud/${serviceId}`, data);
 }
 
@@ -28,7 +29,7 @@ async function get<T extends {id: any}>(serviceId: string, id: T['id']): Promise
     return baseApiRequest('GET', `/crud/${serviceId}/${id}`);
 }
 
-async function update<T extends {id: any}>(serviceId: string, id: T['id'], data: Partial<Omit<T, 'id'>>): Promise<GetResult<T>> {
+async function update<T extends {id: any}>(serviceId: string, id: T['id'], data: Partial<WithoutID<T>>): Promise<GetResult<T>> {
     return baseApiRequest('PATCH', `/crud/${serviceId}/${id}`, data);
 }
 
@@ -44,7 +45,7 @@ async function reorder<T extends {id: any}>(serviceId: string, order: T['id'][])
     return baseApiRequest('POST', `/crud/${serviceId}/order`, order);
 }
 
-async function overwriteAll<T extends {id: any}>(serviceId: string, data: Omit<T, 'id'>[]): Promise<GetAllResults<T>> {
+async function overwriteAll<T extends {id: any}>(serviceId: string, data: WithoutID<T>[]): Promise<GetAllResults<T>> {
     return baseApiRequest('POST', `/crud/${serviceId}/all`, data);
 }
 

@@ -1,12 +1,13 @@
 <script lang="ts">
 	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
+	import dayjs, { TZ } from '$lib/util/dayjs';
+	import type { Dayjs } from 'dayjs';
 	import { Table, TableBody, TableBodyCell, TableBodyRow } from 'flowbite-svelte';
-	import { DateTime } from 'luxon';
 
 	interface Props {
 		schedule?: IBellSchedule;
 		reactive?: boolean;
-		customTime?: DateTime;
+		customTime?: Dayjs;
 	}
 
 	let { schedule, reactive = false, customTime }: Props = $props();
@@ -20,7 +21,7 @@
 		return `${formattedHour}:${formattedMinute}`;
 	}
 
-	function getRowClass(periodIndex: number, reactive: boolean, customTime: DateTime|undefined): string {
+	function getRowClass(periodIndex: number, reactive: boolean, customTime: Dayjs|undefined): string {
 		let c = 'text-base';
 		if (!schedule) return c;
 
@@ -44,10 +45,10 @@
 		return c;
 	}
 
-	function currentlyWithinTime(startStr: string, endStr: string, customTime: DateTime|undefined): boolean {
-		const millis = (customTime || DateTime.now()).setZone('America/Los_Angeles').toMillis();
-		const start = DateTime.fromFormat(startStr, 'HH:mm').setZone('America/Los_Angeles').toMillis();
-		const end = DateTime.fromFormat(endStr, 'HH:mm').setZone('America/Los_Angeles').toMillis();
+	function currentlyWithinTime(startStr: string, endStr: string, customTime: Dayjs|undefined): boolean {
+		const millis = (customTime || dayjs()).tz(TZ).valueOf();
+		const start = dayjs(startStr, 'HH:mm').tz(TZ).valueOf();
+		const end = dayjs(endStr, 'HH:mm').tz(TZ).valueOf();
 		return millis >= start && millis <= end;
 	}
 </script>

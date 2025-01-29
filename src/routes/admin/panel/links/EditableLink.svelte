@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { Modal, TableBodyCell, TableBodyRow, Tooltip, A } from 'flowbite-svelte';
 	import { CheckOutline, EditOutline, TrashBinOutline } from 'flowbite-svelte-icons';
-	import { DateTime } from 'luxon';
 	import EditableLinkForm from './EditableLinkForm.svelte';
 	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$lib/types/crud/shortLink';
+	import dayjs from '$lib/util/dayjs';
 
 	interface Props {
 		link: IPublicShortLink;
@@ -35,7 +35,7 @@
 		{/if}
 	</TableBodyCell>
 	<TableBodyCell tdClass="p-4 py-4 font-medium max-w-sm"
-		>{DateTime.fromMillis(link.createdAt).toLocaleString(DateTime.DATETIME_SHORT)}</TableBodyCell
+		>{dayjs(link.createdAt).format('L LT')}</TableBodyCell
 	>
 	<TableBodyCell tdClass="p-4 py-4 font-medium max-w-sm">{link.uses}</TableBodyCell>
 	<TableBodyCell tdClass="p-2 py-4 font-medium max-w-sm align-top">

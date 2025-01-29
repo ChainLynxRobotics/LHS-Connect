@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { Permission, PermissionValues, Permissions } from "$lib/auth/permissions";
+	import { Permission, Permissions } from "$lib/auth/permissions";
     import type { IAdminUserUpdate, ISerializedUser } from "$lib/types/user";
-	import { Avatar, Badge, Modal, MultiSelect, TableBodyCell, TableBodyRow, Tooltip } from "flowbite-svelte";
+	import { Avatar, Badge, Modal, TableBodyCell, TableBodyRow, Tooltip } from "flowbite-svelte";
 	import { EditOutline, TrashBinOutline } from "flowbite-svelte-icons";
-	import { DateTime } from "luxon";
 	import EditableUserForm from "./EditableUserForm.svelte";
+	import dayjs from "$lib/util/dayjs";
 
     interface Props {
 		user: ISerializedUser;
@@ -35,8 +35,8 @@
             {/each}
         </div>
     </TableBodyCell>
-    <TableBodyCell tdClass="p-4 font-medium max-w-sm">{DateTime.fromISO(user.firstLogin).toLocaleString(DateTime.DATETIME_SHORT)}</TableBodyCell>
-    <TableBodyCell tdClass="p-4 font-medium max-w-sm">{DateTime.fromISO(user.lastLogin).toLocaleString(DateTime.DATETIME_SHORT)}</TableBodyCell>
+    <TableBodyCell tdClass="p-4 font-medium max-w-sm">{dayjs(user.firstLogin).format('L LT')}</TableBodyCell>
+    <TableBodyCell tdClass="p-4 font-medium max-w-sm">{dayjs(user.lastLogin).format('L LT')}</TableBodyCell>
     <TableBodyCell tdClass="p-2 py-4 font-medium max-w-sm align-top">
 		<div class="flex justify-center">
             <button title="Edit" onclick={() => (editModalOpen = true)} class="!p-2"

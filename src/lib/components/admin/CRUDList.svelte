@@ -2,8 +2,9 @@
 	import type { Snippet } from 'svelte';
 	import adminApiClient from '$lib/util/adminApiClient';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
+	import type { WithoutID } from '$lib/types/crud/globalCrud';
 
-	type ItemWithoutID = Omit<Item, 'id'>;
+	type ItemWithoutID = WithoutID<Item>;
 
 	interface ItemListDisplayProps {
 		items: ItemDisplayProps[];

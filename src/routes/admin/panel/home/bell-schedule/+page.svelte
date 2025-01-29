@@ -2,12 +2,12 @@
 	import CrudList from '$components/admin/CRUDList.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
 	import { Button, Table, TableHead, TableHeadCell, TableBody, Label } from 'flowbite-svelte';
-	import { DateTime } from 'luxon';
 	import DefaultSchedules from './DefaultSchedules.svelte';
 	import SpecialScheduleRow from './SpecialScheduleRow.svelte';
 	import BellScheduleTabs from '$components/info/BellScheduleTabs.svelte';
 	import type { PageData } from './$types';
 	import type { BellScheduleData } from '$lib/types/HomePageData';
+	import dayjs, { TZ } from '$lib/util/dayjs';
 
 	interface Props {
 		data: PageData;
@@ -23,7 +23,7 @@
 	let defaults = $state(data.defaults[0]?.bellScheduleIDs || []);
 	let overrides = $state(data.overrides);
 
-	let previewTime = $state(DateTime.now().toFormat(`yyyy-LL-dd'T'HH:mm`))!;
+	let previewTime = $state(dayjs().format(`YYYY-MM-DD[T]HH:mm`));
 
 	let bellScheduleData: BellScheduleData = $derived({
 		defaults: defaults.map((id) => data.schedules.find((schedule) => schedule.id === id)!), // Populate the defaults
@@ -45,7 +45,7 @@
 			serviceId="bellScheduleOverrides"
 			items={overrides}
 			generateNewItem={() => ({
-				date: DateTime.now().setZone('America/Los_Angeles').startOf('day').toMillis(),
+				date: dayjs().tz(TZ).startOf('day').valueOf(),
 				scheduleId: data.schedules[0]?.id
 			})}
 			canReorder={false}
@@ -91,7 +91,7 @@
 			/>
 		</div>
 		<div class="mx-auto max-w-2xl">
-			<BellScheduleTabs data={bellScheduleData} customTime={DateTime.fromISO(previewTime).setZone('America/Los_Angeles')} />
+			<BellScheduleTabs data={bellScheduleData} customTime={dayjs(previewTime).tz(TZ)} />
 		</div>
 	</div>
 </div>

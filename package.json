@@ -32,7 +32,6 @@
 		"flowbite-svelte": "^0.47.3",
 		"flowbite-svelte-icons": "^2.0.2",
 		"fuse.js": "^7.0.0",
-		"luxon": "^3.5.0",
 		"mongoose": "^8.8.1",
 		"papaparse": "^5.4.1",
 		"postcss": "^8.4.39",
@@ -54,5 +53,8 @@
 	"engines": {
 		"node": ">=18",
 		"pnpm": ">=9"
+	},
+	"dependencies": {
+		"dayjs": "^1.11.13"
 	}
 }

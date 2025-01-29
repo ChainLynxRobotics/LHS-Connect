@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { stopPropagation } from 'svelte/legacy';
-
 	import {
 		TableBodyCell,
 		TableBodyRow,
@@ -9,10 +7,10 @@
 		Tooltip
 	} from 'flowbite-svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
-	import { DateTime } from 'luxon';
 	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
 	import type { IBellScheduleOverride } from '$lib/types/crud/bellScheduleOverride';
 	import type { WithoutID } from '$lib/types/crud/globalCrud';
+	import dayjs, { TZ } from '$lib/util/dayjs';
 
 	interface Props {
 		special: IBellScheduleOverride;
@@ -24,15 +22,15 @@
 
 	let { special, scheduleOptions, onUpdate, onDuplicate, onRemove }: Props = $props();
 
-	let date = $state(DateTime.fromMillis(special.date).toISODate()); // To avoid reactivity issues with the sorted array
+	let date = $state(dayjs(special.date).toISOString()); // To avoid reactivity issues with the sorted array
 	let scheduleId = $state(special.scheduleId);
 
 	function submit() {
 		onUpdate({
-			date: DateTime.fromISO(date || '')
-				.setZone('America/Los_Angeles')
+			date: dayjs(date)
+				.tz(TZ)
 				.startOf('day')
-				.toMillis(),
+				.valueOf(),
 			scheduleId
 		});
 	}

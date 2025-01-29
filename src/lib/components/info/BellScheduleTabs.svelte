@@ -4,14 +4,15 @@
 	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
 	import type { IPopulatedBellScheduleOverride } from '$lib/types/crud/bellScheduleOverride';
 	import type { BellScheduleData } from '$lib/types/HomePageData';
+	import dayjs, { TZ } from '$lib/util/dayjs';
+	import type { Dayjs } from 'dayjs';
 	import { Accordion, AccordionItem, TabItem, Tabs } from 'flowbite-svelte';
-	import { DateTime } from 'luxon';
 	import { onMount } from 'svelte';
 
 	// Import the data from the parent component
 	interface Props {
 		data: BellScheduleData;
-		customTime?: DateTime;
+		customTime?: Dayjs;
 	}
 
 	let { data, customTime }: Props = $props();
@@ -21,12 +22,12 @@
 	let tabs: IBellSchedule[] = $state([]);
 	let selectedTab = $state(0);
 
-	let now = $state(customTime || DateTime.now());
+	let now = $state(customTime || dayjs());
 	$effect(() => {
 		if (customTime) now = customTime; // Update the time if it's custom
 	});
-	let dayOfWeek = $derived(now.get('weekday'));
-	let dateEpoch = $derived(DateTime.fromMillis(now.toMillis()).setZone('America/Los_Angeles').startOf('day').toMillis());
+	let dayOfWeek = $derived(now.tz(TZ).day());
+	let dateEpoch = $derived(dayjs(now.valueOf()).tz(TZ).startOf('day').valueOf());
 
 	$effect.pre(() => {
 		// Default day schedules
@@ -64,7 +65,7 @@
 				.filter((item) => item.date > dateEpoch)
 				.map((item) => ({
 					...item,
-					dateStr: DateTime.fromMillis(item.date).toFormat('L/d/yy')
+					dateStr: dayjs(item.date).format('M/D/YY')
 				}))
 				.sort((a, b) => a.date - b.date)
 		);
@@ -74,7 +75,7 @@
 		if (customTime) return;
 		// Update the current time every 10 seconds
 		let clear = setInterval(() => {
-			now = DateTime.now();
+			now = dayjs();
 		}, 10000);
 		return () => clearInterval(clear);
 	});
