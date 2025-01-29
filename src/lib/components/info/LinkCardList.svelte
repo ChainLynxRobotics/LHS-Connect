@@ -11,7 +11,7 @@
 	let { title, data }: Props = $props();
 </script>
 
-<SectionHeader {title} />
+<SectionHeader {title} updatedAt={data.cards} />
 <div class="flex flex-wrap items-start justify-center gap-4">
 	{#each data.cards as card}
 		<LinkCardContent {card} />

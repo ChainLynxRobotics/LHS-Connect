@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { FooterData } from '$lib/types/GlobalPageData';
-	import { Discord } from 'arctic';
+	import dayjs from '$lib/util/dayjs';
 	import { CogOutline, DiscordSolid, ExclamationCircleOutline, MailBoxOutline } from 'flowbite-svelte-icons';
 
 	interface Props {
@@ -8,6 +8,12 @@
 	}
 
 	let { data }: Props = $props();
+
+	let updatedAtString = $derived(data.usefulLinks.cards
+			?.filter((x) => x.updatedAt)
+			.map((x) => dayjs(x.updatedAt))
+			.sort((a, b) => b.valueOf() - a.valueOf())[0]
+			?.fromNow());
 </script>
 
 <footer class="mt-16 w-full bg-gray-100 p-8 text-gray-500 dark:bg-gray-800 dark:text-gray-500">
@@ -27,6 +33,9 @@
 				</ul>
 			</div>
 		{/each}
+	</div>
+	<div class="text-center mt-2 text-sm italic">
+		Links last updated {updatedAtString}
 	</div>
 	<div class="my-8 h-[1px] bg-current lg:mx-16"></div>
 	<div class="mb-4 text-center">

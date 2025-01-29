@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { stopPropagation } from 'svelte/legacy';
+
 	import {
 		TableBodyCell,
 		TableBodyRow,
@@ -22,7 +24,7 @@
 
 	let { special, scheduleOptions, onUpdate, onDuplicate, onRemove }: Props = $props();
 
-	let date = $state(dayjs(special.date).toISOString()); // To avoid reactivity issues with the sorted array
+	let date = $state(dayjs(special.date).format(`YYYY-MM-DD`)); // To avoid reactivity issues with the sorted array
 	let scheduleId = $state(special.scheduleId);
 
 	function submit() {

@@ -42,7 +42,7 @@
 </script>
 
 <div class="px-4">
-	<SectionHeader title="List of Lincoln Clubs" />
+	<SectionHeader title="List of Lincoln Clubs" updatedAt={clubs} />
 </div>
 <div class="mb-4 mt-8 flex items-center justify-center px-4">
 	<div class="w-full max-w-sm">

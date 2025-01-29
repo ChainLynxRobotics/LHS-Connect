@@ -33,17 +33,17 @@
 
 <div class="flex flex-col items-center p-4">
 	<div class="w-full max-w-4xl">
-		<SectionHeader title="Days of the Week" />
+		<SectionHeader title="Days of the Week" updatedAt={data.defaults} />
 		<p class="mb-8">The default bell schedules that always show up, one of each day of the week.</p>
 		<DefaultSchedules bind:defaults={defaults} {scheduleOptions} />
 
 		<div class="h-24"></div>
 
-		<SectionHeader title="Schedule Overrides" />
+		<SectionHeader title="Schedule Overrides" updatedAt={overrides} />
 		<p class="mb-8">Special schedules that override the default schedules on specific dates.</p>
 		<CrudList
 			serviceId="bellScheduleOverrides"
-			items={overrides}
+			bind:items={overrides}
 			generateNewItem={() => ({
 				date: dayjs().tz(TZ).startOf('day').valueOf(),
 				scheduleId: data.schedules[0]?.id

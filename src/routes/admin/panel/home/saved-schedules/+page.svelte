@@ -15,7 +15,7 @@
 
 <div class="flex flex-col items-center p-4">
 	<div class="w-full max-w-lg">
-		<SectionHeader title="Saved Schedules" />
+		<SectionHeader title="Saved Schedules" updatedAt={data.results} />
 		<p class="mb-8">
 			These are the saved schedules that can be then referenced on the Bell Schedule page.
 		</p>

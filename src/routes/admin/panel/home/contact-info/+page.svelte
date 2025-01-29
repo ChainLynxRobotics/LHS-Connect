@@ -15,7 +15,7 @@
 
 <div class="flex flex-col items-center p-4">
 	<div class="w-full max-w-4xl">
-		<SectionHeader title="Contact Info" />
+		<SectionHeader title="Contact Info" updatedAt={data.results} />
 		<p class="mb-8"></p>
 		<CrudList
 			serviceId="contactInfo"

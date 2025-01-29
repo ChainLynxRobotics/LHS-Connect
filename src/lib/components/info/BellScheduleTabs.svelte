@@ -81,7 +81,7 @@
 	});
 </script>
 
-<SectionHeader title="Bell Schedule" />
+<SectionHeader title="Bell Schedule" updatedAt={[...data.defaults, ...data.overrides, ...data.overrides.map(i=>i.schedule)]} />
 <Tabs
 	tabStyle="none"
 	contentClass="pt-4 bg-white dark:bg-gray-900"

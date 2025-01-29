@@ -15,7 +15,7 @@
 
 <div class="flex flex-col items-center p-4">
 	<div class="w-full max-w-lg">
-		<SectionHeader title="Bulletin Board" />
+		<SectionHeader title="Bulletin Board" updatedAt={data.results} />
 		<p class="mb-8">The title and content support markdown, and you can drag the notes around.</p>
 		<CrudList
 			serviceId="bulletinBoardNotes"
