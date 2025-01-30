@@ -1,15 +1,16 @@
 <script lang="ts">
-	import type { FooterData } from '$lib/types/GlobalPageData';
+	import type { IAnnouncement } from '$lib/types/crud/announcement';
+	import type { LinkCardListData } from '$lib/types/HomePageData';
 	import dayjs from '$lib/util/dayjs';
 	import { CogOutline, DiscordSolid, ExclamationCircleOutline, MailBoxOutline } from 'flowbite-svelte-icons';
 
 	interface Props {
-		data: FooterData;
+		usefulLinks: LinkCardListData;
 	}
 
-	let { data }: Props = $props();
+	let { usefulLinks }: Props = $props();
 
-	let updatedAtString = $derived(data.usefulLinks.cards
+	let updatedAtString = $derived(usefulLinks.cards
 			?.filter((x) => x.updatedAt)
 			.map((x) => dayjs(x.updatedAt))
 			.sort((a, b) => b.valueOf() - a.valueOf())[0]
@@ -18,7 +19,7 @@
 
 <footer class="mt-16 w-full bg-gray-100 p-8 text-gray-500 dark:bg-gray-800 dark:text-gray-500">
 	<div class="flex flex-wrap justify-center gap-8 lg:gap-16">
-		{#each data.usefulLinks.cards as card}
+		{#each usefulLinks.cards as card}
 			<div>
 				<h3 class="mb-2 text-lg font-bold">{card.title}</h3>
 				{#if card.subtitle}

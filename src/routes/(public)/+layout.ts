@@ -6,9 +6,8 @@ export const load = (async ({ url, fetch }) => {
 	const usefulLinkData = await fetch('/api/v1/usefulLinks');
 
 	return {
-		footer: {
-			usefulLinks: await usefulLinkData.json() as LinkCardListData
-		},
+		usefulLinks: await usefulLinkData.json() as LinkCardListData,
+		announcement: {text: "Test", updatedAt: new Date().toISOString()},
 		pathname: url.pathname
 	} satisfies GlobalPageData & Record<string, any>;
 }) satisfies LayoutLoad;
