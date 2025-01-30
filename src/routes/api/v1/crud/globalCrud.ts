@@ -14,6 +14,8 @@ import bellScheduleValidator from "$lib/validation/crud/bellScheduleValidator";
 import clubValidator from "$lib/validation/crud/clubValidator";
 import linkCardValidator from "$lib/validation/crud/linkCardValidator";
 import bulletinBoardNoteValidator from "$lib/validation/crud/bulletinBoardNoteValidator";
+import announcementValidator from "$lib/validation/crud/announcementValidator";
+import { Announcement } from "$lib/models/crud/announcementModel";
 
 interface Service {
     // The db model
@@ -27,6 +29,11 @@ interface Service {
 }
 
 const services: { [key: string]: Service } = {
+    "announcement": {
+        model: Announcement as Model<any>,
+        validator: announcementValidator,
+        singleton: true
+    },
     "bellSchedules": {
         model: BellSchedule as Model<any>,
         validator: bellScheduleValidator,
