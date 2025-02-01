@@ -19,8 +19,8 @@
     let announcementInput: ValidatedInput<'text'> | undefined = undefined;
 
     let announcement = $state(data.announcement?.text || '');
-    $effect(() => {announcement = data.announcement?.text || ''});
-    let announcementSaved = $derived(announcement === data.announcement?.text);
+    $effect(() => {announcement = (data.announcement?.text || '')});
+    let announcementSaved = $derived(announcement === (data.announcement?.text || ''));
 
     async function saveAnnouncement(e: Event) {
         e.preventDefault();
