@@ -1,14 +1,16 @@
 <script lang="ts">
 	import SectionHeader from "$components/SectionHeader.svelte";
-	import { Button, Card, Listgroup, ListgroupItem } from "flowbite-svelte";
+	import { Alert, Button, Card, Listgroup, ListgroupItem } from "flowbite-svelte";
 	import pages from "./pages";
     import { Permissions } from "$lib/auth/permissions";
 	import type { PageData } from "./$types";
 	import ValidatedInput from "$components/form/ValidatedInput.svelte";
 	import announcementValidator from "$lib/validation/crud/announcementValidator";
 	import adminApiClient from "$lib/util/adminApiClient";
-	import { invalidate } from "$app/navigation";
+	import { invalidate, invalidateAll } from "$app/navigation";
 	import { getNotificationContext } from "$components/NotificationProvider.svelte";
+	import { InfoCircleSolid } from "flowbite-svelte-icons";
+	import { slide } from "svelte/transition";
 
 	let { data }: { data: PageData } = $props();
 
@@ -18,21 +20,24 @@
 
     let announcement = $state(data.announcement?.text || '');
     $effect(() => {announcement = data.announcement?.text || ''});
+    let announcementSaved = $derived(announcement === data.announcement?.text);
 
-    async function saveAnnouncement() {
+    async function saveAnnouncement(e: Event) {
+        e.preventDefault();
         const data = {
             text: await announcementInput?.validate()
         }
 
         await adminApiClient.baseApiRequest('POST', '/crud/announcement', data).catch((e)=>{
-			invalidate('/api/v1/crud/announcement');
 			notificationContext.show(e.message, 'error');
 		});
+        invalidate('/api/v1/crud/announcement');
+        notificationContext.show('Announcement saved', 'success');
     }
 
 </script>
 
-<div class="flex flex-col items-center p-4">
+<div class="flex flex-col items-center p-4 pb-12">
 	<div class="w-full max-w-4xl">
 		<SectionHeader title="Dashboard" />
 
@@ -67,7 +72,7 @@
 
         <SectionHeader title="Announcement" />
         <p class="mb-4">This displays at the top of every public page, and can be dismissed. (Supports inline markdown)</p>
-        <div class="w-full flex gap-4 items-end mb-12">
+        <form onsubmit={saveAnnouncement} class="w-full flex gap-4 items-end mb-4">
             <div class="w-full">
                 <ValidatedInput
                     bind:this={announcementInput}
@@ -78,7 +83,16 @@
                     inputProps={{ placeholder: "Leave blank for none" }}
                 />
             </div>
-            <Button onclick={saveAnnouncement}>Save</Button>
-        </div>
+            <Button type="submit">Save</Button>
+        </form>
+        {#if !announcementSaved}
+            <div transition:slide>
+                <Alert color="yellow">
+                    <InfoCircleSolid slot="icon" class="w-5 h-5" />
+                    <span class="font-medium">Warning!</span>
+                    You have unsaved changes
+                </Alert>
+            </div>
+        {/if}
     </div>
 </div>

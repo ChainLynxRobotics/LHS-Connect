@@ -24,7 +24,7 @@
 	const transitionOut = { easing: cubicIn, y: -y, duration };
 
 	// Announcement
-	let lastDismissedAnnouncement = $state(0); // Epoch time
+	let lastDismissedAnnouncement = $state(Number.MAX_SAFE_INTEGER); // Epoch time
 	onMount(() => {
 		lastDismissedAnnouncement = parseInt(localStorage.getItem('lastDismissedAnnouncement') || '0');
 	});
