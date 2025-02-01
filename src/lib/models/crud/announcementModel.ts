@@ -5,7 +5,6 @@ import type { IAnnouncement } from "$lib/types/crud/announcement";
 export const announcementSchema = new mongoose.Schema<IAnnouncement>({
     text: {
         type: String,
-        required: true,
         maxLength: 512
     }
 });
