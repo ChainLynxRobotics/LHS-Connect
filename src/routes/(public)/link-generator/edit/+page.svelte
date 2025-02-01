@@ -2,7 +2,7 @@
 	import SectionHeader from '$components/SectionHeader.svelte';
 	import { slide } from 'svelte/transition';
 	import LinkLoginForm from './LinkLoginForm.svelte';
-	import { Alert, Button, Spinner } from 'flowbite-svelte';
+	import { A, Alert, Button, Spinner } from 'flowbite-svelte';
 	import { ArrowLeftOutline, InfoCircleSolid } from 'flowbite-svelte-icons';
 	import LinkEditForm from './LinkEditForm.svelte';
 	import type { IPublicShortLink, IShortLinkLogin } from '$lib/types/crud/shortLink';
@@ -31,9 +31,13 @@
 			>
 		</div>
 		<SectionHeader title="Short Link Editor" />
-		<p class="mb-12 mt-4 indent-8">
+		<p class="mt-4 indent-8">
 			If you already created a short link, you can edit it here. Just paste the short link in the
 			box below with its password and click "Verify" to proceed.
+		</p>
+		<p class="mb-12 mt-4 indent-8">
+			If you do not have a password, <A href="/about?type=other#contact" class="indent-0">contact us</A> and we can 
+			reset the password and/or edit it for you.
 		</p>
 
 		<LinkLoginForm onSubmit={handleLogin} onChange={() => (linkData = undefined)} />
