@@ -9,8 +9,11 @@ export const load = (async ({ params }) => {
         return error(404, 'Not Found');
     }
 
-    const link = await ShortLink.findOne({ suffix: params.link }).select('url').exec();
+    const link = await ShortLink.findOne({ suffix: params.link }).select('url uses').exec();
     if (!link) return error(404, 'Not Found');
+
+    link.uses += 1;
+    link.save();
 
     return redirect(301, link.url);
 

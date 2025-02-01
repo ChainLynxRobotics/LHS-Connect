@@ -19,7 +19,8 @@ export const GET: RequestHandler = async ({ locals, url }) => {
         const orderBy = await orderByValidator.validate(url.searchParams.get("orderBy"));
         const order = await orderValidator.validate(url.searchParams.get("order"));
         
-        const totalCount = await ShortLink.countDocuments().exec();
+        const totalCount = await ShortLink.countDocuments(search ? { $text: { $search: search } } : {}).exec();
+
         const linkQuery = ShortLink.find().sort({ [orderBy]: order }).select("+hash");
         if (search) linkQuery.find({ $text: { $search: search } });
         const links = await linkQuery.skip((page - 1) * pageSize).limit(pageSize).exec();

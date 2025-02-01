@@ -1,10 +1,11 @@
 <script lang="ts">
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import { A, Input, Label, Pagination, Select, Table, TableBody, TableHead, TableHeadCell } from 'flowbite-svelte';
+	import { A, Button, Input, Label, Pagination, PaginationItem, Select, Table, TableBody, TableHead, TableHeadCell } from 'flowbite-svelte';
 	import EditableLink from './EditableLink.svelte';
 	import adminApiClient from '$lib/util/adminApiClient';
 	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$lib/types/crud/shortLink';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
+	import { ArrowLeftOutline, ArrowRightOutline } from 'flowbite-svelte-icons';
 
 	const notificationContext = getNotificationContext();
 
@@ -79,7 +80,7 @@
 </script>
 
 <div class="flex flex-col items-center p-4">
-	<div class="w-full max-w-4xl">
+	<div class="w-full max-w-6xl">
 		<SectionHeader title="Short Links" />
 		<p class="mb-6">
 			User created shortened links. If you want to create your own, visit the <A
@@ -87,19 +88,49 @@
 			>.
 		</p>
 
-		<div class="w-full flex items-center justify-center gap-6 mb-6">
-			<div>
-				<Label for="search" class="mb-2">Search</Label>
-      			<Input bind:value={search} on:change={() => page = 1} type="text" id="search" placeholder="Suffix or link" />
+		<div class="w-full flex items-end justify-between gap-6 mb-4">
+			<PaginationItem large class="hidden md:flex items-center" on:click={prev}>
+				<ArrowLeftOutline class="me-2 w-5 h-5" />
+				Prev
+			</PaginationItem>
+			<div class="flex flex-wrap md:flex-nowrap items-end justify-center gap-6">
+				<div>
+					<Label for="search" class="mb-2">Search</Label>
+					<Input bind:value={search} on:change={() => page = 1} type="text" id="search" placeholder="Suffix or link" />
+				</div>
+				<div>
+					<Label for="search" class="mb-2">Order By</Label>
+					<Select bind:value={orderBy} on:change={() => page = 1} id="orderby" size="sm" items={sortByOptions} />
+				</div>
+				<div>
+					<Label for="desc" class="mb-2">Order</Label>
+					<Select bind:value={order} on:change={() => page = 1} id="order" size="sm" items={sortOptions} />
+				</div>
+				<div>
+					<Label for="pageSize" class="mb-2">Per page:</Label>
+					<Select 
+						bind:value={itemsPerPage} 
+						on:change={() => page = 1}
+						id="pageSize" 
+						size="sm"
+						items={pageSizes} 
+					/>
+				</div>
 			</div>
-			<div>
-				<Label for="search" class="mb-2">Order By</Label>
-				<Select bind:value={orderBy} on:change={() => page = 1} id="orderby" size="sm" items={sortByOptions} />
-			</div>
-			<div>
-				<Label for="desc" class="mb-2">Order</Label>
-				<Select bind:value={order} on:change={() => page = 1} id="order" size="sm" items={sortOptions} />
-			</div>
+			<PaginationItem large class="hidden md:flex items-center" on:click={next}>
+				Next
+				<ArrowRightOutline class="ms-2 w-5 h-5" />
+			</PaginationItem>
+		</div>
+
+		<div class="text-center text-sm text-gray-700 dark:text-gray-400">
+			Showing 
+			<span class="font-semibold text-gray-900 dark:text-white">{Math.min((page - 1) * itemsPerPage + 1, total)}</span>
+			to
+			<span class="font-semibold text-gray-900 dark:text-white">{Math.min((page - 1) * itemsPerPage + list.length, total)}</span>
+			of
+			<span class="font-semibold text-gray-900 dark:text-white">{total}</span>
+			results
 		</div>
 
 		<Table striped shadow class="w-full max-h-96">
@@ -117,32 +148,5 @@
 				{/each}
 			</TableBody>
 		</Table>
-		<div class="flex flex-col items-center justify-center gap-2 mt-4">
-			<div class="text-sm text-gray-700 dark:text-gray-400">
-				Showing 
-				<span class="font-semibold text-gray-900 dark:text-white">{Math.min((page - 1) * itemsPerPage + 1, total)}</span>
-				to
-				<span class="font-semibold text-gray-900 dark:text-white">{Math.min((page - 1) * itemsPerPage + list.length, total)}</span>
-				of
-				<span class="font-semibold text-gray-900 dark:text-white">{total}</span>
-				Entries
-			</div>
-
-			<Pagination table pages={[]} large on:next={next} on:previous={prev}>
-				<span slot="next">Next</span>
-			  	<span slot="prev">Prev</span>
-			</Pagination>
-			<div class="flex items-center gap-2 whitespace-nowrap">
-				<Label for="pageSize">Per page:</Label>
-				<Select 
-					bind:value={itemsPerPage} 
-					on:change={() => page = 1}
-					id="pageSize" 
-					size="sm" 
-					underline 
-					items={pageSizes} 
-					class="bg-white dark:bg-gray-900" />
-			</div>
-		</div>
 	</div>
 </div>
