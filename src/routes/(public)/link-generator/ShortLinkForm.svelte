@@ -156,7 +156,7 @@
 	</form>
 	{#if qrOpen}
 		<div transition:slide={{ axis: 'x' }}>
-			<QrCodeCard data={new URL(`/${suffix}`, PUBLIC_BASE_SHORT_URL).toString()} showLink />
+			<QrCodeCard data={new URL(`${suffix}`, PUBLIC_BASE_SHORT_URL).toString()} showLink />
 		</div>
 	{/if}
 </div>
