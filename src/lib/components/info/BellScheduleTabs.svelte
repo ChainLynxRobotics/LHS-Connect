@@ -5,7 +5,7 @@
 	import type { IPopulatedBellScheduleOverride } from '$lib/types/crud/bellScheduleOverride';
 	import type { BellScheduleData } from '$lib/types/HomePageData';
 	import dayjs, { TZ } from '$lib/util/dayjs';
-	import type { Dayjs } from 'dayjs';
+	import { type Dayjs } from 'dayjs';
 	import { Accordion, AccordionItem, TabItem, Tabs } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 
@@ -25,6 +25,7 @@
 	let now = $state(customTime || dayjs());
 	$effect(() => {
 		if (customTime) now = customTime; // Update the time if it's custom
+		else now = dayjs();
 	});
 	let dayOfWeek = $derived(now.tz(TZ).day());
 	let dateEpoch = $derived(dayjs(now.valueOf()).tz(TZ).startOf('day').valueOf());
@@ -89,7 +90,7 @@
 >
 	{#each tabs as schedule, i}
 		<TabItem open={i === selectedTab} title={schedule?.name || 'Unknown'}>
-			<BellScheduleTable {schedule} reactive={i === selectedTab} {customTime} />
+			<BellScheduleTable {schedule} reactive={i === selectedTab} customTime={now} />
 		</TabItem>
 	{/each}
 
