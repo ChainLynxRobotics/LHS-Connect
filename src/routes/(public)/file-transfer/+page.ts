@@ -1,11 +1,11 @@
 import { fileTransferCodeValidator } from '$lib/validation/fileTransferValidator';
-import { error, redirect } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 import { ValidationError } from 'yup';
 
-export const load = (async ({ params, fetch }) => {
+export const load = (async ({ url, fetch }) => {
     try {
-        const code = await fileTransferCodeValidator.validate(params.code);
+        const code = await fileTransferCodeValidator.validate(url.searchParams.get('code'));
 
         const fileData = await fetch(`/api/v1/fileTransfer/${code}/files`);
 
