@@ -13,12 +13,6 @@
 <SectionHeader title="Bulletin Board" updatedAt={data.notes} />
 <div class="my-4 flex flex-col gap-4">
 	{#each data.notes as note}
-		{#if note.link}
-			<a href={note.link} target="_blank" rel="noopener noreferrer">
-				<BoardNoteContent {note} />
-			</a>
-		{:else}
-			<BoardNoteContent {note} />
-		{/if}
+		<BoardNoteContent note={note} />
 	{/each}
 </div>

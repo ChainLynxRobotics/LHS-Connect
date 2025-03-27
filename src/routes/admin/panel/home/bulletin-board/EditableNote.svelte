@@ -26,13 +26,7 @@
 
 <div class="flex w-full items-start gap-2">
 	<div use:dragHandle class="w-full">
-		{#if note.link}
-			<a href={note.link} target="_blank" rel="noopener noreferrer">
-				<BoardNoteContent {note} />
-			</a>
-		{:else}
-			<BoardNoteContent {note} />
-		{/if}
+		<BoardNoteContent {note} />
 	</div>
 	<div class="flex flex-col">
 		<button title="Edit" onclick={() => (editModalOpen = true)} class="!p-2"

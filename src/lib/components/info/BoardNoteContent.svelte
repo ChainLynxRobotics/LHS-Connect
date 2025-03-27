@@ -11,8 +11,7 @@
 </script>
 
 <div
-	class="flex overflow-hidden rounded-xl border bg-gray-50 shadow-lg dark:border-gray-700 dark:bg-gray-800 {note.link &&
-		'transition hover:bg-gray-100 dark:hover:bg-gray-700'}"
+	class="flex overflow-hidden rounded-xl border bg-gray-50 shadow-lg dark:border-gray-700 dark:bg-gray-800"
 >
 	<div class="w-full p-4">
 		<h2 class="markdown text-lg font-semibold">
@@ -23,8 +22,8 @@
 		</div>
 	</div>
 	{#if note.link}
-		<div class="flex items-center p-2">
+		<a class="flex items-center p-2 bg-gray-50 dark:bg-gray-800 transition hover:bg-gray-100 dark:hover:bg-gray-700" target="_blank" rel="noopener noreferrer" href={note.link}>
 			<ChevronRightOutline size="xl" />
-		</div>
+		</a>
 	{/if}
 </div>
