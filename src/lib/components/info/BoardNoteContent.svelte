@@ -1,7 +1,9 @@
 <script lang="ts">
 	import type { IBulletinBoardNote } from '$lib/types/crud/bulletinBoard';
 	import { ChevronRightOutline } from 'flowbite-svelte-icons';
-	import SvelteMarkdown from 'svelte-markdown';
+	import Markdown from 'svelte-exmarkdown';
+	import { gfmPlugin } from 'svelte-exmarkdown/gfm';
+	const plugins = [gfmPlugin()];
 
 	interface Props {
 		note: IBulletinBoardNote;
@@ -15,10 +17,10 @@
 >
 	<div class="w-full p-4">
 		<h2 class="markdown text-lg font-semibold">
-			<SvelteMarkdown source={note.title} />
+			<Markdown md={note.title} plugins={plugins} />
 		</h2>
 		<div class="markdown leading-tight text-gray-700 dark:text-gray-400">
-			<SvelteMarkdown source={note.content} />
+			<Markdown md={note.content} plugins={plugins} />
 		</div>
 	</div>
 	{#if note.link}

@@ -21,7 +21,6 @@
 		"@sveltejs/enhanced-img": "^0.3.10",
 		"@sveltejs/kit": "^2.8.0",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
-		"@tailwindcss/typography": "^0.5.13",
 		"@types/bcryptjs": "^2.4.6",
 		"@types/luxon": "^3.4.2",
 		"@types/papaparse": "^5.3.14",
@@ -41,7 +40,6 @@
 		"svelte": "^5.1.15",
 		"svelte-check": "^4.0.7",
 		"svelte-dnd-action": "^0.9.50",
-		"svelte-markdown": "^0.4.1",
 		"tailwind-merge": "^2.4.0",
 		"tailwindcss": "^3.4.6",
 		"tslib": "^2.6.3",
@@ -55,6 +53,7 @@
 		"pnpm": ">=9"
 	},
 	"dependencies": {
-		"dayjs": "^1.11.13"
+		"dayjs": "^1.11.13",
+		"svelte-exmarkdown": "^5.0.0"
 	}
 }
