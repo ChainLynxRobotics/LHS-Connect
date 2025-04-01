@@ -12,24 +12,36 @@
 		 */
 		data: string;
 		/**
+		 * Write your own snippet for whats above the top of the QR code (and the link if enabled)
+		*/
+		headerSnippet?: Snippet<[string]>;
+		/**
 		 * Whether to show the original link above the QR code
 		 */
 		showLink?: boolean;
 		/**
-		 * The label for the link above the QR code, defaults to "Your Link:"
+		 * The label for the link above the QR code
+		 * 
+		 * Requires `showLink` to be true
+		 * 
+		 * @default "Your Link:"
 		 */
 		linkLabel?: string;
 		/**
 		 * Helper text below the link, defaults to nothing and will not render
+		 * 
+		 * Requires `showLink` to be true
 		 */
 		linkHelper?: string;
 		/**
-		 * Whether to show options for saving the QR code, defaults to true
+		 * Whether to show options for saving the QR code
+		 * 
+		 * @default true
 		 */
 		showSaveOptions?: boolean;
 	}
 
-	let { data, showLink, linkLabel = "Your Link:", linkHelper, showSaveOptions = true }: Props = $props();
+	let { data, headerSnippet, showLink, linkLabel = "Your Link:", linkHelper, showSaveOptions = true }: Props = $props();
 
 	let debouncedData = $state(data);
 
@@ -112,6 +124,9 @@
 </script>
 
 <Card size="xs">
+	{#if headerSnippet}
+		{@render headerSnippet(data)}
+	{/if}
 	{#if showLink}
 		<Label class="mb-2" for="generated-link">
 			{linkLabel}
@@ -136,7 +151,7 @@
 		{#if linkHelper}
 			<Helper class="mt-2">{linkHelper}</Helper>
 		{/if}
-		<Hr />
+		<div class="my-4"></div>
 	{/if}
 	<img use:qr={qrConfig} width="512" height="512" alt="QR Code" />
 	{#if showSaveOptions}

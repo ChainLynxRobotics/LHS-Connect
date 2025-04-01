@@ -1,14 +1,15 @@
 <script lang="ts">
-	import { invalidate } from "$app/navigation";
+	import { goto, invalidate } from "$app/navigation";
 	import FileDropzone from "$components/form/FileDropzone.svelte";
 	import { getNotificationContext } from "$components/NotificationProvider.svelte";
     import QrCodeCard from "$components/QrCodeCard.svelte";
 	import type { CloudFile, LocalFile } from "$lib/types/FileTransferData";
 	import { BASE_API_URL } from "$lib/util/apiClient";
 	import formatFileSize from "$lib/util/formatFileSize";
-	import { Button, Progressbar, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from "flowbite-svelte";
+	import { Button, ButtonGroup, Helper, Hr, Input, InputAddon, Label, P, Progressbar, Span, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from "flowbite-svelte";
 	import type { ChangeEventHandler } from "svelte/elements";
     import { PUBLIC_BASE_SHORT_URL } from "$env/static/public";
+	import { ArrowRightOutline } from "flowbite-svelte-icons";
 
     interface Props {
         code: string;
@@ -18,6 +19,38 @@
     const { code, cloudFiles: uploadedFiles }: Props = $props();
 
     const notificationContext = getNotificationContext();
+
+    let roomCodeInput = $state<string>("");
+    let roomCodeInputError = $state<string>("");
+
+    
+    const handleRoomCodeCheck = () => {
+        let input = roomCodeInput+"";
+        input = input.trim().replace(/[^0-9]/g, "");
+        if (input.length !== 8) {
+            roomCodeInputError = "Room code must be 8 digits";
+            return;
+        }
+        input = input.substring(0, 4) + "-" + input.substring(4, 8);
+        if (input === code) {
+            roomCodeInputError = "You are already in this room!";
+            return;
+        }
+        roomCodeInputError = "";
+        return input;
+    };
+
+
+    const handleRoomCodeSubmit = (event: Event) => {
+        event.preventDefault();
+        let input = handleRoomCodeCheck();
+        if (!input) return;
+        goto(`?code=${input}`);
+        roomCodeInput = "";
+        roomCodeInputError = "";
+        notificationContext.show("Room changed to "+input, "success");
+    };
+
 
     const sortedFiles = $derived(uploadedFiles.sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime()));
     let localFileQueue: LocalFile[] = $state([]);
@@ -93,16 +126,42 @@
     }
 
     $effect(() => {
-        const interval = setInterval(updateFiles, 10000); // Update every 10 seconds
+        const interval = setInterval(updateFiles, 5000); // Update every 5 seconds
         return () => clearInterval(interval);
     });
 </script>
 
 <div class="flex w-full flex-col items-center lg:items-start justify-center gap-8 lg:flex-row">
+    {#snippet headerSnippet()}
+        <Label>This room's code: </Label>
+        <div class="text-2xl font-bold tracking-wider ps-2">{code}</div>
+        
+        <form onsubmit={handleRoomCodeSubmit}>
+            <ButtonGroup class="w-full mt-4">
+                <Input 
+                    bind:value={roomCodeInput} 
+                    oninput={() => roomCodeInputError = ""} 
+                    color={roomCodeInputError ? "red" : "base"}
+                    id="room-code" 
+                    type="text" 
+                    placeholder="Other room code" />
+                <Button type="submit" color="primary" class="p-2!">
+                    <ArrowRightOutline class="w-5 h-5" />
+                </Button>
+            </ButtonGroup>
+            {#if roomCodeInputError}
+                <Helper class="mt-2" color="red">
+                    {roomCodeInputError}
+                </Helper>
+            {/if}
+        </form>
+
+        <Hr classHr="my-8 w-full" textSpanClass="bg-white dark:bg-gray-800">OR</Hr>
+    {/snippet}
     <QrCodeCard data={new URL(`/files?code=${code}`, PUBLIC_BASE_SHORT_URL).toString()} 
+        {headerSnippet}
         showLink 
         linkLabel="Share Link:" 
-        linkHelper="Share this room link with other devices to transfer both ways"
         showSaveOptions={false}
     />
     <div class="w-full">
