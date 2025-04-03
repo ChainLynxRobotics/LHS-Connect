@@ -8,7 +8,9 @@
 	import type { LayoutData } from './$types';
 	import { Alert } from 'flowbite-svelte';
 	import { InfoCircleSolid } from 'flowbite-svelte-icons';
-	import SvelteMarkdown from 'svelte-markdown';
+	import Markdown from 'svelte-exmarkdown';
+	import { gfmPlugin } from 'svelte-exmarkdown/gfm';
+	const plugins = [gfmPlugin()];
 
 	interface Props {
 		data: LayoutData;
@@ -44,7 +46,7 @@
 		<div transition:slide class="flex w-full flex-col items-center pt-2 px-4">
 			<Alert color="yellow" dismissable on:click={dismissAnnouncement} class="container">
 				<InfoCircleSolid slot="icon" class="w-5 h-5" />
-				<span class="markdown"><SvelteMarkdown isInline source={data.announcement.text} /></span>
+				<span class="markdown"><Markdown md={data.announcement.text} {plugins} /></span>
 			</Alert>
 		</div>
 	{/if}
