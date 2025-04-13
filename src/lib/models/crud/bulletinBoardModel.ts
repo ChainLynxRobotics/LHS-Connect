@@ -4,8 +4,8 @@ import mongoose, { Model } from "mongoose";
 import { crudOrderableSchema } from "../globalCrudModel";
 
 export const bulletinBoardNoteSchema = new mongoose.Schema<IBulletinBoardNote>({
-	title: { type: String, required: true, minlength: 1, maxlength: 64 },
-	content: { type: String, required: true, minlength: 1, maxlength: 512 },
+	title: { type: String, required: true, minlength: 1, maxlength: 256 },
+	content: { type: String, required: true, minlength: 1, maxlength: 2048 },
 	link: { type: String, match: urlRegex, maxlength: 1024 }
 }).add(crudOrderableSchema); // Extends the crudOrderableSchema
 
