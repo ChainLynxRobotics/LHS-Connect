@@ -16,7 +16,7 @@
 <div class="flex flex-col items-center p-4">
 	<div class="w-full max-w-lg">
 		<SectionHeader title="Bulletin Board" updatedAt={data.results} />
-		<p class="mb-8">The title and content support markdown, and you can drag the notes around. To learn more about mardown syntax <a href="https://www.markdownguide.org/basic-syntax/">Click Here</a>.</p>
+		<p class="mb-8">The title and content support markdown, and you can drag the notes around. To learn more about mardown syntax <a href="https://www.markdownguide.org/basic-syntax/">click here</a>.</p>
 		<CrudList
 			serviceId="bulletinBoardNotes"
 			items={data.results}
