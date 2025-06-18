@@ -7,7 +7,7 @@
 	import bulletinBoardNoteValidator from '$lib/validation/crud/bulletinBoardNoteValidator';
 
 	interface Props {
-		note: IBulletinBoardNote;
+		note: WithoutID<IBulletinBoardNote>;
 		onSubmit: (note: WithoutID<IBulletinBoardNote>) => void;
 		onCancel: () => void;
 	}

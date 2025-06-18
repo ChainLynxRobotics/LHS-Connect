@@ -1,10 +1,12 @@
 <script lang="ts">
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import CrudList from '$components/admin/CRUDList.svelte';
-	import { Button } from 'flowbite-svelte';
-	import DraggableList from '$components/admin/DraggableList.svelte';
-	import EditableNote from './EditableNote.svelte';
+	import { Button, Modal } from 'flowbite-svelte';
 	import type { PageData } from './$types';
+	import EditableItemList from '$components/admin/EditableItemList.svelte';
+	import { dragHandle } from 'svelte-dnd-action';
+	import BoardNoteContent from '$components/info/BoardNoteContent.svelte';
+	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
+	import EditableNoteForm from './EditableNoteForm.svelte';
 
 	interface Props {
 		data: PageData;
@@ -17,29 +19,45 @@
 	<div class="w-full max-w-lg">
 		<SectionHeader title="Bulletin Board" updatedAt={data.results} />
 		<p class="mb-8">The title and content support markdown, and you can drag the notes around. To learn more about mardown syntax <a href="https://www.markdownguide.org/basic-syntax/">click here</a>.</p>
-		<CrudList
+		<EditableItemList
 			serviceId="bulletinBoardNotes"
 			items={data.results}
 			generateNewItem={() => ({ title: 'New Note', content: 'content' })}
-			canReorder
-			initialOrder={data.results.map((note) => note.id)}
+			order={{ canReorder: true }}
 		>
-			{#snippet renderItems({ items, create, reorder })}
+			{#snippet renderListContainer({ children, openCreateForm, dndListContainer })}
 				<div class="mb-8 flex justify-center">
-					<Button color="alternative" on:click={create}>Add Note</Button>
+					<Button color="alternative" on:click={openCreateForm}>Add Note</Button>
 				</div>
-				<DraggableList
-					dragZoneType="notes"
-					{items}
-					updateOrder={reorder}
-					sectionClass="flex max-w-lg flex-col gap-4 py-4 mx-auto"
-					dragWrapperClass="w-full"
-				>
-					{#snippet item({ item, update, duplicate, remove })}
-						<EditableNote note={item} onUpdate={update} onDuplicate={duplicate} onRemove={remove} />
-					{/snippet}
-				</DraggableList>
+				<div class="flex max-w-lg flex-col gap-4 py-4 mx-auto" use:dndListContainer>
+					{@render children()}
+				</div>
 			{/snippet}
-		</CrudList>
+
+			{#snippet renderItem({ item, openEditFrom, duplicate, remove, index })}
+				<div class="flex w-full items-start gap-2">
+					<div use:dragHandle class="w-full">
+						<BoardNoteContent note={item} />
+					</div>
+					<div class="flex flex-col">
+						<button title="Edit" onclick={openEditFrom} class="!p-2">
+							<EditOutline class="h-6 w-6" />
+						</button>
+						<button title="Duplicate" onclick={duplicate} class="!p-2">
+							<FileCopyOutline class="h-6 w-6" />
+						</button>
+						<button title="Delete" onclick={remove} class="!p-2">
+							<TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" />
+						</button>
+					</div>
+				</div>
+			{/snippet}
+
+			{#snippet editForm({ item, onSubmit, onCancel })}
+				<Modal open size="md" autoclose={false} onclose={onCancel}>
+					<EditableNoteForm note={item} {onSubmit} {onCancel} />
+				</Modal>
+			{/snippet}
+		</EditableItemList>
 	</div>
 </div>

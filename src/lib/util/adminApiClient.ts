@@ -5,15 +5,15 @@ export const BASE_API_URL = '/api/v1';
 
 export const baseApiRequest = apiRequest;
 
-interface GetAllResults<T extends {id: any}> extends GetOrder<T> {
+export interface GetAllResults<T extends {id: any}> extends GetOrder<T> {
     results: T[];
 }
 
-interface GetResult<T> {
+export interface GetResult<T> {
     result: T;
 }
 
-interface GetOrder<T extends {id: any}> {
+export interface GetOrder<T extends {id: any}> {
     order: T['id'][];
 }
 
