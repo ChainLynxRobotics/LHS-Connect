@@ -90,8 +90,10 @@
 
 <Modal bind:open={modalOpen} size="lg" autoclose={false} title="Auto Import From CSV">
 	<p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-		Instructions: Visit the ASB club excel sheet, click on file, export as CSV (without formatting),
-		then open the CSV and paste the content here.
+		Instructions: Visit the ASB club excel sheet, click on file, export as CSV (without formatting, utf8 format),
+		then open the CSV in a program such as notepad and copy+paste the content here. Usually you don't need to input
+		the start and end row, but if you are having issues, you can specify the start and end row of the data you want to
+		import.
 	</p>
 	<form {onsubmit} class="flex flex-col items-center gap-4">
 		<div class="flex flex-col gap-4 sm:flex-row">
@@ -140,8 +142,6 @@
 			/>
 		</div>
 		<GradientButton type="submit" color="purpleToPink">Import</GradientButton>
-		<Helper
-			>Note: This will not publish the data but it will overwrite everything already in the table</Helper
-		>
+		<Helper>Note: This will overwrite everything already in the table</Helper>
 	</form>
 </Modal>

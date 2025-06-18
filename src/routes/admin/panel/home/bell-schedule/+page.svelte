@@ -8,6 +8,7 @@
 	import type { BellScheduleData } from '$lib/types/HomePageData';
 	import dayjs, { TZ } from '$lib/util/dayjs';
 	import EditableItemList from '$components/admin/EditableItemList.svelte';
+	import ExternalLink from '$components/ExternalLink.svelte';
 
 	interface Props {
 		data: PageData;
@@ -40,7 +41,7 @@
 		<div class="h-24"></div>
 
 		<SectionHeader title="Schedule Overrides" updatedAt={overrides} />
-		<p class="mb-8">Special schedules that override the default schedules on specific dates.</p>
+		<p class="mb-8">Special schedules that override the default schedules on specific dates. To add a new schedule, go to the <ExternalLink href="/admin/panel/home/saved-schedules" text="Saved Schedules Page" />.</p>
 		<EditableItemList
 			serviceId="bellScheduleOverrides"
 			bind:items={overrides}

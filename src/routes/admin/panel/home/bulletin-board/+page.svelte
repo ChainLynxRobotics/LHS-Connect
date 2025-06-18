@@ -7,8 +7,8 @@
 	import BoardNoteContent from '$components/info/BoardNoteContent.svelte';
 	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import EditableNoteForm from './EditableNoteForm.svelte';
-	import { flip } from 'svelte/animate';
 	import DraggableList from '$components/admin/DraggableList.svelte';
+	import ExternalLink from '$components/ExternalLink.svelte';
 
 	interface Props {
 		data: PageData;
@@ -20,7 +20,7 @@
 <div class="flex flex-col items-center p-4">
 	<div class="w-full max-w-lg">
 		<SectionHeader title="Bulletin Board" updatedAt={data.results} />
-		<p class="mb-8">The title and content support markdown, and you can drag the notes around. To learn more about mardown syntax <a href="https://www.markdownguide.org/basic-syntax/">click here</a>.</p>
+		<p class="mb-8">The title and content support markdown, and you can drag the notes around. To learn more about markdown syntax <ExternalLink href="https://www.markdownguide.org/basic-syntax/" text="click here" />.</p>
 		<EditableItemList
 			serviceId="bulletinBoardNotes"
 			items={data.results}
