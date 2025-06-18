@@ -1,37 +1,31 @@
 <script lang="ts" generics="Item extends { id: any }">
-	import { flip } from 'svelte/animate';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { dragHandleZone, type Options } from 'svelte-dnd-action';
 	import type { Snippet } from 'svelte';
+	import { flip } from 'svelte/animate';
 
-	interface Props {
+	type Props = {
 		items?: Item[];
-		updateOrder?: (order: number[]) => void;
+		reorder?: (order: Item['id'][]) => void;
 		flipDurationMs?: number;
 		dragZoneType?: string;
 		dragZoneOptions?: Partial<Options<Item>>;
-		sectionElement?: string;
-		sectionClass?: string;
-		sectionProps?: HTMLAttributes<HTMLElement>;
-		dragWrapperElement?: string;
-		dragWrapperClass?: string;
-		dragWrapperProps?: HTMLAttributes<HTMLElement>;
-		item?: Snippet<[Item, number]>;
-	}
+		renderItem?: Snippet<[Item, number]>;
+
+		wrapperElement?: keyof HTMLElementTagNameMap | keyof SVGElementTagNameMap;
+		wrapperProps?: HTMLAttributes<HTMLElement>;
+	} & HTMLAttributes<HTMLElement>;
 
 	let {
 		items = [],
-		updateOrder,
+		reorder,
 		flipDurationMs = 300,
 		dragZoneType = '',
 		dragZoneOptions = {},
-		sectionElement = 'section',
-		sectionClass = '',
-		sectionProps = {},
-		dragWrapperElement = 'div',
-		dragWrapperClass = '',
-		dragWrapperProps = {},
-		item
+		renderItem,
+		wrapperElement = 'div',
+		wrapperProps = {},
+		...elementProps
 	}: Props = $props();
 
 	let visualItems = $state([...items]);
@@ -44,12 +38,12 @@
 	}
 	function handleDndFinalize(e: CustomEvent<{ items: Item[] }>) {
 		visualItems = e.detail.items;
-		updateOrder?.(e.detail.items.map((item) => item.id));
+		reorder?.(e.detail.items.map((item) => item.id));
 	}
 </script>
 
-<svelte:element
-	this={sectionElement}
+<div
+	{...elementProps}
 	use:dragHandleZone={{
 		items: visualItems,
 		flipDurationMs,
@@ -59,17 +53,14 @@
 	}}
 	onconsider={handleDndConsider}
 	onfinalize={handleDndFinalize}
-	class={sectionClass}
-	{...sectionProps}
 >
-	{#each visualItems as _item, index (_item.id)}
-		<svelte:element
-			this={dragWrapperElement}
+	{#each visualItems as item, index (item.id)}
+		<svelte:element 
+			this={wrapperElement} 
+			{...wrapperProps} 
 			animate:flip={{ duration: flipDurationMs }}
-			class={dragWrapperClass}
-			{...dragWrapperProps}
 		>
-			{@render item?.(_item, index)}
+			{@render renderItem?.(item, index)}
 		</svelte:element>
 	{/each}
-</svelte:element>
+</div>

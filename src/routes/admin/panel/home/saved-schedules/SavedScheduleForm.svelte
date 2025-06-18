@@ -20,7 +20,7 @@
 	const flipDurationMs = 300;
 
 	interface Props {
-		schedule: IBellSchedule;
+		schedule: WithoutID<IBellSchedule>;
 		onSubmit: (schedule: WithoutID<IBellSchedule>) => void;
 		onCancel: () => void;
 	}

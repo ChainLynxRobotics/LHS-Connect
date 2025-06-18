@@ -36,7 +36,7 @@ export const POST: RequestHandler = async ({ locals, params, request }) => {
         const doc = new model(validatedReq);
         if (canReorder) {
             // Find the highest order value and set the new doc's order to one higher
-            const highestOrderDoc = await model.find().sort({ order: "desc" }).limit(1).exec();
+            const highestOrderDoc = await model.find().sort({ order: "desc" }).select('order').limit(1).exec();
             doc.set('order', highestOrderDoc.length > 0 ? highestOrderDoc[0].get('order')||0 + 1 : 0);
         }
         const res = await doc.save();

@@ -7,6 +7,8 @@
 	import BoardNoteContent from '$components/info/BoardNoteContent.svelte';
 	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import EditableNoteForm from './EditableNoteForm.svelte';
+	import { flip } from 'svelte/animate';
+	import DraggableList from '$components/admin/DraggableList.svelte';
 
 	interface Props {
 		data: PageData;
@@ -23,38 +25,43 @@
 			serviceId="bulletinBoardNotes"
 			items={data.results}
 			generateNewItem={() => ({ title: 'New Note', content: 'content' })}
-			order={{ canReorder: true }}
+			order={{ 
+				canReorder: true,
+			}}
 		>
-			{#snippet renderListContainer({ children, openCreateForm, dndListContainer })}
+			{#snippet renderItems({ items, openCreateForm, reorder })}
 				<div class="mb-8 flex justify-center">
 					<Button color="alternative" on:click={openCreateForm}>Add Note</Button>
 				</div>
-				<div class="flex max-w-lg flex-col gap-4 py-4 mx-auto" use:dndListContainer>
-					{@render children()}
-				</div>
-			{/snippet}
-
-			{#snippet renderItem({ item, openEditFrom, duplicate, remove, index })}
-				<div class="flex w-full items-start gap-2">
-					<div use:dragHandle class="w-full">
-						<BoardNoteContent note={item} />
-					</div>
-					<div class="flex flex-col">
-						<button title="Edit" onclick={openEditFrom} class="!p-2">
-							<EditOutline class="h-6 w-6" />
-						</button>
-						<button title="Duplicate" onclick={duplicate} class="!p-2">
-							<FileCopyOutline class="h-6 w-6" />
-						</button>
-						<button title="Delete" onclick={remove} class="!p-2">
-							<TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" />
-						</button>
-					</div>
-				</div>
+				<DraggableList
+					dragZoneType="bulletinBoardNotes"
+					{items}
+					{reorder}
+					class="flex max-w-lg flex-col gap-4 py-4 mx-auto"
+					wrapperElement="div"
+					wrapperProps={{ class: 'flex w-full items-start gap-2' }}
+				>
+					{#snippet renderItem({ item, openEditFrom, duplicate, remove })}
+						<div use:dragHandle class="w-full">
+							<BoardNoteContent note={item} />
+						</div>
+						<div class="flex flex-col">
+							<button title="Edit" onclick={openEditFrom} class="!p-2">
+								<EditOutline class="h-6 w-6" />
+							</button>
+							<button title="Duplicate" onclick={duplicate} class="!p-2">
+								<FileCopyOutline class="h-6 w-6" />
+							</button>
+							<button title="Delete" onclick={remove} class="!p-2">
+								<TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" />
+							</button>
+						</div>
+					{/snippet}
+				</DraggableList>
 			{/snippet}
 
 			{#snippet editForm({ item, onSubmit, onCancel })}
-				<Modal open size="md" autoclose={false} onclose={onCancel}>
+				<Modal open size="md" autoclose={false} on:close={onCancel}>
 					<EditableNoteForm note={item} {onSubmit} {onCancel} />
 				</Modal>
 			{/snippet}

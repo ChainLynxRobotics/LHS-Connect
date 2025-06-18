@@ -4,47 +4,30 @@
     import type { GetAllResults } from '$lib/util/adminApiClient';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 	import type { WithoutID } from '$lib/types/crud/globalCrud';
-	import type { ActionReturn } from 'svelte/action';
-	import { dragHandleZone, type Options } from 'svelte-dnd-action';
-	import { flip } from 'svelte/animate';
-
+	
 	type ItemWithoutID = WithoutID<Item>;
 
     // Props
 
-    type DndListContainerActionOptions = Omit<Options<Item>, 'items'>
-
-	interface ListContainerRenderProps {
-		children: Snippet;
-		openCreateForm: () => void;
-		reorder: (order: number[]) => void;
+	interface ItemListRenderProps {
+		items: ItemRenderProps[];
+		create: () => void; // Creates a new item and uploads it immediately
+		openCreateForm: () => void; // Opens the create form, does not upload unless its submitted
+		reorder: (order: Item['id'][]) => void;
 		updateAll: (items: ItemWithoutID[]) => void;
-        /**
-         * Use as a svelte action to make a container's items draggable to reorder them. Example usage:
-         * ```svelte
-         * <div use:draggableContainer>
-         *   {#each items as item (item.id)}
-         *     <div class="draggable-item" use:dragHandle> <!-- Use dragHandle as the handle for the draggable item -->
-         *        <!-- Render item here -->
-         *     </div>
-         *  {/each}
-         * </div>
-         * ```
-         * @param node
-         */
-        dndListContainer: (node: HTMLElement, options?: DndListContainerActionOptions) => ActionReturn<DndListContainerActionOptions, any>;
 	}
 
 	interface ItemRenderProps {
 		id: Item['id']; // Unique identifier, copied from the item's id
 		item: Item;
 		index: number;
-        openEditFrom: () => void;
+        openEditFrom: () => void; // Opens the edit form for this item, does not upload unless its submitted
+		update: (item: ItemWithoutID) => void; // Updates the item immediately, does not open the form
 		duplicate: () => void;
 		remove: () => void;
 	}
 
-    interface EditModalRenderProps {
+    interface EditFormRenderProps {
         item: ItemWithoutID;
         onSubmit: (item: ItemWithoutID) => void;
         onCancel: () => void;
@@ -68,15 +51,11 @@
         /**
          * Function to render the container with a `children` prop that contains the list of items. If not provided, it will just render the items as a list.
          */
-		renderListContainer?: Snippet<[ListContainerRenderProps]>;
-        /**
-         * Function to render each item in the list.
-        */
-       renderItem: Snippet<[ItemRenderProps]>;
+		renderItems: Snippet<[ItemListRenderProps]>;
         /**
          * The form thats used to create or edit an item.
          */
-        editForm?: Snippet<[EditModalRenderProps]>;
+        editForm?: Snippet<[EditFormRenderProps]>;
 
 		canCreate?: boolean;
 		canDuplicate?: boolean;
@@ -107,8 +86,7 @@
 		items = $bindable(),
 		generateNewItem,
 
-        renderListContainer,
-        renderItem,
+        renderItems,
         editForm,
 
 		canCreate = true,
@@ -124,14 +102,6 @@
 	let order: Item['id'][] | undefined = $state(
 		orderSettings.canReorder ? sanitizeOrder(orderSettings.initialOrder || items.map((item) => item.id)) : undefined
 	);
-
-    let visualItems: Item[] = $state(sort(items));
-    $effect.pre(() => {
-        visualItems = sort(items); // Reset visualItems when items change
-    });
-
-    $inspect("items", items)
-    $inspect("visualItems", visualItems)
 
     let createModalOpen = $state(false); // Used to open the create modal for an item
     let editModalId: Item['id'] | undefined = $state(undefined); // Used to open the edit modal for an item
@@ -212,8 +182,9 @@
 
 		// Make sure the new order is valid
 		newOrder = sanitizeOrder(newOrder);
-
 		order = newOrder;
+
+        items = sort(items); // Sort the items based on the new order
 
 		adminApiClient.reorder<Item>(serviceId, newOrder).then((res) => {
 			order = res.order;
@@ -236,8 +207,8 @@
      * @param res - The response from the server containing the items and possibly order.
      */
     function updateItemsFromServerRes(res: GetAllResults<Item>) {
-        items = res.results;
         if (orderSettings.canReorder && res.order) order = res.order;
+        items = sort(res.results);
     }
 
     function onHttpError(err: Error) {
@@ -245,9 +216,9 @@
 	}
 
 	function sort(_items: Item[]) {
-		if (orderSettings.canReorder) return [..._items].sort((a, b)=>order!.indexOf(a.id) - order!.indexOf(b.id));
-		else if (orderSettings.sortFn) return [..._items].sort(orderSettings.sortFn);
-		else return _items;
+		if (orderSettings.canReorder) return _items.sort((a, b)=>order!.indexOf(a.id) - order!.indexOf(b.id));
+		else if (orderSettings.sortFn) return _items.sort(orderSettings.sortFn);
+        else return _items;
 	}
 
 	function sanitizeOrder(newOrder: Item['id'][]) {
@@ -258,87 +229,28 @@
 			throw new Error('Invalid CRUD order of items'); // Ensure all items have an id in "newOrder"
 		return newOrder;
 	}
-
-    // Dnd List Container Action
-    // Proxies the dragHandleZone action from svelte-dnd-action library to include the items array for you
-
-    function dndListContainer(node: HTMLElement, options: DndListContainerActionOptions = {}): ActionReturn<DndListContainerActionOptions, any> {
-        function onConsider(e: CustomEvent<{ items: Item[] }>) {
-            // Update the items in the action
-            visualItems = e.detail.items;
-            console.log("Considered items:", visualItems);
-        }
-        function onFinalize(e: CustomEvent<{ items: Item[] }>) {
-            // Update the items in the action
-            visualItems = e.detail.items;
-
-            // Call the reorder function with the new order
-            reorder(e.detail.items.map((item) => item.id));
-        }
-        node.addEventListener('consider', onConsider as EventListener);
-        node.addEventListener('finalize', onFinalize as EventListener);
-
-        const addedOptions = {
-            items: visualItems,
-            flipDurationMs: 300,
-            type: 'items',
-            dropTargetStyle: {},
-        };
-        
-        const { update, destroy } = dragHandleZone(node, {
-            ...addedOptions,
-            ...options
-        });
-
-        return {
-            update: (newOptions: DndListContainerActionOptions) => {
-                // Update the action with new options
-                update?.({
-                    ...addedOptions,
-                    ...newOptions
-                });
-            },
-            destroy: () => {
-                node.removeEventListener('consider', onConsider as EventListener);
-                node.removeEventListener('finalize', onFinalize as EventListener);
-                destroy?.();
-            }
-        };
-    }
 </script>
 
-{#snippet itemList()}
-    {#each visualItems as item, index (item.id)}
-        <div animate:flip={{ duration: 300 }}>
-            {@render renderItem?.({
-                id: item.id,
-                item,
-                index: index,
-                openEditFrom: () => editModalId = item.id, // Open the edit modal for this item
-                duplicate: () => canDuplicate ? duplicate(item.id) : () => {}, // Duplicate the item
-                remove: () => canRemove ? remove(item.id) : () => {} // Remove the item
-            })}
-        </div>
-    {/each}
-{/snippet}
 
-
-
-{#if renderListContainer}
-    {@render renderListContainer?.({
-        children: itemList,
-        openCreateForm: canCreate ? () => createModalOpen = true : () => {}, // Open the create modal
-        reorder,
-        updateAll,
-        dndListContainer
-    })}
-{:else}
-    {@render itemList()}
-{/if}
+{@render renderItems({
+    items: items.map((item, index) => ({
+        id: item.id,
+        item,
+        index: index,
+        openEditFrom: () => editModalId = item.id, // Open the edit modal for this item
+		update: (_item: ItemWithoutID) => update(item.id, _item), // Update the item immediately
+        duplicate: () => canDuplicate ? duplicate(item.id) : () => {}, // Duplicate the item
+        remove: () => canRemove ? remove(item.id) : () => {} // Remove the item
+    }) as ItemRenderProps),
+	create: () => create(generateNewItem!()),
+    openCreateForm: canCreate ? () => createModalOpen = true : () => {}, // Open the create modal
+    reorder,
+    updateAll,
+})}
 
 {#if editModalId !== undefined}
     {@render editForm?.({
-        item: JSON.parse(JSON.stringify(items.find((item) => item.id === editModalId))), // Deep clone the item to avoid mutating the original item
+        item: items.find((item) => item.id === editModalId) as ItemWithoutID,
         onSubmit: (item: ItemWithoutID) => {
             update(editModalId, item);
             editModalId = undefined; // Close the modal

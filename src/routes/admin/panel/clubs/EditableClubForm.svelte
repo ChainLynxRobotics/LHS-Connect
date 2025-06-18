@@ -7,7 +7,7 @@
 	import { Button } from 'flowbite-svelte';
 
 	interface Props {
-		club: IClub;
+		club: WithoutID<IClub>;
 		onSubmit: (club: WithoutID<IClub>) => void;
 		onCancel: () => void;
 	}

@@ -13,7 +13,7 @@
 	const flipDurationMs = 300;
 
 	interface Props {
-		card: ILinkCard;
+		card: WithoutID<ILinkCard>;
 		onSubmit: (card: WithoutID<ILinkCard>) => void;
 		onCancel: () => void;
 	}

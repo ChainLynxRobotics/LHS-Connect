@@ -1,10 +1,13 @@
 <script lang="ts">
-	import CrudList from '$components/admin/CRUDList.svelte';
 	import DraggableList from '$components/admin/DraggableList.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import { Button } from 'flowbite-svelte';
-	import EditableLinkCard from '../useful-links/EditableLinkCard.svelte';
+	import { Button, Modal } from 'flowbite-svelte';
 	import type { PageData } from './$types';
+	import EditableItemList from '$components/admin/EditableItemList.svelte';
+	import { dragHandle } from 'svelte-dnd-action';
+	import LinkCardContent from '$components/info/LinkCardContent.svelte';
+	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
+	import EditableLinkCardForm from '../useful-links/EditableLinkCardForm.svelte';
 
 	interface Props {
 		data: PageData;
@@ -17,36 +20,57 @@
 	<div class="w-full max-w-4xl">
 		<SectionHeader title="Contact Info" updatedAt={data.results} />
 		<p class="mb-8"></p>
-		<CrudList
+		<EditableItemList
 			serviceId="contactInfo"
 			items={data.results}
 			generateNewItem={() => ({
 				title: 'New Card',
 				links: []
 			})}
-			canReorder={true}
-			initialOrder={data.order}
+			order={{ 
+				canReorder: true,
+			}}
 		>
-			{#snippet renderItems({ items, create, reorder })}
+			{#snippet renderItems({ items, openCreateForm, reorder })}
 				<div class="mb-8 flex justify-center">
-					<Button color="alternative" on:click={create}>New Card</Button>
+					<Button color="alternative" on:click={openCreateForm}>New Card</Button>
 				</div>
 				<DraggableList
 					dragZoneType="cards"
 					{items}
-					updateOrder={reorder}
-					sectionClass="flex flex-col gap-4 py-4 items-center"
+					{reorder}
+					class="flex flex-col gap-4 py-4 items-center"
+					wrapperElement="div"
+					wrapperProps={{ class: 'flex items-start gap-2' }}
 				>
-					{#snippet item({ item, update, duplicate, remove })}
-						<EditableLinkCard
-							card={item}
-							onUpdate={update}
-							onDuplicate={duplicate}
-							onRemove={remove}
-						/>
+					{#snippet renderItem({ item, openEditFrom, duplicate, remove })}
+						<div use:dragHandle>
+							<LinkCardContent card={item} />
+						</div>
+						<div class="flex flex-col">
+							<button title="Edit" onclick={openEditFrom} class="!p-2">
+								<EditOutline class="h-6 w-6" />
+							</button>
+							<button title="Duplicate" onclick={duplicate} class="!p-2">
+								<FileCopyOutline class="h-6 w-6" />
+							</button>
+							<button title="Delete" onclick={remove} class="!p-2">
+								<TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" />
+							</button>
+						</div>
 					{/snippet}
 				</DraggableList>
 			{/snippet}
-		</CrudList>
+
+			{#snippet editForm({ item, onSubmit, onCancel })}
+				<Modal open size="md" autoclose={false} on:close={onCancel}>
+					<EditableLinkCardForm
+						card={item}
+						onSubmit={onSubmit}
+						onCancel={onCancel}
+					/>
+				</Modal>
+			{/snippet}
+		</EditableItemList>
 	</div>
 </div>

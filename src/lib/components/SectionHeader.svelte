@@ -14,7 +14,7 @@
 		dayjs(updatedAt) // If it's a string, convert it to a date
 		: 
 		updatedAt // If it's an array, convert it to a date and get the most recent one
-			?.filter((x) => x.updatedAt)
+			?.filter((x) => x?.updatedAt)
 			.map((x) => dayjs(x.updatedAt))
 			.sort((a, b) => b.valueOf() - a.valueOf())[0]
 	);

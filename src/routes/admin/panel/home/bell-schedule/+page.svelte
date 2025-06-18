@@ -1,5 +1,4 @@
 <script lang="ts">
-	import CrudList from '$components/admin/CRUDList.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
 	import { Button, Table, TableHead, TableHeadCell, TableBody, Label } from 'flowbite-svelte';
 	import DefaultSchedules from './DefaultSchedules.svelte';
@@ -8,6 +7,7 @@
 	import type { PageData } from './$types';
 	import type { BellScheduleData } from '$lib/types/HomePageData';
 	import dayjs, { TZ } from '$lib/util/dayjs';
+	import EditableItemList from '$components/admin/EditableItemList.svelte';
 
 	interface Props {
 		data: PageData;
@@ -41,15 +41,17 @@
 
 		<SectionHeader title="Schedule Overrides" updatedAt={overrides} />
 		<p class="mb-8">Special schedules that override the default schedules on specific dates.</p>
-		<CrudList
+		<EditableItemList
 			serviceId="bellScheduleOverrides"
 			bind:items={overrides}
 			generateNewItem={() => ({
 				date: dayjs().tz(TZ).startOf('day').valueOf(),
 				scheduleId: data.schedules[0]?.id
 			})}
-			canReorder={false}
-			sortFn={(a, b) => a.date - b.date}
+			order={{
+				canReorder: false,
+				sortFn: (a, b) => a.date - b.date
+			}}
 		>
 			{#snippet renderItems({ items, create })}
 				<div class="mb-8 flex justify-center gap-8">
@@ -74,7 +76,7 @@
 					</TableBody>
 				</Table>
 			{/snippet}
-		</CrudList>
+		</EditableItemList>
 
 		<div class="h-24"></div>
 

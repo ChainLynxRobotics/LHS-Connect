@@ -36,6 +36,7 @@
 		let newTabIds: IBellSchedule['id'][] = [];
 		for (let i = 0; i < data.defaults.length; i++) {
 			const schedule = data.defaults[i];
+			if (!schedule) continue; // Skip if no schedule is found
 			if (!newTabIds.includes(schedule.id)) {
 				newTabs.push(schedule);
 				newTabIds.push(schedule.id);
