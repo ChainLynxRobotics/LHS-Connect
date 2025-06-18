@@ -7,7 +7,7 @@
 	import ValidatedInput from "$components/form/ValidatedInput.svelte";
 	import announcementValidator from "$lib/validation/crud/announcementValidator";
 	import adminApiClient from "$lib/util/adminApiClient";
-	import { invalidate, invalidateAll } from "$app/navigation";
+	import { goto, invalidate, invalidateAll } from "$app/navigation";
 	import { getNotificationContext } from "$components/NotificationProvider.svelte";
 	import { InfoCircleSolid } from "flowbite-svelte-icons";
 	import { slide } from "svelte/transition";
@@ -51,7 +51,7 @@
                         {#if page.children}
                             <Listgroup active class="border-0 dark:!bg-transparent">
                                 {#each page.children as item}
-                                    <ListgroupItem href={page.href}>
+                                    <ListgroupItem active href={page.href} on:click={() => goto(item.href)}>
                                         {item.label}
                                     </ListgroupItem>
                                 {/each}
