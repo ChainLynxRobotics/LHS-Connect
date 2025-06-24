@@ -16,7 +16,7 @@
 		"@oslojs/encoding": "^1.1.0",
 		"@popperjs/core": "^2.11.8",
 		"@svelte-put/qr": "^1.2.1",
-		"@sveltejs/adapter-node": "^5.2.12",
+		"@sveltejs/adapter-vercel": "^5.7.2",
 		"@sveltejs/enhanced-img": "^0.3.10",
 		"@sveltejs/kit": "^2.20.8",
 		"@sveltejs/vite-plugin-svelte": "^4.0.4",
@@ -26,6 +26,7 @@
 		"arctic": "^2.3.4",
 		"autoprefixer": "^10.4.21",
 		"bcryptjs": "^2.4.3",
+		"dayjs": "^1.11.13",
 		"flowbite": "^2.5.2",
 		"flowbite-svelte": "^0.47.4",
 		"flowbite-svelte-icons": "^2.1.1",
@@ -39,6 +40,7 @@
 		"svelte": "^5.34.5",
 		"svelte-check": "^4.1.7",
 		"svelte-dnd-action": "^0.9.61",
+		"svelte-exmarkdown": "^5.0.1",
 		"tailwind-merge": "^2.6.0",
 		"tailwindcss": "^3.4.17",
 		"tslib": "^2.8.1",
@@ -50,9 +52,5 @@
 	"engines": {
 		"node": ">=18",
 		"pnpm": ">=9"
-	},
-	"dependencies": {
-		"dayjs": "^1.11.13",
-		"svelte-exmarkdown": "^5.0.1"
 	}
 }

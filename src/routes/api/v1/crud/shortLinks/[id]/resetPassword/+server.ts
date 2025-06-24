@@ -6,7 +6,6 @@ import type { RequestHandler } from "./$types";
 import { idValidator } from "$lib/validation/crud/globalCrudValidator";
 import { encodeBase32LowerCaseNoPadding } from "@oslojs/encoding";
 import bcryptjs from "bcryptjs";
-import crypto from "node:crypto";
 
 export const POST: RequestHandler = async ({ locals, params }) => {
     if (!locals.permissions.has(Permission.MANAGE_SHORT_LINKS)) error(403, "You do not have permission to manage short links.");
@@ -23,7 +22,6 @@ export const POST: RequestHandler = async ({ locals, params }) => {
         crypto.getRandomValues(bytes);
         const password = encodeBase32LowerCaseNoPadding(bytes);
 
-        bcryptjs.setRandomFallback((len) => Array.from(crypto.randomBytes(len)));
         const hash = await bcryptjs.hash(password, await bcryptjs.genSalt(10));
         doc.hash = hash;
         await doc.save();
