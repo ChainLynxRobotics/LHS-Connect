@@ -3,20 +3,22 @@
 	import FileDropzone from "$components/form/FileDropzone.svelte";
 	import { getNotificationContext } from "$components/NotificationProvider.svelte";
     import QrCodeCard from "$components/QrCodeCard.svelte";
-	import type { CloudFile, LocalFile } from "$lib/types/FileTransferData";
-	import { BASE_API_URL } from "$lib/util/apiClient";
+	import apiRequest, { BASE_API_URL } from "$lib/util/apiClient";
 	import formatFileSize from "$lib/util/formatFileSize";
-	import { Button, ButtonGroup, Helper, Hr, Input, InputAddon, Label, P, Progressbar, Span, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from "flowbite-svelte";
+	import { Button, ButtonGroup, Helper, Hr, Input, Label, Progressbar, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from "flowbite-svelte";
 	import type { ChangeEventHandler } from "svelte/elements";
     import { PUBLIC_BASE_SHORT_URL } from "$env/static/public";
 	import { ArrowRightOutline } from "flowbite-svelte-icons";
+	import type { IUploadedFile, ILocalFile } from "$lib/types/uploadedFile";
+	import { nanoid } from "nanoid";
+	import saveAs from "$lib/util/saveAs";
 
     interface Props {
         code: string;
-        cloudFiles: CloudFile[];
+        uploadedFiles: IUploadedFile[];
     }
 
-    const { code, cloudFiles: uploadedFiles }: Props = $props();
+    const { code, uploadedFiles }: Props = $props();
 
     const notificationContext = getNotificationContext();
 
@@ -52,8 +54,11 @@
     };
 
 
-    const sortedFiles = $derived(uploadedFiles.sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime()));
-    let localFileQueue: LocalFile[] = $state([]);
+    const sortedFiles = $derived(uploadedFiles
+        .sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime())
+        .filter(file => localFileQueue.findIndex(f => f.name === file.name && f.size == file.size) === -1) // Exclude files that are already in the local queue (cant use id since they are not uploaded yet)
+    );
+    let localFileQueue: ILocalFile[] = $state([]);
     let isUploading = $state(false);
 
     function updateFiles() {
@@ -64,22 +69,30 @@
         if (!event.currentTarget.files) return;
         const files = [...event.currentTarget.files];
 
-        let filesToQueue: LocalFile[] = files.map((file) => ({
-            id: Math.random().toString(36).substring(2, 9),
-            name: file.name,
-            size: file.size,
-            uploadedAt: Date.now(),
-            localFile: file,
-            uploadProgress: 0,
-        })).filter((file) => file.size <= 100 * 1024 * 1024);
+        for (const file of files) {
+            if (file.size > 100 * 1024 * 1024) {
+                notificationContext.show("File too large: " + file.name + " (Max 100MB)", "error");
+                return;
+            }
 
-        if (filesToQueue.length !== files.length) {
-            notificationContext.show("Some files were too large to upload (Max 100MB)", "error");
+            apiRequest('POST', `/fileTransfer/${code}/files`, { name: file.name, size: file.size }).then((res) => {
+                const localFile: ILocalFile = {
+                    id: nanoid(),
+                    name: file.name,
+                    size: file.size,
+                    file,
+                    uploadProgress: 0,
+                    uploadUrl: res.uploadUrl,
+                }
+
+                localFileQueue.push(localFile);
+                localFileQueue = localFileQueue; // Trigger reactivity
+                queueUpload();
+            }).catch((error) => {
+                console.error('Error getting upload URL for', file.name, error);
+                notificationContext.show("Error uploading file " + file.name, "error");
+            });
         }
-
-        localFileQueue = [...localFileQueue, ...filesToQueue];
-        
-        queueUpload();
     };
 
     function queueUpload() {
@@ -111,18 +124,13 @@
                 if (req.status === 200) {
                     notificationContext.show("Uploaded "+file.name, "success");
                 } else {
-                    try {
-                        const body = JSON.parse(req.responseText);
-                        notificationContext.show("Failed to upload "+file.name+": "+body.message, "error");
-                    } catch (e) {
-                        console.error('Failed to parse response body', e);
-                        notificationContext.show("Failed to upload "+file.name, "error");
-                    }
+                    notificationContext.show("Failed to upload "+file.name, "error");
+                    console.error('Upload failed', req.responseText);
                 }
             }
         };
-        req.open("POST", `${BASE_API_URL}/fileTransfer/${code}/files?name=${encodeURIComponent(file.name)}`, true);
-        req.send(file.localFile);
+        req.open("PUT", file.uploadUrl, true);
+        req.send(file.file);
     }
 
     $effect(() => {
@@ -188,7 +196,7 @@
                         <TableBodyCell tdClass="px-3 py-4 whitespace-nowrap font-medium">{file.name}</TableBodyCell>
                         <TableBodyCell tdClass="px-3 py-4 whitespace-nowrap font-medium">{formatFileSize(file.size)}</TableBodyCell>
                         <TableBodyCell tdClass="px-3 py-4 whitespace-nowrap font-medium">
-                            <Button href={`${BASE_API_URL}/fileTransfer/${code}/files/${file.id}`} download={file.name}>Download</Button>
+                            <Button onclick={()=>saveAs(file.url, file.name)}>Download</Button>
                         </TableBodyCell>
                     </TableBodyRow>
                 {/each}

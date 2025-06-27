@@ -11,7 +11,7 @@ export const load = (async ({ url, fetch }) => {
 
         return {
             code,
-            cloudFiles: (await fileData.json()).results || [],
+            uploadedFiles: (await fileData.json()).results || [],
         }
     } catch (e) {
         if (e instanceof ValidationError) {

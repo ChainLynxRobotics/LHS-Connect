@@ -23,6 +23,6 @@
 			</p>
 		</div>
 
-		<FileTransfer code={data.code} cloudFiles={data.cloudFiles} />
+		<FileTransfer code={data.code} uploadedFiles={data.uploadedFiles} />
 	</div>
 </div>

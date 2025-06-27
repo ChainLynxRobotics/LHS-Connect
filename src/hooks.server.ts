@@ -1,18 +1,21 @@
 import { deleteSessionTokenCookie, setSessionTokenCookie, validateAndRenewSession } from "$lib/auth/session";
-import connect, { startFileClearInterval } from "$lib/db/mongodb";
+import connect from "$lib/db/mongodb";
 import type { Handle } from "@sveltejs/kit";
 import { Permissions } from "$lib/auth/permissions";
+import { startFileClearInterval } from "$lib/db/s3";
 
 // Ensure correct time zone
 process.env.TZ = "America/Los_Angeles";
 
-// Connect to MongoDB before starting the server
+// Connect to MongoDB
 connect().then(() => {
     console.log("Connected to MongoDB");
-    startFileClearInterval();
 }).catch((err) => {
     console.error("Failed to connect to MongoDB", err);
 });
+
+// Start file clear interval
+startFileClearInterval();
 
 export const handle: Handle = async ({ event, resolve }) => {
     const token = event.cookies.get("session");

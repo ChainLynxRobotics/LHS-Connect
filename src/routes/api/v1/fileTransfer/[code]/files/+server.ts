@@ -1,58 +1,70 @@
-import { fileTransferCodeValidator } from '$lib/validation/fileTransferValidator';
+import { fileTransferCodeValidator, fileTransferUploadValidator } from '$lib/validation/fileTransferValidator';
 import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { getFileBucket } from '$lib/db/mongodb';
-import type { CloudFile } from '$lib/types/FileTransferData';
 import { ValidationError } from 'yup';
+import { UploadedFile } from '$lib/models/uploadedFile';
+import { s3client } from '$lib/db/s3';
+import { S3_BUCKET_NAME } from '$env/static/private';
+import { customAlphabet } from 'nanoid';
+import { GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+
+const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 12);
 
 export const GET: RequestHandler = async ({ params }) => {
     try {
         const code = await fileTransferCodeValidator.validate(params.code);
 
-        const bucket = await getFileBucket();
-        const files = await bucket.find({ 'metadata.code': code }).limit(100).toArray();
-        
-        const results: CloudFile[] = files.map(file => ({
-            id: file._id.toHexString(),
-            name: file.filename,
-            size: file.length,
-            uploadedAt: file.uploadDate.getTime(),
-        }));
+        const files = await UploadedFile.find({ code });
 
-        return json({ results });
+        return json({ results: files.map(file => file.toObject()) });
     } catch (e) {
         if (e instanceof ValidationError) return error(400, { message: e.message });
         else throw e;
     }
 };
 
-export const POST: RequestHandler = async ({ url, params, request }) => {
+export const POST: RequestHandler = async ({ params, request }) => {
     try {
         const code = await fileTransferCodeValidator.validate(params.code);
 
-        const fileName = url.searchParams.get('name') || 'unnamed';
+        const req = await request.json();
+        const file = await fileTransferUploadValidator.validate(req, { stripUnknown: true });
 
-        if (parseInt(request.headers.get('content-length')||'0') > 100 * 1024 * 1024) return error(400, { message: 'File size limit is 100MB' });
-
-        const bucket = await getFileBucket();
-
-        // Check if the global file size limit has been reached
-        const existing = await bucket.find().toArray();
-        const totalSize = existing.reduce((acc, file) => acc + file.length, 0);
-        if (totalSize > 5 * 1024 * 1024 * 1024) return error(400, { message: 'Global file size limit reached, come back later' }); // 5GB
-
-        // Start uploading the file
-        const uploadStream = bucket.openUploadStream(fileName, { metadata: { code } });
-        
-        if (!request.body) return error(400, { message: 'Invalid body' }); // This happens when the sveltekit body size limit is reached and sveltekit refuses to handle it
-        const reader = request.body.getReader();
-        let res: ReadableStreamReadResult<Uint8Array>;
-        while (!(res = await reader.read()).done) {
-            uploadStream.write(res.value);
+        if (file.size > 100 * 1024 * 1024) { // 100MB
+            return error(400, { message: `File ${file.name} exceeds size limit of 100MB` });
         }
-        await new Promise((resolve)=>uploadStream.end(resolve));
 
-        return json({});
+        const fileKey = nanoid() + '-' + encodeURIComponent(file.name);
+
+        // Generate signed URLs for upload and download
+        const uploadUrl = await getSignedUrl(s3client, new PutObjectCommand({
+            Bucket: S3_BUCKET_NAME,
+            Key: fileKey,
+            ContentLength: file.size,
+        }), {
+            expiresIn: 15 * 60, // 15 minutes
+        })
+        const downloadUrl = await getSignedUrl(s3client, new GetObjectCommand({
+            Bucket: S3_BUCKET_NAME,
+            Key: fileKey,
+        }), {
+            expiresIn: 15 * 60, // 15 minutes
+        });
+
+        // Save the file metadata to the database
+        const uploadedFile = new UploadedFile({
+            code,
+            key: fileKey,
+            name: file.name,
+            size: file.size,
+            url: downloadUrl,
+        });
+        await uploadedFile.save();
+
+        return json({
+            uploadUrl
+        });
     } catch (e) {
         if (e instanceof ValidationError) return error(400, { message: e.message });
         else throw e;
