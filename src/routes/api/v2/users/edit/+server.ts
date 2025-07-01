@@ -1,8 +1,8 @@
 import { Permission } from '$lib/auth/permissions';
 import { error, json } from '@sveltejs/kit';
-import type { RequestHandler } from './$types';
+import type { RequestHandler } from '../$types';
 import { number, string, ValidationError } from 'yup';
-import { User } from './model';
+import { User } from '../model';
 
 const pageValidator = number().min(1).default(1).label("page");
 const pageSizeValidator = number().min(5).max(100).default(50).label("pageSize");
