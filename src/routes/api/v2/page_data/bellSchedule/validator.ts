@@ -1,5 +1,5 @@
 import type { WithoutID } from "$lib/types/basicTypes";
-import { string, object, boolean, array, number } from "yup";
+import { string, object, boolean, array, number, ObjectSchema } from "yup";
 import type { IBellSchedule, IBellScheduleDefaults, IBellScheduleOverride } from "./types";
 import { idArrayValidator, idValidator } from "$lib/validation/objectId";
 
@@ -18,17 +18,17 @@ export const bellSchedulePeriodValidator = object({
 	emphasis: boolean().optional()
 });
 
-export const bellScheduleValidator = object<WithoutID<IBellSchedule>>({
+export const bellScheduleValidator: ObjectSchema<WithoutID<IBellSchedule>> = object({
 	name: string().required().max(64),
 	desc: string().optional().max(512),
 	periods: array().of(bellSchedulePeriodValidator).required().min(1).max(16)
 });
 
-export const bellScheduleDefaultsValidator = object<IBellScheduleDefaults>({
+export const bellScheduleDefaultsValidator: ObjectSchema<WithoutID<IBellScheduleDefaults>> = object({
     bellScheduleIDs: idArrayValidator.label('Bell Schedule IDs'),
 });
 
-export const bellScheduleOverridesValidator = object<WithoutID<IBellScheduleOverride>>({
+export const bellScheduleOverridesValidator: ObjectSchema<WithoutID<IBellScheduleOverride>> = object({
     date: number().required().label('Date'),
     scheduleId: idValidator.label('Schedule ID'),
 });

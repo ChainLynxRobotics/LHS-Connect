@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import type { IContactUsMessage } from "./types";
-import { getModelOrCached } from "$lib/models/modelUtil";
 
 export const contactUsMessageSchema = new mongoose.Schema<IContactUsMessage>({
     name: { type: String, required: false, maxlength: 256 },
@@ -9,4 +8,4 @@ export const contactUsMessageSchema = new mongoose.Schema<IContactUsMessage>({
     message: { type: String, required: true, maxlength: 1024 },
 });
 
-export const ContactUsMessage = getModelOrCached('ContactMessage', contactUsMessageSchema);
+export const ContactUsMessage = mongoose.model('ContactMessage', contactUsMessageSchema);

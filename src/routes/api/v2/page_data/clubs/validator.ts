@@ -1,10 +1,10 @@
 import type { WithoutID } from "$lib/types/basicTypes";
-import { object, string } from "yup";
+import { object, ObjectSchema, string } from "yup";
 import type { IClub } from "./types";
 
 export const INSTAGRAM_REGEX = /^[a-zA-Z0-9._]*$/;
 
-export default object<WithoutID<IClub>>({
+export const clubValidator: ObjectSchema<WithoutID<IClub>> = object({
 	name: string().required().max(250),
 	day: string().required().max(250),
 	time: string().required().max(250),

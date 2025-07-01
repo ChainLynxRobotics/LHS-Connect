@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import type { IUploadedFile } from "./types";
-import { getModelOrCached } from "$lib/models/modelUtil";
 
 export const uploadedFileSchema = new mongoose.Schema<IUploadedFile>({
     key: { type: String, required: true, unique: true, maxlength: 512 },
@@ -11,4 +10,4 @@ export const uploadedFileSchema = new mongoose.Schema<IUploadedFile>({
     url: { type: String, required: true, maxlength: 512 },
 });
 
-export const UploadedFile = getModelOrCached('UploadedFile', uploadedFileSchema);
+export const UploadedFile = mongoose.model('UploadedFile', uploadedFileSchema);

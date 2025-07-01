@@ -1,4 +1,3 @@
-import { getModelOrCached } from "$lib/models/modelUtil";
 import type { IClub } from "$lib/types/crud/club";
 import mongoose from "mongoose";
 
@@ -14,4 +13,4 @@ export const clubSchema = new mongoose.Schema<IClub>({
     timestamps: true
 });
 
-export const Club = getModelOrCached('Club', clubSchema);
+export const Club = mongoose.model('Club', clubSchema);

@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import type { IBellSchedule, IBellScheduleDefaults, IBellScheduleOverride } from "./types";
-import { getDiscriminatorOrCached, getModelOrCached } from "$lib/models/modelUtil";
 import { SingleValueModel } from "$lib/models/basicModels";
 import { TIME_STRING_REGEX } from "./validator";
 
@@ -23,7 +22,7 @@ export const bellScheduleSchema = new mongoose.Schema<IBellSchedule>({
 }, {
     timestamps: true,
 });
-export const BellSchedule = getModelOrCached('BellSchedule', bellScheduleSchema);
+export const BellSchedule = mongoose.model('BellSchedule', bellScheduleSchema);
 
 // Default bell schedule IDs for each day of the week (array from sun to sat)
 
@@ -44,7 +43,7 @@ export const bellScheduleDefaultsSchema = new mongoose.Schema<IBellScheduleDefau
     },
     timestamps: true
 });
-export const BellScheduleDefaults = getDiscriminatorOrCached(SingleValueModel, 'BellScheduleDefaults', bellScheduleDefaultsSchema); // There is only one document of this so we use the SingleValueModel as the base
+export const BellScheduleDefaults = SingleValueModel.discriminator('BellScheduleDefaults', bellScheduleDefaultsSchema); // There is only one document of this so we use the SingleValueModel as the base
 
 // Overrides for bell schedules
 
@@ -64,4 +63,4 @@ export const scheduleOverrideSchema = new mongoose.Schema<IBellScheduleOverride>
     },
     timestamps: true
 });
-export const BellScheduleOverride = getModelOrCached('BellScheduleOverride', scheduleOverrideSchema); // Overrides for bell schedules
+export const BellScheduleOverride = mongoose.model('BellScheduleOverride', scheduleOverrideSchema); // Overrides for bell schedules

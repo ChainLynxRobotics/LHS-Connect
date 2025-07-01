@@ -1,7 +1,7 @@
-import { object, string } from "yup";
+import { object, ObjectSchema, string } from "yup";
 import type { IContactUsMessage } from "./types";
 
-export const contactUsValidator = object<IContactUsMessage>({
+export const contactUsValidator: ObjectSchema<IContactUsMessage> = object({
     name: string().trim().max(256).label('Name'),
     type: string().trim().required().max(256).label('Type'),
     email: string().trim().email().max(256).label('Email'),

@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import type { ILinkCard } from "./types";
-import { getModelOrCached } from "$lib/models/modelUtil";
 
 export const linkCardSchema = new mongoose.Schema<ILinkCard>({
     title: { type: String, required: true, maxlength: 64 },
@@ -18,4 +17,4 @@ export const linkCardSchema = new mongoose.Schema<ILinkCard>({
     timestamps: true,
 });
 
-export const UsefulLinksLinkCard = getModelOrCached('UsefulLinksLinkCard', linkCardSchema);
+export const UsefulLinksLinkCard = mongoose.model('UsefulLinksLinkCard', linkCardSchema);

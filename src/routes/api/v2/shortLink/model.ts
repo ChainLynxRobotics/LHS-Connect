@@ -1,4 +1,3 @@
-import { getModelOrCached } from "$lib/models/modelUtil";
 import mongoose from "mongoose";
 import type { IShortLink } from "./types";
 
@@ -19,4 +18,4 @@ export const shortLinkSchema = new mongoose.Schema<IShortLink>({
 });
 shortLinkSchema.index({ suffix: "text", url: "text" });
 
-export const ShortLink = getModelOrCached('ShortLink', shortLinkSchema);
+export const ShortLink = mongoose.model('ShortLink', shortLinkSchema);

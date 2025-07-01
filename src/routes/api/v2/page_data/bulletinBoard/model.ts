@@ -1,7 +1,6 @@
 import urlRegex from "$lib/validation/url";
 import mongoose from "mongoose";
 import type { IBulletinBoardNote } from "./types";
-import { getModelOrCached } from "$lib/models/modelUtil";
 
 export const bulletinBoardNoteSchema = new mongoose.Schema<IBulletinBoardNote>({
 	title: { type: String, required: true, minlength: 1, maxlength: 256 },
@@ -16,4 +15,4 @@ export const bulletinBoardNoteSchema = new mongoose.Schema<IBulletinBoardNote>({
 	timestamps: true,
 })
 
-export const BulletinBoardNote = getModelOrCached('BulletinBoardNote', bulletinBoardNoteSchema);
+export const BulletinBoardNote = mongoose.model('BulletinBoardNote', bulletinBoardNoteSchema);

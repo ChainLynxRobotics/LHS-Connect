@@ -1,4 +1,3 @@
-import { getModelOrCached } from "$lib/models/modelUtil";
 import mongoose from "mongoose";
 import type { IUser } from "./types";
 
@@ -14,4 +13,4 @@ export const userSchema = new mongoose.Schema<IUser>({
 userSchema.index({ name: "text", email: "text" });
 userSchema.index({ permissions: 1 });
 
-export const User = getModelOrCached('User', userSchema);
+export const User = mongoose.model('User', userSchema);

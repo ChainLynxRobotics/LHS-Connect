@@ -37,4 +37,4 @@ export interface ISingleValue {
 /**
  * Removes the "id" field and "updatedAt" field from a type.
  */
-export type WithoutID<T> = Omit<Omit<T, "id">, "updatedAt">;
+export type WithoutID<T> = Omit<Omit<Omit<T, "id">, "updatedAt">, "order">;
