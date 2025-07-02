@@ -1,5 +1,5 @@
 import { Permission } from "$lib/auth/permissions";
-import type { IListValue, IOrderableListValue, ISingleValue, WithoutID } from "$lib/types/basicTypes";
+import type { WithoutID } from "$lib/types/basicTypes";
 import { error, json, type RequestEvent } from "@sveltejs/kit";
 import type { Model } from "mongoose";
 import { array, ValidationError, type ObjectSchema } from "yup";
@@ -7,15 +7,13 @@ import { idArrayValidator, idValidator } from "$lib/validation/objectId";
 
 // The type of data/models that can be used with the endpoints
 type ListType = "listValue" | "orderedListValue" | "singleValue";
-type ListTypeToModel<TListType extends ListType> = TListType extends "listValue" ? IListValue : TListType extends "orderedListValue" ? IOrderableListValue : ISingleValue;
 
 // The is a type that represents the function signature for the endpoint groups
 type EndpointsType<RouteParams extends Partial<Record<string, string>>> = <
     TRequestEvent extends RequestEvent<RouteParams, any> = RequestEvent<RouteParams, any>,
-    TListType extends ListType = any, 
-    TModelType extends ListTypeToModel<TListType> = ListTypeToModel<TListType>, 
+    TModelType extends object = any, 
 >(
-    type: TListType,
+    type: ListType,
     model: Model<TModelType>,
     validator: ObjectSchema<WithoutID<TModelType>>,
 ) => Record<string, (event: TRequestEvent) => Response | Promise<Response>>;

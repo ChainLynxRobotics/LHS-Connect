@@ -28,7 +28,7 @@ export const bellScheduleDefaultsValidator: ObjectSchema<WithoutID<IBellSchedule
     bellScheduleIDs: idArrayValidator.label('Bell Schedule IDs'),
 });
 
-export const bellScheduleOverridesValidator: ObjectSchema<WithoutID<IBellScheduleOverride>> = object({
+export const bellScheduleOverrideValidator: ObjectSchema<WithoutID<IBellScheduleOverride>> = object({
     date: number().required().label('Date'),
     scheduleId: idValidator.label('Schedule ID'),
 });
