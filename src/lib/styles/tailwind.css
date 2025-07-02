@@ -40,8 +40,8 @@ body {
 }
 
 .markdown :where(ul) {
-	@apply list-disc list-inside;
+	@apply list-inside list-disc;
 }
 .markdown :where(ol) {
-	@apply list-decimal list-inside;
+	@apply list-inside list-decimal;
 }

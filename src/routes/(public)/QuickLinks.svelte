@@ -13,49 +13,49 @@
 		{
 			name: 'Schoology',
 			url: 'http://districtlms.seattleschools.org/',
-			img: schoologyLogo
+			img: schoologyLogo,
 		},
 		{
 			name: 'Office',
 			url: 'https://portal.office.com/',
-			img: officeLogo
+			img: officeLogo,
 		},
 		{
 			name: 'Outlook',
 			url: 'https://outlook.office.com/mail',
-			img: outlookLogo
+			img: outlookLogo,
 		},
 		{
 			name: 'Lincoln Website',
 			url: 'https://lincolnhs.seattleschools.org/',
-			img: lincolnLogo
+			img: lincolnLogo,
 		},
 		{
 			name: 'Source',
 			url: 'https://ps.seattleschools.org/',
-			img: sourceLogo
+			img: sourceLogo,
 		},
 		{
 			name: 'Clever',
 			url: 'https://clever.com/in/seattleschools',
-			img: cleverLogo
+			img: cleverLogo,
 		},
 		{
 			name: 'College Board',
 			url: 'https://prod.idp.collegeboard.org/',
 			img: collegeBoardLogo,
-			darkInverse: true
+			darkInverse: true,
 		},
 		{
 			name: 'Khan Academy',
 			url: 'https://www.khanacademy.org/login',
-			img: khanAcademyLogo
+			img: khanAcademyLogo,
 		},
 		{
 			name: 'Naviance',
 			url: 'https://clever.com/oauth/authorize?channel=clever-portal&client_id=998d799b68dd5e1b6a57&confirmed=true&district_id=580a531143e0d00100000157&redirect_uri=https%3A%2F%2Fid.naviance.com%2Fclever%2Fredirect&response_type=code',
-			img: navianceLogo
-		}
+			img: navianceLogo,
+		},
 	];
 </script>
 

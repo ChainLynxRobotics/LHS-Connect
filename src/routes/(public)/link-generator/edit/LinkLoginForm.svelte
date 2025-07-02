@@ -18,11 +18,11 @@
 		suffix = $bindable($page.url.searchParams.get('suffix') || ''),
 		password = $bindable(''),
 		onSubmit: submit,
-		onChange: oninput
+		onChange: oninput,
 	}: Props = $props();
 
 	$effect(() => {
-		suffix = suffix.replace(PUBLIC_BASE_SHORT_URL+'/', '');
+		suffix = suffix.replace(PUBLIC_BASE_SHORT_URL + '/', '');
 	});
 
 	let suffixInput: ValidatedInput<'suffix'> | undefined = $state();
@@ -32,7 +32,7 @@
 		event.preventDefault();
 		const linkLoginData = {
 			suffix: await suffixInput!.validate(),
-			password: await passwordInput!.validate()
+			password: await passwordInput!.validate(),
 		};
 		submit?.(linkLoginData);
 	}

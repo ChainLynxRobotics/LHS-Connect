@@ -24,20 +24,21 @@
 	let urlInput: ValidatedInput<'url'> | undefined = $state();
 
 	let resetPasswordConfirm = $state(false);
-	let newPassword = $state<string|undefined>(undefined);
+	let newPassword = $state<string | undefined>(undefined);
 
 	async function onsubmit(e: Event) {
 		e.preventDefault();
 		submit({
 			...link,
 			suffix: await suffixInput!.validate(),
-			url: await urlInput!.validate()
+			url: await urlInput!.validate(),
 		});
 	}
 
 	async function resetPassword() {
-		const res = await apiRequest('POST', `/short_link/edit/${link.id}/resetPassword`)
-			.catch((e) => notificationContext.show(e.message, 'error'));
+		const res = await apiRequest('POST', `/short_link/edit/${link.id}/resetPassword`).catch((e) =>
+			notificationContext.show(e.message, 'error')
+		);
 		newPassword = res.password;
 		resetPasswordConfirm = false;
 	}
@@ -75,11 +76,17 @@
 		{:else}
 			<CloseOutline class="h-6 w-6" />
 		{/if}
-		<Button type="button" color="light" size="xs" class="ml-2" onclick={()=>resetPasswordConfirm = true}>Generate New Password</Button>
+		<Button
+			type="button"
+			color="light"
+			size="xs"
+			class="ml-2"
+			onclick={() => (resetPasswordConfirm = true)}>Generate New Password</Button
+		>
 	</div>
 	{#if newPassword}
 		<Alert color="blue" border>
-			<InfoCircleSolid slot="icon" class="w-5 h-5" />
+			<InfoCircleSolid slot="icon" class="h-5 w-5" />
 			<span>The new password is: <code class="text-xl">{newPassword}</code></span>
 		</Alert>
 	{/if}
@@ -91,7 +98,10 @@
 </form>
 
 <Modal bind:open={resetPasswordConfirm} title="Generate New Password" autoclose autofocus>
-	<p class="text-gray-700 dark:text-gray-300">Are you sure you want to generate a new password for this link? {#if link.hasPassword}This will overwrite the previous onemptied.{/if}</p>
+	<p class="text-gray-700 dark:text-gray-300">
+		Are you sure you want to generate a new password for this link? {#if link.hasPassword}This will
+			overwrite the previous onemptied.{/if}
+	</p>
 	<svelte:fragment slot="footer">
 		<Button color="red" outline on:click={resetPassword}>Yes</Button>
 		<Button color="alternative">Cancel</Button>

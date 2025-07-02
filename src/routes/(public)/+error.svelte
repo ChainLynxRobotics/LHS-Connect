@@ -1,5 +1,5 @@
 <script>
-	import ErrorPage from "$components/ErrorPage.svelte";
+	import ErrorPage from '$components/ErrorPage.svelte';
 </script>
 
 <ErrorPage />

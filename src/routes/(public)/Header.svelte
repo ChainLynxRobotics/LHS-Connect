@@ -6,7 +6,7 @@
 		NavUl,
 		NavHamburger,
 		Dropdown,
-		DropdownItem
+		DropdownItem,
 	} from 'flowbite-svelte';
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 	import { page } from '$app/state';

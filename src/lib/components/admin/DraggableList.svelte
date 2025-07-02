@@ -49,15 +49,15 @@
 		flipDurationMs,
 		type: dragZoneType,
 		dropTargetStyle: {},
-		...dragZoneOptions
+		...dragZoneOptions,
 	}}
 	onconsider={handleDndConsider}
 	onfinalize={handleDndFinalize}
 >
 	{#each visualItems as item, index (item.id)}
-		<svelte:element 
-			this={wrapperElement} 
-			{...wrapperProps} 
+		<svelte:element
+			this={wrapperElement}
+			{...wrapperProps}
 			animate:flip={{ duration: flipDurationMs }}
 		>
 			{@render renderItem?.(item, index)}

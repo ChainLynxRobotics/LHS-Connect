@@ -7,14 +7,17 @@
 		Table,
 		TableBodyCell,
 		TableHead,
-		TableHeadCell
+		TableHeadCell,
 	} from 'flowbite-svelte';
 	import { dragHandle, dragHandleZone } from 'svelte-dnd-action';
 	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { flip } from 'svelte/animate';
 	import type { IBellSchedule } from '$api/page_data/bellSchedule/types';
-	import { bellScheduleValidator, bellSchedulePeriodNameValidator } from '$api/page_data/bellSchedule/validator';
+	import {
+		bellScheduleValidator,
+		bellSchedulePeriodNameValidator,
+	} from '$api/page_data/bellSchedule/validator';
 	import type { WithoutID } from '$lib/types/basicTypes';
 
 	const flipDurationMs = 300;
@@ -41,7 +44,7 @@
 			start: '00:00',
 			end: '00:00',
 			emphasis: false,
-			id: Math.random()
+			id: Math.random(),
 		});
 		periods = periods; // Force update
 	}
@@ -66,7 +69,7 @@
 		submit({
 			name: await nameInput!.validate(),
 			desc: await descInput!.validate(),
-			periods: periods.map((period) => ({ ...period, id: undefined }))
+			periods: periods.map((period) => ({ ...period, id: undefined })),
 		});
 	}
 

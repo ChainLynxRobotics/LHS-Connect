@@ -63,14 +63,14 @@
 						location: row[1].replace('\n', ' ').trim() || 'Unknown',
 						advisor: row[6].replace('\n', ' ').trim() || 'Unknown',
 						instagram: insta.replace('@', '') || undefined,
-						desc: row[7].replace('\n', ' ').trim() || undefined
+						desc: row[7].replace('\n', ' ').trim() || undefined,
 					});
 				},
 				complete() {
 					notificationContext.show('Imported ' + records.length + ' clubs', 'success');
 					submit(records);
 					modalOpen = false;
-				}
+				},
 			});
 		} catch (error) {
 			console.error(error);
@@ -90,10 +90,10 @@
 
 <Modal bind:open={modalOpen} size="lg" autoclose={false} title="Auto Import From CSV">
 	<p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-		Instructions: Visit the ASB club excel sheet, click on file, export as CSV (without formatting, utf8 format),
-		then open the CSV in a program such as notepad and copy+paste the content here. Usually you don't need to input
-		the start and end row, but if you are having issues, you can specify the start and end row of the data you want to
-		import.
+		Instructions: Visit the ASB club excel sheet, click on file, export as CSV (without formatting,
+		utf8 format), then open the CSV in a program such as notepad and copy+paste the content here.
+		Usually you don't need to input the start and end row, but if you are having issues, you can
+		specify the start and end row of the data you want to import.
 	</p>
 	<form {onsubmit} class="flex flex-col items-center gap-4">
 		<div class="flex flex-col gap-4 sm:flex-row">
@@ -137,7 +137,7 @@
 					autocomplete: 'off',
 					spellcheck: false,
 					autocapitalize: 'off',
-					autocorrect: 'off'
+					autocorrect: 'off',
 				}}
 			/>
 		</div>

@@ -20,12 +20,18 @@
 <div class="flex flex-col items-center p-4">
 	<div class="w-full max-w-lg">
 		<SectionHeader title="Bulletin Board" updatedAt={data.bulletinBoardNotes} />
-		<p class="mb-8">The title and content support markdown, and you can drag the notes around. To learn more about markdown syntax <ExternalLink href="https://www.markdownguide.org/basic-syntax/" text="click here" />.</p>
+		<p class="mb-8">
+			The title and content support markdown, and you can drag the notes around. To learn more about
+			markdown syntax <ExternalLink
+				href="https://www.markdownguide.org/basic-syntax/"
+				text="click here"
+			/>.
+		</p>
 		<EditableItemList
 			serviceId="bulletinBoardNotes"
 			items={data.bulletinBoardNotes}
 			generateNewItem={() => ({ title: 'New Note', content: 'content' })}
-			order={{ 
+			order={{
 				canReorder: true,
 			}}
 		>
@@ -37,7 +43,7 @@
 					dragZoneType="bulletinBoardNotes"
 					{items}
 					{reorder}
-					class="flex max-w-lg flex-col gap-4 py-4 mx-auto"
+					class="mx-auto flex max-w-lg flex-col gap-4 py-4"
 					wrapperElement="div"
 					wrapperProps={{ class: 'flex w-full items-start gap-2' }}
 				>

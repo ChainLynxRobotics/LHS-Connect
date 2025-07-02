@@ -41,8 +41,8 @@
 		<p class="indent-8">
 			This website is not affiliated with Lincoln High School nor Seattle Public Schools. However,
 			most of the information on this website is sourced from official school sources and most
-			features are ran by staff members. If you have any questions or concerns,
-			please contact us using the information below.
+			features are ran by staff members. If you have any questions or concerns, please contact us
+			using the information below.
 		</p>
 	</div>
 	<div id="team" class="w-full max-w-4xl">
@@ -131,7 +131,6 @@
 							<InstagramSolid size="lg" />
 						</Button>
 					</div>
-
 				</div>
 			</Card>
 		</div>

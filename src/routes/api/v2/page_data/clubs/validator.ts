@@ -1,6 +1,6 @@
-import type { WithoutID } from "$lib/types/basicTypes";
-import { object, ObjectSchema, string } from "yup";
-import type { IClub } from "./types";
+import type { WithoutID } from '$lib/types/basicTypes';
+import { object, ObjectSchema, string } from 'yup';
+import type { IClub } from './types';
 
 export const INSTAGRAM_REGEX = /^[a-zA-Z0-9._]*$/;
 
@@ -15,5 +15,5 @@ export const clubValidator: ObjectSchema<WithoutID<IClub>> = object({
 		.trim()
 		.matches(INSTAGRAM_REGEX, 'Must be a valid instagram username (without the @)')
 		.max(250),
-	desc: string().optional().max(1000)
+	desc: string().optional().max(1000),
 });

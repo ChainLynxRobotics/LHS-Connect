@@ -8,14 +8,15 @@
 	import apiRequest from '$lib/util/apiClient';
 	import type { IPublicShortLink, IShortLinkLogin } from '$api/short_link/types';
 
-
-	let linkData: Promise<IPublicShortLink>|undefined = $state(undefined);
+	let linkData: Promise<IPublicShortLink> | undefined = $state(undefined);
 	let linkPassword: string = $state(''); // We must sync the password between the two forms
 
 	async function handleLogin(linkLoginData: IShortLinkLogin) {
 		linkPassword = linkLoginData.password;
-		linkData = apiRequest('GET', `/short_link?suffix=${encodeURIComponent(linkLoginData.suffix)}&password=${encodeURIComponent(linkLoginData.password)}`)
-			.then(res=>res.result as IPublicShortLink);
+		linkData = apiRequest(
+			'GET',
+			`/short_link?suffix=${encodeURIComponent(linkLoginData.suffix)}&password=${encodeURIComponent(linkLoginData.password)}`
+		).then((res) => res.result as IPublicShortLink);
 	}
 </script>
 
@@ -36,8 +37,9 @@
 			box below with its password and click "Verify" to proceed.
 		</p>
 		<p class="mb-12 mt-4 indent-8">
-			If you do not have a password, <A href="/about?type=other#contact" class="indent-0">contact us</A> and we can 
-			reset the password and/or edit it for you.
+			If you do not have a password, <A href="/about?type=other#contact" class="indent-0"
+				>contact us</A
+			> and we can reset the password and/or edit it for you.
 		</p>
 
 		<LinkLoginForm onSubmit={handleLogin} onChange={() => (linkData = undefined)} />

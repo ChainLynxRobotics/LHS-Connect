@@ -12,7 +12,7 @@
 		SidebarItem,
 		SidebarDropdownWrapper,
 		SidebarDropdownItem,
-		Avatar
+		Avatar,
 	} from 'flowbite-svelte';
 	import {
 		AngleLeftOutline,
@@ -28,7 +28,7 @@
 	import type { PageData } from './$types';
 	import { Permission, Permissions } from '$lib/auth/permissions';
 	import pages from './pages';
-	
+
 	interface Props {
 		data: PageData;
 		children?: Snippet;
@@ -68,7 +68,7 @@
 	transitionParams={{
 		x: -320,
 		duration: 200,
-		easing: sineIn
+		easing: sineIn,
 	}}
 	width="w-64"
 	class="pb-32"
@@ -101,7 +101,11 @@
 								{/each}
 							</SidebarDropdownWrapper>
 						{:else}
-							<SidebarItem href={href ?? publicHref} target={href == undefined && publicHref != undefined ? '_blank' : undefined} {label}>
+							<SidebarItem
+								href={href ?? publicHref}
+								target={href == undefined && publicHref != undefined ? '_blank' : undefined}
+								{label}
+							>
 								<IconComponent
 									slot="icon"
 									class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
@@ -113,12 +117,7 @@
 			</SidebarGroup>
 			<SidebarGroup border>
 				<SidebarItem href="/admin/panel/profile" label="Profile">
-					<Avatar
-						slot="icon"
-						src={data.session.user.pfp}
-						alt="Profile"
-						class="h-6 w-6"
-					/>
+					<Avatar slot="icon" src={data.session.user.pfp} alt="Profile" class="h-6 w-6" />
 				</SidebarItem>
 				{#if Permissions.has(data.session, Permission.MANAGE_USERS)}
 					<SidebarItem href="/admin/panel/users" label="Accounts">
@@ -128,7 +127,11 @@
 						/>
 					</SidebarItem>
 				{/if}
-				<SidebarItem href="/admin/logout" label="Log Out" spanClass="ms-3 text-red-500 dark:text-red-400">
+				<SidebarItem
+					href="/admin/logout"
+					label="Log Out"
+					spanClass="ms-3 text-red-500 dark:text-red-400"
+				>
 					<ArrowLeftToBracketOutline
 						slot="icon"
 						class="h-6 w-6 text-red-500 transition duration-75 dark:text-red-400"

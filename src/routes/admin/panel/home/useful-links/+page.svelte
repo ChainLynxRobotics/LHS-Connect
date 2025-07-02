@@ -27,9 +27,9 @@
 			items={data.usefulLinks}
 			generateNewItem={() => ({
 				title: 'New Card',
-				links: []
+				links: [],
 			})}
-			order={{ 
+			order={{
 				canReorder: true,
 			}}
 		>
@@ -41,7 +41,7 @@
 					dragZoneType="cards"
 					{items}
 					{reorder}
-					class="flex flex-col gap-4 py-4 items-center"
+					class="flex flex-col items-center gap-4 py-4"
 					wrapperElement="div"
 					wrapperProps={{ class: 'flex items-start gap-2' }}
 				>
@@ -66,11 +66,7 @@
 
 			{#snippet editForm({ item, onSubmit, onCancel })}
 				<Modal open size="md" autoclose={false} on:close={onCancel}>
-					<EditableLinkCardForm
-						card={item}
-						onSubmit={onSubmit}
-						onCancel={onCancel}
-					/>
+					<EditableLinkCardForm card={item} {onSubmit} {onCancel} />
 				</Modal>
 			{/snippet}
 		</EditableItemList>

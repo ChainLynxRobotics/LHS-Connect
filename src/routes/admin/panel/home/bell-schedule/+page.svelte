@@ -28,7 +28,10 @@
 
 	let bellScheduleData: BellScheduleData = $derived({
 		defaults: defaults.map((id) => data.bellSchedules.find((schedule) => schedule.id === id)!), // Populate the defaults
-		overrides: overrides.map((item) => ({ ...item, schedule: data.bellSchedules.find((schedule) => schedule.id === item.scheduleId)! })) // Populate the overrides
+		overrides: overrides.map((item) => ({
+			...item,
+			schedule: data.bellSchedules.find((schedule) => schedule.id === item.scheduleId)!,
+		})), // Populate the overrides
 	});
 </script>
 
@@ -36,22 +39,28 @@
 	<div class="w-full max-w-4xl">
 		<SectionHeader title="Days of the Week" updatedAt={[data.bellScheduleDefaults]} />
 		<p class="mb-8">The default bell schedules that always show up, one of each day of the week.</p>
-		<DefaultSchedules bind:defaults={defaults} {scheduleOptions} />
+		<DefaultSchedules bind:defaults {scheduleOptions} />
 
 		<div class="h-24"></div>
 
 		<SectionHeader title="Schedule Overrides" updatedAt={overrides} />
-		<p class="mb-8">Special schedules that override the default schedules on specific dates. To add a new schedule, go to the <ExternalLink href="/admin/panel/home/saved-schedules" text="Saved Schedules Page" />.</p>
+		<p class="mb-8">
+			Special schedules that override the default schedules on specific dates. To add a new
+			schedule, go to the <ExternalLink
+				href="/admin/panel/home/saved-schedules"
+				text="Saved Schedules Page"
+			/>.
+		</p>
 		<EditableItemList
 			serviceId="bellSchedule/bellScheduleOverrides"
 			bind:items={overrides}
 			generateNewItem={() => ({
 				date: dayjs().tz(TZ).startOf('day').valueOf(),
-				scheduleId: data.bellSchedules[0]?.id
+				scheduleId: data.bellSchedules[0]?.id,
 			})}
 			order={{
 				canReorder: false,
-				sortFn: (a, b) => a.date - b.date
+				sortFn: (a, b) => a.date - b.date,
 			}}
 		>
 			{#snippet renderItems({ items, create })}
@@ -82,7 +91,7 @@
 		<div class="h-24"></div>
 
 		<SectionHeader title="Schedule Preview" />
-		<div class="flex items-center mb-8">
+		<div class="mb-8 flex items-center">
 			<Label for={`preview-time`} class="mr-4 text-xl">At Time:</Label>
 			<input
 				id={`preview-time`}

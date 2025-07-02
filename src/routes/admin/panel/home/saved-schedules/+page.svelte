@@ -32,9 +32,9 @@
 					{
 						name: 'Period 1',
 						start: '8:00',
-						end: '9:00'
-					}
-				]
+						end: '9:00',
+					},
+				],
 			})}
 			order={{
 				canReorder: true,
@@ -51,7 +51,7 @@
 						{items}
 						{reorder}
 						class="py-4"
-						wrapperProps={{ class: "bg-white dark:bg-gray-900" }}
+						wrapperProps={{ class: 'bg-white dark:bg-gray-900' }}
 					>
 						{#snippet renderItem({ item, openEditFrom, duplicate, remove })}
 							<AccordionItem

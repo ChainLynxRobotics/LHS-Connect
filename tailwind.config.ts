@@ -4,7 +4,7 @@ import flowbite from 'flowbite/plugin';
 export default {
 	content: [
 		'./src/**/*.{html,js,svelte,ts}',
-		'./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}'
+		'./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}',
 	],
 	theme: {
 		extend: {
@@ -20,10 +20,10 @@ export default {
 					'700': '#b91c1c',
 					'800': '#991b1b',
 					'900': '#7f1d1d',
-					'950': '#450a0a'
-				}
-			}
-		}
+					'950': '#450a0a',
+				},
+			},
+		},
 	},
 
 	plugins: [flowbite],
@@ -42,6 +42,6 @@ export default {
 		'leading-6',
 		'h-9',
 		'leading-9',
-		'shadow-lg'
-	]
+		'shadow-lg',
+	],
 } as Config;

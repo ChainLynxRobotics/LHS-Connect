@@ -3,7 +3,7 @@
 		{ value: 'suggestion', name: 'Suggestion' },
 		{ value: 'report', name: 'Incorrect Information Report' },
 		{ value: 'bug', name: 'Bug Report' },
-		{ value: 'other', name: 'Other' }
+		{ value: 'other', name: 'Other' },
 	];
 </script>
 
@@ -43,8 +43,8 @@
 				name: await nameInput!.validate(),
 				type: await typeInput!.validate(),
 				email: await emailInput!.validate(),
-				message: await messageInput!.validate()
-			}
+				message: await messageInput!.validate(),
+			};
 
 			await apiRequest('POST', '/contact', data);
 			notificationContext.show('Message sent, thank you!');
@@ -54,7 +54,7 @@
 			email = '';
 			message = '';
 		} catch (error) {
-			if (error instanceof Error) notificationContext.show(error.message, 'error')
+			if (error instanceof Error) notificationContext.show(error.message, 'error');
 		}
 
 		loading = false;
@@ -62,9 +62,7 @@
 </script>
 
 <SectionHeader title="Contact Us" />
-<form
-	{onsubmit}
->
+<form {onsubmit}>
 	<div class="grid gap-6 md:grid-cols-2">
 		<div class="mb-6">
 			<ValidatedInput

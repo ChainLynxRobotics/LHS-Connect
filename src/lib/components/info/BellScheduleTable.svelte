@@ -21,7 +21,11 @@
 		return `${formattedHour}:${formattedMinute}`;
 	}
 
-	function getRowClass(periodIndex: number, reactive: boolean, customTime: Dayjs|undefined): string {
+	function getRowClass(
+		periodIndex: number,
+		reactive: boolean,
+		customTime: Dayjs | undefined
+	): string {
 		let c = 'text-base';
 		if (!schedule) return c;
 
@@ -45,7 +49,11 @@
 		return c;
 	}
 
-	function currentlyWithinTime(startStr: string, endStr: string, customTime: Dayjs|undefined): boolean {
+	function currentlyWithinTime(
+		startStr: string,
+		endStr: string,
+		customTime: Dayjs | undefined
+	): boolean {
 		const millis = (customTime || dayjs()).tz(TZ).valueOf();
 		const start = dayjs(startStr, 'HH:mm').tz(TZ).valueOf();
 		const end = dayjs(endStr, 'HH:mm').tz(TZ).valueOf();

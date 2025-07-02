@@ -3,4 +3,8 @@ import { BellScheduleOverride } from '../../../model';
 import { bellScheduleOverrideValidator } from '../../../validator';
 import type { RequestEvent } from './$types';
 
-export const { GET, POST } = editIndividualItemEndpoints<RequestEvent>("orderedListValue", BellScheduleOverride, bellScheduleOverrideValidator);
+export const { GET, POST } = editIndividualItemEndpoints<RequestEvent>(
+	'orderedListValue',
+	BellScheduleOverride,
+	bellScheduleOverrideValidator
+);

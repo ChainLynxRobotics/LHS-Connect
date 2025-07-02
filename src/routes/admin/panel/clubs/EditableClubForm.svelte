@@ -39,7 +39,7 @@
 			location: await locationInput!.validate(),
 			advisor: await advisorInput!.validate(),
 			instagram: await instagramInput!.validate(),
-			desc: await descInput!.validate()
+			desc: await descInput!.validate(),
 		};
 		submit(club);
 	}

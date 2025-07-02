@@ -10,7 +10,7 @@
 		TableBodyRow,
 		TableHead,
 		TableHeadCell,
-		Popover
+		Popover,
 	} from 'flowbite-svelte';
 	import { InfoCircleOutline } from 'flowbite-svelte-icons';
 	import Fuse from 'fuse.js';
@@ -31,8 +31,8 @@
 				{ name: 'day', weight: 1 },
 				{ name: 'time', weight: 1 },
 				{ name: 'location', weight: 1 },
-				{ name: 'advisor', weight: 1 }
-			]
+				{ name: 'advisor', weight: 1 },
+			],
 		})
 	);
 

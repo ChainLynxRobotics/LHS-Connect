@@ -49,7 +49,7 @@
 		validatorObject = undefined,
 		visuallyRequired = false,
 		textareaProps = {},
-		labelProps = {}
+		labelProps = {},
 	}: Props = $props();
 
 	let checkValidation = $state(false);

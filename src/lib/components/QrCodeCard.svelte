@@ -1,7 +1,19 @@
 <script lang="ts">
 	import { createQrPngDataUrl, createQrSvgDataUrl } from '@svelte-put/qr';
 	import { qr, type ImgQRParameter } from '@svelte-put/qr/img';
-	import { Button, ButtonGroup, Card, Helper, Hr, Input, Label, Select, Toggle, Tooltip, type SelectOptionType } from 'flowbite-svelte';
+	import {
+		Button,
+		ButtonGroup,
+		Card,
+		Helper,
+		Hr,
+		Input,
+		Label,
+		Select,
+		Toggle,
+		Tooltip,
+		type SelectOptionType,
+	} from 'flowbite-svelte';
 	import { CheckOutline, FileCopyOutline } from 'flowbite-svelte-icons';
 	import type { Snippet } from 'svelte';
 	import { scale } from 'svelte/transition';
@@ -13,7 +25,7 @@
 		data: string;
 		/**
 		 * Write your own snippet for whats above the top of the QR code (and the link if enabled)
-		*/
+		 */
 		headerSnippet?: Snippet<[string]>;
 		/**
 		 * Whether to show the original link above the QR code
@@ -21,27 +33,34 @@
 		showLink?: boolean;
 		/**
 		 * The label for the link above the QR code
-		 * 
+		 *
 		 * Requires `showLink` to be true
-		 * 
+		 *
 		 * @default "Your Link:"
 		 */
 		linkLabel?: string;
 		/**
 		 * Helper text below the link, defaults to nothing and will not render
-		 * 
+		 *
 		 * Requires `showLink` to be true
 		 */
 		linkHelper?: string;
 		/**
 		 * Whether to show options for saving the QR code
-		 * 
+		 *
 		 * @default true
 		 */
 		showSaveOptions?: boolean;
 	}
 
-	let { data, headerSnippet, showLink, linkLabel = "Your Link:", linkHelper, showSaveOptions = true }: Props = $props();
+	let {
+		data,
+		headerSnippet,
+		showLink,
+		linkLabel = 'Your Link:',
+		linkHelper,
+		showSaveOptions = true,
+	}: Props = $props();
 
 	let debouncedData = $state(data);
 
@@ -77,13 +96,13 @@
 		moduleFill: fillColor,
 		anchorInnerFill: fillColor,
 		anchorOuterFill: fillColor,
-		backgroundFill: backgroundFillColor
+		backgroundFill: backgroundFillColor,
 	});
 
 	let downloadType = $state('png');
 	const downloadTypes: SelectOptionType<string>[] = [
 		{ value: 'png', name: 'PNG' },
-		{ value: 'svg', name: 'SVG' }
+		{ value: 'svg', name: 'SVG' },
 	];
 
 	async function copyLink() {
@@ -98,8 +117,8 @@
 
 		await navigator.clipboard.write([
 			new ClipboardItem({
-				[blob.type]: blob
-			})
+				[blob.type]: blob,
+			}),
 		]);
 	}
 
@@ -132,16 +151,22 @@
 			{linkLabel}
 		</Label>
 		<ButtonGroup class="w-full" size="md">
-			<Input id="generated-link" type="text" value={data} readonly class="!border-gray-300 dark:!border-gray-500 !ring-0" />
+			<Input
+				id="generated-link"
+				type="text"
+				value={data}
+				readonly
+				class="!border-gray-300 !ring-0 dark:!border-gray-500"
+			/>
 			<Button color="alternative" class="!p-2" onclick={copyLink} title="Copy link to clipboard">
-				<div class="relative w-6 h-6">
+				<div class="relative h-6 w-6">
 					{#if linkCopied}
-						<div transition:scale={{duration: 200}}>
-							<CheckOutline class="absolute w-6 h-6" />
+						<div transition:scale={{ duration: 200 }}>
+							<CheckOutline class="absolute h-6 w-6" />
 						</div>
 					{:else}
-						<div transition:scale={{duration: 200}}>
-							<FileCopyOutline class="absolute w-6 h-6" />
+						<div transition:scale={{ duration: 200 }}>
+							<FileCopyOutline class="absolute h-6 w-6" />
 						</div>
 					{/if}
 				</div>

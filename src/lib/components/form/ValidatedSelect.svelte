@@ -49,7 +49,7 @@
 		validatorObject = undefined,
 		visuallyRequired = false,
 		selectProps = {},
-		labelProps = {}
+		labelProps = {},
 	}: Props = $props();
 
 	let checkValidation = $state(false);

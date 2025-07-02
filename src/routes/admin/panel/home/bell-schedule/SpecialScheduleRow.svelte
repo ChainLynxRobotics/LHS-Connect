@@ -4,7 +4,7 @@
 		TableBodyRow,
 		Select,
 		type SelectOptionType,
-		Tooltip
+		Tooltip,
 	} from 'flowbite-svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import dayjs, { TZ } from '$lib/util/dayjs';
@@ -26,11 +26,8 @@
 
 	function submit() {
 		onUpdate({
-			date: dayjs(date)
-				.tz(TZ)
-				.startOf('day')
-				.valueOf(),
-			scheduleId
+			date: dayjs(date).tz(TZ).startOf('day').valueOf(),
+			scheduleId,
 		});
 	}
 </script>

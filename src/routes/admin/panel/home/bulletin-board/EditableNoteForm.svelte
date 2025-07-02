@@ -27,7 +27,7 @@
 		submit({
 			title: await titleInput!.validate(),
 			content: await contentInput!.validate(),
-			link: await linkInput!.validate()
+			link: await linkInput!.validate(),
 		});
 	}
 </script>

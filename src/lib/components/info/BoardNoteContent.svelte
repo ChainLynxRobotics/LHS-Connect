@@ -17,14 +17,19 @@
 >
 	<div class="w-full p-4">
 		<h2 class="markdown text-lg font-semibold">
-			<Markdown md={note.title} plugins={plugins} />
+			<Markdown md={note.title} {plugins} />
 		</h2>
 		<div class="markdown leading-tight text-gray-700 dark:text-gray-400">
-			<Markdown md={note.content} plugins={plugins} />
+			<Markdown md={note.content} {plugins} />
 		</div>
 	</div>
 	{#if note.link}
-		<a class="flex items-center p-2 bg-gray-50 dark:bg-gray-800 transition hover:bg-gray-100 dark:hover:bg-gray-700" target="_blank" rel="noopener noreferrer" href={note.link}>
+		<a
+			class="flex items-center bg-gray-50 p-2 transition hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700"
+			target="_blank"
+			rel="noopener noreferrer"
+			href={note.link}
+		>
 			<ChevronRightOutline size="xl" />
 		</a>
 	{/if}

@@ -1,7 +1,12 @@
 <script lang="ts">
 	import type { LinkCardListData } from '$api/page_data/usefulLinks/types';
 	import dayjs from '$lib/util/dayjs';
-	import { CogOutline, DiscordSolid, ExclamationCircleOutline, MailBoxOutline } from 'flowbite-svelte-icons';
+	import {
+		CogOutline,
+		DiscordSolid,
+		ExclamationCircleOutline,
+		MailBoxOutline,
+	} from 'flowbite-svelte-icons';
 
 	interface Props {
 		usefulLinks: LinkCardListData;
@@ -9,11 +14,13 @@
 
 	let { usefulLinks }: Props = $props();
 
-	let updatedAtString = $derived(usefulLinks.cards
+	let updatedAtString = $derived(
+		usefulLinks.cards
 			?.filter((x) => x.updatedAt)
 			.map((x) => dayjs(x.updatedAt))
 			.sort((a, b) => b.valueOf() - a.valueOf())[0]
-			?.fromNow());
+			?.fromNow()
+	);
 </script>
 
 <footer class="mt-16 w-full bg-gray-100 p-8 text-gray-500 dark:bg-gray-800 dark:text-gray-500">
@@ -35,7 +42,7 @@
 		{/each}
 	</div>
 	{#if updatedAtString}
-		<div class="text-center mt-2 text-sm italic">
+		<div class="mt-2 text-center text-sm italic">
 			Links last updated {updatedAtString}
 		</div>
 	{/if}

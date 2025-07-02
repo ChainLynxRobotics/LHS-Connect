@@ -1,4 +1,4 @@
-import { array, string } from "yup";
+import { array, string } from 'yup';
 
 /**
  * Regex for validating string mongodb ObjectIDs

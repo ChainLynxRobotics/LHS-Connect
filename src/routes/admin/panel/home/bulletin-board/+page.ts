@@ -3,8 +3,10 @@ import type { GetAllResults } from '$lib/util/adminApiClient';
 import type { PageLoad } from './$types';
 
 export const load = (async (event) => {
-	const bulletinBoardNotes = await (await event.fetch('/api/v2/page_data/bulletinBoardNotes/edit')).json() as GetAllResults<IBulletinBoardNote>;
-	
+	const bulletinBoardNotes = (await (
+		await event.fetch('/api/v2/page_data/bulletinBoardNotes/edit')
+	).json()) as GetAllResults<IBulletinBoardNote>;
+
 	return {
 		bulletinBoardNotes: bulletinBoardNotes.results,
 	};

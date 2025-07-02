@@ -3,4 +3,4 @@ import { Club } from '../../model';
 import { clubValidator } from '../../validator';
 import type { RequestEvent } from './$types';
 
-export const { GET, POST } = editAllEndpoints<RequestEvent>("listValue", Club, clubValidator);
+export const { GET, POST } = editAllEndpoints<RequestEvent>('listValue', Club, clubValidator);

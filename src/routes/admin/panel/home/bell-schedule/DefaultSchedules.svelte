@@ -11,7 +11,7 @@
 		TableBodyCell,
 		TableHead,
 		TableHeadCell,
-		type SelectOptionType
+		type SelectOptionType,
 	} from 'flowbite-svelte';
 
 	interface Props {
@@ -28,10 +28,14 @@
 	};
 
 	const update = async () => {
-		await adminApiClient.create<IBellScheduleDefaults>('bellSchedule/bellScheduleDefaults', {bellScheduleIDs: defaults}).catch((e)=>{
-			refresh();
-			notificationContext.show(e.message, 'error');
-		});
+		await adminApiClient
+			.create<IBellScheduleDefaults>('bellSchedule/bellScheduleDefaults', {
+				bellScheduleIDs: defaults,
+			})
+			.catch((e) => {
+				refresh();
+				notificationContext.show(e.message, 'error');
+			});
 	};
 
 	$effect(() => {
@@ -42,7 +46,6 @@
 			defaults = defaults.slice(0, 7);
 		}
 	});
-
 </script>
 
 <div class="w-full">

@@ -1,5 +1,9 @@
 <script lang="ts">
-	import type { BellScheduleData, IBellSchedule, IPopulatedBellScheduleOverride } from '$api/page_data/bellSchedule/types';
+	import type {
+		BellScheduleData,
+		IBellSchedule,
+		IPopulatedBellScheduleOverride,
+	} from '$api/page_data/bellSchedule/types';
 	import BellScheduleTable from '$components/info/BellScheduleTable.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
 	import dayjs, { TZ } from '$lib/util/dayjs';
@@ -22,7 +26,8 @@
 
 	let now = $state(customTime || dayjs());
 	$effect(() => {
-		if (customTime) now = customTime; // Update the time if it's custom
+		if (customTime)
+			now = customTime; // Update the time if it's custom
 		else now = dayjs();
 	});
 	let dayOfWeek = $derived(now.tz(TZ).day());
@@ -59,16 +64,15 @@
 	});
 
 	// Add any future special schedules
-	let upcomingOverrides: (IPopulatedBellScheduleOverride & { dateStr: string })[] =
-		$derived(
-			data.overrides
-				.filter((item) => item.date > dateEpoch)
-				.map((item) => ({
-					...item,
-					dateStr: dayjs(item.date).format('M/D/YY')
-				}))
-				.sort((a, b) => a.date - b.date)
-		);
+	let upcomingOverrides: (IPopulatedBellScheduleOverride & { dateStr: string })[] = $derived(
+		data.overrides
+			.filter((item) => item.date > dateEpoch)
+			.map((item) => ({
+				...item,
+				dateStr: dayjs(item.date).format('M/D/YY'),
+			}))
+			.sort((a, b) => a.date - b.date)
+	);
 
 	// setInterval to update reactive data
 	onMount(() => {
@@ -81,7 +85,10 @@
 	});
 </script>
 
-<SectionHeader title="Bell Schedule" updatedAt={[...data.defaults, ...data.overrides, ...data.overrides.map(i=>i.schedule)]} />
+<SectionHeader
+	title="Bell Schedule"
+	updatedAt={[...data.defaults, ...data.overrides, ...data.overrides.map((i) => i.schedule)]}
+/>
 <Tabs
 	tabStyle="none"
 	contentClass="pt-4 bg-white dark:bg-gray-900"

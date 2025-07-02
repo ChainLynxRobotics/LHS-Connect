@@ -43,16 +43,18 @@
 <div class="min-h-screen bg-white dark:bg-gray-900">
 	<Header></Header>
 	{#if data.announcement.text && lastDismissedAnnouncement < new Date(data.announcement.updatedAt).getTime()}
-		<div transition:slide class="flex w-full flex-col items-center pt-2 px-4">
+		<div transition:slide class="flex w-full flex-col items-center px-4 pt-2">
 			<Alert color="yellow" dismissable on:click={dismissAnnouncement} class="container">
-				<InfoCircleSolid slot="icon" class="w-5 h-5" />
+				<InfoCircleSolid slot="icon" class="h-5 w-5" />
 				<span class="markdown"><Markdown md={data.announcement.text} {plugins} /></span>
 			</Alert>
 		</div>
 	{/if}
 	{#if data.announcement.text && lastDismissedAnnouncement >= new Date(data.announcement.updatedAt).getTime()}
-		<div transition:slide class="flex w-full flex-col items-center pt-2 px-4">
-			<button class="text-xs text-gray-500 dark:text-gray-500" onclick={showAnnouncement}>Show Announcement</button>
+		<div transition:slide class="flex w-full flex-col items-center px-4 pt-2">
+			<button class="text-xs text-gray-500 dark:text-gray-500" onclick={showAnnouncement}
+				>Show Announcement</button
+			>
 		</div>
 	{/if}
 	<div class="flex w-full flex-col items-center">

@@ -3,4 +3,8 @@ import { UsefulLinksLinkCard } from '../../model';
 import { linkCardValidator } from '../../validator';
 import type { RequestEvent } from './$types';
 
-export const { GET, POST } = editOrderEndpoints<RequestEvent>("orderedListValue", UsefulLinksLinkCard, linkCardValidator);
+export const { GET, POST } = editOrderEndpoints<RequestEvent>(
+	'orderedListValue',
+	UsefulLinksLinkCard,
+	linkCardValidator
+);

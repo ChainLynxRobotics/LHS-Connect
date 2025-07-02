@@ -13,6 +13,6 @@
 <SectionHeader title="Bulletin Board" updatedAt={data.notes} />
 <div class="my-4 flex flex-col gap-4">
 	{#each data.notes as note}
-		<BoardNoteContent note={note} />
+		<BoardNoteContent {note} />
 	{/each}
 </div>

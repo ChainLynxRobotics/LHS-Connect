@@ -8,29 +8,30 @@ import bcryptjs from 'bcryptjs';
 import { ShortLink } from '$api/short_link/model';
 
 export const POST: RequestHandler = async ({ locals, params }) => {
-    if (!locals.permissions.has(Permission.MANAGE_SHORT_LINKS)) error(403, "You do not have permission to manage short links.");
+	if (!locals.permissions.has(Permission.MANAGE_SHORT_LINKS))
+		error(403, 'You do not have permission to manage short links.');
 
-    try {
-        const id = idValidator.validateSync(params['id']);
+	try {
+		const id = idValidator.validateSync(params['id']);
 
-        // Find and update doc in db
-        const doc = await ShortLink.findById(id).exec();
-        if (doc === null) return error(404, { message: "Not found" });
+		// Find and update doc in db
+		const doc = await ShortLink.findById(id).exec();
+		if (doc === null) return error(404, { message: 'Not found' });
 
-        // Generate new password
-        const bytes = new Uint8Array(10);
-        crypto.getRandomValues(bytes);
-        const password = encodeBase32LowerCaseNoPadding(bytes);
+		// Generate new password
+		const bytes = new Uint8Array(10);
+		crypto.getRandomValues(bytes);
+		const password = encodeBase32LowerCaseNoPadding(bytes);
 
-        const hash = await bcryptjs.hash(password, await bcryptjs.genSalt(10));
-        doc.hash = hash;
-        await doc.save();
+		const hash = await bcryptjs.hash(password, await bcryptjs.genSalt(10));
+		doc.hash = hash;
+		await doc.save();
 
-        return json({
-            password
-        })
-    } catch (e) {
-        if (e instanceof ValidationError) return error(400, { message: e.message });
-        else throw e;
-    }
+		return json({
+			password,
+		});
+	} catch (e) {
+		if (e instanceof ValidationError) return error(400, { message: e.message });
+		else throw e;
+	}
 };

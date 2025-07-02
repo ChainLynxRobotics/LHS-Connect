@@ -7,7 +7,7 @@
 		AngleDownOutline,
 		AngleUpOutline,
 		EyeOutline,
-		EyeSlashOutline
+		EyeSlashOutline,
 	} from 'flowbite-svelte-icons';
 	import { fade, slide } from 'svelte/transition';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
@@ -35,11 +35,11 @@
 		const shortLinkData = {
 			suffix: await suffixInput!.validate(),
 			url: await urlInput!.validate(),
-			password: await passwordInput?.validate()
+			password: await passwordInput?.validate(),
 		};
-		
+
 		apiRequest('POST', '/short_link', shortLinkData)
-			.then(()=>{
+			.then(() => {
 				notificationContext.show('Short Link Created', 'success');
 				qrOpen = true;
 			})
@@ -54,8 +54,8 @@
 	}
 </script>
 
-<div class="flex w-full flex-col items-center md:items-start justify-center gap-8 pt-8 md:flex-row">
-	<form {onsubmit} class="w-full max-w-md relative p-4">
+<div class="flex w-full flex-col items-center justify-center gap-8 pt-8 md:flex-row md:items-start">
+	<form {onsubmit} class="relative w-full max-w-md p-4">
 		<div class="mb-6">
 			<ValidatedInputGroup
 				bind:this={suffixInput}
@@ -143,14 +143,11 @@
 		{/if}
 
 		{#if qrOpen}
-			<div transition:fade class="absolute top-0 left-0 w-full h-full z-10 bg-white dark:bg-gray-900 !bg-opacity-60 backdrop-blur-sm flex items-center justify-center">
-				<Button
-					type="button"
-					color="light"
-					on:click={reset}
-				>
-					Generate Another
-				</Button>
+			<div
+				transition:fade
+				class="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center bg-white !bg-opacity-60 backdrop-blur-sm dark:bg-gray-900"
+			>
+				<Button type="button" color="light" on:click={reset}>Generate Another</Button>
 			</div>
 		{/if}
 	</form>

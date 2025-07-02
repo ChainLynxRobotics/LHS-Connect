@@ -7,7 +7,11 @@
 	import { flip } from 'svelte/animate';
 	import { PUBLIC_BASE_URL } from '$env/static/public';
 	import type { ILinkCard } from '$api/page_data/usefulLinks/types';
-	import { linkCardValidator, linkCardLinkNameValidator, linkCardLinkUrlValidator } from '$api/page_data/usefulLinks/validator';
+	import {
+		linkCardValidator,
+		linkCardLinkNameValidator,
+		linkCardLinkUrlValidator,
+	} from '$api/page_data/usefulLinks/validator';
 	import type { WithoutID } from '$lib/types/basicTypes';
 
 	const flipDurationMs = 300;
@@ -33,7 +37,7 @@
 		links.push({
 			title: 'Link',
 			url: PUBLIC_BASE_URL,
-			id: Math.random()
+			id: Math.random(),
 		});
 		links = links; // Force update
 	}
@@ -57,7 +61,7 @@
 		submit({
 			title: await titleInput!.validate(),
 			subtitle: await subtitleInput!.validate(),
-			links: links.map((link) => ({ ...link, id: undefined }))
+			links: links.map((link) => ({ ...link, id: undefined })),
 		});
 	}
 

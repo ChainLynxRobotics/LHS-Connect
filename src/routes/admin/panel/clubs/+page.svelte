@@ -1,10 +1,25 @@
 <script lang="ts">
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import { Button, Table, TableHead, TableHeadCell, TableBody, TableBodyRow, TableBodyCell, Popover, Modal } from 'flowbite-svelte';
+	import {
+		Button,
+		Table,
+		TableHead,
+		TableHeadCell,
+		TableBody,
+		TableBodyRow,
+		TableBodyCell,
+		Popover,
+		Modal,
+	} from 'flowbite-svelte';
 	import AutoImportClubsButton from './AutoImportClubsButton.svelte';
 	import type { PageData } from './$types';
 	import EditableItemList from '$components/admin/EditableItemList.svelte';
-	import { EditOutline, FileCopyOutline, InfoCircleOutline, TrashBinOutline } from 'flowbite-svelte-icons';
+	import {
+		EditOutline,
+		FileCopyOutline,
+		InfoCircleOutline,
+		TrashBinOutline,
+	} from 'flowbite-svelte-icons';
 	import ExternalLink from '$components/ExternalLink.svelte';
 	import EditableClubForm from './EditableClubForm.svelte';
 
@@ -27,11 +42,11 @@
 				day: 'unknown',
 				time: 'unknown',
 				location: 'unknown',
-				advisor: 'unknown'
+				advisor: 'unknown',
 			})}
 			order={{
 				canReorder: false,
-				sortFn: (a, b) => a.name.localeCompare(b.name)
+				sortFn: (a, b) => a.name.localeCompare(b.name),
 			}}
 		>
 			{#snippet renderItems({ items, openCreateForm, updateAll })}
@@ -64,11 +79,18 @@
 								</TableBodyCell>
 								<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{item.day}</TableBodyCell>
 								<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{item.time}</TableBodyCell>
-								<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{item.location}</TableBodyCell>
-								<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">{item.advisor}</TableBodyCell>
+								<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm"
+									>{item.location}</TableBodyCell
+								>
+								<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm"
+									>{item.advisor}</TableBodyCell
+								>
 								<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">
 									{#if item.instagram}
-										<ExternalLink href="https://instagram.com/{item.instagram}" text="@{item.instagram}" />
+										<ExternalLink
+											href="https://instagram.com/{item.instagram}"
+											text="@{item.instagram}"
+										/>
 									{/if}
 								</TableBodyCell>
 								<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm align-top">
@@ -92,11 +114,7 @@
 
 			{#snippet editForm({ item, onSubmit, onCancel })}
 				<Modal open size="sm" on:close={onCancel}>
-					<EditableClubForm
-						club={item}
-						onSubmit={onSubmit}
-						onCancel={onCancel}
-					/>
+					<EditableClubForm club={item} {onSubmit} {onCancel} />
 				</Modal>
 			{/snippet}
 		</EditableItemList>

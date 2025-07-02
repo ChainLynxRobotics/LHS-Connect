@@ -59,7 +59,7 @@
 		labelProps = {},
 		buttonGroupProps = {},
 		before,
-		after
+		after,
 	}: Props = $props();
 
 	let checkValidation = $state(false);
