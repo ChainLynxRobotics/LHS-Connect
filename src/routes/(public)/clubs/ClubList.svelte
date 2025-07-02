@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { IClub } from '$api/page_data/clubs/types';
+	import type { ClubListData, IClub } from '$api/page_data/clubs/types';
 	import ExternalLink from '$components/ExternalLink.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
 	import {
@@ -16,15 +16,15 @@
 	import Fuse from 'fuse.js';
 
 	interface Props {
-		clubs: IClub[];
+		data: ClubListData;
 	}
 
-	let { clubs }: Props = $props();
+	let { data }: Props = $props();
 
 	let search = $state('');
 
 	let fuse = $derived(
-		new Fuse(clubs, {
+		new Fuse(data.clubs, {
 			keys: [
 				{ name: 'name', weight: 5 },
 				{ name: 'desc', weight: 4 },
@@ -37,12 +37,12 @@
 	);
 
 	let searchedClubs = $derived(
-		search.trim().length === 0 ? clubs : fuse.search(search).map((result) => result.item)
+		search.trim().length === 0 ? data.clubs : fuse.search(search).map((result) => result.item)
 	);
 </script>
 
 <div class="px-4">
-	<SectionHeader title="List of Lincoln Clubs" updatedAt={clubs} />
+	<SectionHeader title="List of Lincoln Clubs" updatedAt={data.clubs} />
 </div>
 <div class="mb-4 mt-8 flex items-center justify-center px-4">
 	<div class="w-full max-w-sm">

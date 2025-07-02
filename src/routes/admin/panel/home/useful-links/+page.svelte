@@ -18,13 +18,13 @@
 
 <div class="flex flex-col items-center p-4">
 	<div class="w-full max-w-4xl">
-		<SectionHeader title="Useful Links" updatedAt={data.results} />
+		<SectionHeader title="Useful Links" updatedAt={data.usefulLinks} />
 		<p class="mb-8">
 			These links are rendered at the bottom of the page in a footer on all public pages
 		</p>
 		<EditableItemList
 			serviceId="usefulLinks"
-			items={data.results}
+			items={data.usefulLinks}
 			generateNewItem={() => ({
 				title: 'New Card',
 				links: []

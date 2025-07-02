@@ -1,6 +1,6 @@
 <script lang="ts">
+	import type { IBellSchedule } from '$api/page_data/bellSchedule/types';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
 	import adminApiClient from '$lib/util/adminApiClient';
 	import {
 		Select,

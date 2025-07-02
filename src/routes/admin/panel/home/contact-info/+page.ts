@@ -1,11 +1,11 @@
-import type { ILinkCard } from '$lib/types/crud/linkCard';
+import type { ILinkCard } from '$api/page_data/usefulLinks/types';
+import type { GetAllResults } from '$lib/util/adminApiClient';
 import type { PageLoad } from './$types';
 
 export const load = (async (event) => {
-	const res = await event.fetch('/api/v1/crud/contactInfo');
-	const json = await res.json();
+	const contactInfo = await (await event.fetch('/api/v2/page_data/contactInfo/edit')).json() as GetAllResults<ILinkCard>;
+	
 	return {
-		results: json.results as ILinkCard[],
-		order: json.order as string[],
+		contactInfo: contactInfo.results,
 	};
 }) satisfies PageLoad;

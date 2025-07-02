@@ -1,11 +1,11 @@
-import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
+import type { IBellSchedule } from '$api/page_data/bellSchedule/types';
+import type { GetAllResults } from '$lib/util/adminApiClient';
 import type { PageLoad } from './$types';
 
 export const load = (async (event) => {
-	const res = await event.fetch('/api/v1/crud/bellSchedules');
-	const json = await res.json();
+	const bellSchedules = await (await event.fetch('/api/v2/page_data/bellSchedules/edit')).json() as GetAllResults<IBellSchedule>;
+	
 	return {
-		results: json.results as IBellSchedule[],
-		order: json.order as string[],
+		bellSchedules: bellSchedules.results,
 	};
 }) satisfies PageLoad;

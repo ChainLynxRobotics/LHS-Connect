@@ -5,10 +5,10 @@
 	import SpecialScheduleRow from './SpecialScheduleRow.svelte';
 	import BellScheduleTabs from '$components/info/BellScheduleTabs.svelte';
 	import type { PageData } from './$types';
-	import type { BellScheduleData } from '$lib/types/HomePageData';
 	import dayjs, { TZ } from '$lib/util/dayjs';
 	import EditableItemList from '$components/admin/EditableItemList.svelte';
 	import ExternalLink from '$components/ExternalLink.svelte';
+	import type { BellScheduleData } from '$api/page_data/bellSchedule/types';
 
 	interface Props {
 		data: PageData;
@@ -18,23 +18,23 @@
 
 	// Select options for the schedule overrides
 	let scheduleOptions = $derived(
-		data.schedules.map((item) => ({ value: item.id, name: item?.name || 'Unknown' }))
+		data.bellSchedules.map((item) => ({ value: item.id, name: item?.name || 'Unknown' }))
 	);
 
-	let defaults = $state(data.defaults[0]?.bellScheduleIDs || []);
-	let overrides = $state(data.overrides);
+	let defaults = $state(data.bellScheduleDefaults?.bellScheduleIDs || []);
+	let overrides = $state(data.bellScheduleOverrides);
 
 	let previewTime = $state(dayjs().format(`YYYY-MM-DD[T]HH:mm`));
 
 	let bellScheduleData: BellScheduleData = $derived({
-		defaults: defaults.map((id) => data.schedules.find((schedule) => schedule.id === id)!), // Populate the defaults
-		overrides: overrides.map((item) => ({ ...item, schedule: data.schedules.find((schedule) => schedule.id === item.scheduleId)! })) // Populate the overrides
+		defaults: defaults.map((id) => data.bellSchedules.find((schedule) => schedule.id === id)!), // Populate the defaults
+		overrides: overrides.map((item) => ({ ...item, schedule: data.bellSchedules.find((schedule) => schedule.id === item.scheduleId)! })) // Populate the overrides
 	});
 </script>
 
 <div class="flex flex-col items-center p-4">
 	<div class="w-full max-w-4xl">
-		<SectionHeader title="Days of the Week" updatedAt={data.defaults} />
+		<SectionHeader title="Days of the Week" updatedAt={[data.bellScheduleDefaults]} />
 		<p class="mb-8">The default bell schedules that always show up, one of each day of the week.</p>
 		<DefaultSchedules bind:defaults={defaults} {scheduleOptions} />
 
@@ -47,7 +47,7 @@
 			bind:items={overrides}
 			generateNewItem={() => ({
 				date: dayjs().tz(TZ).startOf('day').valueOf(),
-				scheduleId: data.schedules[0]?.id
+				scheduleId: data.bellSchedules[0]?.id
 			})}
 			order={{
 				canReorder: false,

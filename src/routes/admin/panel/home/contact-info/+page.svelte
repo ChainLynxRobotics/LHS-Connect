@@ -18,11 +18,11 @@
 
 <div class="flex flex-col items-center p-4">
 	<div class="w-full max-w-4xl">
-		<SectionHeader title="Contact Info" updatedAt={data.results} />
+		<SectionHeader title="Contact Info" updatedAt={data.contactInfo} />
 		<p class="mb-8"></p>
 		<EditableItemList
 			serviceId="contactInfo"
-			items={data.results}
+			items={data.contactInfo}
 			generateNewItem={() => ({
 				title: 'New Card',
 				links: []

@@ -2,8 +2,8 @@
 	import { Modal, TableBodyCell, TableBodyRow, Tooltip, A } from 'flowbite-svelte';
 	import { CheckOutline, EditOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import EditableLinkForm from './EditableLinkForm.svelte';
-	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$lib/types/crud/shortLink';
 	import dayjs from '$lib/util/dayjs';
+	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$api/shortLink/types';
 
 	interface Props {
 		link: IPublicShortLink;

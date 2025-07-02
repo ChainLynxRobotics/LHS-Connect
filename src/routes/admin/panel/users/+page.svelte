@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import type { IAdminUserUpdate, ISerializedUser } from '$lib/types/user';
 	import adminApiClient from '$lib/util/adminApiClient';
     import { A, Input, Label, Pagination, Select, Table, TableBody, TableHead, TableHeadCell } from 'flowbite-svelte';
 	import EditableUser from './EditableUser.svelte';
 	import { Permission } from '$lib/auth/permissions';
+	import type { IAdminUserUpdate, ISerializedUser } from '$api/users/types';
 
     const notificationContext = getNotificationContext();
 

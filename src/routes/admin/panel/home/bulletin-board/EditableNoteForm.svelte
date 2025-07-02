@@ -1,10 +1,10 @@
 <script lang="ts">
+	import type { IBulletinBoardNote } from '$api/page_data/bulletinBoard/types';
+	import { bulletinBoardNoteValidator } from '$api/page_data/bulletinBoard/validator';
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
+	import type { WithoutID } from '$lib/types/basicTypes';
 	import { Button, Helper } from 'flowbite-svelte';
-	import type { IBulletinBoardNote } from '$lib/types/crud/bulletinBoard';
-	import type { WithoutID } from '$lib/types/crud/globalCrud';
-	import bulletinBoardNoteValidator from '$lib/validation/crud/bulletinBoardNoteValidator';
 
 	interface Props {
 		note: WithoutID<IBulletinBoardNote>;

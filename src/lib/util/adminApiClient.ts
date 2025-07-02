@@ -3,7 +3,7 @@ import apiRequest from "./apiClient";
 
 export const baseApiRequest = apiRequest;
 
-export interface GetAllResults<T extends {id: any}> extends GetOrder<T> {
+export interface GetAllResults<T> {
     results: T[];
 }
 
@@ -15,11 +15,11 @@ export interface GetOrder<T extends {id: any}> {
     order: T['id'][];
 }
 
-async function getAll<T extends {id: any}>(itemEndpoint: string): Promise<GetAllResults<T>> {
+async function getAll<T>(itemEndpoint: string): Promise<GetAllResults<T>> {
     return baseApiRequest('GET', `/${itemEndpoint}/edit`);
 }
 
-async function create<T extends {id: any}>(itemEndpoint: string, data: WithoutID<T>): Promise<GetResult<T>> {
+async function create<T>(itemEndpoint: string, data: WithoutID<T>): Promise<GetResult<T>> {
     return baseApiRequest('POST', `/${itemEndpoint}/edit`, data);
 }
 

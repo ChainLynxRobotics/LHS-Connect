@@ -5,9 +5,9 @@
 	import { InfoCircleOutline } from 'flowbite-svelte-icons';
 	import { string } from 'yup';
 	import Papa from 'papaparse';
-	import type { IClub } from '$lib/types/crud/club';
-	import type { WithoutID } from '$lib/types/crud/globalCrud';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
+	import type { IClub } from '$api/page_data/clubs/types';
+	import type { WithoutID } from '$lib/types/basicTypes';
 
 	interface Props {
 		onSubmit: (clubs: WithoutID<IClub>[]) => void;

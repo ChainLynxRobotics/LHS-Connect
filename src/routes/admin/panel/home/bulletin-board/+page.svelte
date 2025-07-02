@@ -19,11 +19,11 @@
 
 <div class="flex flex-col items-center p-4">
 	<div class="w-full max-w-lg">
-		<SectionHeader title="Bulletin Board" updatedAt={data.results} />
+		<SectionHeader title="Bulletin Board" updatedAt={data.bulletinBoardNotes} />
 		<p class="mb-8">The title and content support markdown, and you can drag the notes around. To learn more about markdown syntax <ExternalLink href="https://www.markdownguide.org/basic-syntax/" text="click here" />.</p>
 		<EditableItemList
 			serviceId="bulletinBoardNotes"
-			items={data.results}
+			items={data.bulletinBoardNotes}
 			generateNewItem={() => ({ title: 'New Note', content: 'content' })}
 			order={{ 
 				canReorder: true,

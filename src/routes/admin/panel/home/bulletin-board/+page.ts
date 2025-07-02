@@ -1,11 +1,11 @@
-import type { IBulletinBoardNote } from '$lib/types/crud/bulletinBoard';
-import type { BulletinBoardData } from '$lib/types/HomePageData';
+import type { IBulletinBoardNote } from '$api/page_data/bulletinBoard/types';
+import type { GetAllResults } from '$lib/util/adminApiClient';
 import type { PageLoad } from './$types';
 
 export const load = (async (event) => {
-	const res = await event.fetch('/api/v1/crud/bulletinBoardNotes');
-	const json = await res.json();
+	const bulletinBoardNotes = await (await event.fetch('/api/v2/page_data/bulletinBoardNotes/edit')).json() as GetAllResults<IBulletinBoardNote>;
+	
 	return {
-		results: json.results as IBulletinBoardNote[],
+		bulletinBoardNotes: bulletinBoardNotes.results,
 	};
 }) satisfies PageLoad;

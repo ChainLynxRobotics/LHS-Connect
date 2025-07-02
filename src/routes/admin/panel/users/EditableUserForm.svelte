@@ -1,13 +1,7 @@
 <script lang="ts">
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$lib/types/crud/shortLink';
-	import type { IAdminUserUpdate, ISerializedUser } from '$lib/types/user';
-	import apiRequest from '$lib/util/apiClient';
-	import { shortLinkAdminUpdateValidator } from '$lib/validation/shortLinkValidator';
-	import { Alert, Button, Label, Modal, MultiSelect } from 'flowbite-svelte';
-	import { CheckOutline, CloseOutline, InfoCircleSolid } from 'flowbite-svelte-icons';
-    import { Permission, PermissionValues, Permissions } from "$lib/auth/permissions";
+	import { Button, Label, MultiSelect } from 'flowbite-svelte';
+	import { Permission, PermissionValues, Permissions } from "$lib/auth/permissions";
+	import type { ISerializedUser, IAdminUserUpdate } from '$api/users/types';
 
 	interface Props {
 		user: ISerializedUser;

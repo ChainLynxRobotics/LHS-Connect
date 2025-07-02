@@ -5,10 +5,10 @@
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { dragHandleZone, dragHandle } from 'svelte-dnd-action';
 	import { flip } from 'svelte/animate';
-	import type { WithoutID } from '$lib/types/crud/globalCrud';
-	import type { ILinkCard } from '$lib/types/crud/linkCard';
-	import linkCardValidator, { linkCardLinkNameValidator, linkCardLinkUrlValidator } from '$lib/validation/crud/linkCardValidator';
 	import { PUBLIC_BASE_URL } from '$env/static/public';
+	import type { ILinkCard } from '$api/page_data/usefulLinks/types';
+	import { linkCardValidator, linkCardLinkNameValidator, linkCardLinkUrlValidator } from '$api/page_data/usefulLinks/validator';
+	import type { WithoutID } from '$lib/types/basicTypes';
 
 	const flipDurationMs = 300;
 

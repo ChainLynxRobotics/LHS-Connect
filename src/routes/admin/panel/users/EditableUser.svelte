@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { Permission, Permissions } from "$lib/auth/permissions";
-    import type { IAdminUserUpdate, ISerializedUser } from "$lib/types/user";
 	import { Avatar, Badge, Modal, TableBodyCell, TableBodyRow, Tooltip } from "flowbite-svelte";
 	import { EditOutline, TrashBinOutline } from "flowbite-svelte-icons";
 	import EditableUserForm from "./EditableUserForm.svelte";
 	import dayjs from "$lib/util/dayjs";
+	import type { ISerializedUser, IAdminUserUpdate } from "$api/users/types";
 
     interface Props {
 		user: ISerializedUser;

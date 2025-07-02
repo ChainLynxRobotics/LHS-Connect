@@ -1,11 +1,11 @@
 <script lang="ts">
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import { A, Button, Input, Label, Pagination, PaginationItem, Select, Table, TableBody, TableHead, TableHeadCell } from 'flowbite-svelte';
+	import { A, Input, Label, PaginationItem, Select, Table, TableBody, TableHead, TableHeadCell } from 'flowbite-svelte';
 	import EditableLink from './EditableLink.svelte';
 	import adminApiClient from '$lib/util/adminApiClient';
-	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$lib/types/crud/shortLink';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 	import { ArrowLeftOutline, ArrowRightOutline } from 'flowbite-svelte-icons';
+	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$api/shortLink/types';
 
 	const notificationContext = getNotificationContext();
 

@@ -1,9 +1,9 @@
 <script lang="ts">
+	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$api/shortLink/types';
+	import { shortLinkAdminUpdateValidator } from '$api/shortLink/validator';
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$lib/types/crud/shortLink';
 	import apiRequest from '$lib/util/apiClient';
-	import { shortLinkAdminUpdateValidator } from '$lib/validation/shortLinkValidator';
 	import { Alert, Button, Label, Modal } from 'flowbite-svelte';
 	import { CheckOutline, CloseOutline, InfoCircleSolid } from 'flowbite-svelte-icons';
 
@@ -36,7 +36,7 @@
 	}
 
 	async function resetPassword() {
-		const res = await apiRequest('POST', `/crud/shortLinks/${link.id}/resetPassword`)
+		const res = await apiRequest('POST', `/shortLinks/edit/${link.id}/resetPassword`)
 			.catch((e) => notificationContext.show(e.message, 'error'));
 		newPassword = res.password;
 		resetPasswordConfirm = false;

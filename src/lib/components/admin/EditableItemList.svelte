@@ -67,13 +67,9 @@
              * Allow reordering of items in the list.
              * To allow drag-and-drop reordering, also use the `draggableContainer` action provided in the `children` render props.
              */
-			canReorder: true
-			/**
-			 * The initial order of the items. If undefined, this will be auto-generated based on the initial items passed in.
-			 */
-			initialOrder?: Item['id'][];
+			canReorder: true;
 		} | {
-            canReorder: false|undefined
+            canReorder: false|undefined;
 			/**
 			 * When `canReorder` is false, use the following function to sort the items.
 			 */
@@ -100,7 +96,7 @@
 	const notificationContext = getNotificationContext();
 
 	let order: Item['id'][] | undefined = $state(
-		orderSettings.canReorder ? sanitizeOrder(orderSettings.initialOrder || items.map((item) => item.id)) : undefined
+		orderSettings.canReorder ? sanitizeOrder(items.map((item) => item.id)) : undefined
 	);
 
     let createModalOpen = $state(false); // Used to open the create modal for an item
@@ -206,7 +202,7 @@
      * @param res - The response from the server containing the items and possibly order.
      */
     function updateItemsFromServerRes(res: GetAllResults<Item>) {
-        if (orderSettings.canReorder && res.order) order = res.order;
+        if (orderSettings.canReorder) order = items.map((item) => item.id);
         items = sort(res.results);
     }
 

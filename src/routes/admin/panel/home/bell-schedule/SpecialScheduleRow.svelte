@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { stopPropagation } from 'svelte/legacy';
-
 	import {
 		TableBodyCell,
 		TableBodyRow,
@@ -9,10 +7,9 @@
 		Tooltip
 	} from 'flowbite-svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
-	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
-	import type { IBellScheduleOverride } from '$lib/types/crud/bellScheduleOverride';
-	import type { WithoutID } from '$lib/types/crud/globalCrud';
 	import dayjs, { TZ } from '$lib/util/dayjs';
+	import type { IBellScheduleOverride, IBellSchedule } from '$api/page_data/bellSchedule/types';
+	import type { WithoutID } from '$lib/types/basicTypes';
 
 	interface Props {
 		special: IBellScheduleOverride;

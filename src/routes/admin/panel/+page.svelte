@@ -5,12 +5,12 @@
     import { Permissions } from "$lib/auth/permissions";
 	import type { PageData } from "./$types";
 	import ValidatedInput from "$components/form/ValidatedInput.svelte";
-	import announcementValidator from "$lib/validation/crud/announcementValidator";
 	import adminApiClient from "$lib/util/adminApiClient";
-	import { goto, invalidate, invalidateAll } from "$app/navigation";
+	import { goto, invalidate } from "$app/navigation";
 	import { getNotificationContext } from "$components/NotificationProvider.svelte";
 	import { InfoCircleSolid } from "flowbite-svelte-icons";
 	import { slide } from "svelte/transition";
+	import { announcementValidator } from "$api/page_data/announcement/validator";
 
 	let { data }: { data: PageData } = $props();
 

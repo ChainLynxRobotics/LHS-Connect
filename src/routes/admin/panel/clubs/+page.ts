@@ -1,10 +1,9 @@
+import type { IClub } from '$api/page_data/clubs/types';
+import type { GetAllResults } from '$lib/util/adminApiClient';
 import type { PageLoad } from './$types';
-import type { IClub } from '$lib/types/crud/club';
 
 export const load = (async (event) => {
-	const res = await event.fetch('/api/v1/crud/clubs');
-	const json = await res.json();
-	return {
-		results: json.results as IClub[],
-	};
+	const clubs = await (await event.fetch('/api/v2/page_data/clubs/edit')).json() as GetAllResults<IClub>;
+	
+	return clubs;
 }) satisfies PageLoad;

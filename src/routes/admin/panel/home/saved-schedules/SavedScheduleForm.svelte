@@ -13,9 +13,9 @@
 	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { flip } from 'svelte/animate';
-	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
-	import type { WithoutID } from '$lib/types/crud/globalCrud';
-	import bellScheduleValidator, { bellSchedulePeriodNameValidator } from '$lib/validation/crud/bellScheduleValidator';
+	import type { IBellSchedule } from '$api/page_data/bellSchedule/types';
+	import { bellScheduleValidator, bellSchedulePeriodNameValidator } from '$api/page_data/bellSchedule/validator';
+	import type { WithoutID } from '$lib/types/basicTypes';
 
 	const flipDurationMs = 300;
 
