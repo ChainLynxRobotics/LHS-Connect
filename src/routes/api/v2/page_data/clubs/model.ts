@@ -1,5 +1,5 @@
-import type { IClub } from "$lib/types/crud/club";
 import mongoose from "mongoose";
+import type { IClub } from "./types";
 
 export const clubSchema = new mongoose.Schema<IClub>({
     name: { type: String, required: true, maxlength: 250 },

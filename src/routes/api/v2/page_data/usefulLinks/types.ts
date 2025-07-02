@@ -11,3 +11,10 @@ export interface ILinkCard extends IOrderableListValue {
         url: string;
     }[];
 }
+
+/**
+ * Represents the data for a list of link cards, whats returned by the API.
+ */
+export interface LinkCardListData {
+	cards: ILinkCard[];
+}

@@ -32,3 +32,11 @@ export interface IBellScheduleOverride extends IListValue {
 export interface IPopulatedBellScheduleOverride extends IBellScheduleOverride {
     schedule: IBellSchedule;
 }
+
+/**
+ * Data structure for the bell schedule page, whats returned by the API
+ */
+export interface BellScheduleData {
+	defaults: IBellSchedule[]; // For each day of the week
+	overrides: IPopulatedBellScheduleOverride[];
+}

@@ -12,3 +12,10 @@ export interface IClub extends IListValue {
     instagram?: string; // No '@' symbol, just the username
     desc?: string;
 }
+
+/**
+ * Represents the data for the club page, with a list of clubs below it, whats returned by the API.
+ */
+export interface ClubListData {
+	clubs: IClub[];
+}

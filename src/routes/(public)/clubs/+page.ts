@@ -1,8 +1,8 @@
-import type { ClubPageData } from '$lib/types/ClubPageData';
+import type { ClubListData } from '$api/page_data/clubs/types';
 import type { PageLoad } from './$types';
 
 export const load = (async ({ fetch }) => {
-    const clubData = await fetch('/api/v1/clubs');
+    const clubs = await (await fetch('/api/v2/page_data/clubs')).json() as ClubListData;
 
-    return await clubData.json() as ClubPageData;
+    return clubs;
 }) satisfies PageLoad;

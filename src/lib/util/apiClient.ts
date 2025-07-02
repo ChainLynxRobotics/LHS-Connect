@@ -1,4 +1,4 @@
-export const BASE_API_URL = '/api/v1';
+export const BASE_API_URL = '/api/v2';
 
 export default async function apiRequest(method: string, url: string, data?: any): Promise<any> {
     const response = await fetch(`${BASE_API_URL}${url}`, {

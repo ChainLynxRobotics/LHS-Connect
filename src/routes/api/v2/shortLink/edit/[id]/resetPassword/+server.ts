@@ -1,11 +1,11 @@
 import { Permission } from '$lib/auth/permissions';
-import { ShortLink } from '$lib/models/shortLinkModel';
 import { idValidator } from '$lib/validation/objectId';
 import { encodeBase32LowerCaseNoPadding } from '@oslojs/encoding';
 import { error, json } from '@sveltejs/kit';
 import { ValidationError } from 'yup';
 import type { RequestHandler } from './$types';
 import bcryptjs from 'bcryptjs';
+import { ShortLink } from '$api/shortLink/model';
 
 export const POST: RequestHandler = async ({ locals, params }) => {
     if (!locals.permissions.has(Permission.MANAGE_SHORT_LINKS)) error(403, "You do not have permission to manage short links.");

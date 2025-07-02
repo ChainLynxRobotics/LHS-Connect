@@ -10,10 +10,10 @@
 		EyeSlashOutline
 	} from 'flowbite-svelte-icons';
 	import { fade, slide } from 'svelte/transition';
-	import { shortLinkCreateValidator } from '$lib/validation/shortLinkValidator';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 	import apiRequest from '$lib/util/apiClient';
 	import { PUBLIC_BASE_SHORT_URL } from '$env/static/public';
+	import { shortLinkCreateValidator } from '$api/shortLink/validator';
 
 	const notificationContext = getNotificationContext();
 

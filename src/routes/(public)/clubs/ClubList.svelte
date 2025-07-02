@@ -1,7 +1,7 @@
 <script lang="ts">
+	import type { IClub } from '$api/page_data/clubs/types';
 	import ExternalLink from '$components/ExternalLink.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import type { IClub } from '$lib/types/crud/club';
 	import {
 		Search,
 		Table,

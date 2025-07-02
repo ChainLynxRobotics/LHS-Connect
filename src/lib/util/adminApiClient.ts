@@ -1,7 +1,5 @@
-import type { WithoutID } from "$lib/types/crud/globalCrud";
+import type { WithoutID } from "$lib/types/basicTypes";
 import apiRequest from "./apiClient";
-
-export const BASE_API_URL = '/api/v1';
 
 export const baseApiRequest = apiRequest;
 
@@ -17,36 +15,36 @@ export interface GetOrder<T extends {id: any}> {
     order: T['id'][];
 }
 
-async function getAll<T extends {id: any}>(serviceId: string): Promise<GetAllResults<T>> {
-    return baseApiRequest('GET', `/crud/${serviceId}`);
+async function getAll<T extends {id: any}>(itemEndpoint: string): Promise<GetAllResults<T>> {
+    return baseApiRequest('GET', `/${itemEndpoint}/edit`);
 }
 
-async function create<T extends {id: any}>(serviceId: string, data: WithoutID<T>): Promise<GetAllResults<T>> {
-    return baseApiRequest('POST', `/crud/${serviceId}`, data);
+async function create<T extends {id: any}>(itemEndpoint: string, data: WithoutID<T>): Promise<GetResult<T>> {
+    return baseApiRequest('POST', `/${itemEndpoint}/edit`, data);
 }
 
-async function get<T extends {id: any}>(serviceId: string, id: T['id']): Promise<GetResult<T>> {
-    return baseApiRequest('GET', `/crud/${serviceId}/${id}`);
+async function get<T extends {id: any}>(itemEndpoint: string, id: T['id']): Promise<GetResult<T>> {
+    return baseApiRequest('GET', `/${itemEndpoint}/edit/${id}`);
 }
 
-async function update<T extends {id: any}>(serviceId: string, id: T['id'], data: Partial<WithoutID<T>>): Promise<GetResult<T>> {
-    return baseApiRequest('PATCH', `/crud/${serviceId}/${id}`, data);
+async function update<T extends {id: any}>(itemEndpoint: string, id: T['id'], data: Partial<WithoutID<T>>): Promise<GetResult<T>> {
+    return baseApiRequest('PATCH', `/${itemEndpoint}/edit/${id}`, data);
 }
 
-async function remove<T extends {id: any}>(serviceId: string, id: T['id']): Promise<GetAllResults<T>> {
-    return baseApiRequest('DELETE', `/crud/${serviceId}/${id}`);
+async function remove<T extends {id: any}>(itemEndpoint: string, id: T['id']): Promise<GetResult<T>> {
+    return baseApiRequest('DELETE', `/${itemEndpoint}/edit/${id}`);
 }
 
-async function getOrder<T extends {id: any}>(serviceId: string): Promise<GetOrder<T>> {
-    return baseApiRequest('GET', `/crud/${serviceId}/order`);
+async function getOrder<T extends {id: any}>(itemEndpoint: string): Promise<GetOrder<T>> {
+    return baseApiRequest('GET', `/${itemEndpoint}/edit/order`);
 }
 
-async function reorder<T extends {id: any}>(serviceId: string, order: T['id'][]): Promise<GetOrder<T>> {
-    return baseApiRequest('POST', `/crud/${serviceId}/order`, order);
+async function reorder<T extends {id: any}>(itemEndpoint: string, order: T['id'][]): Promise<GetOrder<T>> {
+    return baseApiRequest('POST', `/${itemEndpoint}/edit/order`, order);
 }
 
-async function overwriteAll<T extends {id: any}>(serviceId: string, data: WithoutID<T>[]): Promise<GetAllResults<T>> {
-    return baseApiRequest('POST', `/crud/${serviceId}/all`, data);
+async function overwriteAll<T extends {id: any}>(itemEndpoint: string, data: WithoutID<T>[]): Promise<GetAllResults<T>> {
+    return baseApiRequest('POST', `/${itemEndpoint}/edit/all`, data);
 }
 
 export default {

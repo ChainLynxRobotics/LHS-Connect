@@ -8,3 +8,10 @@ export interface IBulletinBoardNote extends IOrderableListValue {
     content: string;
     link?: string;
 }
+
+/**
+ * Represents the data for the bulletin board, whats returned by the API.
+ */
+export interface BulletinBoardData {
+	notes: IBulletinBoardNote[];
+}

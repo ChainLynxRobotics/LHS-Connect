@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { IBulletinBoardNote } from '$lib/types/crud/bulletinBoard';
+	import type { IBulletinBoardNote } from '$api/page_data/bulletinBoard/types';
 	import { ChevronRightOutline } from 'flowbite-svelte-icons';
 	import Markdown from 'svelte-exmarkdown';
 	import { gfmPlugin } from 'svelte-exmarkdown/gfm';

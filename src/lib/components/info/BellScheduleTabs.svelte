@@ -1,9 +1,7 @@
 <script lang="ts">
+	import type { BellScheduleData, IBellSchedule, IPopulatedBellScheduleOverride } from '$api/page_data/bellSchedule/types';
 	import BellScheduleTable from '$components/info/BellScheduleTable.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import type { IBellSchedule } from '$lib/types/crud/bellSchedule';
-	import type { IPopulatedBellScheduleOverride } from '$lib/types/crud/bellScheduleOverride';
-	import type { BellScheduleData } from '$lib/types/HomePageData';
 	import dayjs, { TZ } from '$lib/util/dayjs';
 	import { type Dayjs } from 'dayjs';
 	import { Accordion, AccordionItem, TabItem, Tabs } from 'flowbite-svelte';

@@ -22,7 +22,7 @@
 			<BulletinBoard data={data.bulletinBoard} />
 		</div>
 		<div>
-			<BellSchedule data={data.bellSchedules} />
+			<BellSchedule data={data.bellSchedule} />
 		</div>
 		<div class="lg:col-span-2">
 			<LinkCardList title="Contact Information" data={data.contactInfo} />

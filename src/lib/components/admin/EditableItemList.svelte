@@ -3,7 +3,7 @@
 	import adminApiClient from '$lib/util/adminApiClient';
     import type { GetAllResults } from '$lib/util/adminApiClient';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import type { WithoutID } from '$lib/types/crud/globalCrud';
+	import type { WithoutID } from '$lib/types/basicTypes';
 	
 	type ItemWithoutID = WithoutID<Item>;
 
@@ -112,7 +112,6 @@
 		if (!canCreate) return;
 
 		adminApiClient.create<Item>(serviceId, item)
-            .then(updateItemsFromServerRes)
             .catch(onHttpError);
 	}
 
@@ -124,7 +123,6 @@
 		delete item.id; // Remove the id to create a new item
 
 		adminApiClient.create<Item>(serviceId, item)
-            .then(updateItemsFromServerRes)
             .catch(onHttpError);
 	}
 
@@ -138,15 +136,14 @@
 		items[index] = { ...item, id: id } as Item;
         items = items; // Force reactivity
 
-		adminApiClient.update<Item>(serviceId, id, item).then((res) => {
-			// Update the item with the result from the server, in case it was modified
-			const index = items.findIndex((i) => i.id === id);
-			if (index === -1) return;
-			items[index] = res.result;
-		}).catch((err) => {
-			onHttpError(err);
-			refetch(); // Re-fetch the items to ensure they are in sync
-		});
+		adminApiClient.update<Item>(serviceId, id, item)
+			.then((res) => {
+				// Update the item with the result from the server, in case it was modified
+				const index = items.findIndex((i) => i.id === id);
+				if (index === -1) return;
+				items[index] = res.result;
+			})
+			.catch(onHttpError);
 	}
 
 	function remove(id: Item['id']) {
@@ -164,17 +161,14 @@
 			order = order; // Force reactivity
 		}
 
-		adminApiClient.remove<Item>(serviceId, id).catch((err) => {
-			onHttpError(err);
-			refetch(); // Re-fetch the items to ensure they are in sync
-		});
+		adminApiClient.remove<Item>(serviceId, id)
+			.catch(onHttpError);
 	}
 
 	function updateAll(newItems: ItemWithoutID[]) {
-		adminApiClient.overwriteAll<Item>(serviceId, newItems).then(updateItemsFromServerRes).catch((err) => {
-			onHttpError(err);
-			refetch(); // Re-fetch the items to ensure they are in sync
-		});
+		adminApiClient.overwriteAll<Item>(serviceId, newItems)
+			.then(updateItemsFromServerRes)
+			.catch(onHttpError);
 	}
 
     function reorder(newOrder: Item['id'][]) {
@@ -186,9 +180,11 @@
 
         items = sort(items); // Sort the items based on the new order
 
-		adminApiClient.reorder<Item>(serviceId, newOrder).then((res) => {
-			order = res.order;
-		}).catch(onHttpError);
+		adminApiClient.reorder<Item>(serviceId, newOrder)
+			.then((res) => {
+				order = res.order;
+			})
+			.catch(onHttpError);
 	}
 
     // Utils
@@ -199,7 +195,10 @@
 	function refetch() {
 		adminApiClient.getAll<Item>(serviceId)
             .then(updateItemsFromServerRes)
-            .catch(onHttpError);
+            .catch((err) => {
+				console.error('Failed to refetch items:', err);
+				notificationContext.show('Failed to refetch items', 'error');
+			});
 	}
 
     /**
@@ -212,6 +211,7 @@
     }
 
     function onHttpError(err: Error) {
+		refetch(); // Try to refetch the items to keep the state in sync
 		notificationContext.show(err.message, 'error');
 	}
 

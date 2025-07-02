@@ -1,5 +1,5 @@
+import { UploadedFile } from "$api/file_transfer/model";
 import { S3_ACCESS_KEY_ID, S3_BUCKET_NAME, S3_ENDPOINT, S3_SECRET_ACCESS_KEY } from "$env/static/private";
-import { UploadedFile } from "$lib/models/uploadedFile";
 import { DeleteObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
 export const s3client = new S3Client({

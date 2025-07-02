@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ILinkCard } from '$lib/types/crud/linkCard';
+	import type { ILinkCard } from '$api/page_data/usefulLinks/types';
 	import ExternalLink from '../ExternalLink.svelte';
 
 	interface Props {

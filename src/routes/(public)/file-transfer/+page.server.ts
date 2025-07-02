@@ -1,6 +1,6 @@
-import { fileTransferCodeValidator } from '$lib/validation/fileTransferValidator';
-import { json, redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
+import { fileTransferCodeValidator } from '$api/file_transfer/validator';
 
 export const load = (async ({ url, cookies }) => {
     let existingCode = url.searchParams.get('code');

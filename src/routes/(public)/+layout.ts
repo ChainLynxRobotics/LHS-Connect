@@ -1,11 +1,14 @@
-import type { GlobalPageData } from '$lib/types/GlobalPageData';
+import type { IAnnouncement } from '$api/page_data/announcement/types';
+import type { LinkCardListData } from '$api/page_data/usefulLinks/types';
 import type { LayoutLoad } from './$types';
 
 export const load = (async ({ url, fetch }) => {
-	const globalData = await fetch('/api/v1/global');
+	const announcement = await (await fetch('/api/v2/announcement')).json() as IAnnouncement;
+	const usefulLinks = await (await fetch('/api/v2/usefulLinks')).json() as LinkCardListData;
 
 	return {
-		...(await globalData.json()) as GlobalPageData,
+		announcement,
+		usefulLinks,
 		pathname: url.pathname
 	};
 }) satisfies LayoutLoad;

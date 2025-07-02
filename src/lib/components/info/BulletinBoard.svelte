@@ -1,7 +1,7 @@
 <script lang="ts">
+	import type { BulletinBoardData } from '$api/page_data/bulletinBoard/types';
 	import BoardNoteContent from '$components/info/BoardNoteContent.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
-	import type { BulletinBoardData } from '$lib/types/HomePageData';
 
 	interface Props {
 		data: BulletinBoardData;

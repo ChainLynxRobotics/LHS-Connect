@@ -5,8 +5,8 @@
 	import { A, Alert, Button, Spinner } from 'flowbite-svelte';
 	import { ArrowLeftOutline, InfoCircleSolid } from 'flowbite-svelte-icons';
 	import LinkEditForm from './LinkEditForm.svelte';
-	import type { IPublicShortLink, IShortLinkLogin } from '$lib/types/crud/shortLink';
 	import apiRequest from '$lib/util/apiClient';
+	import type { IPublicShortLink, IShortLinkLogin } from '$api/shortLink/types';
 
 
 	let linkData: Promise<IPublicShortLink>|undefined = $state(undefined);

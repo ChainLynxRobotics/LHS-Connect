@@ -1,4 +1,4 @@
-import type { ISessionUser } from "./user";
+import type { ISessionUser } from "$api/users/types";
 
 export interface ISession {
     id: Buffer;

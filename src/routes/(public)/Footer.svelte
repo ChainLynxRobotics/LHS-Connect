@@ -1,6 +1,5 @@
 <script lang="ts">
-	import type { IAnnouncement } from '$lib/types/crud/announcement';
-	import type { LinkCardListData } from '$lib/types/HomePageData';
+	import type { LinkCardListData } from '$api/page_data/usefulLinks/types';
 	import dayjs from '$lib/util/dayjs';
 	import { CogOutline, DiscordSolid, ExclamationCircleOutline, MailBoxOutline } from 'flowbite-svelte-icons';
 

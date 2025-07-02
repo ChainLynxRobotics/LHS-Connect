@@ -8,14 +8,14 @@
 </script>
 
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { contactUsValidator } from '$api/contact/validator';
+	import { page } from '$app/state';
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import ValidatedSelect from '$components/form/ValidatedSelect.svelte';
 	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
 	import apiRequest from '$lib/util/apiClient';
-	import contactUsSchema from '$lib/validation/contactUsValidator';
 	import { Button, Spinner, type SelectOptionType } from 'flowbite-svelte';
 	import { PaperPlaneOutline } from 'flowbite-svelte-icons';
 
@@ -29,7 +29,7 @@
 	let loading = $state(false);
 
 	let name = $state('');
-	let type = $state($page.url.searchParams.get('type') || '');
+	let type = $state(page.url.searchParams.get('type') || '');
 	let email = $state('');
 	let message = $state('');
 
@@ -72,7 +72,7 @@
 				id="name"
 				label="Name"
 				bind:value={name}
-				validatorObject={contactUsSchema}
+				validatorObject={contactUsValidator}
 				inputProps={{ type: 'text', placeholder: 'John Doe', autocomplete: 'name' }}
 			/>
 		</div>
@@ -83,7 +83,7 @@
 				label="Category"
 				bind:value={type}
 				visuallyRequired
-				validatorObject={contactUsSchema}
+				validatorObject={contactUsValidator}
 				selectProps={{ items: feedbackTypes, placeholder: 'Select a category...' }}
 			/>
 		</div>
@@ -94,7 +94,7 @@
 			id="email"
 			label="Email"
 			bind:value={email}
-			validatorObject={contactUsSchema}
+			validatorObject={contactUsValidator}
 			inputProps={{ type: 'email', placeholder: 'name@email.com' }}
 		/>
 	</div>
@@ -105,7 +105,7 @@
 			label="Message"
 			bind:value={message}
 			visuallyRequired
-			validatorObject={contactUsSchema}
+			validatorObject={contactUsValidator}
 			textareaProps={{ placeholder: 'Your message', rows: 4 }}
 		/>
 	</div>
