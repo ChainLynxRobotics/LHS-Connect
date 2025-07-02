@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$api/shortLink/types';
-	import { shortLinkAdminUpdateValidator } from '$api/shortLink/validator';
+	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$api/short_link/types';
+	import { shortLinkAdminUpdateValidator } from '$api/short_link/validator';
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 	import apiRequest from '$lib/util/apiClient';
@@ -36,7 +36,7 @@
 	}
 
 	async function resetPassword() {
-		const res = await apiRequest('POST', `/shortLinks/edit/${link.id}/resetPassword`)
+		const res = await apiRequest('POST', `/short_link/edit/${link.id}/resetPassword`)
 			.catch((e) => notificationContext.show(e.message, 'error'));
 		newPassword = res.password;
 		resetPasswordConfirm = false;

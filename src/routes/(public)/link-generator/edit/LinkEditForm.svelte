@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { IPublicShortLink } from '$api/shortLink/types';
-	import { shortLinkUrlUpdateValidator } from '$api/shortLink/validator';
+	import type { IPublicShortLink } from '$api/short_link/types';
+	import { shortLinkUrlUpdateValidator } from '$api/short_link/validator';
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 	import { PUBLIC_BASE_SHORT_URL } from '$env/static/public';
@@ -26,7 +26,7 @@
 		const shortLinkData = {
 			url: await urlInput!.validate(),
 		};
-		const res = await apiRequest('PATCH', `/shortLink?suffix=${encodeURIComponent(linkData.suffix)}&password=${encodeURIComponent(password)}`, shortLinkData)
+		const res = await apiRequest('PATCH', `/short_link?suffix=${encodeURIComponent(linkData.suffix)}&password=${encodeURIComponent(password)}`, shortLinkData)
 			.catch((error) => notificationContext.show(error.message, 'error'));
 		url = res.result.url; // Update the URL
 
@@ -34,7 +34,7 @@
 	}
 
 	async function deleteLink() {
-		await apiRequest('DELETE', `/shortLink?suffix=${encodeURIComponent(linkData.suffix)}&password=${encodeURIComponent(password)}`)
+		await apiRequest('DELETE', `/short_link?suffix=${encodeURIComponent(linkData.suffix)}&password=${encodeURIComponent(password)}`)
 			.catch((error) => notificationContext.show(error.message, 'error'));
 		notificationContext.show('Short Link Deleted!', 'success');
 		onDelete?.();

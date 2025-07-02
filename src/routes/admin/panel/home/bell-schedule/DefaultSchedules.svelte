@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { IBellSchedule } from '$api/page_data/bellSchedule/types';
+	import type { IBellSchedule, IBellScheduleDefaults } from '$api/page_data/bellSchedule/types';
+	import { invalidate } from '$app/navigation';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 	import adminApiClient from '$lib/util/adminApiClient';
 	import {
@@ -23,14 +24,11 @@
 	const notificationContext = getNotificationContext();
 
 	const refresh = async () => {
-		const res = await adminApiClient.baseApiRequest('GET', '/crud/bellScheduleDefaults').catch((e) => {
-			notificationContext.show(e.message, 'error');
-		});
-		defaults = res.results?.[0]?.bellScheduleIDs || [];
+		invalidate('/api/v2/bellSchedule/bellScheduleDefaults/edit');
 	};
 
 	const update = async () => {
-		await adminApiClient.baseApiRequest('POST', '/crud/bellScheduleDefaults', {bellScheduleIDs: defaults}).catch((e)=>{
+		await adminApiClient.create<IBellScheduleDefaults>('bellSchedule/bellScheduleDefaults', {bellScheduleIDs: defaults}).catch((e)=>{
 			refresh();
 			notificationContext.show(e.message, 'error');
 		});

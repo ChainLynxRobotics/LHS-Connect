@@ -13,7 +13,7 @@
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 	import apiRequest from '$lib/util/apiClient';
 	import { PUBLIC_BASE_SHORT_URL } from '$env/static/public';
-	import { shortLinkCreateValidator } from '$api/shortLink/validator';
+	import { shortLinkCreateValidator } from '$api/short_link/validator';
 
 	const notificationContext = getNotificationContext();
 
@@ -38,7 +38,7 @@
 			password: await passwordInput?.validate()
 		};
 		
-		apiRequest('POST', '/shortLink', shortLinkData)
+		apiRequest('POST', '/short_link', shortLinkData)
 			.then(()=>{
 				notificationContext.show('Short Link Created', 'success');
 				qrOpen = true;

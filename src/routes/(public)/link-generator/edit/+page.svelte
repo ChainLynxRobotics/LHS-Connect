@@ -6,7 +6,7 @@
 	import { ArrowLeftOutline, InfoCircleSolid } from 'flowbite-svelte-icons';
 	import LinkEditForm from './LinkEditForm.svelte';
 	import apiRequest from '$lib/util/apiClient';
-	import type { IPublicShortLink, IShortLinkLogin } from '$api/shortLink/types';
+	import type { IPublicShortLink, IShortLinkLogin } from '$api/short_link/types';
 
 
 	let linkData: Promise<IPublicShortLink>|undefined = $state(undefined);
@@ -14,7 +14,7 @@
 
 	async function handleLogin(linkLoginData: IShortLinkLogin) {
 		linkPassword = linkLoginData.password;
-		linkData = apiRequest('GET', `/shortLink?suffix=${encodeURIComponent(linkLoginData.suffix)}&password=${encodeURIComponent(linkLoginData.password)}`)
+		linkData = apiRequest('GET', `/short_link?suffix=${encodeURIComponent(linkLoginData.suffix)}&password=${encodeURIComponent(linkLoginData.password)}`)
 			.then(res=>res.result as IPublicShortLink);
 	}
 </script>

@@ -1,5 +1,5 @@
 /**
- * Shared interface for CRUD lists, which need to have an ID field.
+ * Shared interface for item lists, which need to have an ID field.
  */
 export interface IListValue {
     /**
@@ -13,7 +13,7 @@ export interface IListValue {
 }
 
 /**
- * Shared interface for CRUD orderable lists, which need to have an ID field and an order field.
+ * Shared interface for orderable lists, which need to have an ID field and an order field.
  * 
  * The order field is the current index of the document in the list.
  */
@@ -25,7 +25,7 @@ export interface IOrderableListValue extends IListValue {
 }
 
 /**
- * Shared interface for CRUD singleton types, which don't have an ID field because only one instance of the type exists.
+ * Shared interface for single value types, which don't have an ID field because only one instance of the type exists.
  */
 export interface ISingleValue {
     /**

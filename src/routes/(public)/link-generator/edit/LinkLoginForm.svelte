@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { shortLinkLoginValidator } from '$api/shortLink/validator';
+	import { shortLinkLoginValidator } from '$api/short_link/validator';
 	import { page } from '$app/stores';
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import ValidatedInputGroup from '$components/form/ValidatedInputGroup.svelte';

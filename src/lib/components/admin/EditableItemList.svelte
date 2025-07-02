@@ -222,7 +222,7 @@
 			.filter((item, pos, self) => self.indexOf(item) == pos) // Remove duplicates
 			.filter((id) => items.findIndex((i) => i.id === id) !== -1); // Ensure all ids in "newOrder" are present in "items"
 		if (items.some((i) => newOrder.indexOf(i.id) === -1))
-			throw new Error('Invalid CRUD order of items'); // Ensure all items have an id in "newOrder"
+			throw new Error('Invalid order of items'); // Ensure all items have an id in "newOrder"
 		return newOrder;
 	}
 </script>

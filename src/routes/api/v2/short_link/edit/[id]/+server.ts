@@ -1,8 +1,8 @@
-import { shortLinkAdminUpdateValidator } from '$api/shortLink/validator';
+import { shortLinkAdminUpdateValidator } from '$api/short_link/validator';
 import { Permission } from '$lib/auth/permissions';
 import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { ShortLink } from '$api/shortLink/model';
+import { ShortLink } from '$api/short_link/model';
 import { ValidationError } from 'yup';
 import { idValidator } from '$lib/validation/objectId';
 

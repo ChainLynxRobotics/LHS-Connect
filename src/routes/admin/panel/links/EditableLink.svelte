@@ -3,7 +3,7 @@
 	import { CheckOutline, EditOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import EditableLinkForm from './EditableLinkForm.svelte';
 	import dayjs from '$lib/util/dayjs';
-	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$api/shortLink/types';
+	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$api/short_link/types';
 
 	interface Props {
 		link: IPublicShortLink;

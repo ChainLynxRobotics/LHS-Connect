@@ -23,7 +23,7 @@
 	$effect(refresh);
 	
 	function refresh() {
-		adminApiClient.baseApiRequest('GET', `/crud/users?page=${page}&pageSize=${itemsPerPage}&search=${search}&orderBy=${orderBy}&order=${order}`).then((res) => {
+		adminApiClient.baseApiRequest('GET', `/users/edit?page=${page}&pageSize=${itemsPerPage}&search=${search}&orderBy=${orderBy}&order=${order}`).then((res) => {
 			list = res.results;
 			total = res.total;
 			if (page > 1 && list.length === 0) {
@@ -46,7 +46,7 @@
 	}
 
 	function update(id: ISerializedUser['id'], user: IAdminUserUpdate) {
-		adminApiClient.baseApiRequest('PATCH', `/crud/users/${id}`, user).then((res) => {
+		adminApiClient.baseApiRequest('PATCH', `/users/edit/${id}`, user).then((res) => {
 			const index = list.findIndex((item) => item.id === id);
 			list[index] = res.result;
 		}).catch((e)=>{
@@ -57,7 +57,7 @@
 
 	function remove(id: ISerializedUser['id']) {
 		list = list.filter((item) => item.id !== id);
-		adminApiClient.baseApiRequest('DELETE', `/crud/users/${id}`)
+		adminApiClient.baseApiRequest('DELETE', `/users/edit/${id}`)
 			.catch((e)=>notificationContext.show(e.message, 'error'))
 			.finally(refresh);
 	}

@@ -24,7 +24,7 @@
 			These are the saved schedules that can be then referenced on the Bell Schedule page.
 		</p>
 		<EditableItemList
-			serviceId="bellSchedules"
+			serviceId="bellSchedule/bellSchedules"
 			items={data.bellSchedules}
 			generateNewItem={() => ({
 				name: 'New Schedule',

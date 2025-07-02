@@ -43,7 +43,7 @@
 		<SectionHeader title="Schedule Overrides" updatedAt={overrides} />
 		<p class="mb-8">Special schedules that override the default schedules on specific dates. To add a new schedule, go to the <ExternalLink href="/admin/panel/home/saved-schedules" text="Saved Schedules Page" />.</p>
 		<EditableItemList
-			serviceId="bellScheduleOverrides"
+			serviceId="bellSchedule/bellScheduleOverrides"
 			bind:items={overrides}
 			generateNewItem={() => ({
 				date: dayjs().tz(TZ).startOf('day').valueOf(),

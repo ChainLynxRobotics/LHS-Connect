@@ -28,10 +28,10 @@
             text: await announcementInput?.validate()
         }
 
-        await adminApiClient.baseApiRequest('POST', '/crud/announcement', data).catch((e)=>{
+        await adminApiClient.create('announcement', data).catch((e)=>{
 			notificationContext.show(e.message, 'error');
 		});
-        invalidate('/api/v1/crud/announcement');
+        invalidate('/api/v2/announcement/edit');
         notificationContext.show('Announcement saved', 'success');
     }
 
