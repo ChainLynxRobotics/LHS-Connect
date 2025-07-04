@@ -35,7 +35,7 @@
 		<SectionHeader title="Club List" />
 		<p class="mb-8">Alphabetical list of clubs</p>
 		<EditableItemList
-			serviceId="clubs"
+			serviceId="page_data/clubs"
 			items={data.results}
 			generateNewItem={() => ({
 				name: 'New Club',

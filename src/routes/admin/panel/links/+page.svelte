@@ -73,7 +73,7 @@
 	function remove(id: IPublicShortLink['id']) {
 		list = list.filter((item) => item.id !== id);
 		adminApiClient
-			.baseApiRequest('DELETE', `/short_links/edit/${id}`)
+			.baseApiRequest('DELETE', `/short_link/edit/${id}`)
 			.catch((e) => notificationContext.show(e.message, 'error'))
 			.finally(refresh);
 	}

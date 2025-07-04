@@ -65,9 +65,8 @@
 				<ValidatedInput
 					bind:this={urlInput}
 					id="url"
-					label={(linkData.suffix
-						? `${new URL(PUBLIC_BASE_SHORT_URL).hostname}/${linkData.suffix}`
-						: 'Short Link') + ' redirects to:'}
+					label={(linkData.suffix ? `${PUBLIC_BASE_SHORT_URL}/${linkData.suffix}` : 'Short Link') +
+						' redirects to:'}
 					bind:value={url}
 					visuallyRequired
 					validatorObject={shortLinkUrlUpdateValidator}
@@ -92,9 +91,8 @@
 </div>
 <Modal title="Are you sure?" bind:open={deleteConfirmOpen} autoclose>
 	<p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-		You are about to delete the short link <code
-			>{new URL(PUBLIC_BASE_SHORT_URL).hostname}/{linkData.suffix}</code
-		>. <b>This cannot be undone.</b>
+		You are about to delete the short link <code>{PUBLIC_BASE_SHORT_URL}/{linkData.suffix}</code>.
+		<b>This cannot be undone.</b>
 	</p>
 	<svelte:fragment slot="footer">
 		<Button type="button" color="red" onclick={deleteLink}>Delete</Button>

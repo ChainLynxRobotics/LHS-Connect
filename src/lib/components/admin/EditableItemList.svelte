@@ -4,6 +4,7 @@
 	import type { GetAllResults } from '$lib/util/adminApiClient';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 	import type { WithoutID } from '$lib/types/basicTypes';
+	import { nanoid } from 'nanoid';
 
 	type ItemWithoutID = WithoutID<Item>;
 
@@ -109,7 +110,31 @@
 	function create(item: ItemWithoutID) {
 		if (!canCreate) return;
 
-		adminApiClient.create<Item>(serviceId, item).catch(onHttpError);
+		const tempId = nanoid(); // Generate a temporary id for the new item
+		const tempItem = { ...item, id: tempId } as Item; // Use the temporary id for the new item
+		items.push(tempItem); // Add the new item to the list
+		items = items; // Force reactivity
+		if (orderSettings.canReorder) {
+			order!.push(tempId); // Add the temporary id to the order
+			order = order; // Force reactivity
+		}
+
+		adminApiClient
+			.create<Item>(serviceId, item)
+			.then((res) => {
+				// Update the item with the result from the server, in case it was modified
+				const index = items.findIndex((i) => i.id === tempId);
+				if (index === -1) return;
+				items[index] = res.result;
+				if (orderSettings.canReorder) {
+					const orderIndex = order!.indexOf(tempId);
+					if (orderIndex !== -1) {
+						order!.splice(orderIndex, 1, res.result.id); // Replace the temporary id with the real id
+						order = order; // Force reactivity
+					}
+				}
+			})
+			.catch(onHttpError);
 	}
 
 	function duplicate(id: Item['id']) {
@@ -117,9 +142,10 @@
 
 		const item = items.find((item) => item.id === id);
 		if (item === undefined) return;
-		delete item.id; // Remove the id to create a new item
 
-		adminApiClient.create<Item>(serviceId, item).catch(onHttpError);
+		const newItem = JSON.parse(JSON.stringify(item)); // Deep clone the item
+
+		create(newItem as ItemWithoutID); // Create a new item with the same properties
 	}
 
 	function update(id: Item['id'], item: ItemWithoutID) {

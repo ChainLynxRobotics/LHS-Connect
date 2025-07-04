@@ -3,7 +3,7 @@ import { BellSchedule } from '../../../model';
 import { bellScheduleValidator } from '../../../validator';
 import type { RequestEvent } from './$types';
 
-export const { GET, POST } = editIndividualItemEndpoints<RequestEvent>(
+export const { GET, PATCH, DELETE } = editIndividualItemEndpoints<RequestEvent>(
 	'orderedListValue',
 	BellSchedule,
 	bellScheduleValidator

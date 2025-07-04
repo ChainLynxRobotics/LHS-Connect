@@ -15,6 +15,13 @@
 	}
 
 	let { data }: Props = $props();
+
+	function stopPropagation(handler: (event: MouseEvent) => void) {
+		return (event: MouseEvent) => {
+			event.stopPropagation();
+			handler(event);
+		};
+	}
 </script>
 
 <div class="flex flex-col items-center p-4">
@@ -24,7 +31,7 @@
 			These are the saved schedules that can be then referenced on the Bell Schedule page.
 		</p>
 		<EditableItemList
-			serviceId="bellSchedule/bellSchedules"
+			serviceId="page_data/bellSchedule/bellSchedules"
 			items={data.bellSchedules}
 			generateNewItem={() => ({
 				name: 'New Schedule',
@@ -65,13 +72,13 @@
 										<span>{item.name}</span>
 									</div>
 									<div class="flex">
-										<button title="Edit" onclick={openEditFrom} class="!p-2">
+										<button title="Edit" onclick={stopPropagation(openEditFrom)} class="!p-2">
 											<EditOutline class="h-6 w-6" />
 										</button>
-										<button title="Duplicate" onclick={duplicate} class="!p-2">
+										<button title="Duplicate" onclick={stopPropagation(duplicate)} class="!p-2">
 											<FileCopyOutline class="h-6 w-6" />
 										</button>
-										<button title="Delete" onclick={remove} class="!p-2">
+										<button title="Delete" onclick={stopPropagation(remove)} class="!p-2">
 											<TrashBinOutline class="h-6 w-6 text-red-500 dark:text-red-400" />
 										</button>
 									</div>

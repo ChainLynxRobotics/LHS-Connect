@@ -24,12 +24,12 @@
 	const notificationContext = getNotificationContext();
 
 	const refresh = async () => {
-		invalidate('/api/v2/bellSchedule/bellScheduleDefaults/edit');
+		invalidate('/api/v2/page_data/bellSchedule/bellScheduleDefaults/edit');
 	};
 
 	const update = async () => {
 		await adminApiClient
-			.create<IBellScheduleDefaults>('bellSchedule/bellScheduleDefaults', {
+			.create<IBellScheduleDefaults>('page_data/bellSchedule/bellScheduleDefaults', {
 				bellScheduleIDs: defaults,
 			})
 			.catch((e) => {

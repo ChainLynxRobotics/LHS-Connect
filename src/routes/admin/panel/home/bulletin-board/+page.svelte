@@ -28,7 +28,7 @@
 			/>.
 		</p>
 		<EditableItemList
-			serviceId="bulletinBoardNotes"
+			serviceId="page_data/bulletinBoard"
 			items={data.bulletinBoardNotes}
 			generateNewItem={() => ({ title: 'New Note', content: 'content' })}
 			order={{

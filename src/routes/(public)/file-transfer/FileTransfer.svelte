@@ -77,7 +77,7 @@
 	let isUploading = $state(false);
 
 	function updateFiles() {
-		invalidate(`${BASE_API_URL}/fileTransfer/${code}/files`);
+		invalidate(`${BASE_API_URL}/file_transfer/${code}/files`);
 	}
 
 	const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -90,7 +90,7 @@
 				return;
 			}
 
-			apiRequest('POST', `/fileTransfer/${code}/files`, { name: file.name, size: file.size })
+			apiRequest('POST', `/file_transfer/${code}/files`, { name: file.name, size: file.size })
 				.then((res) => {
 					const localFile: ILocalFile = {
 						id: nanoid(),

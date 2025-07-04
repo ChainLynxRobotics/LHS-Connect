@@ -38,10 +38,7 @@ async function update<T extends { id: any }>(
 	return baseApiRequest('PATCH', `/${itemEndpoint}/edit/${id}`, data);
 }
 
-async function remove<T extends { id: any }>(
-	itemEndpoint: string,
-	id: T['id']
-): Promise<GetResult<T>> {
+async function remove<T extends { id: any }>(itemEndpoint: string, id: T['id']): Promise<{}> {
 	return baseApiRequest('DELETE', `/${itemEndpoint}/edit/${id}`);
 }
 

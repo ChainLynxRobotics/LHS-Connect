@@ -36,7 +36,7 @@ export function startFileClearInterval() {
 
 				// Remove file metadata from database
 				await UploadedFile.deleteOne({ _id: file._id });
-				console.log(`Deleted file ${file.key} and its metadata from the database`);
+				//console.log(`Deleted file ${file.key} and its metadata from the database`);
 			} catch (error) {
 				console.error(`Failed to delete file ${file.key}:`, error);
 			}

@@ -21,7 +21,7 @@
 		<SectionHeader title="Contact Info" updatedAt={data.contactInfo} />
 		<p class="mb-8"></p>
 		<EditableItemList
-			serviceId="contactInfo"
+			serviceId="page_data/contactInfo"
 			items={data.contactInfo}
 			generateNewItem={() => ({
 				title: 'New Card',

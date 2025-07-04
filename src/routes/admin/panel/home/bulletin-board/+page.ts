@@ -4,7 +4,7 @@ import type { PageLoad } from './$types';
 
 export const load = (async (event) => {
 	const bulletinBoardNotes = (await (
-		await event.fetch('/api/v2/page_data/bulletinBoardNotes/edit')
+		await event.fetch('/api/v2/page_data/bulletinBoard/edit')
 	).json()) as GetAllResults<IBulletinBoardNote>;
 
 	return {

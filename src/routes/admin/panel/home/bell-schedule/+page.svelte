@@ -52,7 +52,7 @@
 			/>.
 		</p>
 		<EditableItemList
-			serviceId="bellSchedule/bellScheduleOverrides"
+			serviceId="page_data/bellSchedule/bellScheduleOverrides"
 			bind:items={overrides}
 			generateNewItem={() => ({
 				date: dayjs().tz(TZ).startOf('day').valueOf(),

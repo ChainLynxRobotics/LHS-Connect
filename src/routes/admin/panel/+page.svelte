@@ -30,10 +30,10 @@
 			text: await announcementInput?.validate(),
 		};
 
-		await adminApiClient.create('announcement', data).catch((e) => {
+		await adminApiClient.create('page_data/announcement', data).catch((e) => {
 			notificationContext.show(e.message, 'error');
 		});
-		invalidate('/api/v2/announcement/edit');
+		invalidate('/api/v2/page_data/announcement/edit');
 		notificationContext.show('Announcement saved', 'success');
 	}
 </script>

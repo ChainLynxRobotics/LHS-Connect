@@ -65,8 +65,9 @@ export const editRootEndpoints: EndpointsType<{}> = (type, model, validator) => 
 
 			await doc.save();
 
-			// Return all docs
-			return _getAllDocs(model, type);
+			return json({
+				result: doc.toObject(),
+			});
 		} catch (e) {
 			if (e instanceof ValidationError) error(400, e.message);
 			else throw e;
@@ -180,7 +181,9 @@ export const editIndividualItemEndpoints: EndpointsType<{ id: string }> = (
 			await doc.save();
 
 			// Return all docs
-			return _getAllDocs(model, type);
+			return json({
+				result: doc.toObject(),
+			});
 		} catch (e) {
 			if (e instanceof ValidationError) return error(400, { message: e.message });
 			else throw e;
@@ -201,7 +204,7 @@ export const editIndividualItemEndpoints: EndpointsType<{ id: string }> = (
 			if (doc === null) return error(404, { message: 'Not found' });
 
 			// Return all docs
-			return _getAllDocs(model, type);
+			return json({});
 		} catch (e) {
 			if (e instanceof ValidationError) return error(400, { message: e.message });
 			else throw e;

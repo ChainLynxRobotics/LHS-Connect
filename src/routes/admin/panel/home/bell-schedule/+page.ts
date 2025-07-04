@@ -8,13 +8,13 @@ import type { PageLoad } from './$types';
 
 export const load = (async ({ fetch }) => {
 	const bellSchedules = (await (
-		await fetch('/api/v2/page_data/bellSchedules/edit')
+		await fetch('/api/v2/page_data/bellSchedule/bellSchedules/edit')
 	).json()) as GetAllResults<IBellSchedule>;
 	const bellScheduleDefaults = (await (
-		await fetch('/api/v2/page_data/bellScheduleDefaults/edit')
+		await fetch('/api/v2/page_data/bellSchedule/bellScheduleDefaults/edit')
 	).json()) as GetAllResults<IBellScheduleDefaults>;
 	const bellScheduleOverrides = (await (
-		await fetch('/api/v2/page_data/bellScheduleOverrides/edit')
+		await fetch('/api/v2/page_data/bellSchedule/bellScheduleOverrides/edit')
 	).json()) as GetAllResults<IBellScheduleOverride>;
 
 	return {

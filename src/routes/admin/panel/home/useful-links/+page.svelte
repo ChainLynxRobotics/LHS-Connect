@@ -23,7 +23,7 @@
 			These links are rendered at the bottom of the page in a footer on all public pages
 		</p>
 		<EditableItemList
-			serviceId="usefulLinks"
+			serviceId="page_data/usefulLinks"
 			items={data.usefulLinks}
 			generateNewItem={() => ({
 				title: 'New Card',
