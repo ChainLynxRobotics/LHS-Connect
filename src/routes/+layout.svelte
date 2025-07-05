@@ -13,18 +13,6 @@
 
 	let theme = setContext<ThemeContext>('theme', writable(undefined));
 
-	onMount(() => {
-		if (
-			localStorage.getItem('theme') === 'dark' ||
-			window.matchMedia('(prefers-color-scheme: dark)').matches
-		) {
-			theme.set('dark');
-		}
-
-		if (dev) localStorage.setItem('umami.disabled', '1');
-		else localStorage.removeItem('umami.disabled');
-	});
-
 	$effect(() => {
 		if ($theme !== undefined) {
 			localStorage.setItem('theme', $theme);
