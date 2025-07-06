@@ -7,6 +7,7 @@ import connect from '$lib/db/mongodb';
 import type { Handle } from '@sveltejs/kit';
 import { Permissions } from '$lib/auth/permissions';
 import { startFileClearInterval } from '$lib/db/s3';
+import { dev } from '$app/environment';
 
 // Ensure correct time zone
 process.env.TZ = 'America/Los_Angeles';
@@ -21,7 +22,7 @@ connect()
 	});
 
 // Start file clear interval
-startFileClearInterval();
+if (dev) startFileClearInterval();
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const token = event.cookies.get('session');
