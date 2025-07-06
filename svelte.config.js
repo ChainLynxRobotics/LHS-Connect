@@ -10,7 +10,7 @@ const config = {
 
 	kit: {
 		adapter: adapter({
-			
+			edge: true
 		}),
 		alias: {
 			$components: './src/lib/components',
