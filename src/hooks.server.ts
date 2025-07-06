@@ -21,8 +21,9 @@ connect()
 		console.error('Failed to connect to MongoDB', err);
 	});
 
-// Start file clear interval
+// Start file clear interval (only in development)
 if (dev) startFileClearInterval();
+// In production, the files are cleared whenever a new file is uploaded to work in a serverless environment.
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const token = event.cookies.get('session');

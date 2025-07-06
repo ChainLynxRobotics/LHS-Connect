@@ -8,7 +8,7 @@ import { UploadedFile } from '$api/file_transfer/model';
 import { ValidationError } from 'yup';
 import { error, json } from '@sveltejs/kit';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { s3client } from '$lib/db/s3';
+import { clearFiles, s3client } from '$lib/db/s3';
 import { GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import { S3_BUCKET_NAME } from '$env/static/private';
 
@@ -73,6 +73,9 @@ export const POST: RequestHandler = async ({ params, request }) => {
 			url: downloadUrl,
 		});
 		await uploadedFile.save();
+
+		// Clean up old files
+		clearFiles();
 
 		return json({
 			uploadUrl,
