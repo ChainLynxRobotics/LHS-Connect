@@ -30,7 +30,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 	const googleId = claims.sub as string;
 	const name = claims.name as string;
 	const email = claims.email as string;
-	const pfp = claims.picture as string;
+	const pfp = claims.picture as string | undefined;
 
 	const existing = await User.findOne({ googleId });
 	if (existing) {

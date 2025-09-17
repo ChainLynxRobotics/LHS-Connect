@@ -1,6 +1,6 @@
 import { Permission } from '$lib/auth/permissions';
 import { error, json } from '@sveltejs/kit';
-import type { RequestHandler } from '../$types';
+import type { RequestHandler } from './$types';
 import { number, string, ValidationError } from 'yup';
 import { User } from '../model';
 

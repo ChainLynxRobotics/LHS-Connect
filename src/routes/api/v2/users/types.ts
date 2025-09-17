@@ -3,7 +3,7 @@ export interface IUser extends ISessionUser {
 	googleId: string;
 	name: string;
 	email: string;
-	pfp: string;
+	pfp?: string;
 	permissions: number;
 	firstLogin: Date;
 	lastLogin: Date;
@@ -18,7 +18,7 @@ export interface ISessionUser {
 	id: string;
 	name: string;
 	email: string;
-	pfp: string;
+	pfp?: string;
 	permissions: number;
 }
 
