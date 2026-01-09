@@ -51,6 +51,10 @@
 		const overrides = data.overrides.filter((item) => item.date === dateEpoch);
 		for (let i = 0; i < overrides.length; i++) {
 			const schedule = overrides[i].schedule;
+			if (schedule == null) {
+				console.warn("Override schedule is null. Skipping it.");
+				continue;
+			}
 			if (newTabIds.includes(schedule.id)) {
 				selectedTab = newTabIds.indexOf(schedule.id);
 				continue;
