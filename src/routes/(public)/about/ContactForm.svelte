@@ -1,119 +1,58 @@
-<script lang="ts" module>
-	export const feedbackTypes: SelectOptionType<string>[] = [
-		{ value: 'suggestion', name: 'Suggestion' },
-		{ value: 'report', name: 'Incorrect Information Report' },
-		{ value: 'bug', name: 'Bug Report' },
-		{ value: 'other', name: 'Other' },
-	];
+<script>
+    let name = '';
+    let email = '';
+    let type = '';
+    let message = '';
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+
+        // 1. Generate a random 4-digit number
+        const verificationCode = Math.floor(1000 + Math.random() * 9000).toString();
+
+        // 2. Ask the user to repeat it
+        const userInput = prompt(`Verification: Please type the number ${verificationCode} to send your message:`);
+
+        // 3. Logic Gate: If they cancel or get it wrong, stop here.
+        if (userInput === null) return; 
+        if (userInput !== verificationCode) {
+            alert("Incorrect code. Please try again.");
+            return;
+        }
+
+        // 4. Proceed to backend if verified
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, type, message }),
+            });
+
+            if (response.ok) {
+                alert("Feedback sent! Thanks for reaching out.");
+                // Reset form
+                name = ''; email = ''; type = ''; message = '';
+            } else {
+                const err = await response.json();
+                alert(`Error: ${err.message}`);
+            }
+        } catch (e) {
+            alert("Check your internet connection and try again.");
+        }
+    }
 </script>
 
-<script lang="ts">
-	import { contactUsValidator } from '$api/contact/validator';
-	import { page } from '$app/state';
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import ValidatedSelect from '$components/form/ValidatedSelect.svelte';
-	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import SectionHeader from '$components/SectionHeader.svelte';
-	import apiRequest from '$lib/util/apiClient';
-	import { Button, Spinner, type SelectOptionType } from 'flowbite-svelte';
-	import { PaperPlaneOutline } from 'flowbite-svelte-icons';
+<form on:submit={handleSubmit}>
+    <input type="text" bind:value={name} placeholder="Name" required />
+    <input type="email" bind:value={email} placeholder="Email" required />
+    
+    <select bind:value={type} required>
+        <option value="" disabled>Select Type</option>
+        <option value="feedback">Feedback</option>
+        <option value="bug">Bug Report</option>
+    </select>
 
-	const notificationContext = getNotificationContext();
+    <textarea bind:value={message} placeholder="Your message..." required></textarea>
 
-	let emailInput: ValidatedInput<'email'> | undefined = $state();
-	let typeInput: ValidatedSelect<'type'> | undefined = $state();
-	let nameInput: ValidatedInput<'name'> | undefined = $state();
-	let messageInput: ValidatedTextarea<'message'> | undefined = $state();
-
-	let loading = $state(false);
-
-	let name = $state('');
-	let type = $state(page.url.searchParams.get('type') || '');
-	let email = $state('');
-	let message = $state('');
-
-	async function onsubmit(e: Event) {
-		e.preventDefault();
-
-		loading = true;
-
-		try {
-			const data = {
-				name: await nameInput!.validate(),
-				type: await typeInput!.validate(),
-				email: await emailInput!.validate(),
-				message: await messageInput!.validate(),
-			};
-
-			await apiRequest('POST', '/contact', data);
-			notificationContext.show('Message sent, thank you!');
-
-			name = '';
-			type = '';
-			email = '';
-			message = '';
-		} catch (error) {
-			if (error instanceof Error) notificationContext.show(error.message, 'error');
-		}
-
-		loading = false;
-	}
-</script>
-
-<SectionHeader title="Contact Us" />
-<form {onsubmit}>
-	<div class="grid gap-6 md:grid-cols-2">
-		<div class="mb-6">
-			<ValidatedInput
-				bind:this={nameInput}
-				id="name"
-				label="Name"
-				bind:value={name}
-				validatorObject={contactUsValidator}
-				inputProps={{ type: 'text', placeholder: 'John Doe', autocomplete: 'name' }}
-			/>
-		</div>
-		<div class="mb-6">
-			<ValidatedSelect
-				bind:this={typeInput}
-				id="type"
-				label="Category"
-				bind:value={type}
-				visuallyRequired
-				validatorObject={contactUsValidator}
-				selectProps={{ items: feedbackTypes, placeholder: 'Select a category...' }}
-			/>
-		</div>
-	</div>
-	<div class="mb-6">
-		<ValidatedInput
-			bind:this={emailInput}
-			id="email"
-			label="Email"
-			bind:value={email}
-			validatorObject={contactUsValidator}
-			inputProps={{ type: 'email', placeholder: 'name@email.com' }}
-		/>
-	</div>
-	<div class="mb-6">
-		<ValidatedTextarea
-			bind:this={messageInput}
-			id="message"
-			label="Message"
-			bind:value={message}
-			visuallyRequired
-			validatorObject={contactUsValidator}
-			textareaProps={{ placeholder: 'Your message', rows: 4 }}
-		/>
-	</div>
-	<div class="flex justify-center">
-		<Button type="submit">
-			{#if !loading}
-				Send <PaperPlaneOutline class="ms-2 h-5 w-5 rotate-45" />
-			{:else}
-				<Spinner class="me-3" size="4" color="white" />Loading ...
-			{/if}
-		</Button>
-	</div>
+    <button type="submit">Submit to Discord</button>
 </form>
