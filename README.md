@@ -12,6 +12,7 @@
 - File Upload/Transfer
 
 ## Features
+
 - Data is easily editable via the admin panel
 - Responsive design
 - Both light & dark mode
@@ -22,6 +23,7 @@
 - Contact Us form, forwarded to a Discord Webhook
 
 ## Technology
+
 - [Typescript](https://www.typescriptlang.org/)
 - [SvelteKit](https://kit.svelte.dev/)
 - [MongoDB](https://www.mongodb.com/) (with [Mongoose](https://mongoosejs.com/))
@@ -36,12 +38,14 @@
 ## Program Prerequisites
 
 ### Required Programs:
+
 - [NodeJS](https://nodejs.org/en), a JavaScript Engine
 - [pnpm](https://pnpm.io/installation#using-corepack), a package manager for handling libraries
   - Its recommended to use `corepack enable pnpm` install install it, corepack is included in the NodeJS install
 - [Git](https://git-scm.com/), for source control
-  
+
 ### Recommended Programs:
+
 - [VSCode](https://code.visualstudio.com/Download), an all around IDE
   - Recommended Extensions:
     - [Svelte for VSCode](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode)
@@ -51,12 +55,14 @@
 ## Local Project Setup
 
 Download and navigate to the repo:
+
 ```shell
 git clone https://github.com/1withspaghetti/LHS-Connect-Svelte
 cd LHS-Connect-Svelte
 ```
 
 Install the libraries with pnpm:
+
 ```shell
 pnpm install
 ```
@@ -64,16 +70,19 @@ pnpm install
 ### Commands
 
 Start the development server:
+
 ```shell
 pnpm run dev
 ```
 
 Run [Prettier](https://prettier.io/) to format the code:
+
 ```shell
 pnpm run format
 ```
 
 Build the project and preview it:
+
 ```shell
 pnpm run build
 pnpm run preview
@@ -84,6 +93,7 @@ pnpm run preview
 Create a copy of [`.env.example`](/.env.example) named `.env` to define environment variables, or use the hosting service's panel to define them.
 
 **Refer to the [3rd Party Services](#3rd-party-services) section for more information on how to set up the required services.**
+
 ```properties
 # App
 PUBLIC_BASE_URL="https://lhsconnect.com" # Use http://localhost:5173 for local development
@@ -112,6 +122,7 @@ DISCORD_WEBHOOK_URL=""
 ```
 
 ## 3rd Party Services
+
 To run the app, you will need to set up a few services and environment variables.
 
 ### MongoDB
@@ -119,6 +130,7 @@ To run the app, you will need to set up a few services and environment variables
 You will need a MongoDB database to store the app's data. You can either use a hosting service like [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) (recommended) or [self-host](https://www.mongodb.com/docs/manual/installation/) on a VPS.
 
 Then, set the following environment variables to allow the app to access the db:
+
 ```properties
 MONGO_DB_URI="YOUR_MONGO_DB_URI"
 ```
@@ -126,9 +138,11 @@ MONGO_DB_URI="YOUR_MONGO_DB_URI"
 Make sure the db uri has permission to read/write to a `prod` database when used in production, and a `dev` database when being used in development. Well it is recommended to use different users/uris/databases for each environment, it does work to to use the same uri/user/database for both places, and the code will select which of `prod` or `dev` to use based on the node environment.
 
 ### S3/R2 Bucket
+
 You will need an S3 bucket to store file uploads. You can use [Cloudflare R2](https://r2.cloudflare.com/) (suggested) or [AWS S3](https://aws.amazon.com/s3/) for this. You can keep the bucket private, as the app will handle file access through signed URLs.
 
 Make sure to set the following environment variables to allow the app to access the bucket:
+
 ```properties
 S3_ACCESS_KEY_ID="ACCESS_KEY"
 S3_SECRET_ACCESS_KEY="SECRET_KEY"
@@ -140,20 +154,11 @@ S3_BUCKET_NAME="BUCKET_NAME"
 
 ```json
 [
-  {
-    "AllowedOrigins": [
-      "http://localhost:5173",
-      "https://lhsconnect.com"
-    ],
-    "AllowedMethods": [
-      "GET",
-      "PUT",
-      "POST"
-    ],
-    "AllowedHeaders": [
-      "Content-Type"
-    ]
-  }
+	{
+		"AllowedOrigins": ["http://localhost:5173", "https://lhsconnect.com"],
+		"AllowedMethods": ["GET", "PUT", "POST"],
+		"AllowedHeaders": ["Content-Type"]
+	}
 ]
 ```
 
