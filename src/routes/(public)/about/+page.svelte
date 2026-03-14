@@ -5,8 +5,10 @@
 	import lincolnBuilding from '$assets/images/lincolnbuilding.webp?enhanced';
 	import tylerAvatar from '$assets/images/avatars/tyler.jpg?enhanced';
 	import nathanAvatar from '$assets/images/avatars/nathan.jpg?enhanced';
-	import { DiscordSolid, InstagramSolid, MailBoxOutline } from 'flowbite-svelte-icons';
+	import chainlynxAvatar from '$assets/images/avatars/chainlynx.webp?enhanced';
+	import { DiscordSolid, InstagramSolid, GithubSolid, MailBoxOutline } from 'flowbite-svelte-icons';
 	import ContactForm from './ContactForm.svelte';
+	import ExternalLink from '$components/ExternalLink.svelte';
 
 	let copyTextModal = $state(false);
 	let copyTextContent = $state('');
@@ -58,11 +60,10 @@
 						sizes="96px, 192px"
 					/>
 					<h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Tyler Place</h5>
-					<span class="text-gray-500 dark:text-gray-400">Lead Developer</span>
+					<span class="text-gray-500 dark:text-gray-400">Former Lead Developer</span>
 					<p class="intent-8 mt-4 text-center">
-						LHS Senior with a passion for making websites, petting dogs, and thriving as your local <span
-							title=":3">protogen cosplayer</span
-						>.
+						Graduated LHS Student with a passion for making websites, petting dogs, and thriving as
+						your local <span title=":3">protogen cosplayer</span>.
 					</p>
 					<div class="mt-4 flex gap-4">
 						<Button
@@ -105,10 +106,10 @@
 						sizes="96px, 192px"
 					/>
 					<h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Nathaniel Holden</h5>
-					<span class="text-gray-500 dark:text-gray-400">Assistant Developer</span>
+					<span class="text-gray-500 dark:text-gray-400">Former Assistant Developer</span>
 					<p class="intent-8 mt-4">
-						I'm a LHS Senior who likes to program as a hobby. In my free time I enjoy working on
-						cars, skiing, snowboarding, mountain biking, and wakeboarding.
+						I'm a Graduated LHS Student who likes to program as a hobby. In my free time I enjoy
+						working on cars, skiing, snowboarding, mountain biking, and wakeboarding.
 					</p>
 
 					<div class="mt-4 flex gap-4">
@@ -130,6 +131,48 @@
 						>
 							<InstagramSolid size="lg" />
 						</Button>
+					</div>
+				</div>
+			</Card>
+			<Card>
+				<div class="flex flex-col items-center">
+					<enhanced:img
+						src={chainlynxAvatar}
+						alt="ChainLynx Robotics logo"
+						class="m-4 h-24 w-24"
+						sizes="96px, 192px"
+					/>
+					<h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">ChainLynx Robotics</h5>
+					<span class="text-gray-500 dark:text-gray-400">Current Developers</span>
+					<p class="intent-8 mt-4">
+						ChainLynx Robotics is Lincoln High School's FIRST® Robotics Competition team. You can
+						find out more at <ExternalLink
+							text="chainlynx8248.com"
+							href="https://chainlynx8248.com/"
+						/>
+					</p>
+
+					<div class="mt-4 flex gap-4">
+						<Button
+							href="https://www.instagram.com/chainlynx.robotics/"
+							target="_blank"
+							rel="noopener"
+							title="Instagram"
+							color="light"
+							class="dark:text-white"
+						>
+							<InstagramSolid size="lg" />
+						</Button>
+						<Button
+							href="https://github.com/ChainlynxRobotics"
+							target="_blank"
+							rel="noopener"
+							title="Github"
+							color="light"
+							class="dark:text-white"
+						>
+							<GithubSolid size="lg" /></Button
+						>
 					</div>
 				</div>
 			</Card>
