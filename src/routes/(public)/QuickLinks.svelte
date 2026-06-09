@@ -5,7 +5,7 @@
 	import lincolnLogo from '$assets/images/logos/sps.webp?enhanced';
 	import sourceLogo from '$assets/images/logos/source.png?enhanced';
 	import cleverLogo from '$assets/images/logos/clever.webp?enhanced';
-	import collegeBoardLogo from '$assets/images/logos/collegeboard.png?enhanced';
+	import collegeBoardLogo from '$assets/images/logos/collegeboard.svg';
 	import khanAcademyLogo from '$assets/images/logos/khanacademy.svg';
 	import navianceLogo from '$assets/images/logos/naviance.png?enhanced';
 
