@@ -7,9 +7,9 @@
 - Bell Schedule
 - Contact Info for departments & other useful links
 - Club List
-- Short Link Generator (with short url `lhs.cx`)
+- Short Link Generator (with short url [`lhs.cx`](https://lhs.cx/make-a-link))
 - QR Code Generator
-- File Upload/Transfer
+- File Transfer
 
 ## Features
 
