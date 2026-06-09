@@ -1,5 +1,5 @@
 <script lang="ts">
-	import schoologyLogo from '$assets/images/logos/schoology.png?enhanced';
+	import schoologyLogo from '$assets/images/logos/schoology.svg';
 	import officeLogo from '$assets/images/logos/office.svg';
 	import outlookLogo from '$assets/images/logos/outlook.svg';
 	import lincolnLogo from '$assets/images/logos/sps.webp?enhanced';
