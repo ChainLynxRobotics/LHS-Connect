@@ -3,11 +3,14 @@
 	import officeLogo from '$assets/images/logos/office.svg';
 	import outlookLogo from '$assets/images/logos/outlook.svg';
 	import lincolnLogo from '$assets/images/logos/sps.webp?enhanced';
+	// no matching SPS svg
 	import sourceLogo from '$assets/images/logos/source.png?enhanced';
-	import cleverLogo from '$assets/images/logos/clever.webp?enhanced';
+	// no svg logo for The Source :(
+	import cleverLogo from '$assets/images/logos/clever.svg';
 	import collegeBoardLogo from '$assets/images/logos/collegeboard.svg';
 	import khanAcademyLogo from '$assets/images/logos/khanacademy.svg';
 	import navianceLogo from '$assets/images/logos/naviance.png?enhanced';
+	// no matching Naviance svg
 
 	const links = [
 		{
