@@ -19,32 +19,36 @@
 </svelte:head>
 
 	<div id="team" class="w-full max-w-4xl">
-		<SectionHeader title="Meet the Team" />
+		<SectionHeader title="View Our Projects!" />
 		<div class="mx-auto flex flex-wrap justify-center gap-4">
 			<Card padding="md" size="xs">
 				<div class="flex flex-col items-center">
-					<enhanced:img
-						src={tylerAvatar}
-						alt="Tyler"
-						title="Thats meeeeee"
-						class="m-4 h-24 w-24 rounded-full"
-						sizes="96px, 192px"
-					/>
-					<h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Tyler Place</h5>
-					<span class="text-gray-500 dark:text-gray-400">Former Lead Developer</span>
+					<h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">AP Statistics Inference Procedure Practice</h5>
+					<span class="text-gray-500 dark:text-gray-400">A Project By <a href="/about#team">Tyler Place</a></span>
 					<p class="intent-8 mt-4 text-center">
-						I made .
+						This site is an practice tool to teach Inference Procedures for AP Statistics. 
+						The user identifies the correct inference procedure for a given practice problem, and is scored on accuracy.
 					</p>
 					<div class="mt-4 flex gap-4">
 						<Button
-							href="mailto:contact@lhsconnect.com"
+							href="/extra/ap_stats_inference_practice"
 							target="_blank"
 							rel="noopener"
-							title="Mail"
+							title="View Project"
 							color="light"
 							class="dark:text-white"
 						>
-							<MailBoxOutline size="lg" />
+							<StarOutline size="lg" />
+						</Button>
+						<Button
+							href="https://github.com/1withspaghetti/AP-Stats-Inference-Practice"
+							target="_blank"
+							rel="noopener"
+							title="Github"
+							color="light"
+							class="dark:text-white"
+						>
+							<GithubSolid size="lg" />
 						</Button>
 					</div>
 				</div>
