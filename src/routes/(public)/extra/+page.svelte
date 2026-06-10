@@ -23,7 +23,7 @@
 					</h5>
 					<span class="text-gray-500 dark:text-gray-400">A Project By <a href="/about#team">Tyler Place</a></span>
 					<p class="intent-8 mt-4 text-center">
-						This site is an practice tool to teach Inference Procedures for AP Statistics. 
+						This site is a practice tool to teach Inference Procedures for AP Statistics. 
 						The user identifies the correct inference procedure for a given practice problem, and is scored on accuracy.
 					</p>
 					<div class="mt-4 flex gap-4">
