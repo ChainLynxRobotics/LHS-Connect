@@ -6,6 +6,7 @@
 		DiscordSolid,
 		ExclamationCircleOutline,
 		MailBoxOutline,
+		StarOutline,
 	} from 'flowbite-svelte-icons';
 
 	interface Props {
@@ -59,6 +60,9 @@
 		<span class="mx-2">•</span>
 		<CogOutline class="inline-block" />
 		<a href="/admin/panel" class="underline">Admin Panel</a>
+		<span class="mx-2">•</span>
+		<StarOutline class="inline-block" />
+		<a href="/extra" class="underline">Extras</a>
 	</div>
 	<p class="text-center text-xs">
 		This website is not affiliated with Lincoln High School or Seattle Public Schools.
