@@ -28,7 +28,7 @@ export default {
 
 	plugins: [flowbite],
 
-	darkMode: 'class',
+	darkMode: 'media',
 
 	safelist: [
 		'w-64',
