@@ -1,12 +1,12 @@
 <script lang="ts">
 	import type { LinkCardListData } from '$api/page_data/usefulLinks/types';
 	import dayjs from '$lib/util/dayjs';
+	import Star from '$lib/assets/util/star.svg'
 	import {
 		CogOutline,
 		DiscordSolid,
 		ExclamationCircleOutline,
 		MailBoxOutline,
-		StarOutline,
 	} from 'flowbite-svelte-icons';
 
 	interface Props {
@@ -61,7 +61,7 @@
 		<CogOutline class="inline-block" />
 		<a href="/admin/panel" class="underline">Admin Panel</a>
 		<span class="mx-2">•</span>
-		<StarOutline class="inline-block" />
+		<img src={Star}>
 		<a href="/extra" class="underline">Extras</a>
 	</div>
 	<p class="text-center text-xs">
