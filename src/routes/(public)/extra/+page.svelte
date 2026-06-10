@@ -55,4 +55,3 @@
 			</Card>
 		</div>
 	</div>
-</div>
