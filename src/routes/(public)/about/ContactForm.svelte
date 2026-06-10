@@ -106,7 +106,9 @@
 			validatorObject={contactUsValidator}
 			textareaProps={{ placeholder: 'Your message', rows: 4 }}
 		/>
-			<p class="text-sm text-gray-400 italic text-center">Please do not abuse this form. LHS Connect is built and maintained by students.</p>
+		<p class="text-center text-sm italic text-gray-400">
+			Please do not abuse this form. LHS Connect is built and maintained by students.
+		</p>
 	</div>
 	<div class="flex justify-center">
 		<Button type="submit">
