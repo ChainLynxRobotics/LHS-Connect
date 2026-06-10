@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { StarOutline } from '$lib/assets/util/StarOutline.ts';
 	import type { LinkCardListData } from '$api/page_data/usefulLinks/types';
 	import dayjs from '$lib/util/dayjs';
 	import {
