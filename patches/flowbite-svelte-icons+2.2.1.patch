@@ -45267,7 +45267,7 @@ index 88639a5..11b1828 100644
   */
  declare const StarHalfStrokeSolid: import("svelte").Component<Props, {}, "">;
 diff --git a/node_modules/flowbite-svelte-icons/dist/StarOutline.svelte b/node_modules/flowbite-svelte-icons/dist/StarOutline.svelte
-index 0f1cc59..62f6c90 100644
+index 0f1cc59..ff30c08 100644
 --- a/node_modules/flowbite-svelte-icons/dist/StarOutline.svelte
 +++ b/node_modules/flowbite-svelte-icons/dist/StarOutline.svelte
 @@ -1,6 +1,7 @@
@@ -45310,7 +45310,7 @@ index 0f1cc59..62f6c90 100644
  	aria-label={ariaLabel}
  	aria-describedby={hasDescription ? ariaDescribedby : undefined}
 -	aria-hidden={!isLabeled}
-+	viewBox="0 0 24 24"
++	viewBox="0 1 24 24"
  >
  	{#if title?.id && title.title}
  		<title id={title.id}>{title.title}</title>
