@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { LinkCardListData } from '$api/page_data/usefulLinks/types';
 	import dayjs from '$lib/util/dayjs';
-	import Star from '$lib/assets/util/star.svg'
+	import StarOutline from '$lib/assets/util/StarOutline.ts'
 	import {
 		CogOutline,
 		DiscordSolid,
@@ -61,7 +61,7 @@
 		<CogOutline class="inline-block" />
 		<a href="/admin/panel" class="underline">Admin Panel</a>
 		<span class="mx-2">•</span>
-		<img src={Star}>
+		<StarOutline class="inline-block" />
 		<a href="/extra" class="underline">Extras</a>
 	</div>
 	<p class="text-center text-xs">
