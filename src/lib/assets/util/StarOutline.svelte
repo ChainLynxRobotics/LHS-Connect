@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { flowbite } from 'flowbite/plugin';
 	import { getContext } from 'svelte';
-	import { cn } from './helpers';
+	import { cn } from 'flowbite-svelte-icons/dist/helpers';
 	import type { OutlineBaseProps, OutlineProps } from './types';
 
 	const ctx: OutlineBaseProps = getContext('iconCtx') ?? {};
