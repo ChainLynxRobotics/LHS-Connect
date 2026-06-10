@@ -60,6 +60,7 @@
 		<span class="mx-2">•</span>
 		<CogOutline class="inline-block" />
 		<a href="/admin/panel" class="underline">Admin Panel</a>
+		<span class="mx-2">•</span>
 		<StarOutline class="inline-block" />
 		<a href="/extra" class="underline">Extras</a>
 	</div>
