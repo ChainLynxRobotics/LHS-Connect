@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024px" height="1024px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.2 (33826) - http://www.bohemiancoding.com/sketch -->
+    <title>clever-ios-icon-180@vector</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M357.009067,0 L666.990933,0 C769.792,0 821.179733,0 876.5184,17.4933333 C936.9344,39.4837333 984.516267,87.0656 1006.50667,147.4816 C1024,202.811733 1024,254.216533 1024,357.009067 L1024,666.990933 C1024,769.792 1024,821.179733 1006.50667,876.5184 C984.516267,936.9344 936.9344,984.516267 876.5184,1006.49813 C821.179733,1024 769.792,1024 666.990933,1024 L357.009067,1024 C254.208,1024 202.811733,1024 147.4816,1006.49813 C87.0656,984.516267 39.4837333,936.9344 17.4933333,876.5184 C0,821.179733 0,769.792 0,666.990933 L0,357.009067 C0,254.216533 0,202.811733 17.4933333,147.4816 C39.4837333,87.0656 87.0656,39.4837333 147.4816,17.4933333 C202.811733,0 254.208,0 357.009067,0 L357.009067,0" id="path-1"></path>
+        <linearGradient x1="9.70568578%" y1="8.76185644%" x2="82.8983093%" y2="83.1887382%" id="linearGradient-3">
+            <stop stop-color="#4274F6" offset="0%"></stop>
+            <stop stop-color="#4242F5" offset="100%"></stop>
+        </linearGradient>
+        <path d="M545.436585,847.103093 C354.104879,847.103093 212,699.932912 212,513.903597 L212,512.046698 C212,327.859738 351.321943,177 551.012188,177 C673.612189,177 746.985364,217.72573 807.353665,276.957424 L716.334147,381.549825 C666.178053,336.198816 615.097557,308.432595 550.08292,308.432595 C440.482927,308.432595 361.53415,399.134613 361.53415,510.194647 L361.53415,512.046698 C361.53415,623.11158 438.624393,715.670497 550.08292,715.670497 C624.385362,715.670497 669.895121,686.057074 720.980482,639.78004 L812,731.403235 C745.12683,802.668413 670.824388,847.103093 545.436585,847.103093" id="path-4"></path>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-5">
+            <feGaussianBlur stdDeviation="12.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="15" dy="15" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.337254902   0 0 0 0 0.384313725   0 0 0 0 0.474509804  0 0 0 0.5 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Application-icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="clever-iOS-icon">
+            <g id="clever-ios-icon-180">
+                <g id="iOS-Mask">
+                    <g id="Group">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="Mask" fill="#000000" xlink:href="#path-1"></use>
+                        <g mask="url(#mask-2)">
+                            <rect id="Rectangle-79" fill="url(#linearGradient-3)" x="0" y="0" width="1024" height="1024"></rect>
+                            <g id="Fill-1">
+                                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-4"></use>
+                                <use fill="black" fill-opacity="1" filter="url(#filter-5)" xlink:href="#path-4"></use>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
