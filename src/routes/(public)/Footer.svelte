@@ -61,7 +61,7 @@
 		<CogOutline class="inline-block" />
 		<a href="/admin/panel" class="underline">Admin Panel</a>
 		<span class="mx-2">•</span>
-		<StarOutline class="inline-block" />
+		<StarOutline class="inline-block align-middle" />
 		<a href="/extra" class="underline">Extras</a>
 	</div>
 	<p class="text-center text-xs">
