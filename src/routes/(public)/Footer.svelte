@@ -49,16 +49,16 @@
 	{/if}
 	<div class="my-8 h-[1px] bg-current lg:mx-16"></div>
 	<div class="mb-4 text-center">
-		<MailBoxOutline class="inline-block" />
+		<MailBoxOutline class="inline-block align-middle" />
 		<a href="/about#contact" class="underline">Contact</a>
 		<span class="mx-2">•</span>
-		<ExclamationCircleOutline class="inline-block" />
+		<ExclamationCircleOutline class="inline-block align-middle" />
 		<a href="/about?type=report#contact" class="underline">Report Incorrect Information</a>
 		<span class="mx-2">•</span>
-		<DiscordSolid class="inline-block" />
+		<DiscordSolid class="inline-block align-middle" />
 		<a href="/discord" target="_blank" class="underline">Discord</a>
 		<span class="mx-2">•</span>
-		<CogOutline class="inline-block" />
+		<CogOutline class="inline-block align-middle" />
 		<a href="/admin/panel" class="underline">Admin Panel</a>
 		<span class="mx-2">•</span>
 		<StarOutline class="inline-block align-middle" />
