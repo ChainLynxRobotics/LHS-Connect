@@ -55,8 +55,9 @@ https://lhs.cx/old-clubs
 					}
 
 					const row = results.data as any[];
-					const firstHeaderCell: string = 'Which student group are you submitting information for? (only ONE person submits for the club)';
-					if (row[0] == firstHeaderCell && line == 1) return; // Skip header. 
+					const firstHeaderCell: string =
+						'Which student group are you submitting information for? (only ONE person submits for the club)';
+					if (row[0] == firstHeaderCell && line == 1) return; // Skip header.
 					if (line == 1) return; // Skip header (always skip line 1 regardless of content)
 					if (row.map((v: string) => v.trim()).filter((v) => !!v).length < 4) return; // Skip rows with less than 4 filled values
 					const rawInsta = (row[instaField] ?? '').trim();
@@ -71,7 +72,7 @@ https://lhs.cx/old-clubs
 							insta = instaSearch[1];
 						}
 					}
-					
+
 					records.push({
 						name: row[nameField].replace('\n', ' ').trim() || 'Unknown',
 						dayAndTime: row[dayAndTimeField].replace('\n', ' ').trim() || 'Unknown',
@@ -97,7 +98,9 @@ https://lhs.cx/old-clubs
 	<GradientButton outline color="purpleToPink" on:click={() => (modalOpen = true)}>
 		Auto Import
 		<InfoCircleOutline class="ml-4 h-6 w-6 text-gray-700 dark:text-gray-400" />
-		<Tooltip>Import clubs from a CSV file, clicking this button will open a menu with instructions</Tooltip>
+		<Tooltip
+			>Import clubs from a CSV file, clicking this button will open a menu with instructions</Tooltip
+		>
 	</GradientButton>
 </div>
 
