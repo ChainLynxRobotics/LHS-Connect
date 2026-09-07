@@ -58,7 +58,6 @@ https://lhs.cx/old-clubs
 					const firstHeaderCell: string =
 						'Which student group are you submitting information for? (only ONE person submits for the club)';
 					if (row[0] == firstHeaderCell && line == 1) return; // Skip header.
-					if (line == 1) return; // Skip header (always skip line 1 regardless of content)
 					if (row.map((v: string) => v.trim()).filter((v) => !!v).length < 4) return; // Skip rows with less than 4 filled values
 					const rawInsta = (row[instaField] ?? '').trim();
 					const noInstagramPattern: RegExp = /^(n\/a|none|no)?$/i;
