@@ -154,7 +154,7 @@
 
 					<div class="mt-4 flex gap-4">
 						<Button
-							href="https://www.instagram.com/chainlynx.robotics/"
+							href="https://www.instagram.com/chainlynxrobotics/"
 							target="_blank"
 							rel="noopener"
 							title="Instagram"
