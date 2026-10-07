@@ -9,7 +9,7 @@
 	import cleverLogo from '$assets/images/logos/clever.svg';
 	import collegeBoardLogo from '$assets/images/logos/collegeboard.svg';
 	import khanAcademyLogo from '$assets/images/logos/khanacademy.svg';
-	import navianceLogo from '$assets/images/logos/naviance.png?enhanced';
+	import schooLinksLogo from '$assets/images/logos/schooLinksLogo.png';
 	// no matching Naviance svg
 
 	const links = [
