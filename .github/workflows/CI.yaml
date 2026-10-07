@@ -1,5 +1,5 @@
 name: CI
-on: [push]
+on: [merge_group, pull_request]
 jobs:
   Lint-and-type-check:
     runs-on: ubuntu-latest
