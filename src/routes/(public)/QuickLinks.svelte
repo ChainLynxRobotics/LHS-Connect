@@ -9,7 +9,7 @@
 	import cleverLogo from '$assets/images/logos/clever.svg';
 	import collegeBoardLogo from '$assets/images/logos/collegeboard.svg';
 	import khanAcademyLogo from '$assets/images/logos/khanacademy.svg';
-	import navianceLogo from '$assets/images/logos/naviance.png?enhanced';
+	import schoolLinksLogo from '$assets/images/logos/schooLinksLogo.png?enhanced';
 	// no matching Naviance svg
 
 	const links = [
@@ -56,7 +56,7 @@
 		},
 		{
 			name: 'SchooLinks',
-			url: 'https://app.schoolinks.com/login/k12'
+			url: 'https://app.schoolinks.com/login/k12',
 			img: schooLinksLogo,
 		},
 	];
