@@ -55,9 +55,9 @@
 			img: khanAcademyLogo,
 		},
 		{
-			name: 'Naviance',
-			url: 'https://clever.com/oauth/authorize?channel=clever-portal&client_id=998d799b68dd5e1b6a57&confirmed=true&district_id=580a531143e0d00100000157&redirect_uri=https%3A%2F%2Fid.naviance.com%2Fclever%2Fredirect&response_type=code',
-			img: navianceLogo,
+			name: 'SchooLinks',
+			url: 'https://app.schoolinks.com/login/k12'
+			img: schooLinksLogo,
 		},
 	];
 </script>
