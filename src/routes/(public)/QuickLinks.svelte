@@ -56,7 +56,7 @@
 		},
 		{
 			name: 'SchooLinks',
-			url: 'https://app.schoolinks.com/login/k12'
+			url: 'https://app.schoolinks.com/login/k12',
 			img: schooLinksLogo,
 		},
 	];
