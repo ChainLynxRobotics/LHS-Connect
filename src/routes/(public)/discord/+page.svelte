@@ -14,8 +14,9 @@
 				text="discord link (access restricted)"
 			/>
 		</div>
-		<p class="text-center mb-4">
-			This link is only accessible by SPS students and staff members. If you are not a student or staff member, be sure to use the contact form to get in touch."
+		<p class="mb-4 text-center">
+			This link is only accessible by SPS students and staff members. If you are not a student or
+			staff member, be sure to use the contact form to get in touch.
 		</p>
 		<SectionHeader title="Request access" />
 		<ContactForm emailRequired feedbackType="discord" validator={discordRequestValidator} />
