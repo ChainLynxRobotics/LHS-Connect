@@ -5,7 +5,7 @@
 		AdditionalClasses?: string;
 	}
 
-	let { href, text, AdditionalClasses = "" }: Props = $props();
+	let { href, text, AdditionalClasses = '' }: Props = $props();
 </script>
 
 <a
