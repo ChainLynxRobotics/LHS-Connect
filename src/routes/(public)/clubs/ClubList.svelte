@@ -89,8 +89,12 @@
 				class="flex flex-col bg-white p-4 transition-colors even:bg-gray-50 dark:bg-gray-800 dark:even:bg-gray-700"
 			>
 				<div class="flex w-full items-start justify-between">
-					<InfoCircleOutline class="mr-2 inline h-8 w-8 text-gray-500 dark:text-gray-400" />
-
+{#if club.desc}
+						<InfoCircleOutline class="mr-2 inline h-8 w-8 text-gray-500 dark:text-gray-400" />
+						<Popover title={club.name} placement="top-start" class="max-w-lg">
+							{club.desc}
+						</Popover>
+					{/if}
 					<div class="-mx-0.5 flex flex-1 flex-col pr-4">
 						<h2 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
 							{club.name}
