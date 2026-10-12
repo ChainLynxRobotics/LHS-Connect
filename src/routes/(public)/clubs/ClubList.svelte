@@ -48,7 +48,7 @@
 		<Search size="md" placeholder="Search" bind:value={search} />
 	</div>
 </div>
-<Table striped shadow class="table-fixed">
+<Table striped shadow class="table-fixed hidden sm:table">
 	<TableHead>
 		<TableHeadCell>Name</TableHeadCell>
 		<TableHeadCell>Day & Time</TableHeadCell>
@@ -80,5 +80,33 @@
 				</TableBodyCell>
 			</TableBodyRow>
 		{/each}
-	</TableBody>
+	</TableBody>	
 </Table>
+<div class="mx-auto flex flex-col font-sans sm:hidden">
+  <main class="flex-1 divide-y divide-gray-200 dark:divide-gray-700 overflow-y-auto">
+    {#each searchedClubs as club}
+      <div class="flex flex-col bg-white p-4 transition-colors even:bg-gray-50 dark:bg-gray-800 dark:even:bg-gray-700">
+        <div class="flex w-full items-start justify-between">
+          <InfoCircleOutline class="mr-2 inline h-8 w-8 text-gray-500 dark:text-gray-400" />
+
+          <div class="-mx-0.5 flex flex-1 flex-col pr-4">
+            <h2 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">{club.name}</h2>
+            <span class="mt-0.5 text-[0.8125rem] font-semibold text-gray-600 dark:text-gray-300">
+              {club.advisor} | {club.location}
+            </span>
+          </div>
+
+          <div class="-translate-y-2 flex-shrink-0 pl-2 text-right">
+            {#if club.instagram && club.instagram !== 'N/A'}
+              <ExternalLink href="https://instagram.com/{club.instagram}" text="@{club.instagram}" AdditionalClasses="!font-bold text-md" />
+            {/if}
+          </div>
+        </div>
+
+        <div class="mt-2 w-full">
+          <p class="text-sm font-bold text-gray-500 dark:text-gray-400">{club.dayAndTime}</p>
+        </div>
+      </div>
+    {/each}
+  </main>
+</div>
