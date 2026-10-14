@@ -1,10 +1,10 @@
 import { error, redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { decodeIdToken, type OAuth2Tokens } from 'arctic';
-import { google } from '$lib/auth/oauth';
-import { createSession, setSessionTokenCookie } from '$lib/auth/session';
-import { Permission, Permissions } from '$lib/auth/permissions';
-import { User } from '$api/users/model';
+import { google } from '#lib/auth/oauth';
+import { createSession, setSessionTokenCookie } from '#lib/auth/session';
+import { Permission, Permissions } from '#lib/auth/permissions';
+import { User } from '#api/users/model';
 
 export const GET: RequestHandler = async ({ url, cookies }) => {
 	const code = url.searchParams.get('code');

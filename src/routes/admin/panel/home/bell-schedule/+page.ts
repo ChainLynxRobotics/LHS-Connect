@@ -2,8 +2,8 @@ import type {
 	IBellSchedule,
 	IBellScheduleDefaults,
 	IBellScheduleOverride,
-} from '$api/page_data/bellSchedule/types';
-import type { GetAllResults } from '$lib/util/adminApiClient';
+} from '#api/page_data/bellSchedule/types';
+import type { GetAllResults } from '#lib/util/adminApiClient';
 import type { PageLoad } from './$types';
 
 export const load = (async ({ fetch }) => {

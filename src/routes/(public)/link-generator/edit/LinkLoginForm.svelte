@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { shortLinkLoginValidator } from '$api/short_link/validator';
+	import { shortLinkLoginValidator } from '#api/short_link/validator';
 	import { page } from '$app/stores';
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import ValidatedInputGroup from '$components/form/ValidatedInputGroup.svelte';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import ValidatedInputGroup from '#components/form/ValidatedInputGroup.svelte';
 	import { PUBLIC_BASE_SHORT_URL } from '$env/static/public';
 	import { Button, InputAddon } from 'flowbite-svelte';
 	import { EyeOutline, EyeSlashOutline } from 'flowbite-svelte-icons';

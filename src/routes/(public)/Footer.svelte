@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { LinkCardListData } from '$api/page_data/usefulLinks/types';
-	import dayjs from '$lib/util/dayjs';
+	import type { LinkCardListData } from '#api/page_data/usefulLinks/types';
+	import dayjs from '#lib/util/dayjs';
 	import {
 		CogOutline,
 		DiscordSolid,

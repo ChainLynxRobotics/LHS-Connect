@@ -1,4 +1,4 @@
-import type { IListValue } from '$lib/types/basicTypes';
+import type { IListValue } from '#lib/types/basicTypes';
 
 export interface IShortLink extends IListValue, Omit<IShortLinkCreate, 'password'> {
 	/**

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { IBellSchedule, IBellScheduleDefaults } from '$api/page_data/bellSchedule/types';
+	import type { IBellSchedule, IBellScheduleDefaults } from '#api/page_data/bellSchedule/types';
 	import { invalidate } from '$app/navigation';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import adminApiClient from '$lib/util/adminApiClient';
+	import { getNotificationContext } from '#components/NotificationProvider.svelte';
+	import adminApiClient from '#lib/util/adminApiClient';
 	import {
 		Select,
 		Table,

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { discordRequestValidator } from '$api/contact/validator';
-	import ContactForm from '$components/ContactForm.svelte';
-	import ExternalLink from '$components/ExternalLink.svelte';
-	import SectionHeader from '$components/SectionHeader.svelte';
+	import { discordRequestValidator } from '#api/contact/validator';
+	import ContactForm from '#components/ContactForm.svelte';
+	import ExternalLink from '#components/ExternalLink.svelte';
+	import SectionHeader from '#components/SectionHeader.svelte';
 </script>
 
 <div class="flex w-full flex-col items-center gap-16 p-4 pb-16">

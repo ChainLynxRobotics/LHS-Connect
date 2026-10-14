@@ -1,4 +1,4 @@
-import type { ISingleValue } from '$lib/types/basicTypes';
+import type { ISingleValue } from '#lib/types/basicTypes';
 
 /**
  * The announcement at the top of all pages

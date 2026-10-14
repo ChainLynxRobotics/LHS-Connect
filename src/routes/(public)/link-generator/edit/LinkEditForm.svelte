@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { IPublicShortLink } from '$api/short_link/types';
-	import { shortLinkUrlUpdateValidator } from '$api/short_link/validator';
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
+	import type { IPublicShortLink } from '#api/short_link/types';
+	import { shortLinkUrlUpdateValidator } from '#api/short_link/validator';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import { getNotificationContext } from '#components/NotificationProvider.svelte';
 	import { PUBLIC_BASE_SHORT_URL } from '$env/static/public';
-	import apiRequest from '$lib/util/apiClient';
+	import apiRequest from '#lib/util/apiClient';
 	import { Button, Modal } from 'flowbite-svelte';
 
 	interface Props {
