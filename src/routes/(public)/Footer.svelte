@@ -65,6 +65,6 @@
 		<a href="/extra" class="underline">Extras</a>
 	</div>
 	<p class="text-center text-xs">
-		This website is not affiliated with Lincoln High School or Seattle Public Schools.
+		This website is not affiliated with Lincoln High School nor Seattle Public Schools.
 	</p>
 </footer>
