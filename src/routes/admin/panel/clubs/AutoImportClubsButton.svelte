@@ -12,6 +12,7 @@
 	/* SAMPLE DATA:
 https://lhs.cx/current-clubs
 https://lhs.cx/old-clubs
+wow
 */
 
 	interface Props {
