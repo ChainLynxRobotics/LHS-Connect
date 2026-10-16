@@ -45,7 +45,7 @@
 		<ValidatedInputGroup
 			bind:this={suffixInput}
 			id="suffix"
-			label="Short Url (Only letters, numbers, and hyphens)"
+			label="Short URL (Only letters, numbers, and hyphens)"
 			bind:value={suffix}
 			visuallyRequired
 			validatorObject={shortLinkLoginValidator}

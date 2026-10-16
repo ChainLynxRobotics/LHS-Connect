@@ -60,7 +60,7 @@
 			<ValidatedInputGroup
 				bind:this={suffixInput}
 				id="suffix"
-				label="Short Url (Only letters, numbers, and hyphens)"
+				label="Short URL (Only letters, numbers, and hyphens)"
 				bind:value={suffix}
 				visuallyRequired
 				validatorObject={shortLinkCreateValidator}
@@ -76,7 +76,7 @@
 			<ValidatedInput
 				bind:this={urlInput}
 				id="url"
-				label="Redirect Url"
+				label="Redirect URL"
 				bind:value={url}
 				visuallyRequired
 				validatorObject={shortLinkCreateValidator}
