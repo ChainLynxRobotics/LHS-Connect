@@ -12,7 +12,6 @@
 	/* SAMPLE DATA:
 https://lhs.cx/current-clubs
 https://lhs.cx/old-clubs
-this is very cool.
 */
 
 	interface Props {
