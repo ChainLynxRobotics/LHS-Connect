@@ -144,8 +144,8 @@ https://lhs.cx/old-clubs
 			</div>
 		</div>
 		<Checkbox bind:checked={overwriteCheckbox} id="overwrite">
-    <span class="text-amber-500 dark:text-amber-600">Overwrite existing clubs</span>
-</Checkbox>
+			<span class="text-amber-500 dark:text-amber-600">Overwrite existing clubs</span>
+		</Checkbox>
 		<div class="w-full">
 			<ValidatedTextarea
 				bind:this={csvInput}

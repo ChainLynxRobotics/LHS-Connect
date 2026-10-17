@@ -22,22 +22,28 @@
 	} from 'flowbite-svelte-icons';
 	import ExternalLink from '$components/ExternalLink.svelte';
 	import EditableClubForm from './EditableClubForm.svelte';
-	    import type { IClub } from '$api/page_data/clubs/types';
-    import type { WithoutID } from '$lib/types/basicTypes';
+	import type { IClub } from '$api/page_data/clubs/types';
+	import type { WithoutID } from '$lib/types/basicTypes';
 
 	interface Props {
 		data: PageData;
 	}
 
 	let { data }: Props = $props();
-	    function handleImport(importedClubs: WithoutID<IClub>[], currentItems: any[], updateAll: (items: WithoutID<IClub>[]) => void) {
-        const existingClubs = currentItems.map((wrapper) => wrapper.item);
-        const merged = [
-            ...existingClubs,
-            ...importedClubs.filter(imp => !existingClubs.some(ex => ex.name.toLowerCase() === imp.name.toLowerCase()))
-        ];
-        updateAll(merged);
-    }
+	function handleImport(
+		importedClubs: WithoutID<IClub>[],
+		currentItems: any[],
+		updateAll: (items: WithoutID<IClub>[]) => void
+	) {
+		const existingClubs = currentItems.map((wrapper) => wrapper.item);
+		const merged = [
+			...existingClubs,
+			...importedClubs.filter(
+				(imp) => !existingClubs.some((ex) => ex.name.toLowerCase() === imp.name.toLowerCase())
+			),
+		];
+		updateAll(merged);
+	}
 </script>
 
 <div class="flex flex-col items-center p-4">
@@ -58,20 +64,20 @@
 				sortFn: (a, b) => a.name.localeCompare(b.name),
 			}}
 		>
-{#snippet renderItems({ items, openCreateForm, updateAll })}
-    <div class="mb-8 flex justify-center gap-8">
-        <Button color="alternative" on:click={openCreateForm}>Add Club</Button>
-        <AutoImportClubsButton
-            onSubmit={(importedClubs, overwrite) => {
-                if (overwrite) {
-                    updateAll(importedClubs);
-                } else {
-                    const existing = items.map((i) => i.item);
-                    updateAll([...existing, ...importedClubs]);
-                }
-            }}
-        />
-    </div>
+			{#snippet renderItems({ items, openCreateForm, updateAll })}
+				<div class="mb-8 flex justify-center gap-8">
+					<Button color="alternative" on:click={openCreateForm}>Add Club</Button>
+					<AutoImportClubsButton
+						onSubmit={(importedClubs, overwrite) => {
+							if (overwrite) {
+								updateAll(importedClubs);
+							} else {
+								const existing = items.map((i) => i.item);
+								updateAll([...existing, ...importedClubs]);
+							}
+						}}
+					/>
+				</div>
 				<Table striped shadow class="min-w-[1024px] table-fixed">
 					<TableHead>
 						<TableHeadCell>Name</TableHeadCell>
