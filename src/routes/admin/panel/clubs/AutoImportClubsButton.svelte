@@ -2,7 +2,7 @@
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
 	import ExternalLink from '$components/ExternalLink.svelte';
-	import { GradientButton, Helper, Modal, Tooltip } from 'flowbite-svelte';
+	import { GradientButton, Helper, Modal, Tooltip, Checkbox } from 'flowbite-svelte';
 	import { InfoCircleOutline } from 'flowbite-svelte-icons';
 	import { string } from 'yup';
 	import Papa from 'papaparse';
@@ -12,11 +12,10 @@
 	/* SAMPLE DATA:
 https://lhs.cx/current-clubs
 https://lhs.cx/old-clubs
-wow
 */
 
 	interface Props {
-		onSubmit: (clubs: WithoutID<IClub>[]) => void;
+		onSubmit: (clubs: WithoutID<IClub>[], overwrite: boolean) => void;
 	}
 
 	let { onSubmit: submit }: Props = $props();
@@ -24,7 +23,7 @@ wow
 	const notificationContext = getNotificationContext();
 
 	let modalOpen = $state(false);
-
+	let overwriteCheckbox = $state(false);
 	let startInput: ValidatedInput | undefined = $state();
 	let endInput: ValidatedInput | undefined = $state();
 	let csvInput: ValidatedTextarea | undefined = $state();
@@ -85,7 +84,7 @@ wow
 				},
 				complete() {
 					notificationContext.show('Imported ' + records.length + ' clubs', 'success');
-					submit(records);
+					submit(records, overwriteCheckbox);
 					modalOpen = false;
 				},
 			});
@@ -144,6 +143,9 @@ wow
 				/>
 			</div>
 		</div>
+		<Checkbox bind:checked={overwriteCheckbox} id="overwrite">
+    <span class="text-amber-500 dark:text-amber-600">Overwrite existing clubs</span>
+</Checkbox>
 		<div class="w-full">
 			<ValidatedTextarea
 				bind:this={csvInput}
@@ -161,7 +163,6 @@ wow
 				}}
 			/>
 		</div>
-		<Helper>Note: This will overwrite everything already in the table.</Helper>
 		<GradientButton type="submit" color="purpleToPink">Import</GradientButton>
 	</form>
 </Modal>
