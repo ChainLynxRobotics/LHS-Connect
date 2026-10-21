@@ -21,8 +21,8 @@
 		data.bellSchedules.map((item) => ({ value: item.id, name: item?.name || 'Unknown' }))
 	);
 
-	let defaults = $state(data.bellScheduleDefaults?.bellScheduleIDs || []);
-	let overrides = $state(data.bellScheduleOverrides);
+	let defaults = $derived(data.bellScheduleDefaults?.bellScheduleIDs || []);
+	let overrides = $derived(data.bellScheduleOverrides);
 
 	let previewTime = $state(dayjs().format(`YYYY-MM-DD[T]HH:mm`));
 

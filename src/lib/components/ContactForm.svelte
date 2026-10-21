@@ -33,13 +33,11 @@
 	const notificationContext = getNotificationContext();
 
 	let emailInput: ValidatedInput<'email'> | undefined = $state();
-	let typeInput: ValidatedSelect<'type'> | string | undefined = $state();
+	let typeInput: ValidatedSelect<'type'> | string | undefined = $derived(
+		feedbackType !== undefined ? feedbackType : undefined
+	);
 	let nameInput: ValidatedInput<'name'> | undefined = $state();
 	let messageInput: ValidatedTextarea<'message'> | undefined = $state();
-
-	if (feedbackType !== undefined) {
-		typeInput = feedbackType;
-	}
 
 	let loading = $state(false);
 

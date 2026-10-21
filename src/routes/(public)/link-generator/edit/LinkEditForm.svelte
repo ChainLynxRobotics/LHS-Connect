@@ -17,7 +17,7 @@
 
 	const notificationContext = getNotificationContext();
 
-	let url = $state(linkData.url);
+	let url = $derived(linkData.url);
 	let urlInput: ValidatedInput<'url'> | undefined = $state();
 
 	let deleteConfirmOpen = $state(false);

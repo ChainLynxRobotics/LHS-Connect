@@ -21,7 +21,9 @@
 
 	let { special, scheduleOptions, onUpdate, onDuplicate, onRemove }: Props = $props();
 
+	// svelte-ignore state_referenced_locally
 	let date = $state(dayjs(special.date).format(`YYYY-MM-DD`)); // To avoid reactivity issues with the sorted array
+	// svelte-ignore state_referenced_locally
 	let scheduleId = $state(special.scheduleId);
 
 	function submit() {

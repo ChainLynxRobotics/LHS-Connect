@@ -98,7 +98,7 @@
 
 	const notificationContext = getNotificationContext();
 
-	let order: Item['id'][] | undefined = $state(
+	let order: Item['id'][] | undefined = $derived(
 		orderSettings.canReorder ? sanitizeOrder(items.map((item) => item.id)) : undefined
 	);
 

@@ -12,7 +12,7 @@
 	let { user, onSubmit: submit, onCancel: cancel }: Props = $props();
 
 	const permissionOptions = PermissionValues.map((p) => ({ value: p, name: Permission[p] }));
-	let selectedPermissions = $state(new Permissions(user.permissions).toArray());
+	let selectedPermissions = $derived(new Permissions(user.permissions).toArray());
 
 	async function onsubmit(e: Event) {
 		e.preventDefault();

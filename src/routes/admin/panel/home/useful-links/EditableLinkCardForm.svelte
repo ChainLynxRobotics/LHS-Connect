@@ -24,9 +24,9 @@
 
 	let { card, onSubmit: submit, onCancel: cancel }: Props = $props();
 
-	let title = $state(card.title);
-	let subtitle = $state(card.subtitle);
-	let links = $state(card.links.map((link) => ({ ...link, id: Math.random() })));
+	let title = $derived(card.title);
+	let subtitle = $derived(card.subtitle);
+	let links = $derived(card.links.map((link) => ({ ...link, id: Math.random() })));
 
 	let titleInput: ValidatedInput<'title'> | undefined = $state();
 	let subtitleInput: ValidatedInput<'subtitle'> | undefined = $state();

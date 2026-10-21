@@ -14,9 +14,9 @@
 
 	let { note, onSubmit: submit, onCancel: cancel }: Props = $props();
 
-	let title = $state(note.title);
-	let content = $state(note.content);
-	let link = $state(note.link);
+	let title = $derived(note.title);
+	let content = $derived(note.content);
+	let link = $derived(note.link);
 
 	let titleInput: ValidatedInput<'title'> | undefined = $state();
 	let contentInput: ValidatedTextarea<'content'> | undefined = $state();

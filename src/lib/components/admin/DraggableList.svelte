@@ -28,10 +28,7 @@
 		...elementProps
 	}: Props = $props();
 
-	let visualItems = $state([...items]);
-	$effect.pre(() => {
-		visualItems = [...items]; // Reset visualItems when items change
-	});
+	let visualItems = $derived([...items]);
 
 	function handleDndConsider(e: CustomEvent<{ items: Item[] }>) {
 		visualItems = e.detail.items;

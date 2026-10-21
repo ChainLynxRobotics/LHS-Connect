@@ -17,8 +17,8 @@
 
 	const notificationContext = getNotificationContext();
 
-	let suffix = $state(link.suffix);
-	let url = $state(link.url);
+	let suffix = $derived(link.suffix);
+	let url = $derived(link.url);
 
 	let suffixInput: ValidatedInput<'suffix'> | undefined = $state();
 	let urlInput: ValidatedInput<'url'> | undefined = $state();

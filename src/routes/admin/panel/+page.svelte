@@ -18,7 +18,7 @@
 
 	let announcementInput: ValidatedInput<'text'> | undefined = undefined;
 
-	let announcement = $state(data.announcement?.text || '');
+	let announcement = $derived(data.announcement?.text || '');
 	$effect(() => {
 		announcement = data.announcement?.text || '';
 	});

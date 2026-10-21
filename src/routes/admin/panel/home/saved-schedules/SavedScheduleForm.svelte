@@ -30,9 +30,9 @@
 
 	let { schedule, onSubmit: submit, onCancel: cancel }: Props = $props();
 
-	let name = $state(schedule.name);
-	let desc = $state(schedule.desc);
-	let periods = $state(schedule.periods.map((period) => ({ ...period, id: Math.random() })));
+	let name = $derived(schedule.name);
+	let desc = $derived(schedule.desc);
+	let periods = $derived(schedule.periods.map((period) => ({ ...period, id: Math.random() })));
 
 	let nameInput: ValidatedInput<'name'> | undefined = $state();
 	let descInput: ValidatedTextarea<'desc'> | undefined = $state();

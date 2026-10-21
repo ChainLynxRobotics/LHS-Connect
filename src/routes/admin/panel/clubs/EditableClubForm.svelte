@@ -14,12 +14,12 @@
 
 	let { club, onSubmit: submit, onCancel: cancel }: Props = $props();
 
-	let name = $state(club.name);
-	let dayAndTime = $state(club.dayAndTime);
-	let location = $state(club.location);
-	let advisor = $state(club.advisor);
-	let instagram = $state(club.instagram);
-	let desc = $state(club.desc);
+	let name = $derived(club.name);
+	let dayAndTime = $derived(club.dayAndTime);
+	let location = $derived(club.location);
+	let advisor = $derived(club.advisor);
+	let instagram = $derived(club.instagram);
+	let desc = $derived(club.desc);
 
 	let nameInput: ValidatedInput<'name'> | undefined = $state();
 	let dayAndTimeInput: ValidatedInput<'dayAndTime'> | undefined = $state();

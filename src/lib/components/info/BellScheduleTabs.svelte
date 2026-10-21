@@ -24,7 +24,7 @@
 	let tabs: IBellSchedule[] = $state([]);
 	let selectedTab = $state(0);
 
-	let now = $state(customTime || dayjs());
+	let now = $derived(customTime || dayjs());
 	$effect(() => {
 		if (customTime)
 			now = customTime; // Update the time if it's custom
