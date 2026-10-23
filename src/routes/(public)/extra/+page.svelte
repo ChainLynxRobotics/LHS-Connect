@@ -50,7 +50,7 @@
 					>
 					<p class="intent-8 mt-4 text-center">
 						This site is a portfolio and gathering place for all creative works by Elliott. 
-						As part of ChainLynx Robotics, Elliott is a active maintainer of LHS Connect. 
+						As part of ChainLynx Robotics, Elliott is an active maintainer of LHS Connect. 
 						View their photography, 3d printer live view, other web endeavors, and more.
 					</p>
 					<div class="mt-4 flex gap-4">
