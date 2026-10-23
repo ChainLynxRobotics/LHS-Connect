@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { LinkCardListData } from '$api/page_data/usefulLinks/types';
-	import dayjs from '$lib/util/dayjs';
+	import type { LinkCardListData } from '#api/page_data/usefulLinks/types.js';
+	import dayjs from '#lib/util/dayjs.js';
 	import {
 		CogOutline,
 		DiscordSolid,
@@ -65,6 +65,6 @@
 		<a href="/extra" class="underline">Extras</a>
 	</div>
 	<p class="text-center text-xs">
-		This website is not affiliated with Lincoln High School or Seattle Public Schools.
+		This website is not affiliated with Lincoln High School nor Seattle Public Schools.
 	</p>
 </footer>
