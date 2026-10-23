@@ -5,7 +5,7 @@
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { dragHandleZone, dragHandle } from 'svelte-dnd-action';
 	import { flip } from 'svelte/animate';
-	import { PUBLIC_BASE_URL } from '$env/static/public';
+	import { PUBLIC_BASE_URL } from '$app/env/public';
 	import type { ILinkCard } from '$api/page_data/usefulLinks/types';
 	import {
 		linkCardValidator,

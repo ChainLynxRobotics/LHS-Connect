@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import ValidatedInputGroup from '$components/form/ValidatedInputGroup.svelte';
-	import { PUBLIC_BASE_SHORT_URL } from '$env/static/public';
+	import { PUBLIC_BASE_SHORT_URL } from '$app/env/public';
 	import { Button, InputAddon } from 'flowbite-svelte';
 	import { EyeOutline, EyeSlashOutline } from 'flowbite-svelte-icons';
 

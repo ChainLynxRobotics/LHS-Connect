@@ -4,7 +4,7 @@ import {
 	S3_BUCKET_NAME,
 	S3_ENDPOINT,
 	S3_SECRET_ACCESS_KEY,
-} from '$env/static/private';
+} from '$app/env/private';
 import { DeleteObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 export const s3client = new S3Client({
