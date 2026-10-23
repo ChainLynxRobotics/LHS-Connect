@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
+	import ExternalLink from '$components/ExternalLink.svelte';
 	import { GradientButton, Helper, Modal, Tooltip } from 'flowbite-svelte';
 	import { InfoCircleOutline } from 'flowbite-svelte-icons';
 	import { string } from 'yup';
@@ -11,6 +12,7 @@
 	/* SAMPLE DATA:
 https://lhs.cx/current-clubs
 https://lhs.cx/old-clubs
+wow
 */
 
 	interface Props {
@@ -105,10 +107,13 @@ https://lhs.cx/old-clubs
 
 <Modal bind:open={modalOpen} size="lg" autoclose={false} title="Auto Import From CSV">
 	<p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-		Instructions: Visit the ASB club excel sheet, click on file, export as CSV (without formatting,
-		utf8 format), then open the CSV in a program such as notepad and copy+paste the content here.
-		Usually you don't need to input the start and end row, but if you are having issues, you can
-		specify the start and end row of the data you want to import.
+		Instructions: <ExternalLink
+			href="https://seattleschools-my.sharepoint.com/:x:/g/personal/1sanishio_seattleschools_org/IQAZqlZ6RBFwTbXkYlOC-Mf0ARDHNBxXC9gCzo9RWRfOrBY?e=LOT1KU"
+			text="Visit the ASB club excel sheet"
+		/>, click on file, export as CSV (without formatting, utf8 format), then open the CSV in a
+		program such as notepad and copy+paste the content here. Usually you don't need to input the
+		start and end row, but if you are having issues, you can specify the start and end row of the
+		data you want to import.
 	</p>
 	<form {onsubmit} class="flex flex-col items-center gap-4">
 		<div class="flex flex-col gap-4 sm:flex-row">
