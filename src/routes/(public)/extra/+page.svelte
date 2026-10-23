@@ -31,7 +31,34 @@
 							href="https://github.com/1withspaghetti/AP-Stats-Inference-Practice"
 							target="_blank"
 							rel="noopener"
-							title="Github"
+							title="GitHub"
+							color="light"
+							class="dark:text-white"
+						>
+							<GithubSolid size="lg" />
+						</Button>
+					</div>
+				</div>
+			</Card>
+			<Card padding="md" size="xs">
+				<div class="flex flex-col items-center">
+					<h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+						<ExternalLink text="Elliott's Website" href="https://e11e.net" />
+					</h5>
+					<span class="text-gray-500 dark:text-gray-400"
+						>Website of an active maintainer associated with <a href="/about#team">ChainLynx Robotics</a></span
+					>
+					<p class="intent-8 mt-4 text-center">
+						This site is a portfolio and gathering place for all creative works by Elliott. 
+						As part of ChainLynx Robotics, Elliott is a active maintainer of LHS Connect. 
+						View their photography, 3d printer live view, other web endeavors, and more.
+					</p>
+					<div class="mt-4 flex gap-4">
+						<Button
+							href="https://github.com/el-8248/el-8248.github.io.git"
+							target="_blank"
+							rel="noopener"
+							title="GitHub"
 							color="light"
 							class="dark:text-white"
 						>
