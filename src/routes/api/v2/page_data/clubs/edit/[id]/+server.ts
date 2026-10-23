@@ -1,4 +1,4 @@
-import { editIndividualItemEndpoints } from '#api/page_data/commonEditEndpoints';
+import { editIndividualItemEndpoints } from '#api/page_data/commonEditEndpoints.js';
 import { Club } from '../../model';
 import { clubValidator } from '../../validator';
 import type { RequestEvent } from './$types';

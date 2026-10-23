@@ -12,10 +12,10 @@
 		TableHeadCell,
 	} from 'flowbite-svelte';
 	import EditableLink from './EditableLink.svelte';
-	import adminApiClient from '#lib/util/adminApiClient';
+	import adminApiClient from '#lib/util/adminApiClient.js';
 	import { getNotificationContext } from '#components/NotificationProvider.svelte';
 	import { ArrowLeftOutline, ArrowRightOutline } from 'flowbite-svelte-icons';
-	import type { IPublicShortLink, IShortLinkAdminUpdate } from '#api/short_link/types';
+	import type { IPublicShortLink, IShortLinkAdminUpdate } from '#api/short_link/types.js';
 
 	const notificationContext = getNotificationContext();
 

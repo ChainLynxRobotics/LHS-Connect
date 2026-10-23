@@ -1,4 +1,4 @@
-import type { IListValue, IOrderableListValue, ISingleValue } from '#lib/types/basicTypes';
+import type { IListValue, IOrderableListValue, ISingleValue } from '#lib/types/basicTypes.js';
 
 /**
  * Declares the structure of a bell schedule

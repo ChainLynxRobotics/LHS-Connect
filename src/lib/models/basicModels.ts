@@ -1,4 +1,4 @@
-import type { ISingleValue } from '#lib/types/basicTypes';
+import type { ISingleValue } from '#lib/types/basicTypes.js';
 import mongoose, { type Model } from 'mongoose';
 
 export const singleValueSchema = new mongoose.Schema<ISingleValue>(

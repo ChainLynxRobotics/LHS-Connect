@@ -1,4 +1,4 @@
-import { editOrderEndpoints } from '#api/page_data/commonEditEndpoints';
+import { editOrderEndpoints } from '#api/page_data/commonEditEndpoints.js';
 import { BulletinBoardNote } from '../../model';
 import { bulletinBoardNoteValidator } from '../../validator';
 import type { RequestEvent } from './$types';

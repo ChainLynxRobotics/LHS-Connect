@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { discordRequestValidator } from '#api/contact/validator';
+	import { discordRequestValidator } from '#api/contact/validator.js';
 	import ContactForm from '#components/ContactForm.svelte';
 	import ExternalLink from '#components/ExternalLink.svelte';
 	import SectionHeader from '#components/SectionHeader.svelte';

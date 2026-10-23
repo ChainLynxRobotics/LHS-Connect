@@ -1,10 +1,10 @@
-import { shortLinkAdminUpdateValidator } from '#api/short_link/validator';
-import { Permission } from '#lib/auth/permissions';
+import { shortLinkAdminUpdateValidator } from '#api/short_link/validator.js';
+import { Permission } from '#lib/auth/permissions.js';
 import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { ShortLink } from '#api/short_link/model';
+import { ShortLink } from '#api/short_link/model.js';
 import { ValidationError } from 'yup';
-import { idValidator } from '#lib/validation/objectId';
+import { idValidator } from '#lib/validation/objectId.js';
 
 export const PATCH: RequestHandler = async ({ locals, params, request }) => {
 	if (!locals.permissions.has(Permission.MANAGE_SHORT_LINKS))

@@ -3,12 +3,12 @@ import type { RequestHandler } from './$types';
 import {
 	fileTransferCodeValidator,
 	fileTransferUploadValidator,
-} from '#api/file_transfer/validator';
-import { UploadedFile } from '#api/file_transfer/model';
+} from '#api/file_transfer/validator.js';
+import { UploadedFile } from '#api/file_transfer/model.js';
 import { ValidationError } from 'yup';
 import { error, json } from '@sveltejs/kit';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { clearFiles, s3client } from '#lib/db/s3';
+import { clearFiles, s3client } from '#lib/db/s3.js';
 import { GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import { S3_BUCKET_NAME } from '$app/env/private';
 

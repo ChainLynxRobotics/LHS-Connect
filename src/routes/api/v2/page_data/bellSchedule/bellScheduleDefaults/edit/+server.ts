@@ -1,4 +1,4 @@
-import { editRootEndpoints } from '#api/page_data/commonEditEndpoints';
+import { editRootEndpoints } from '#api/page_data/commonEditEndpoints.js';
 import { BellScheduleDefaults } from '../../model';
 import { bellScheduleDefaultsValidator } from '../../validator';
 import type { RequestEvent } from './$types';

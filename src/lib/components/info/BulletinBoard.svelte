@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { BulletinBoardData } from '#api/page_data/bulletinBoard/types';
+	import type { BulletinBoardData } from '#api/page_data/bulletinBoard/types.js';
 	import BoardNoteContent from '#components/info/BoardNoteContent.svelte';
 	import SectionHeader from '#components/SectionHeader.svelte';
 

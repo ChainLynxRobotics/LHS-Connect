@@ -1,6 +1,6 @@
 import { Google } from 'arctic';
 import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$app/env/private';
-import { dev } from '$app/environment';
+import { dev } from '$app/env';
 import { PUBLIC_BASE_URL } from '$app/env/public';
 
 const callbackUrl = new URL(
