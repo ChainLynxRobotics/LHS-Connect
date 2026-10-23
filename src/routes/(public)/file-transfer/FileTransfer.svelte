@@ -21,7 +21,7 @@
 		TableHeadCell,
 	} from 'flowbite-svelte';
 	import type { ChangeEventHandler } from 'svelte/elements';
-	import { PUBLIC_BASE_SHORT_URL } from '$env/static/public';
+	import { PUBLIC_BASE_SHORT_URL } from '$app/env/public';
 	import { ArrowRightOutline } from 'flowbite-svelte-icons';
 	import { nanoid } from 'nanoid';
 	import saveAs from '$lib/util/saveAs';

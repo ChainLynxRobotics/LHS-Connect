@@ -3,7 +3,7 @@
 	import { shortLinkUrlUpdateValidator } from '$api/short_link/validator';
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import { PUBLIC_BASE_SHORT_URL } from '$env/static/public';
+	import { PUBLIC_BASE_SHORT_URL } from '$app/env/public';
 	import apiRequest from '$lib/util/apiClient';
 	import { Button, Modal } from 'flowbite-svelte';
 

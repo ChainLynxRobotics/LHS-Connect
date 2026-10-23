@@ -1,4 +1,4 @@
-import { PUBLIC_ANALYTICS_URL } from '$env/static/public';
+import { PUBLIC_ANALYTICS_URL } from '$app/env/public';
 import { Permission } from '$lib/auth/permissions';
 import {
 	ChartPieOutline,

@@ -1,4 +1,4 @@
-import { MONGO_DB_URI } from '$env/static/private';
+import { MONGO_DB_URI } from '$app/env/private';
 import mongoose from 'mongoose';
 import { dev } from '$app/environment';
 
