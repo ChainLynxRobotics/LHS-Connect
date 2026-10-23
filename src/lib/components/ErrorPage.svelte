@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import ErrorCard from '$components/ErrorCard.svelte';
+	import ErrorCard from '#components/ErrorCard.svelte';
 	import { A } from 'flowbite-svelte';
 </script>
 

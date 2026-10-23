@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button, Label, MultiSelect } from 'flowbite-svelte';
-	import { Permission, PermissionValues, Permissions } from '$lib/auth/permissions';
-	import type { ISerializedUser, IAdminUserUpdate } from '$api/users/types';
+	import { Permission, PermissionValues, Permissions } from '#lib/auth/permissions.ts';
+	import type { ISerializedUser, IAdminUserUpdate } from '#api/users/types.ts';
 
 	interface Props {
 		user: ISerializedUser;

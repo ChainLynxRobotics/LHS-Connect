@@ -1,4 +1,4 @@
-import type { WithoutID } from '$lib/types/basicTypes';
+import type { WithoutID } from '#lib/types/basicTypes.ts';
 import { object, type ObjectSchema, string } from 'yup';
 import type { IClub } from './types';
 

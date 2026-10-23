@@ -1,12 +1,12 @@
 <script lang="ts">
-	import SectionHeader from '$components/SectionHeader.svelte';
+	import SectionHeader from '#components/SectionHeader.svelte';
 	import { slide } from 'svelte/transition';
 	import LinkLoginForm from './LinkLoginForm.svelte';
 	import { A, Alert, Button, Spinner } from 'flowbite-svelte';
 	import { ArrowLeftOutline, InfoCircleSolid } from 'flowbite-svelte-icons';
 	import LinkEditForm from './LinkEditForm.svelte';
-	import apiRequest from '$lib/util/apiClient';
-	import type { IPublicShortLink, IShortLinkLogin } from '$api/short_link/types';
+	import apiRequest from '#lib/util/apiClient.ts';
+	import type { IPublicShortLink, IShortLinkLogin } from '#api/short_link/types.ts';
 
 	let linkData: Promise<IPublicShortLink> | undefined = $state(undefined);
 	let linkPassword: string = $state(''); // We must sync the password between the two forms

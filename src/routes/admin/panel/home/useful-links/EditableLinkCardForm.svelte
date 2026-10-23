@@ -1,18 +1,18 @@
 <script lang="ts">
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import DragHandleOutline from '#components/admin/DragHandleOutline.svelte';
 	import { Table, TableHead, TableHeadCell, TableBodyCell, Button } from 'flowbite-svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { dragHandleZone, dragHandle } from 'svelte-dnd-action';
 	import { flip } from 'svelte/animate';
 	import { PUBLIC_BASE_URL } from '$app/env/public';
-	import type { ILinkCard } from '$api/page_data/usefulLinks/types';
+	import type { ILinkCard } from '#api/page_data/usefulLinks/types.ts';
 	import {
 		linkCardValidator,
 		linkCardLinkNameValidator,
 		linkCardLinkUrlValidator,
-	} from '$api/page_data/usefulLinks/validator';
-	import type { WithoutID } from '$lib/types/basicTypes';
+	} from '#api/page_data/usefulLinks/validator.ts';
+	import type { WithoutID } from '#lib/types/basicTypes.ts';
 
 	const flipDurationMs = 300;
 
