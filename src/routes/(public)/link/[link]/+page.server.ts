@@ -1,7 +1,7 @@
 import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { ShortLink } from '$api/short_link/model';
-import { shortLinkSuffixValidator } from '$api/short_link/validator';
+import { ShortLink } from '#api/short_link/model.js';
+import { shortLinkSuffixValidator } from '#api/short_link/validator.js';
 
 export const load = (async ({ params }) => {
 	if (!(await shortLinkSuffixValidator.isValid(params.link))) {

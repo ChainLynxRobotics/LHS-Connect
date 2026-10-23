@@ -1,5 +1,5 @@
-import { PUBLIC_ANALYTICS_URL } from '$env/static/public';
-import { Permission } from '$lib/auth/permissions';
+import { PUBLIC_ANALYTICS_URL } from '$app/env/public';
+import { Permission } from '#lib/auth/permissions.js';
 import {
 	ChartPieOutline,
 	HomeOutline,

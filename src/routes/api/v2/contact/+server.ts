@@ -3,8 +3,8 @@ import { feedbackTypes } from '../../../../lib/components/ContactForm.svelte';
 import type { RequestHandler } from './$types';
 import { contactUsValidator } from './validator';
 import { ContactUsMessage } from './model';
-import { DISCORD_WEBHOOK_URL } from '$env/static/private';
-import { error, json } from '@sveltejs/kit';
+import { DISCORD_WEBHOOK_URL } from '$app/env/private';
+import { error } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ request }) => {
 	try {
@@ -60,9 +60,9 @@ export const POST: RequestHandler = async ({ request }) => {
 			}
 		}
 
-		return json({});
+		return Response.json({});
 	} catch (e) {
-		if (e instanceof ValidationError) return error(400, { message: e.message });
+		if (e instanceof ValidationError) return error(400, e.message);
 		else throw e;
 	}
 };

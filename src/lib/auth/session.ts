@@ -1,6 +1,6 @@
-import type { ISessionUser } from '$api/users/types';
-import { Session } from '$lib/models/sessionModel';
-import type { ISession } from '$lib/types/session';
+import type { ISessionUser } from '#api/users/types.js';
+import { Session } from '#lib/models/sessionModel.js';
+import type { ISession } from '#lib/types/session.js';
 import { sha256 } from '@oslojs/crypto/sha2';
 import { encodeBase32LowerCaseNoPadding } from '@oslojs/encoding';
 import type { Cookies } from '@sveltejs/kit';

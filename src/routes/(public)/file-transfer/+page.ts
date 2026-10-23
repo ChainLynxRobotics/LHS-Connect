@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 import { ValidationError } from 'yup';
-import { fileTransferCodeValidator } from '$api/file_transfer/validator';
+import { fileTransferCodeValidator } from '#api/file_transfer/validator.js';
 
 export const load = (async ({ url, fetch }) => {
 	try {
@@ -15,7 +15,7 @@ export const load = (async ({ url, fetch }) => {
 		};
 	} catch (e) {
 		if (e instanceof ValidationError) {
-			return error(400, { message: e.message });
+			return error(400, e.message);
 		} else throw e;
 	}
 }) satisfies PageLoad;

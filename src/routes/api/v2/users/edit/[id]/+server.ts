@@ -1,6 +1,6 @@
-import { Permission, Permissions } from '$lib/auth/permissions';
-import { idValidator } from '$lib/validation/objectId';
-import { error, json } from '@sveltejs/kit';
+import { Permission, Permissions } from '#lib/auth/permissions.js';
+import { idValidator } from '#lib/validation/objectId.js';
+import { error } from '@sveltejs/kit';
 import { ValidationError } from 'yup';
 import { User } from '../../model';
 import { userAdminUpdateValidator } from '../../validator';
@@ -20,7 +20,7 @@ export const PATCH: RequestHandler = async ({ locals, request, params }) => {
 		const newPermissions = new Permissions(validatedReq.permissions).strip();
 
 		const doc = await User.findById(id).select('+firstLogin +lastLogin').exec(); // select +firstLogin +lastLogin to get these fields when the user is returned
-		if (doc === null) error(404, { message: 'Not found' });
+		if (doc === null) error(404, 'Not found');
 		const oldPermissions = new Permissions(doc.permissions).strip();
 
 		if (newPermissions.has(Permission.OWNER) != oldPermissions.has(Permission.OWNER))
@@ -35,11 +35,11 @@ export const PATCH: RequestHandler = async ({ locals, request, params }) => {
 		doc.permissions = newPermissions.get();
 		await doc.save();
 
-		return json({
+		return Response.json({
 			result: doc.toObject(),
 		});
 	} catch (e) {
-		if (e instanceof ValidationError) error(400, { message: e.message });
+		if (e instanceof ValidationError) error(400, e.message);
 		else throw e;
 	}
 };
@@ -53,7 +53,7 @@ export const DELETE: RequestHandler = async ({ locals, params }) => {
 
 		// Get and validate body
 		const doc = await User.findById(id).exec();
-		if (doc === null) error(404, { message: 'Not found' });
+		if (doc === null) error(404, 'Not found');
 		const oldPermissions = new Permissions(doc.permissions).strip();
 
 		if (oldPermissions.has(Permission.OWNER)) error(400, 'Cannot delete owner');
@@ -63,9 +63,9 @@ export const DELETE: RequestHandler = async ({ locals, params }) => {
 		// delete doc in db
 		await doc.deleteOne();
 
-		return json({});
+		return Response.json({});
 	} catch (e) {
-		if (e instanceof ValidationError) error(400, { message: e.message });
+		if (e instanceof ValidationError) error(400, e.message);
 		else throw e;
 	}
 };

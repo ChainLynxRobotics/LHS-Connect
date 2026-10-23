@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { IPublicShortLink } from '$api/short_link/types';
-	import { shortLinkUrlUpdateValidator } from '$api/short_link/validator';
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import { PUBLIC_BASE_SHORT_URL } from '$env/static/public';
-	import apiRequest from '$lib/util/apiClient';
+	import type { IPublicShortLink } from '#api/short_link/types.js';
+	import { shortLinkUrlUpdateValidator } from '#api/short_link/validator.js';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import { getNotificationContext } from '#components/NotificationProvider.svelte';
+	import { PUBLIC_BASE_SHORT_URL } from '$app/env/public';
+	import apiRequest from '#lib/util/apiClient.js';
 	import { Button, Modal } from 'flowbite-svelte';
 
 	interface Props {
@@ -23,16 +23,14 @@
 	let deleteConfirmOpen = $state(false);
 
 	async function onsubmit() {
-		const shortLinkData = {
-			url: await urlInput!.validate(),
-		};
+		const shortLinkData = { url: await urlInput!.validate() };
 		const res = await apiRequest(
 			'PATCH',
 			`/short_link?suffix=${encodeURIComponent(linkData.suffix)}&password=${encodeURIComponent(password)}`,
 			shortLinkData
 		).catch((error) => notificationContext.show(error.message, 'error'));
-		url = res.result.url; // Update the URL
 
+		url = res.result.url; // Update the URL
 		notificationContext.show('Short Link Updated!', 'success');
 	}
 

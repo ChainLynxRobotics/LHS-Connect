@@ -1,10 +1,10 @@
-import { shortLinkAdminUpdateValidator } from '$api/short_link/validator';
-import { Permission } from '$lib/auth/permissions';
-import { error, json } from '@sveltejs/kit';
+import { shortLinkAdminUpdateValidator } from '#api/short_link/validator.js';
+import { Permission } from '#lib/auth/permissions.js';
+import { error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { ShortLink } from '$api/short_link/model';
+import { ShortLink } from '#api/short_link/model.js';
 import { ValidationError } from 'yup';
-import { idValidator } from '$lib/validation/objectId';
+import { idValidator } from '#lib/validation/objectId.js';
 
 export const PATCH: RequestHandler = async ({ locals, params, request }) => {
 	if (!locals.permissions.has(Permission.MANAGE_SHORT_LINKS))
@@ -19,15 +19,15 @@ export const PATCH: RequestHandler = async ({ locals, params, request }) => {
 
 		// Find and update doc in db
 		const doc = await ShortLink.findById(id).exec();
-		if (doc === null) return error(404, { message: 'Not found' });
+		if (doc === null) return error(404, 'Not found');
 		doc.set(validatedReq);
 		await doc.save();
 
-		return json({
+		return Response.json({
 			result: doc.toObject(),
 		});
 	} catch (e) {
-		if (e instanceof ValidationError) return error(400, { message: e.message });
+		if (e instanceof ValidationError) return error(400, e.message);
 		else throw e;
 	}
 };
@@ -41,12 +41,12 @@ export const DELETE: RequestHandler = async ({ locals, params }) => {
 
 		// Find and delete doc in db
 		const doc = await ShortLink.findById(id).exec();
-		if (doc === null) return error(404, { message: 'Not found' });
+		if (doc === null) return error(404, 'Not found');
 		await doc.deleteOne().exec();
 
-		return json({});
+		return Response.json({});
 	} catch (e) {
-		if (e instanceof ValidationError) return error(400, { message: e.message });
+		if (e instanceof ValidationError) return error(400, e.message);
 		else throw e;
 	}
 };

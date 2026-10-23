@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { LinkCardListData } from '$api/page_data/usefulLinks/types';
-	import LinkCardContent from '$components/info/LinkCardContent.svelte';
-	import SectionHeader from '$components/SectionHeader.svelte';
+	import type { LinkCardListData } from '#api/page_data/usefulLinks/types.js';
+	import LinkCardContent from '#components/info/LinkCardContent.svelte';
+	import SectionHeader from '#components/SectionHeader.svelte';
 
 	interface Props {
 		title: string;

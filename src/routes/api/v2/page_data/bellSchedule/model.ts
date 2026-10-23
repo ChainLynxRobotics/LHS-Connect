@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import type { IBellSchedule, IBellScheduleDefaults, IBellScheduleOverride } from './types';
-import { SingleValueModel } from '$lib/models/basicModels';
+import { SingleValueModel } from '#lib/models/basicModels.js';
 import { TIME_STRING_REGEX } from './validator';
 
 // List of bell schedules

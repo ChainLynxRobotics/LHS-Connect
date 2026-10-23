@@ -1,5 +1,5 @@
-import { Permission } from '$lib/auth/permissions';
-import { error, json } from '@sveltejs/kit';
+import { Permission } from '#lib/auth/permissions.js';
+import { error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { number, string, ValidationError } from 'yup';
 import { User } from '../model';
@@ -33,7 +33,7 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 			.limit(pageSize)
 			.exec();
 
-		return json({
+		return Response.json({
 			total: totalCount || 0,
 			page: page,
 			pageSize: pageSize,
