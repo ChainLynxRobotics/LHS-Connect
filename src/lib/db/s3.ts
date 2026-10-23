@@ -1,4 +1,4 @@
-import { UploadedFile } from '$api/file_transfer/model';
+import { UploadedFile } from '#api/file_transfer/model.ts';
 import {
 	S3_ACCESS_KEY_ID,
 	S3_BUCKET_NAME,

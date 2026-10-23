@@ -1,5 +1,5 @@
-import { Permission, Permissions } from '$lib/auth/permissions';
-import { idValidator } from '$lib/validation/objectId';
+import { Permission, Permissions } from '#lib/auth/permissions.ts';
+import { idValidator } from '#lib/validation/objectId.ts';
 import { error, json } from '@sveltejs/kit';
 import { ValidationError } from 'yup';
 import { User } from '../../model';

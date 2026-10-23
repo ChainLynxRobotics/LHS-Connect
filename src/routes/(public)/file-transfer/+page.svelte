@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SectionHeader from '$components/SectionHeader.svelte';
+	import SectionHeader from '#components/SectionHeader.svelte';
 	import type { PageData } from './$types';
 	import FileTransfer from './FileTransfer.svelte';
 

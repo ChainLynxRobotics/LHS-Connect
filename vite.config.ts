@@ -10,13 +10,6 @@ export default defineConfig({
 			adapter: adapter({
 				edge: false,
 			}),
-			alias: {
-				$lib: './src/lib',
-				$components: './src/lib/components',
-				$assets: './src/lib/assets',
-				$styles: './src/lib/styles',
-				$api: './src/routes/api/v2',
-			},
 		}),
 	],
 	build: {

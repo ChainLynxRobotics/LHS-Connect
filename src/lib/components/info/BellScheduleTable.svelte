@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { IBellSchedule } from '$api/page_data/bellSchedule/types';
-	import dayjs, { TZ } from '$lib/util/dayjs';
+	import type { IBellSchedule } from '#api/page_data/bellSchedule/types.ts';
+	import dayjs, { TZ } from '#lib/util/dayjs.ts';
 	import type { Dayjs } from 'dayjs';
 	import { Table, TableBody, TableBodyCell, TableBodyRow } from 'flowbite-svelte';
 

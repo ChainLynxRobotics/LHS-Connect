@@ -1,12 +1,12 @@
 <script lang="ts">
-	import DraggableList from '$components/admin/DraggableList.svelte';
-	import SectionHeader from '$components/SectionHeader.svelte';
+	import DraggableList from '#components/admin/DraggableList.svelte';
+	import SectionHeader from '#components/SectionHeader.svelte';
 	import { Button, Accordion, AccordionItem, Modal } from 'flowbite-svelte';
 	import type { PageData } from './$types';
-	import EditableItemList from '$components/admin/EditableItemList.svelte';
+	import EditableItemList from '#components/admin/EditableItemList.svelte';
 	import { dragHandle } from 'svelte-dnd-action';
-	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
-	import BellScheduleTable from '$components/info/BellScheduleTable.svelte';
+	import DragHandleOutline from '#components/admin/DragHandleOutline.svelte';
+	import BellScheduleTable from '#components/info/BellScheduleTable.svelte';
 	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import SavedScheduleForm from './SavedScheduleForm.svelte';
 

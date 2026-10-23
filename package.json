@@ -57,5 +57,17 @@
 		"node": ">=18",
 		"pnpm": ">=9"
 	},
-	"packageManager": "pnpm@10.12.4+sha256.cadfd9e6c9fcc2cb76fe7c0779a5250b632898aea5f53d833a73690c77a778d9"
+	"packageManager": "pnpm@10.12.4+sha256.cadfd9e6c9fcc2cb76fe7c0779a5250b632898aea5f53d833a73690c77a778d9",
+	"imports": {
+		"#lib": "./src/lib/index.js",
+		"#lib/*": "./src/lib/*",
+		"#components": "./src/lib/components/index.js",
+		"#components/*": "./src/lib/components/*",
+		"#assets": "./src/lib/assets/index.js",
+		"#assets/*": "./src/lib/assets/*",
+		"#styles": "./src/lib/styles/index.js",
+		"#styles/*": "./src/lib/styles/*",
+		"#api": "./src/routes/api/v2/index.js",
+		"#api/*": "./src/routes/api/v2/*"
+	}
 }

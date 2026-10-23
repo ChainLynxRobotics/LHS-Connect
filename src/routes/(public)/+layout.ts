@@ -1,5 +1,5 @@
-import type { IAnnouncement } from '$api/page_data/announcement/types';
-import type { LinkCardListData } from '$api/page_data/usefulLinks/types';
+import type { IAnnouncement } from '#api/page_data/announcement/types.ts';
+import type { LinkCardListData } from '#api/page_data/usefulLinks/types.ts';
 import type { LayoutLoad } from './$types';
 
 export const load = (async ({ url, fetch }) => {

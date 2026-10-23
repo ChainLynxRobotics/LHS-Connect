@@ -1,4 +1,4 @@
-import type { WithoutID } from '$lib/types/basicTypes';
+import type { WithoutID } from '#lib/types/basicTypes.ts';
 import { string, object, array, type ObjectSchema } from 'yup';
 import type { ILinkCard } from './types';
 

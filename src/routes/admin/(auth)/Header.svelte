@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Navbar, NavBrand, NavHamburger, NavUl, NavLi } from 'flowbite-svelte';
 	import { page } from '$app/stores';
-	import ThemeSwitch from '$components/ThemeSwitch.svelte';
+	import ThemeSwitch from '#components/ThemeSwitch.svelte';
 
 	let activeUrl = $derived($page.url.pathname);
 

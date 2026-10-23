@@ -1,4 +1,4 @@
-import type { ClubListData } from '$api/page_data/clubs/types';
+import type { ClubListData } from '#api/page_data/clubs/types.ts';
 import type { PageLoad } from './$types';
 
 export const load = (async ({ fetch }) => {

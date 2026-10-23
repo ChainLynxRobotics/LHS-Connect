@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { IClub } from '$api/page_data/clubs/types';
-	import { clubValidator } from '$api/page_data/clubs/validator';
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
-	import type { WithoutID } from '$lib/types/basicTypes';
+	import type { IClub } from '#api/page_data/clubs/types.ts';
+	import { clubValidator } from '#api/page_data/clubs/validator.ts';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import ValidatedTextarea from '#components/form/ValidatedTextarea.svelte';
+	import type { WithoutID } from '#lib/types/basicTypes.ts';
 	import { Button } from 'flowbite-svelte';
 
 	interface Props {

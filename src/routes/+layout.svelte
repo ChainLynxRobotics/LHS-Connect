@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { dev } from '$app/environment';
-	import NotificationProvider from '$components/NotificationProvider.svelte';
-	import type { ThemeContext } from '$components/ThemeSwitch.svelte';
-	import '$lib/styles/tailwind.css';
+	import NotificationProvider from '#components/NotificationProvider.svelte';
+	import type { ThemeContext } from '#components/ThemeSwitch.svelte';
+	import '#lib/styles/tailwind.css';
 	import { onMount, setContext, type Snippet } from 'svelte';
 	import { writable } from 'svelte/store';
 	interface Props {
