@@ -11,7 +11,7 @@
 		<div class="mb-4 mt-4 grid place-items-center text-xl">
 			<ExternalLink
 				href="https://seattleschools-my.sharepoint.com/:w:/g/personal/1rcmclain_seattleschools_org/IQDdTy6CDx8_TatHAPkj-TrbARQ2VadEAwxXiliuI6vu_CI?e=nOO3vJ"
-				text="discord link (access restricted)"
+				text="Discord link (Access Restricted)"
 			/>
 		</div>
 		<p class="mb-4 text-center">
