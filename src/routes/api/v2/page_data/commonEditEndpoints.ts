@@ -1,9 +1,9 @@
-import { Permission } from '$lib/auth/permissions';
-import type { WithoutID } from '$lib/types/basicTypes';
+import { Permission } from '#lib/auth/permissions';
+import type { WithoutID } from '#lib/types/basicTypes';
 import { error, json, type RequestEvent } from '@sveltejs/kit';
 import type { Model } from 'mongoose';
 import { array, ValidationError, type ObjectSchema } from 'yup';
-import { idArrayValidator, idValidator } from '$lib/validation/objectId';
+import { idArrayValidator, idValidator } from '#lib/validation/objectId';
 
 // The type of data/models that can be used with the endpoints
 type ListType = 'listValue' | 'orderedListValue' | 'singleValue';

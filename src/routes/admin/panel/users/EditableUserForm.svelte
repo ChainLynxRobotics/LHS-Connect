@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button, Label, MultiSelect } from 'flowbite-svelte';
-	import { Permission, PermissionValues, Permissions } from '$lib/auth/permissions';
-	import type { ISerializedUser, IAdminUserUpdate } from '$api/users/types';
+	import { Permission, PermissionValues, Permissions } from '#lib/auth/permissions';
+	import type { ISerializedUser, IAdminUserUpdate } from '#api/users/types';
 
 	interface Props {
 		user: ISerializedUser;
@@ -12,7 +12,7 @@
 	let { user, onSubmit: submit, onCancel: cancel }: Props = $props();
 
 	const permissionOptions = PermissionValues.map((p) => ({ value: p, name: Permission[p] }));
-	let selectedPermissions = $state(new Permissions(user.permissions).toArray());
+	let selectedPermissions = $derived(new Permissions(user.permissions).toArray());
 
 	async function onsubmit(e: Event) {
 		e.preventDefault();

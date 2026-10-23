@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import type { IAnnouncement } from './types';
-import { SingleValueModel } from '$lib/models/basicModels';
+import { SingleValueModel } from '#lib/models/basicModels';
 
 export const announcementSchema = new mongoose.Schema<IAnnouncement>(
 	{

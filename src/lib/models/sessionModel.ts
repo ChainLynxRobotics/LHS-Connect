@@ -1,5 +1,5 @@
-import { User } from '$api/users/model';
-import type { ISession } from '$lib/types/session';
+import { User } from '#api/users/model';
+import type { ISession } from '#lib/types/session';
 import mongoose, { type Model, Types } from 'mongoose';
 
 const sessionSchema = new mongoose.Schema<ISession & { _id: Buffer }>({

@@ -1,5 +1,5 @@
-import type { IAnnouncement } from '$api/page_data/announcement/types';
-import type { GetAllResults } from '$lib/util/adminApiClient';
+import type { IAnnouncement } from '#api/page_data/announcement/types';
+import type { GetAllResults } from '#lib/util/adminApiClient';
 import type { PageLoad } from './$types';
 
 export const load = (async ({ fetch }) => {

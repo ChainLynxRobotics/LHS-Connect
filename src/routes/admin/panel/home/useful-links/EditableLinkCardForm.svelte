@@ -1,18 +1,18 @@
 <script lang="ts">
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import DragHandleOutline from '#components/admin/DragHandleOutline.svelte';
 	import { Table, TableHead, TableHeadCell, TableBodyCell, Button } from 'flowbite-svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { dragHandleZone, dragHandle } from 'svelte-dnd-action';
 	import { flip } from 'svelte/animate';
-	import { PUBLIC_BASE_URL } from '$env/static/public';
-	import type { ILinkCard } from '$api/page_data/usefulLinks/types';
+	import { PUBLIC_BASE_URL } from '$app/env/public';
+	import type { ILinkCard } from '#api/page_data/usefulLinks/types';
 	import {
 		linkCardValidator,
 		linkCardLinkNameValidator,
 		linkCardLinkUrlValidator,
-	} from '$api/page_data/usefulLinks/validator';
-	import type { WithoutID } from '$lib/types/basicTypes';
+	} from '#api/page_data/usefulLinks/validator';
+	import type { WithoutID } from '#lib/types/basicTypes';
 
 	const flipDurationMs = 300;
 
@@ -24,9 +24,9 @@
 
 	let { card, onSubmit: submit, onCancel: cancel }: Props = $props();
 
-	let title = $state(card.title);
-	let subtitle = $state(card.subtitle);
-	let links = $state(card.links.map((link) => ({ ...link, id: Math.random() })));
+	let title = $derived(card.title);
+	let subtitle = $derived(card.subtitle);
+	let links = $derived(card.links.map((link) => ({ ...link, id: Math.random() })));
 
 	let titleInput: ValidatedInput<'title'> | undefined = $state();
 	let subtitleInput: ValidatedInput<'subtitle'> | undefined = $state();

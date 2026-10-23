@@ -1,5 +1,5 @@
 <script lang="ts">
-	import QrCodeCard from '$components/QrCodeCard.svelte';
+	import QrCodeCard from '#components/QrCodeCard.svelte';
 	import { Input, Label } from 'flowbite-svelte';
 
 	let data = $state('');

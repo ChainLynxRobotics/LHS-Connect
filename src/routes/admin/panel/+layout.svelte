@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import ThemeSwitch from '$components/ThemeSwitch.svelte';
+	import ThemeSwitch from '#components/ThemeSwitch.svelte';
 	import {
 		CloseButton,
 		Drawer,
@@ -26,7 +26,7 @@
 	import type { Snippet } from 'svelte';
 	import { sineIn } from 'svelte/easing';
 	import type { PageData } from './$types';
-	import { Permission, Permissions } from '$lib/auth/permissions';
+	import { Permission, Permissions } from '#lib/auth/permissions';
 	import pages from './pages';
 
 	interface Props {

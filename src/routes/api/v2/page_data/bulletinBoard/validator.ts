@@ -1,7 +1,7 @@
-import type { WithoutID } from '$lib/types/basicTypes';
+import type { WithoutID } from '#lib/types/basicTypes';
 import { object, type ObjectSchema, string } from 'yup';
 import type { IBulletinBoardNote } from './types';
-import urlRegex from '$lib/validation/url';
+import urlRegex from '#lib/validation/url';
 
 export const bulletinBoardNoteValidator: ObjectSchema<WithoutID<IBulletinBoardNote>> = object({
 	title: string().required().min(1).max(256),

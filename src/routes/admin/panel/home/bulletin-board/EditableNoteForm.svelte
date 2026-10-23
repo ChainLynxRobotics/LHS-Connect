@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { IBulletinBoardNote } from '$api/page_data/bulletinBoard/types';
-	import { bulletinBoardNoteValidator } from '$api/page_data/bulletinBoard/validator';
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
-	import type { WithoutID } from '$lib/types/basicTypes';
+	import type { IBulletinBoardNote } from '#api/page_data/bulletinBoard/types';
+	import { bulletinBoardNoteValidator } from '#api/page_data/bulletinBoard/validator';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import ValidatedTextarea from '#components/form/ValidatedTextarea.svelte';
+	import type { WithoutID } from '#lib/types/basicTypes';
 	import { Button, Helper } from 'flowbite-svelte';
 
 	interface Props {
@@ -14,9 +14,9 @@
 
 	let { note, onSubmit: submit, onCancel: cancel }: Props = $props();
 
-	let title = $state(note.title);
-	let content = $state(note.content);
-	let link = $state(note.link);
+	let title = $derived(note.title);
+	let content = $derived(note.content);
+	let link = $derived(note.link);
 
 	let titleInput: ValidatedInput<'title'> | undefined = $state();
 	let contentInput: ValidatedTextarea<'content'> | undefined = $state();

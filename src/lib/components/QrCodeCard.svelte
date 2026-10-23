@@ -62,7 +62,7 @@
 		showSaveOptions = true,
 	}: Props = $props();
 
-	let debouncedData = $state(data);
+	let debouncedData = $derived(data);
 
 	let timer: NodeJS.Timeout;
 	const debounce = (data: string) => {

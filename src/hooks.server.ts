@@ -2,11 +2,11 @@ import {
 	deleteSessionTokenCookie,
 	setSessionTokenCookie,
 	validateAndRenewSession,
-} from '$lib/auth/session';
-import connect from '$lib/db/mongodb';
+} from '#lib/auth/session';
+import connect from '#lib/db/mongodb';
 import type { Handle } from '@sveltejs/kit';
-import { Permissions } from '$lib/auth/permissions';
-import { startFileClearInterval } from '$lib/db/s3';
+import { Permissions } from '#lib/auth/permissions';
+import { startFileClearInterval } from '#lib/db/s3';
 import { dev } from '$app/environment';
 
 // Ensure correct time zone

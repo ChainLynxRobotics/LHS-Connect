@@ -1,16 +1,16 @@
 <script lang="ts">
-	import SectionHeader from '$components/SectionHeader.svelte';
+	import SectionHeader from '#components/SectionHeader.svelte';
 	import { Alert, Button, Card, Listgroup, ListgroupItem } from 'flowbite-svelte';
 	import pages from './pages';
-	import { Permissions } from '$lib/auth/permissions';
+	import { Permissions } from '#lib/auth/permissions';
 	import type { PageData } from './$types';
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import adminApiClient from '$lib/util/adminApiClient';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import adminApiClient from '#lib/util/adminApiClient';
 	import { goto, invalidate } from '$app/navigation';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
+	import { getNotificationContext } from '#components/NotificationProvider.svelte';
 	import { InfoCircleSolid } from 'flowbite-svelte-icons';
 	import { slide } from 'svelte/transition';
-	import { announcementValidator } from '$api/page_data/announcement/validator';
+	import { announcementValidator } from '#api/page_data/announcement/validator';
 
 	let { data }: { data: PageData } = $props();
 
@@ -18,7 +18,7 @@
 
 	let announcementInput: ValidatedInput<'text'> | undefined = undefined;
 
-	let announcement = $state(data.announcement?.text || '');
+	let announcement = $derived(data.announcement?.text || '');
 	$effect(() => {
 		announcement = data.announcement?.text || '';
 	});
