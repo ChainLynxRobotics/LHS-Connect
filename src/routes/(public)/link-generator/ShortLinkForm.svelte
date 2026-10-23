@@ -1,8 +1,8 @@
 <script lang="ts">
-	import ValidatedInputGroup from '$components/form/ValidatedInputGroup.svelte';
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
+	import ValidatedInputGroup from '#components/form/ValidatedInputGroup.svelte';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
 	import { InputAddon, Button, Helper } from 'flowbite-svelte';
-	import QrCodeCard from '$components/QrCodeCard.svelte';
+	import QrCodeCard from '#components/QrCodeCard.svelte';
 	import {
 		AngleDownOutline,
 		AngleUpOutline,
@@ -10,10 +10,10 @@
 		EyeSlashOutline,
 	} from 'flowbite-svelte-icons';
 	import { fade, slide } from 'svelte/transition';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import apiRequest from '$lib/util/apiClient';
-	import { PUBLIC_BASE_SHORT_URL } from '$env/static/public';
-	import { shortLinkCreateValidator } from '$api/short_link/validator';
+	import { getNotificationContext } from '#components/NotificationProvider.svelte';
+	import apiRequest from '#lib/util/apiClient.js';
+	import { PUBLIC_BASE_SHORT_URL } from '$app/env/public';
+	import { shortLinkCreateValidator } from '#api/short_link/validator.js';
 
 	const notificationContext = getNotificationContext();
 
@@ -60,7 +60,7 @@
 			<ValidatedInputGroup
 				bind:this={suffixInput}
 				id="suffix"
-				label="Short Url (Only letters, numbers, and hyphens)"
+				label="Short URL (Only letters, numbers, and hyphens)"
 				bind:value={suffix}
 				visuallyRequired
 				validatorObject={shortLinkCreateValidator}
@@ -76,7 +76,7 @@
 			<ValidatedInput
 				bind:this={urlInput}
 				id="url"
-				label="Redirect Url"
+				label="Redirect URL"
 				bind:value={url}
 				visuallyRequired
 				validatorObject={shortLinkCreateValidator}

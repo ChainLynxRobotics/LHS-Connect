@@ -20,19 +20,19 @@
 
 	interface Props {
 		/**
-		 * The data for the QR code
+		 * The data for the QR Code
 		 */
 		data: string;
 		/**
-		 * Write your own snippet for whats above the top of the QR code (and the link if enabled)
+		 * Write your own snippet for whats above the top of the QR Code (and the link if enabled)
 		 */
 		headerSnippet?: Snippet<[string]>;
 		/**
-		 * Whether to show the original link above the QR code
+		 * Whether to show the original link above the QR Code
 		 */
 		showLink?: boolean;
 		/**
-		 * The label for the link above the QR code
+		 * The label for the link above the QR Code
 		 *
 		 * Requires `showLink` to be true
 		 *
@@ -46,7 +46,7 @@
 		 */
 		linkHelper?: string;
 		/**
-		 * Whether to show options for saving the QR code
+		 * Whether to show options for saving the QR Code
 		 *
 		 * @default true
 		 */
@@ -187,10 +187,10 @@
 				on:click={copyImage}
 				color="alternative"
 				size="xs"
-				title="Copy PNG image of this qr code">Copy Image</Button
+				title="Copy PNG image of this QR Code">Copy Image</Button
 			>
 			<div class="grid grid-cols-[2fr,1fr] gap-2">
-				<Button on:click={downloadQr} title="Download PNG or SVG of this qr code">Download</Button>
+				<Button on:click={downloadQr} title="Download PNG or SVG of this QR Code">Download</Button>
 				<Select bind:value={downloadType} items={downloadTypes} placeholder="" />
 			</div>
 		</div>
