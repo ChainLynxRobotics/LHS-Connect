@@ -2,7 +2,7 @@ import { error, json } from '@sveltejs/kit';
 import { number, string, ValidationError } from 'yup';
 import { ShortLink } from '../model';
 import type { RequestHandler } from './$types';
-import { Permission } from '$lib/auth/permissions';
+import { Permission } from '#lib/auth/permissions';
 
 const pageValidator = number().min(1).default(1).label('page');
 const pageSizeValidator = number().min(5).max(100).default(50).label('pageSize');

@@ -1,14 +1,14 @@
 <script lang="ts">
-	import SectionHeader from '$components/SectionHeader.svelte';
+	import SectionHeader from '#components/SectionHeader.svelte';
 	import { Button, Modal } from 'flowbite-svelte';
 	import type { PageData } from './$types';
-	import EditableItemList from '$components/admin/EditableItemList.svelte';
+	import EditableItemList from '#components/admin/EditableItemList.svelte';
 	import { dragHandle } from 'svelte-dnd-action';
-	import BoardNoteContent from '$components/info/BoardNoteContent.svelte';
+	import BoardNoteContent from '#components/info/BoardNoteContent.svelte';
 	import { EditOutline, FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import EditableNoteForm from './EditableNoteForm.svelte';
-	import DraggableList from '$components/admin/DraggableList.svelte';
-	import ExternalLink from '$components/ExternalLink.svelte';
+	import DraggableList from '#components/admin/DraggableList.svelte';
+	import ExternalLink from '#components/ExternalLink.svelte';
 
 	interface Props {
 		data: PageData;

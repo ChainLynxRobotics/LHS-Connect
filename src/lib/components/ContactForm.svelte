@@ -9,15 +9,15 @@
 </script>
 
 <script lang="ts">
-	import type { IContactUsMessage } from '$api/contact/types';
+	import type { IContactUsMessage } from '#api/contact/types';
 
-	import { contactUsValidator } from '$api/contact/validator';
+	import { contactUsValidator } from '#api/contact/validator';
 	import { page } from '$app/state';
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import ValidatedSelect from '$components/form/ValidatedSelect.svelte';
-	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import apiRequest from '$lib/util/apiClient';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import ValidatedSelect from '#components/form/ValidatedSelect.svelte';
+	import ValidatedTextarea from '#components/form/ValidatedTextarea.svelte';
+	import { getNotificationContext } from '#components/NotificationProvider.svelte';
+	import apiRequest from '#lib/util/apiClient';
 	import { Button, Spinner, type SelectOptionType } from 'flowbite-svelte';
 	import { PaperPlaneOutline } from 'flowbite-svelte-icons';
 	import type { ObjectSchema } from 'yup';

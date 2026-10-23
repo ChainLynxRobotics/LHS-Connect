@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SectionHeader from '$components/SectionHeader.svelte';
+	import SectionHeader from '#components/SectionHeader.svelte';
 	import {
 		A,
 		Input,
@@ -12,10 +12,10 @@
 		TableHeadCell,
 	} from 'flowbite-svelte';
 	import EditableLink from './EditableLink.svelte';
-	import adminApiClient from '$lib/util/adminApiClient';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
+	import adminApiClient from '#lib/util/adminApiClient';
+	import { getNotificationContext } from '#components/NotificationProvider.svelte';
 	import { ArrowLeftOutline, ArrowRightOutline } from 'flowbite-svelte-icons';
-	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$api/short_link/types';
+	import type { IPublicShortLink, IShortLinkAdminUpdate } from '#api/short_link/types';
 
 	const notificationContext = getNotificationContext();
 

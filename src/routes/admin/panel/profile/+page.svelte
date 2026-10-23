@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Permissions } from '$lib/auth/permissions';
+	import { Permissions } from '#lib/auth/permissions';
 	import { Avatar, Button, Card } from 'flowbite-svelte';
 	import type { PageData } from './$types';
 

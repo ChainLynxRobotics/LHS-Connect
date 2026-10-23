@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation';
-	import FileDropzone from '$components/form/FileDropzone.svelte';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import QrCodeCard from '$components/QrCodeCard.svelte';
-	import apiRequest, { BASE_API_URL } from '$lib/util/apiClient';
-	import formatFileSize from '$lib/util/formatFileSize';
+	import FileDropzone from '#components/form/FileDropzone.svelte';
+	import { getNotificationContext } from '#components/NotificationProvider.svelte';
+	import QrCodeCard from '#components/QrCodeCard.svelte';
+	import apiRequest, { BASE_API_URL } from '#lib/util/apiClient';
+	import formatFileSize from '#lib/util/formatFileSize';
 	import {
 		Button,
 		ButtonGroup,
@@ -24,8 +24,8 @@
 	import { PUBLIC_BASE_SHORT_URL } from '$app/env/public';
 	import { ArrowRightOutline } from 'flowbite-svelte-icons';
 	import { nanoid } from 'nanoid';
-	import saveAs from '$lib/util/saveAs';
-	import type { IUploadedFile, ILocalFile } from '$api/file_transfer/types';
+	import saveAs from '#lib/util/saveAs';
+	import type { IUploadedFile, ILocalFile } from '#api/file_transfer/types';
 
 	interface Props {
 		code: string;

@@ -1,14 +1,14 @@
 <script lang="ts">
-	import SectionHeader from '$components/SectionHeader.svelte';
+	import SectionHeader from '#components/SectionHeader.svelte';
 	import { Button, Table, TableHead, TableHeadCell, TableBody, Label } from 'flowbite-svelte';
 	import DefaultSchedules from './DefaultSchedules.svelte';
 	import SpecialScheduleRow from './SpecialScheduleRow.svelte';
-	import BellScheduleTabs from '$components/info/BellScheduleTabs.svelte';
+	import BellScheduleTabs from '#components/info/BellScheduleTabs.svelte';
 	import type { PageData } from './$types';
-	import dayjs, { TZ } from '$lib/util/dayjs';
-	import EditableItemList from '$components/admin/EditableItemList.svelte';
-	import ExternalLink from '$components/ExternalLink.svelte';
-	import type { BellScheduleData } from '$api/page_data/bellSchedule/types';
+	import dayjs, { TZ } from '#lib/util/dayjs';
+	import EditableItemList from '#components/admin/EditableItemList.svelte';
+	import ExternalLink from '#components/ExternalLink.svelte';
+	import type { BellScheduleData } from '#api/page_data/bellSchedule/types';
 
 	interface Props {
 		data: PageData;

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { IPublicShortLink, IShortLinkAdminUpdate } from '$api/short_link/types';
-	import { shortLinkAdminUpdateValidator } from '$api/short_link/validator';
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import apiRequest from '$lib/util/apiClient';
+	import type { IPublicShortLink, IShortLinkAdminUpdate } from '#api/short_link/types';
+	import { shortLinkAdminUpdateValidator } from '#api/short_link/validator';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import { getNotificationContext } from '#components/NotificationProvider.svelte';
+	import apiRequest from '#lib/util/apiClient';
 	import { Alert, Button, Label, Modal } from 'flowbite-svelte';
 	import { CheckOutline, CloseOutline, InfoCircleSolid } from 'flowbite-svelte-icons';
 
