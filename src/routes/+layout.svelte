@@ -9,7 +9,7 @@
 		children?: Snippet;
 	}
 
-	let { children }: Props = $props();
+	let { children }: Props = $props()  ;
 
 	let theme = setContext<ThemeContext>('theme', writable(undefined));
 
