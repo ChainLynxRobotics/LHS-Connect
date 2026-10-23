@@ -1,5 +1,5 @@
-import type { ILinkCard } from '$api/page_data/usefulLinks/types';
-import type { GetAllResults } from '$lib/util/adminApiClient';
+import type { ILinkCard } from '#api/page_data/usefulLinks/types.js';
+import type { GetAllResults } from '#lib/util/adminApiClient.js';
 import type { PageLoad } from './$types';
 
 export const load = (async (event) => {

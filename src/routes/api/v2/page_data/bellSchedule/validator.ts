@@ -1,7 +1,7 @@
-import type { WithoutID } from '$lib/types/basicTypes';
+import type { WithoutID } from '#lib/types/basicTypes.js';
 import { string, object, boolean, array, number, type ObjectSchema } from 'yup';
 import type { IBellSchedule, IBellScheduleDefaults, IBellScheduleOverride } from './types';
-import { idArrayValidator, idValidator } from '$lib/validation/objectId';
+import { idArrayValidator, idValidator } from '#lib/validation/objectId.js';
 
 export const TIME_STRING_REGEX = /^(0?[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
 

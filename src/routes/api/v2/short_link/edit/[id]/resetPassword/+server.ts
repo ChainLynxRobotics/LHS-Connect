@@ -1,11 +1,11 @@
-import { Permission } from '$lib/auth/permissions';
-import { idValidator } from '$lib/validation/objectId';
+import { Permission } from '#lib/auth/permissions.js';
+import { idValidator } from '#lib/validation/objectId.js';
 import { encodeBase32LowerCaseNoPadding } from '@oslojs/encoding';
-import { error, json } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import { ValidationError } from 'yup';
 import type { RequestHandler } from './$types';
 import bcryptjs from 'bcryptjs';
-import { ShortLink } from '$api/short_link/model';
+import { ShortLink } from '#api/short_link/model.js';
 
 export const POST: RequestHandler = async ({ locals, params }) => {
 	if (!locals.permissions.has(Permission.MANAGE_SHORT_LINKS))
@@ -16,7 +16,7 @@ export const POST: RequestHandler = async ({ locals, params }) => {
 
 		// Find and update doc in db
 		const doc = await ShortLink.findById(id).exec();
-		if (doc === null) return error(404, { message: 'Not found' });
+		if (doc === null) return error(404, 'Not found');
 
 		// Generate new password
 		const bytes = new Uint8Array(10);
@@ -27,11 +27,11 @@ export const POST: RequestHandler = async ({ locals, params }) => {
 		doc.hash = hash;
 		await doc.save();
 
-		return json({
+		return Response.json({
 			password,
 		});
 	} catch (e) {
-		if (e instanceof ValidationError) return error(400, { message: e.message });
+		if (e instanceof ValidationError) return error(400, e.message);
 		else throw e;
 	}
 };

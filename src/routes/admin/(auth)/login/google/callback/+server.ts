@@ -1,10 +1,10 @@
 import { error, redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { decodeIdToken, type OAuth2Tokens } from 'arctic';
-import { google } from '$lib/auth/oauth';
-import { createSession, setSessionTokenCookie } from '$lib/auth/session';
-import { Permission, Permissions } from '$lib/auth/permissions';
-import { User } from '$api/users/model';
+import { google } from '#lib/auth/oauth.js';
+import { createSession, setSessionTokenCookie } from '#lib/auth/session.js';
+import { Permission, Permissions } from '#lib/auth/permissions.js';
+import { User } from '#api/users/model.js';
 
 export const GET: RequestHandler = async ({ url, cookies }) => {
 	const code = url.searchParams.get('code');
@@ -34,7 +34,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 
 	const existing = await User.findOne({ googleId });
 	if (existing) {
-		const { token, expires } = await createSession(existing.id);
+		const { token, expires } = await createSession(existing._id);
 		await existing.updateOne({ lastLogin: new Date(), name, email, pfp });
 		setSessionTokenCookie(cookies, token, expires);
 		return redirect(302, '/admin/panel');
@@ -55,7 +55,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 
 	await user.save();
 
-	const { token, expires } = await createSession(user.id);
+	const { token, expires } = await createSession(user._id);
 	setSessionTokenCookie(cookies, token, expires);
 	return redirect(302, '/admin/panel');
 };

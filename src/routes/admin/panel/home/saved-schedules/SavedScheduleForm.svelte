@@ -1,6 +1,6 @@
 <script lang="ts">
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import ValidatedTextarea from '#components/form/ValidatedTextarea.svelte';
 	import {
 		Button,
 		Checkbox,
@@ -10,15 +10,15 @@
 		TableHeadCell,
 	} from 'flowbite-svelte';
 	import { dragHandle, dragHandleZone } from 'svelte-dnd-action';
-	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
+	import DragHandleOutline from '#components/admin/DragHandleOutline.svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { flip } from 'svelte/animate';
-	import type { IBellSchedule } from '$api/page_data/bellSchedule/types';
+	import type { IBellSchedule } from '#api/page_data/bellSchedule/types.js';
 	import {
 		bellScheduleValidator,
 		bellSchedulePeriodNameValidator,
-	} from '$api/page_data/bellSchedule/validator';
-	import type { WithoutID } from '$lib/types/basicTypes';
+	} from '#api/page_data/bellSchedule/validator.js';
+	import type { WithoutID } from '#lib/types/basicTypes.js';
 
 	const flipDurationMs = 300;
 

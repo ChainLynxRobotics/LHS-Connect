@@ -1,18 +1,18 @@
 <script lang="ts">
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import DragHandleOutline from '#components/admin/DragHandleOutline.svelte';
 	import { Table, TableHead, TableHeadCell, TableBodyCell, Button } from 'flowbite-svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { dragHandleZone, dragHandle } from 'svelte-dnd-action';
 	import { flip } from 'svelte/animate';
-	import { PUBLIC_BASE_URL } from '$env/static/public';
-	import type { ILinkCard } from '$api/page_data/usefulLinks/types';
+	import { PUBLIC_BASE_URL } from '$app/env/public';
+	import type { ILinkCard } from '#api/page_data/usefulLinks/types.js';
 	import {
 		linkCardValidator,
 		linkCardLinkNameValidator,
 		linkCardLinkUrlValidator,
-	} from '$api/page_data/usefulLinks/validator';
-	import type { WithoutID } from '$lib/types/basicTypes';
+	} from '#api/page_data/usefulLinks/validator.js';
+	import type { WithoutID } from '#lib/types/basicTypes.js';
 
 	const flipDurationMs = 300;
 
@@ -100,7 +100,7 @@
 	<div class="w-full">
 		<Table striped>
 			<TableHead>
-				<TableHeadCell></TableHeadCell>
+				<TableHeadCell />
 				<TableHeadCell>Text</TableHeadCell>
 				<TableHeadCell>Link</TableHeadCell>
 			</TableHead>

@@ -1,4 +1,4 @@
-import type { IListValue } from '$lib/types/basicTypes';
+import type { IListValue } from '#lib/types/basicTypes.js';
 
 /**
  * Represents a club on the club page.

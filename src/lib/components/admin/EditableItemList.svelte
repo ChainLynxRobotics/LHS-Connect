@@ -1,9 +1,9 @@
 <script lang="ts" generics="Item extends { id: any }">
 	import type { Snippet } from 'svelte';
-	import adminApiClient from '$lib/util/adminApiClient';
-	import type { GetAllResults } from '$lib/util/adminApiClient';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import type { WithoutID } from '$lib/types/basicTypes';
+	import adminApiClient from '#lib/util/adminApiClient.js';
+	import type { GetAllResults } from '#lib/util/adminApiClient.js';
+	import { getNotificationContext } from '#components/NotificationProvider.svelte';
+	import type { WithoutID } from '#lib/types/basicTypes.js';
 	import { nanoid } from 'nanoid';
 
 	type ItemWithoutID = WithoutID<Item>;
