@@ -1,6 +1,6 @@
 import { generateCodeVerifier, generateState } from 'arctic';
 import type { RequestHandler } from './$types';
-import { google } from '#lib/auth/oauth';
+import { google } from '#lib/auth/oauth.js';
 import { redirect } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ url, cookies }) => {
@@ -25,5 +25,6 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 		sameSite: 'lax',
 	});
 
-	return redirect(302, redirectUrl);
+	// Only allow redirecting to Google's sign-in page (SvelteKit 3 blocks external redirects by default)
+	return redirect(302, redirectUrl, { external: ['https://accounts.google.com'] });
 };
