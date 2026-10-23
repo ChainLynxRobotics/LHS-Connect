@@ -1,5 +1,5 @@
-import type { ISessionUser } from '#api/users/types';
-import type { ISession } from '#lib/types/session';
+import type { ISessionUser } from '#api/users/types.js';
+import type { ISession } from '#lib/types/session.js';
 
 export enum Permission {
 	/**

@@ -1,4 +1,4 @@
-import type { ISessionUser } from '#api/users/types';
+import type { ISessionUser } from '#api/users/types.js';
 
 export interface ISession {
 	id: Buffer;

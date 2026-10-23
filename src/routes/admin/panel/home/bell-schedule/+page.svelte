@@ -5,10 +5,10 @@
 	import SpecialScheduleRow from './SpecialScheduleRow.svelte';
 	import BellScheduleTabs from '#components/info/BellScheduleTabs.svelte';
 	import type { PageData } from './$types';
-	import dayjs, { TZ } from '#lib/util/dayjs';
+	import dayjs, { TZ } from '#lib/util/dayjs.js';
 	import EditableItemList from '#components/admin/EditableItemList.svelte';
 	import ExternalLink from '#components/ExternalLink.svelte';
-	import type { BellScheduleData } from '#api/page_data/bellSchedule/types';
+	import type { BellScheduleData } from '#api/page_data/bellSchedule/types.js';
 
 	interface Props {
 		data: PageData;

@@ -1,5 +1,5 @@
 import type { RequestEvent } from './$types';
-import { editRootEndpoints } from '#api/page_data/commonEditEndpoints';
+import { editRootEndpoints } from '#api/page_data/commonEditEndpoints.js';
 import { Announcement } from '../model';
 import { announcementValidator } from '../validator';
 

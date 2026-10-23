@@ -6,8 +6,8 @@
 	import { string } from 'yup';
 	import Papa from 'papaparse';
 	import { getNotificationContext } from '#components/NotificationProvider.svelte';
-	import type { IClub } from '#api/page_data/clubs/types';
-	import type { WithoutID } from '#lib/types/basicTypes';
+	import type { IClub } from '#api/page_data/clubs/types.js';
+	import type { WithoutID } from '#lib/types/basicTypes.js';
 	/* SAMPLE DATA:
 https://lhs.cx/current-clubs
 https://lhs.cx/old-clubs

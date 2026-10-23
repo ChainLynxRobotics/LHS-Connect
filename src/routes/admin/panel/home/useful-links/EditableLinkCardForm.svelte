@@ -6,13 +6,13 @@
 	import { dragHandleZone, dragHandle } from 'svelte-dnd-action';
 	import { flip } from 'svelte/animate';
 	import { PUBLIC_BASE_URL } from '$app/env/public';
-	import type { ILinkCard } from '#api/page_data/usefulLinks/types';
+	import type { ILinkCard } from '#api/page_data/usefulLinks/types.js';
 	import {
 		linkCardValidator,
 		linkCardLinkNameValidator,
 		linkCardLinkUrlValidator,
-	} from '#api/page_data/usefulLinks/validator';
-	import type { WithoutID } from '#lib/types/basicTypes';
+	} from '#api/page_data/usefulLinks/validator.js';
+	import type { WithoutID } from '#lib/types/basicTypes.js';
 
 	const flipDurationMs = 300;
 

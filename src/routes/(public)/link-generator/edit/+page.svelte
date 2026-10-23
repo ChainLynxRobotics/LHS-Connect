@@ -5,8 +5,8 @@
 	import { A, Alert, Button, Spinner } from 'flowbite-svelte';
 	import { ArrowLeftOutline, InfoCircleSolid } from 'flowbite-svelte-icons';
 	import LinkEditForm from './LinkEditForm.svelte';
-	import apiRequest from '#lib/util/apiClient';
-	import type { IPublicShortLink, IShortLinkLogin } from '#api/short_link/types';
+	import apiRequest from '#lib/util/apiClient.js';
+	import type { IPublicShortLink, IShortLinkLogin } from '#api/short_link/types.js';
 
 	let linkData: Promise<IPublicShortLink> | undefined = $state(undefined);
 	let linkPassword: string = $state(''); // We must sync the password between the two forms

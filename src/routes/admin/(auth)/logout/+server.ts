@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { deleteSessionById, deleteSessionTokenCookie } from '#lib/auth/session';
+import { deleteSessionById, deleteSessionTokenCookie } from '#lib/auth/session.js';
 
 export const GET: RequestHandler = async ({ locals, cookies }) => {
 	if (!locals.session) return redirect(302, '/admin/login');

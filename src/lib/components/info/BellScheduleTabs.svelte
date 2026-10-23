@@ -3,10 +3,10 @@
 		BellScheduleData,
 		IBellSchedule,
 		IPopulatedBellScheduleOverride,
-	} from '#api/page_data/bellSchedule/types';
+	} from '#api/page_data/bellSchedule/types.js';
 	import BellScheduleTable from '#components/info/BellScheduleTable.svelte';
 	import SectionHeader from '#components/SectionHeader.svelte';
-	import dayjs, { TZ } from '#lib/util/dayjs';
+	import dayjs, { TZ } from '#lib/util/dayjs.js';
 	import { type Dayjs } from 'dayjs';
 	import { Accordion, AccordionItem, TabItem, Tabs } from 'flowbite-svelte';
 	import { onMount } from 'svelte';

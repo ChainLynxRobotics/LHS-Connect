@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 import { ValidationError } from 'yup';
-import { fileTransferCodeValidator } from '#api/file_transfer/validator';
+import { fileTransferCodeValidator } from '#api/file_transfer/validator.js';
 
 export const load = (async ({ url, fetch }) => {
 	try {

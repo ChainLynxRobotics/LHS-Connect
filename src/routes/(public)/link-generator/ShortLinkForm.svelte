@@ -11,9 +11,9 @@
 	} from 'flowbite-svelte-icons';
 	import { fade, slide } from 'svelte/transition';
 	import { getNotificationContext } from '#components/NotificationProvider.svelte';
-	import apiRequest from '#lib/util/apiClient';
+	import apiRequest from '#lib/util/apiClient.js';
 	import { PUBLIC_BASE_SHORT_URL } from '$app/env/public';
-	import { shortLinkCreateValidator } from '#api/short_link/validator';
+	import { shortLinkCreateValidator } from '#api/short_link/validator.js';
 
 	const notificationContext = getNotificationContext();
 

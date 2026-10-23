@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { LinkCardListData } from '#api/page_data/usefulLinks/types';
+	import type { LinkCardListData } from '#api/page_data/usefulLinks/types.js';
 	import LinkCardContent from '#components/info/LinkCardContent.svelte';
 	import SectionHeader from '#components/SectionHeader.svelte';
 

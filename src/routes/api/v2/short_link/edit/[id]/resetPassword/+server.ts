@@ -1,11 +1,11 @@
-import { Permission } from '#lib/auth/permissions';
-import { idValidator } from '#lib/validation/objectId';
+import { Permission } from '#lib/auth/permissions.js';
+import { idValidator } from '#lib/validation/objectId.js';
 import { encodeBase32LowerCaseNoPadding } from '@oslojs/encoding';
 import { error, json } from '@sveltejs/kit';
 import { ValidationError } from 'yup';
 import type { RequestHandler } from './$types';
 import bcryptjs from 'bcryptjs';
-import { ShortLink } from '#api/short_link/model';
+import { ShortLink } from '#api/short_link/model.js';
 
 export const POST: RequestHandler = async ({ locals, params }) => {
 	if (!locals.permissions.has(Permission.MANAGE_SHORT_LINKS))

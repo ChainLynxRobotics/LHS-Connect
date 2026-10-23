@@ -1,4 +1,4 @@
-import type { IOrderableListValue } from '#lib/types/basicTypes';
+import type { IOrderableListValue } from '#lib/types/basicTypes.js';
 
 /**
  * Represents a note on the bulletin board.

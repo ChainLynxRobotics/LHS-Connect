@@ -2,15 +2,15 @@
 	import SectionHeader from '#components/SectionHeader.svelte';
 	import { Alert, Button, Card, Listgroup, ListgroupItem } from 'flowbite-svelte';
 	import pages from './pages';
-	import { Permissions } from '#lib/auth/permissions';
+	import { Permissions } from '#lib/auth/permissions.js';
 	import type { PageData } from './$types';
 	import ValidatedInput from '#components/form/ValidatedInput.svelte';
-	import adminApiClient from '#lib/util/adminApiClient';
+	import adminApiClient from '#lib/util/adminApiClient.js';
 	import { goto, invalidate } from '$app/navigation';
 	import { getNotificationContext } from '#components/NotificationProvider.svelte';
 	import { InfoCircleSolid } from 'flowbite-svelte-icons';
 	import { slide } from 'svelte/transition';
-	import { announcementValidator } from '#api/page_data/announcement/validator';
+	import { announcementValidator } from '#api/page_data/announcement/validator.js';
 
 	let { data }: { data: PageData } = $props();
 

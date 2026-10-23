@@ -1,5 +1,5 @@
 <script lang="ts">
-	import dayjs from '#lib/util/dayjs';
+	import dayjs from '#lib/util/dayjs.js';
 	import { Tooltip } from 'flowbite-svelte';
 
 	interface Props {

@@ -1,4 +1,4 @@
-import { editIndividualItemEndpoints } from '#api/page_data/commonEditEndpoints';
+import { editIndividualItemEndpoints } from '#api/page_data/commonEditEndpoints.js';
 import { UsefulLinksLinkCard } from '../../model';
 import { linkCardValidator } from '../../validator';
 import type { RequestEvent } from './$types';
