@@ -49,20 +49,38 @@
 	{/if}
 	<div class="my-8 h-[1px] bg-current lg:mx-16"></div>
 	<div class="mb-4 text-center">
-		<MailBoxOutline class="inline-block" />
-		<a href="/about#contact" class="underline">Contact</a>
+		<span class="group">
+			<MailBoxOutline
+				class="inline-block transition-transform duration-100 group-hover:scale-125"
+			/>
+			<a href="/about#contact" class="underline">Contact</a></span
+		>
 		<span class="mx-2">•</span>
-		<ExclamationCircleOutline class="inline-block" />
-		<a href="/about?type=report#contact" class="underline">Report Incorrect Information</a>
+		<span class="group">
+			<ExclamationCircleOutline
+				class="inline-block transition-transform duration-100 group-hover:scale-125"
+			/>
+			<a href="/about?type=report#contact" class="underline">Report Incorrect Information</a></span
+		>
 		<span class="mx-2">•</span>
-		<DiscordSolid class="inline-block h-6 w-6" />
-		<a href="/discord" target="_blank" class="underline">Discord</a>
+		<span class="group">
+			<DiscordSolid
+				class="inline-block h-6 w-6 transition-transform duration-100 group-hover:-translate-y-1"
+			/>
+			<a href="/discord" target="_blank" class="underline">Discord</a></span
+		>
 		<span class="mx-2">•</span>
-		<CogOutline class="inline-block" />
-		<a href="/admin/panel" class="underline">Admin Panel</a>
+		<span class="group whitespace-nowrap">
+			<CogOutline class="inline-block group-hover:animate-[spin_1.75s_linear_infinite]" />
+			<a href="/admin/panel" class="underline">&#8288Admin&nbspPanel</a></span
+		>
 		<span class="mx-2">•</span>
-		<StarOutline class="inline-block" />
-		<a href="/extra" class="underline">Extras</a>
+		<span class="group">
+			<StarOutline
+				class="inline-block -translate-y-0.5 transition-transform duration-300 group-hover:animate-bounce"
+			/>
+			<a href="/extra" class="underline">&#8288Extras</a></span
+		>
 	</div>
 	<p class="text-center text-xs">
 		This website is not affiliated with Lincoln High School or Seattle Public Schools.
