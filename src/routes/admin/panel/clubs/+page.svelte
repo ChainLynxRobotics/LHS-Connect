@@ -24,26 +24,35 @@
 	import EditableClubForm from './EditableClubForm.svelte';
 	import type { IClub } from '$api/page_data/clubs/types';
 	import type { WithoutID } from '$lib/types/basicTypes';
-
+	import { getNotificationContext } from '$components/NotificationProvider.svelte';
+	const notificationContext = getNotificationContext();
 	interface Props {
 		data: PageData;
 	}
 
 	let { data }: Props = $props();
-	function handleImport(
-		importedClubs: WithoutID<IClub>[],
-		currentItems: any[],
-		updateAll: (items: WithoutID<IClub>[]) => void
-	) {
-		const existingClubs = currentItems.map((wrapper) => wrapper.item);
-		const merged = [
-			...existingClubs,
-			...importedClubs.filter(
-				(imp) => !existingClubs.some((ex) => ex.name.toLowerCase() === imp.name.toLowerCase())
-			),
-		];
-		updateAll(merged);
-	}
+function handleImport(
+    importedClubs: WithoutID<IClub>[],
+    currentItems: any[],
+    updateAll: (items: WithoutID<IClub>[]) => void
+) {
+    const existingClubs = currentItems.map((wrapper) => wrapper.item);
+    const seenNames = new Set(existingClubs.map((c) => c.name.trim().toLowerCase()));
+
+    const newClubs: WithoutID<IClub>[] = [];
+    for (const club of importedClubs) {
+        const key = club.name.trim().toLowerCase();
+        if (!seenNames.has(key)) {
+            seenNames.add(key);
+            newClubs.push(club);
+        }
+    }
+
+    const merged = [...existingClubs, ...newClubs];
+    updateAll(merged);
+
+    notificationContext.show(`Added ${newClubs.length} new club${newClubs.length === 1 ? '' : 's'}`, 'success');
+}
 </script>
 
 <div class="flex flex-col items-center p-4">
@@ -71,9 +80,12 @@
 						onSubmit={(importedClubs, overwrite) => {
 							if (overwrite) {
 								updateAll(importedClubs);
+								notificationContext.show(
+									`Imported ${importedClubs.length} clubs (overwrote existing)`,
+									'success'
+								);
 							} else {
-								const existing = items.map((i) => i.item);
-								updateAll([...existing, ...importedClubs]);
+								handleImport(importedClubs, items, updateAll);
 							}
 						}}
 					/>

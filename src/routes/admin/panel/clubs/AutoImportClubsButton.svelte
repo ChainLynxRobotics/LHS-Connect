@@ -84,8 +84,8 @@ https://lhs.cx/old-clubs
 				},
 				complete() {
 					notificationContext.show('Imported ' + records.length + ' clubs', 'success');
-					submit(records, overwriteCheckbox);
 					modalOpen = false;
+					submit(records, overwriteCheckbox);
 				},
 			});
 		} catch (error) {
