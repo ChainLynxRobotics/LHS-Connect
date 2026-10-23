@@ -1,5 +1,5 @@
-import { editRootEndpoints } from '$api/page_data/commonEditEndpoints';
-import { linkCardValidator } from '$api/page_data/usefulLinks/validator';
+import { editRootEndpoints } from '#api/page_data/commonEditEndpoints.js';
+import { linkCardValidator } from '#api/page_data/usefulLinks/validator.js';
 import { ContactInfoLinkCard } from '../model';
 import type { RequestEvent } from './$types';
 

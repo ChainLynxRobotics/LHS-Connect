@@ -1,7 +1,7 @@
 <script lang="ts">
-	import SectionHeader from '$components/SectionHeader.svelte';
+	import SectionHeader from '#components/SectionHeader.svelte';
 	import { Button, Card } from 'flowbite-svelte';
-	import ExternalLink from '$components/ExternalLink.svelte';
+	import ExternalLink from '#components/ExternalLink.svelte';
 	import { GithubSolid } from 'flowbite-svelte-icons';
 </script>
 

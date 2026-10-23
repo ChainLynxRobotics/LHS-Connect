@@ -1,14 +1,14 @@
 <script lang="ts">
-	import SectionHeader from '$components/SectionHeader.svelte';
+	import SectionHeader from '#components/SectionHeader.svelte';
 	import { Button, Card, Modal } from 'flowbite-svelte';
 
-	import lincolnBuilding from '$assets/images/lincolnbuilding.webp?enhanced';
-	import tylerAvatar from '$assets/images/avatars/tyler.jpg?enhanced';
-	import nathanAvatar from '$assets/images/avatars/nathan.jpg?enhanced';
-	import chainlynxAvatar from '$assets/images/avatars/chainlynx.webp?enhanced';
+	import lincolnBuilding from '#assets/images/lincolnbuilding.webp?enhanced';
+	import tylerAvatar from '#assets/images/avatars/tyler.jpg?enhanced';
+	import nathanAvatar from '#assets/images/avatars/nathan.jpg?enhanced';
+	import chainlynxAvatar from '#assets/images/avatars/chainlynx.webp?enhanced';
 	import { DiscordSolid, InstagramSolid, GithubSolid, MailBoxOutline } from 'flowbite-svelte-icons';
 	import ContactForm from '../../../lib/components/ContactForm.svelte';
-	import ExternalLink from '$components/ExternalLink.svelte';
+	import ExternalLink from '#components/ExternalLink.svelte';
 
 	let copyTextModal = $state(false);
 	let copyTextContent = $state('');

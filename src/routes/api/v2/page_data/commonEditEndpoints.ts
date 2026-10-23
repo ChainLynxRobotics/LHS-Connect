@@ -1,9 +1,9 @@
-import { Permission } from '$lib/auth/permissions';
-import type { WithoutID } from '$lib/types/basicTypes';
-import { error, json, type RequestEvent } from '@sveltejs/kit';
+import { Permission } from '#lib/auth/permissions.js';
+import type { WithoutID } from '#lib/types/basicTypes.js';
+import { error, type RequestEvent } from '@sveltejs/kit';
 import type { Model } from 'mongoose';
 import { array, ValidationError, type ObjectSchema } from 'yup';
-import { idArrayValidator, idValidator } from '$lib/validation/objectId';
+import { idArrayValidator, idValidator } from '#lib/validation/objectId.js';
 
 // The type of data/models that can be used with the endpoints
 type ListType = 'listValue' | 'orderedListValue' | 'singleValue';
@@ -65,7 +65,7 @@ export const editRootEndpoints: EndpointsType<{}> = (type, model, validator) => 
 
 			await doc.save();
 
-			return json({
+			return Response.json({
 				result: doc.toObject(),
 			});
 		} catch (e) {
@@ -101,7 +101,7 @@ export const editAllEndpoints: EndpointsType<{}> = (type, model, validator) => (
 		if (!locals.permissions.has(Permission.EDIT))
 			error(403, 'You do not have permission to edit this resource.');
 		// Single value items cannot be updated as a list, because there can only be one
-		if (type === 'singleValue') return error(405, { message: 'Method not allowed' });
+		if (type === 'singleValue') return error(405, 'Method not allowed');
 		try {
 			const arrayValidator = array().of(validator).min(0).max(1000);
 			let req = await arrayValidator.validate(await request.json(), { stripUnknown: true });
@@ -142,16 +142,16 @@ export const editIndividualItemEndpoints: EndpointsType<{ id: string }> = (
 		if (!locals.permissions.has(Permission.VIEW))
 			error(403, 'You do not have permission to view this resource.');
 		// Single value items cannot be fetched individually, because there can only be one
-		if (type === 'singleValue') return error(405, { message: 'Method not allowed' });
+		if (type === 'singleValue') return error(405, 'Method not allowed');
 		try {
 			// Get and validate the id param
 			const id = idValidator.validateSync(params.id);
 
 			// Find doc
 			const doc = await model.findById(id).exec();
-			if (doc === null) return error(404, { message: 'Not found' });
+			if (doc === null) return error(404, 'Not found');
 
-			return json({
+			return Response.json({
 				result: doc.toObject(),
 			});
 		} catch (e) {
@@ -164,7 +164,7 @@ export const editIndividualItemEndpoints: EndpointsType<{ id: string }> = (
 		if (!locals.permissions.has(Permission.EDIT))
 			error(403, 'You do not have permission to edit this resource.');
 		// Single value items cannot be edited individually, because there can only be one
-		if (type === 'singleValue') return error(405, { message: 'Method not allowed' });
+		if (type === 'singleValue') return error(405, 'Method not allowed');
 		try {
 			// Get and validate the id param
 			const id = idValidator.validateSync(params.id);
@@ -174,18 +174,18 @@ export const editIndividualItemEndpoints: EndpointsType<{ id: string }> = (
 
 			// Find doc in db
 			const doc = await model.findById(id).exec();
-			if (doc === null) return error(404, { message: 'Not found' });
+			if (doc === null) return error(404, 'Not found');
 
 			// Update doc
 			doc.set(req);
 			await doc.save();
 
 			// Return all docs
-			return json({
+			return Response.json({
 				result: doc.toObject(),
 			});
 		} catch (e) {
-			if (e instanceof ValidationError) return error(400, { message: e.message });
+			if (e instanceof ValidationError) return error(400, e.message);
 			else throw e;
 		}
 	},
@@ -194,19 +194,19 @@ export const editIndividualItemEndpoints: EndpointsType<{ id: string }> = (
 		if (!locals.permissions.has(Permission.EDIT))
 			error(403, 'You do not have permission to edit this resource.');
 		// Single value items cannot be deleted individually, because there can only be one
-		if (type === 'singleValue') return error(405, { message: 'Method not allowed' });
+		if (type === 'singleValue') return error(405, 'Method not allowed');
 		try {
 			// Get and validate the id param
 			const id = idValidator.validateSync(params.id);
 
 			// Find doc
 			const doc = await model.findByIdAndDelete(id).exec();
-			if (doc === null) return error(404, { message: 'Not found' });
+			if (doc === null) return error(404, 'Not found');
 
 			// Return all docs
-			return json({});
+			return Response.json({});
 		} catch (e) {
-			if (e instanceof ValidationError) return error(400, { message: e.message });
+			if (e instanceof ValidationError) return error(400, e.message);
 			else throw e;
 		}
 	},
@@ -229,11 +229,11 @@ export const editOrderEndpoints: EndpointsType<{}> = (type, model, validator) =>
 		if (!locals.permissions.has(Permission.VIEW))
 			error(403, 'You do not have permission to view this resource.');
 		// Single value items cannot be reordered, because there can only be one
-		if (type === 'singleValue') return error(405, { message: 'Method not allowed' });
+		if (type === 'singleValue') return error(405, 'Method not allowed');
 
 		const docs = await model.find().sort({ order: 'asc' }).select('_id').exec();
-		return json({
-			order: docs.map((doc) => doc.id),
+		return Response.json({
+			order: docs.map((doc) => String(doc._id)),
 		});
 	},
 
@@ -242,15 +242,15 @@ export const editOrderEndpoints: EndpointsType<{}> = (type, model, validator) =>
 		if (!locals.permissions.has(Permission.EDIT))
 			error(403, 'You do not have permission to edit this resource.');
 		// Single value items cannot be reordered, because there can only be one
-		if (type === 'singleValue') return error(405, { message: 'Method not allowed' });
+		if (type === 'singleValue') return error(405, 'Method not allowed');
 		try {
 			let order = await idArrayValidator.validate(await request.json(), { stripUnknown: true });
 
 			// Get all IDs for order checking
-			const allIds = (await model.find().select('_id').exec()).map((doc) => doc.id);
+			const allIds = (await model.find().select('_id').exec()).map((doc) => String(doc._id));
 			order = order.filter((id) => allIds.includes(id));
 			if (order.length !== allIds.length || !allIds.every((id) => order.includes(id)))
-				return error(400, { message: 'Invalid IDs' });
+				return error(400, 'Invalid IDs');
 
 			// Update order
 			const promises = [];
@@ -259,7 +259,7 @@ export const editOrderEndpoints: EndpointsType<{}> = (type, model, validator) =>
 			}
 			await Promise.all(promises);
 
-			return json({
+			return Response.json({
 				order,
 			});
 		} catch (e) {
@@ -274,7 +274,7 @@ async function _getAllDocs(model: Model<any>, order: boolean | ListType = false)
 	if (typeof order === 'boolean' ? order : order === 'orderedListValue')
 		query.sort({ order: 'asc' }); // Sort by order if it's an ordered list value
 	const docs = await query.exec();
-	return json({
+	return Response.json({
 		results: docs.map((doc) => doc.toObject()),
 	});
 }

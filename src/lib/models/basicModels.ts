@@ -1,4 +1,4 @@
-import type { ISingleValue } from '$lib/types/basicTypes';
+import type { ISingleValue } from '#lib/types/basicTypes.js';
 import mongoose, { type Model } from 'mongoose';
 
 export const singleValueSchema = new mongoose.Schema<ISingleValue>(
@@ -7,15 +7,15 @@ export const singleValueSchema = new mongoose.Schema<ISingleValue>(
 		toJSON: {
 			virtuals: true,
 			transform: function (doc, ret) {
-				delete ret.__t;
-				delete ret._id;
+				Reflect.deleteProperty(ret, '__t');
+				Reflect.deleteProperty(ret, '_id');
 			},
 		},
 		toObject: {
 			virtuals: true,
 			transform: function (doc, ret) {
-				delete ret.__t;
-				delete ret._id;
+				Reflect.deleteProperty(ret, '__t');
+				Reflect.deleteProperty(ret, '_id');
 			},
 		},
 		timestamps: true,

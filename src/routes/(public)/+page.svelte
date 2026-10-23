@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import BellSchedule from '$components/info/BellScheduleTabs.svelte';
-	import BulletinBoard from '$components/info/BulletinBoard.svelte';
-	import LinkCardList from '$components/info/LinkCardList.svelte';
+	import BellSchedule from '#components/info/BellScheduleTabs.svelte';
+	import BulletinBoard from '#components/info/BulletinBoard.svelte';
+	import LinkCardList from '#components/info/LinkCardList.svelte';
 
 	// Data from the server
 	interface Props {

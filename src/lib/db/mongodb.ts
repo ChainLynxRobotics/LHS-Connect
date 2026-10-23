@@ -1,20 +1,20 @@
-import { MONGO_DB_URI } from '$env/static/private';
+import { MONGO_DB_URI } from '$app/env/private';
 import mongoose from 'mongoose';
-import { dev } from '$app/environment';
+import { dev } from '$app/env';
 
 export default async function connect() {
 	mongoose.set('toJSON', {
 		virtuals: true,
 		versionKey: false,
 		transform: function (doc, ret) {
-			delete ret._id;
+			Reflect.deleteProperty(ret, '_id');
 		},
 	});
 	mongoose.set('toObject', {
 		virtuals: true,
 		versionKey: false,
 		transform: function (doc, ret) {
-			delete ret._id;
+			Reflect.deleteProperty(ret, '_id');
 		},
 	});
 	const db = dev ? 'dev' : 'prod';

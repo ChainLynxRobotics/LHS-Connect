@@ -1,4 +1,4 @@
-import urlRegex from '$lib/validation/url';
+import urlRegex from '#lib/validation/url.js';
 import mongoose from 'mongoose';
 import type { IBulletinBoardNote } from './types';
 

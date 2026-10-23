@@ -1,6 +1,6 @@
 import { object, number, type ObjectSchema } from 'yup';
 import type { IAdminUserUpdate } from './types';
-import { Permission } from '$lib/auth/permissions';
+import { Permission } from '#lib/auth/permissions.js';
 
 export const userAdminUpdateValidator: ObjectSchema<IAdminUserUpdate> = object({
 	permissions: number()
