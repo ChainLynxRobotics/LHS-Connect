@@ -14,5 +14,5 @@ export const load = (async ({ params }) => {
 	link.uses += 1;
 	link.save();
 
-	return redirect(301, link.url);
+	return redirect(301, link.url, { external: true });
 }) satisfies PageServerLoad;
