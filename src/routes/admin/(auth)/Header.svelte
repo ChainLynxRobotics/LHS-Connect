@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { Navbar, NavBrand, NavHamburger, NavUl, NavLi } from 'flowbite-svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import ThemeSwitch from '#components/ThemeSwitch.svelte';
 
-	let activeUrl = $derived($page.url.pathname);
+	let activeUrl = $derived(page.url.pathname);
 
 	const activeClass = 'rounded-none md:border-b-4 border-primary-500';
 	const nonActiveClass = 'rounded-none';
