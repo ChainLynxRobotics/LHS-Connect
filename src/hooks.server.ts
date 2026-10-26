@@ -4,10 +4,10 @@ import {
 	validateAndRenewSession,
 } from '#lib/auth/session.ts';
 import connect from '#lib/db/mongodb.ts';
-import type { Handle } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit/hooks';
 import { Permissions } from '#lib/auth/permissions.ts';
 import { startFileClearInterval } from '#lib/db/s3.ts';
-import { dev } from '$app/environment';
+import { dev } from '$app/env';
 
 // Ensure correct time zone
 process.env.TZ = 'America/Los_Angeles';

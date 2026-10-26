@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { dev } from '$app/environment';
+	import { dev } from '$app/env';
 	import NotificationProvider from '#components/NotificationProvider.svelte';
 	import type { ThemeContext } from '#components/ThemeSwitch.svelte';
 	import '#lib/styles/tailwind.css';
