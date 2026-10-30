@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { IClub } from '$api/page_data/clubs/types';
-	import { clubValidator } from '$api/page_data/clubs/validator';
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
-	import type { WithoutID } from '$lib/types/basicTypes';
+	import type { IClub } from '#api/page_data/clubs/types.ts';
+	import { clubValidator } from '#api/page_data/clubs/validator.ts';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import ValidatedTextarea from '#components/form/ValidatedTextarea.svelte';
+	import type { WithoutID } from '#lib/types/basicTypes.ts';
 	import { Button } from 'flowbite-svelte';
 
 	interface Props {
@@ -14,12 +14,12 @@
 
 	let { club, onSubmit: submit, onCancel: cancel }: Props = $props();
 
-	let name = $state(club.name);
-	let dayAndTime = $state(club.dayAndTime);
-	let location = $state(club.location);
-	let advisor = $state(club.advisor);
-	let instagram = $state(club.instagram);
-	let desc = $state(club.desc);
+	let name = $derived(club.name);
+	let dayAndTime = $derived(club.dayAndTime);
+	let location = $derived(club.location);
+	let advisor = $derived(club.advisor);
+	let instagram = $derived(club.instagram);
+	let desc = $derived(club.desc);
 
 	let nameInput: ValidatedInput<'name'> | undefined = $state();
 	let dayAndTimeInput: ValidatedInput<'dayAndTime'> | undefined = $state();

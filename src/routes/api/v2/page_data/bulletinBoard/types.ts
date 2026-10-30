@@ -1,4 +1,4 @@
-import type { IOrderableListValue } from '$lib/types/basicTypes';
+import type { IOrderableListValue } from '#lib/types/basicTypes.ts';
 
 /**
  * Represents a note on the bulletin board.

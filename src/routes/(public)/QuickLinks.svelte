@@ -1,15 +1,15 @@
 <script lang="ts">
-	import schoologyLogo from '$assets/images/logos/schoology.svg';
-	import officeLogo from '$assets/images/logos/office.svg';
-	import outlookLogo from '$assets/images/logos/outlook.svg';
-	import lincolnLogo from '$assets/images/logos/sps.webp?enhanced';
+	import schoologyLogo from '#assets/images/logos/schoology.svg';
+	import officeLogo from '#assets/images/logos/office.svg';
+	import outlookLogo from '#assets/images/logos/outlook.svg';
+	import lincolnLogo from '#assets/images/logos/sps.webp?enhanced';
 	// no matching SPS svg
-	import sourceLogo from '$assets/images/logos/source.png?enhanced';
+	import sourceLogo from '#assets/images/logos/source.png?enhanced';
 	// no svg logo for The Source :(
-	import cleverLogo from '$assets/images/logos/clever.svg';
-	import collegeBoardLogo from '$assets/images/logos/collegeboard.svg';
-	import khanAcademyLogo from '$assets/images/logos/khanacademy.svg';
-	import schooLinksLogo from '$assets/images/logos/schooLinksLogo.png?enhanced';
+	import cleverLogo from '#assets/images/logos/clever.svg';
+	import collegeBoardLogo from '#assets/images/logos/collegeboard.svg';
+	import khanAcademyLogo from '#assets/images/logos/khanacademy.svg';
+	import schooLinksLogo from '#assets/images/logos/schooLinksLogo.png?enhanced';
 	// no matching Naviance svg
 
 	const links = [

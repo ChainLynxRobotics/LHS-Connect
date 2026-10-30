@@ -3,10 +3,10 @@
 		BellScheduleData,
 		IBellSchedule,
 		IPopulatedBellScheduleOverride,
-	} from '$api/page_data/bellSchedule/types';
-	import BellScheduleTable from '$components/info/BellScheduleTable.svelte';
-	import SectionHeader from '$components/SectionHeader.svelte';
-	import dayjs, { TZ } from '$lib/util/dayjs';
+	} from '#api/page_data/bellSchedule/types.ts';
+	import BellScheduleTable from '#components/info/BellScheduleTable.svelte';
+	import SectionHeader from '#components/SectionHeader.svelte';
+	import dayjs, { TZ } from '#lib/util/dayjs.ts';
 	import { type Dayjs } from 'dayjs';
 	import { Accordion, AccordionItem, TabItem, Tabs } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
@@ -24,7 +24,7 @@
 	let tabs: IBellSchedule[] = $state([]);
 	let selectedTab = $state(0);
 
-	let now = $state(customTime || dayjs());
+	let now = $derived(customTime || dayjs());
 	$effect(() => {
 		if (customTime)
 			now = customTime; // Update the time if it's custom

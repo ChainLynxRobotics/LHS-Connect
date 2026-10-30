@@ -10,7 +10,7 @@
 	} from 'flowbite-svelte';
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 	import { page } from '$app/state';
-	import ThemeSwitch from '$components/ThemeSwitch.svelte';
+	import ThemeSwitch from '#components/ThemeSwitch.svelte';
 
 	let activeUrl = $derived(page.url.pathname);
 

@@ -1,9 +1,17 @@
 import { sveltekit } from '@sveltejs/kit/vite';
+import adapter from '@sveltejs/adapter-netlify';
 import { enhancedImages } from '@sveltejs/enhanced-img';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-	plugins: [enhancedImages(), sveltekit()],
+	plugins: [
+		enhancedImages(),
+		sveltekit({
+			adapter: adapter({
+				edge: false,
+			}),
+		}),
+	],
 	build: {
 		rollupOptions: {
 			onwarn(warning) {

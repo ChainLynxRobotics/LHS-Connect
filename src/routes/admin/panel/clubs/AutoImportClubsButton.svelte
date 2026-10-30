@@ -1,13 +1,13 @@
 <script lang="ts">
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import ValidatedTextarea from '#components/form/ValidatedTextarea.svelte';
 	import { GradientButton, Helper, Modal, Tooltip } from 'flowbite-svelte';
 	import { InfoCircleOutline } from 'flowbite-svelte-icons';
 	import { string } from 'yup';
 	import Papa from 'papaparse';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import type { IClub } from '$api/page_data/clubs/types';
-	import type { WithoutID } from '$lib/types/basicTypes';
+	import { getNotificationContext } from '#components/NotificationProvider.svelte';
+	import type { IClub } from '#api/page_data/clubs/types.ts';
+	import type { WithoutID } from '#lib/types/basicTypes.ts';
 	/* SAMPLE DATA:
 https://lhs.cx/current-clubs
 https://lhs.cx/old-clubs

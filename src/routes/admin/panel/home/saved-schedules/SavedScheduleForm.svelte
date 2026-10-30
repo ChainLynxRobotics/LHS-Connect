@@ -1,6 +1,6 @@
 <script lang="ts">
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import ValidatedTextarea from '#components/form/ValidatedTextarea.svelte';
 	import {
 		Button,
 		Checkbox,
@@ -10,15 +10,15 @@
 		TableHeadCell,
 	} from 'flowbite-svelte';
 	import { dragHandle, dragHandleZone } from 'svelte-dnd-action';
-	import DragHandleOutline from '$components/admin/DragHandleOutline.svelte';
+	import DragHandleOutline from '#components/admin/DragHandleOutline.svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { flip } from 'svelte/animate';
-	import type { IBellSchedule } from '$api/page_data/bellSchedule/types';
+	import type { IBellSchedule } from '#api/page_data/bellSchedule/types.ts';
 	import {
 		bellScheduleValidator,
 		bellSchedulePeriodNameValidator,
-	} from '$api/page_data/bellSchedule/validator';
-	import type { WithoutID } from '$lib/types/basicTypes';
+	} from '#api/page_data/bellSchedule/validator.ts';
+	import type { WithoutID } from '#lib/types/basicTypes.ts';
 
 	const flipDurationMs = 300;
 
@@ -30,9 +30,9 @@
 
 	let { schedule, onSubmit: submit, onCancel: cancel }: Props = $props();
 
-	let name = $state(schedule.name);
-	let desc = $state(schedule.desc);
-	let periods = $state(schedule.periods.map((period) => ({ ...period, id: Math.random() })));
+	let name = $derived(schedule.name);
+	let desc = $derived(schedule.desc);
+	let periods = $derived(schedule.periods.map((period) => ({ ...period, id: Math.random() })));
 
 	let nameInput: ValidatedInput<'name'> | undefined = $state();
 	let descInput: ValidatedTextarea<'desc'> | undefined = $state();

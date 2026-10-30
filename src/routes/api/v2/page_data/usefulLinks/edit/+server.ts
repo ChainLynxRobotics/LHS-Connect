@@ -1,4 +1,4 @@
-import { editRootEndpoints } from '$api/page_data/commonEditEndpoints';
+import { editRootEndpoints } from '#api/page_data/commonEditEndpoints.ts';
 import { UsefulLinksLinkCard } from '../model';
 import { linkCardValidator } from '../validator';
 import type { RequestEvent } from './$types';

@@ -7,9 +7,9 @@
 		Tooltip,
 	} from 'flowbite-svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
-	import dayjs, { TZ } from '$lib/util/dayjs';
-	import type { IBellScheduleOverride, IBellSchedule } from '$api/page_data/bellSchedule/types';
-	import type { WithoutID } from '$lib/types/basicTypes';
+	import dayjs, { TZ } from '#lib/util/dayjs.ts';
+	import type { IBellScheduleOverride, IBellSchedule } from '#api/page_data/bellSchedule/types.ts';
+	import type { WithoutID } from '#lib/types/basicTypes.ts';
 
 	interface Props {
 		special: IBellScheduleOverride;
@@ -21,7 +21,9 @@
 
 	let { special, scheduleOptions, onUpdate, onDuplicate, onRemove }: Props = $props();
 
+	// svelte-ignore state_referenced_locally
 	let date = $state(dayjs(special.date).format(`YYYY-MM-DD`)); // To avoid reactivity issues with the sorted array
+	// svelte-ignore state_referenced_locally
 	let scheduleId = $state(special.scheduleId);
 
 	function submit() {

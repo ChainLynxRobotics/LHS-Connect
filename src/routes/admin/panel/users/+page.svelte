@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import SectionHeader from '$components/SectionHeader.svelte';
-	import adminApiClient from '$lib/util/adminApiClient';
+	import { getNotificationContext } from '#components/NotificationProvider.svelte';
+	import SectionHeader from '#components/SectionHeader.svelte';
+	import adminApiClient from '#lib/util/adminApiClient.ts';
 	import {
 		A,
 		Input,
@@ -14,8 +14,8 @@
 		TableHeadCell,
 	} from 'flowbite-svelte';
 	import EditableUser from './EditableUser.svelte';
-	import { Permission } from '$lib/auth/permissions';
-	import type { IAdminUserUpdate, ISerializedUser } from '$api/users/types';
+	import { Permission } from '#lib/auth/permissions.ts';
+	import type { IAdminUserUpdate, ISerializedUser } from '#api/users/types.ts';
 
 	const notificationContext = getNotificationContext();
 

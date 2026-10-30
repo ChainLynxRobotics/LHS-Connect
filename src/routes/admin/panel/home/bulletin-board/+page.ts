@@ -1,5 +1,5 @@
-import type { IBulletinBoardNote } from '$api/page_data/bulletinBoard/types';
-import type { GetAllResults } from '$lib/util/adminApiClient';
+import type { IBulletinBoardNote } from '#api/page_data/bulletinBoard/types.ts';
+import type { GetAllResults } from '#lib/util/adminApiClient.ts';
 import type { PageLoad } from './$types';
 
 export const load = (async (event) => {

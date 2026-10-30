@@ -1,4 +1,4 @@
-import { editRootEndpoints } from '$api/page_data/commonEditEndpoints';
+import { editRootEndpoints } from '#api/page_data/commonEditEndpoints.ts';
 import { BulletinBoardNote } from '../model';
 import { bulletinBoardNoteValidator } from '../validator';
 import type { RequestEvent } from './$types';

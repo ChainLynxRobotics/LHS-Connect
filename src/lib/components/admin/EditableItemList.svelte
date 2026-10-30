@@ -1,9 +1,9 @@
 <script lang="ts" generics="Item extends { id: any }">
 	import type { Snippet } from 'svelte';
-	import adminApiClient from '$lib/util/adminApiClient';
-	import type { GetAllResults } from '$lib/util/adminApiClient';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import type { WithoutID } from '$lib/types/basicTypes';
+	import adminApiClient from '#lib/util/adminApiClient.ts';
+	import type { GetAllResults } from '#lib/util/adminApiClient.ts';
+	import { getNotificationContext } from '#components/NotificationProvider.svelte';
+	import type { WithoutID } from '#lib/types/basicTypes.ts';
 	import { nanoid } from 'nanoid';
 
 	type ItemWithoutID = WithoutID<Item>;
@@ -98,7 +98,7 @@
 
 	const notificationContext = getNotificationContext();
 
-	let order: Item['id'][] | undefined = $state(
+	let order: Item['id'][] | undefined = $derived(
 		orderSettings.canReorder ? sanitizeOrder(items.map((item) => item.id)) : undefined
 	);
 
