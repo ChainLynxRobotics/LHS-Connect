@@ -3,6 +3,5 @@ import type { PageServerLoad } from './$types';
 import { Permission } from '#lib/auth/permissions.ts';
 
 export const load: PageServerLoad = async ({ locals }) => {
-	if (locals.permissions.has(Permission.VIEW))
-		return redirect(302, '/admin/panel', { external: ['https://accounts.google.com'] });
+	if (locals.permissions.has(Permission.VIEW)) return redirect(302, '/admin/panel');
 };
