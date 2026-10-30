@@ -25,5 +25,5 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 		sameSite: 'lax',
 	});
 
-	return redirect(302, redirectUrl);
+	return redirect(302, redirectUrl, { external: ['https://accounts.google.com'] });
 };
