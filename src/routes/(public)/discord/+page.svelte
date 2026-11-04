@@ -7,16 +7,16 @@
 
 <div class="flex w-full flex-col items-center gap-16 p-4 pb-16">
 	<div class="w-full max-w-4xl">
-		<SectionHeader title="Join our discord server" />
+		<SectionHeader title="Join our Discord server" />
 		<div class="mb-4 mt-4 grid place-items-center text-xl">
 			<ExternalLink
 				href="https://seattleschools-my.sharepoint.com/:w:/g/personal/1rcmclain_seattleschools_org/IQDdTy6CDx8_TatHAPkj-TrbARQ2VadEAwxXiliuI6vu_CI?e=nOO3vJ"
-				text="discord link (access restricted)"
+				text="Discord link (access restricted)"
 			/>
 		</div>
 		<p class="mb-4 text-center">
-			This link is only accessible by SPS students and staff members. If you are not a student or
-			staff member, be sure to use the contact form to get in touch.
+			This link is only accessible by SPS students and staff members for safety reasons. If you are not a student or
+			staff member, you can use the contact form to get in touch.
 		</p>
 		<SectionHeader title="Request access" />
 		<ContactForm emailRequired feedbackType="discord" validator={discordRequestValidator} />

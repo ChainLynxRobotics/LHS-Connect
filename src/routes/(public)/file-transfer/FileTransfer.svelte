@@ -48,7 +48,7 @@
 		}
 		input = input.substring(0, 4) + '-' + input.substring(4, 8);
 		if (input === code) {
-			roomCodeInputError = 'You are already in this room!';
+			roomCodeInputError = 'Oops! Looks like you are already in this room!';
 			return;
 		}
 		roomCodeInputError = '';
@@ -71,7 +71,7 @@
 			.filter(
 				(file) =>
 					localFileQueue.findIndex((f) => f.name === file.name && f.size == file.size) === -1
-			) // Exclude files that are already in the local queue (cant use id since they are not uploaded yet)
+			) // Exclude files that are already in the local queue (can't use id since they are not uploaded yet)
 	);
 	let localFileQueue: ILocalFile[] = $state([]);
 	let isUploading = $state(false);

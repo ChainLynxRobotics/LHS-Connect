@@ -19,7 +19,7 @@
 		<SectionHeader title="File Transfer" />
 		<div class="mb-8 mt-4 indent-8">
 			<p class="mb-4">
-				Upload files and share both ways by scanning the QR code or sharing the link. Devices on
+				Upload files and share both ways by scanning the QR Code or sharing the link. Devices on
 				this link share a "room" and can upload and download files to and from each other.
 			</p>
 		</div>

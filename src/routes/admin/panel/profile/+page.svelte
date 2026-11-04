@@ -21,8 +21,8 @@
 			</span>
 
 			<p class="mb-4 mt-4 text-sm">
-				The above information is collected from your google account. To change it, update it on your
-				google account and log out and back in here.
+				The above information is collected from your Google account. To change it, update it on your
+				Google account, then log out and sign back in here.
 			</p>
 
 			<Button
