@@ -48,7 +48,7 @@
 		}
 		input = input.substring(0, 4) + '-' + input.substring(4, 8);
 		if (input === code) {
-			roomCodeInputError = 'Oops! Looks like you are already in this room!';
+			roomCodeInputError = 'Looks like you are already in this room.';
 			return;
 		}
 		roomCodeInputError = '';
