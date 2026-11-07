@@ -21,7 +21,7 @@
 		<div>
 			<BulletinBoard data={data.bulletinBoard} />
 		</div>
-		<div>
+		<div class="-order-1 lg:order-none">
 			<BellSchedule data={data.bellSchedule} />
 		</div>
 		<div class="lg:col-span-2">
