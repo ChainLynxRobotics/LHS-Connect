@@ -6,7 +6,6 @@
 	import { InfoCircleOutline } from 'flowbite-svelte-icons';
 	import { string } from 'yup';
 	import Papa from 'papaparse';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 	import type { IClub } from '$api/page_data/clubs/types';
 	import type { WithoutID } from '$lib/types/basicTypes';
 	/* SAMPLE DATA:
@@ -19,8 +18,6 @@ https://lhs.cx/old-clubs
 	}
 
 	let { onSubmit: submit }: Props = $props();
-
-	const notificationContext = getNotificationContext();
 
 	let modalOpen = $state(false);
 	let overwriteCheckbox = $state(false);
@@ -83,7 +80,6 @@ https://lhs.cx/old-clubs
 					});
 				},
 				complete() {
-					notificationContext.show('Imported ' + records.length + ' clubs', 'success');
 					submit(records, overwriteCheckbox);
 					modalOpen = false;
 				},

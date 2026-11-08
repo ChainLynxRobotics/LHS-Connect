@@ -6,6 +6,6 @@ export const load = (async (event) => {
 	const clubs = (await (
 		await event.fetch('/api/v2/page_data/clubs/edit')
 	).json()) as GetAllResults<IClub>;
-
+	clubs.results.sort((a, b) => a.name.localeCompare(b.name));
 	return clubs;
 }) satisfies PageLoad;

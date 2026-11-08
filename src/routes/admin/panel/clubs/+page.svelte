@@ -24,26 +24,13 @@
 	import EditableClubForm from './EditableClubForm.svelte';
 	import type { IClub } from '$api/page_data/clubs/types';
 	import type { WithoutID } from '$lib/types/basicTypes';
-
+	import { getNotificationContext } from '$components/NotificationProvider.svelte';
+	const notificationContext = getNotificationContext();
 	interface Props {
 		data: PageData;
 	}
 
 	let { data }: Props = $props();
-	function handleImport(
-		importedClubs: WithoutID<IClub>[],
-		currentItems: any[],
-		updateAll: (items: WithoutID<IClub>[]) => void
-	) {
-		const existingClubs = currentItems.map((wrapper) => wrapper.item);
-		const merged = [
-			...existingClubs,
-			...importedClubs.filter(
-				(imp) => !existingClubs.some((ex) => ex.name.toLowerCase() === imp.name.toLowerCase())
-			),
-		];
-		updateAll(merged);
-	}
 </script>
 
 <div class="flex flex-col items-center p-4">
@@ -69,11 +56,29 @@
 					<Button color="alternative" on:click={openCreateForm}>Add Club</Button>
 					<AutoImportClubsButton
 						onSubmit={(importedClubs, overwrite) => {
+							console.log('importedclubs ', importedClubs);
 							if (overwrite) {
 								updateAll(importedClubs);
+								notificationContext.show(
+									'Imported ' + importedClubs.length + ' clubs (Overwrote existing)',
+									'success'
+								);
 							} else {
 								const existing = items.map((i) => i.item);
-								updateAll([...existing, ...importedClubs]);
+								const newClubs = [];
+								for (let checkedItem = 0; checkedItem < importedClubs.length; checkedItem++) {
+									if (
+										!importedClubs.some(
+											(imp) => imp.name.toLowerCase() === existing[checkedItem]?.name.toLowerCase()
+										)
+									) {
+										newClubs.push(importedClubs[checkedItem]);
+									}
+								}
+								console.log('newclubs ', newClubs);
+								updateAll([...existing, ...newClubs]);
+
+								notificationContext.show('Added ' + newClubs.length + ' clubs', 'success');
 							}
 						}}
 					/>
