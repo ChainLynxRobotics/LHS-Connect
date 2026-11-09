@@ -9,9 +9,7 @@
 </script>
 
 <script lang="ts">
-	import type { IContactUsMessage } from '$api/contact/types';
-
-	import { contactUsValidator } from '$api/contact/validator';
+	import { contactUsValidator, discordRequestValidator } from '$api/contact/validator';
 	import { page } from '$app/state';
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import ValidatedSelect from '$components/form/ValidatedSelect.svelte';
@@ -20,26 +18,19 @@
 	import apiRequest from '$lib/util/apiClient';
 	import { Button, Spinner, type SelectOptionType } from 'flowbite-svelte';
 	import { PaperPlaneOutline } from 'flowbite-svelte-icons';
-	import type { ObjectSchema } from 'yup';
 
 	interface Props {
-		emailRequired?: boolean;
 		feedbackType?: string;
-		validator?: ObjectSchema<IContactUsMessage>;
 	}
 
-	let { emailRequired = false, feedbackType, validator = contactUsValidator }: Props = $props();
+	let { feedbackType }: Props = $props();
 
 	const notificationContext = getNotificationContext();
 
 	let emailInput: ValidatedInput<'email'> | undefined = $state();
-	let typeInput: ValidatedSelect<'type'> | string | undefined = $state();
+	let typeInput: ValidatedSelect<'type'> | undefined = $state();
 	let nameInput: ValidatedInput<'name'> | undefined = $state();
 	let messageInput: ValidatedTextarea<'message'> | undefined = $state();
-
-	if (feedbackType !== undefined) {
-		typeInput = feedbackType;
-	}
 
 	let loading = $state(false);
 
@@ -47,6 +38,15 @@
 	let type = $state(page.url.searchParams.get('type') || '');
 	let email = $state('');
 	let message = $state('');
+
+	if (feedbackType !== undefined) {
+		type = feedbackType;
+	}
+
+	let emailRequired = $derived(type == 'discord' ? true : false);
+	let validator = $derived(type == 'discord' ? discordRequestValidator : contactUsValidator);
+
+	$inspect(emailRequired, validator, type);
 
 	async function onsubmit(e: Event) {
 		e.preventDefault();
