@@ -46,8 +46,6 @@
 	let emailRequired = $derived(type == 'discord' ? true : false);
 	let validator = $derived(type == 'discord' ? discordRequestValidator : contactUsValidator);
 
-	$inspect(emailRequired, validator, type);
-
 	async function onsubmit(e: Event) {
 		e.preventDefault();
 
