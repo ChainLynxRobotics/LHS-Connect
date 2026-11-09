@@ -68,8 +68,8 @@
 								const newClubs = [];
 								for (let checkedItem = 0; checkedItem < importedClubs.length; checkedItem++) {
 									if (
-										!importedClubs.some(
-											(imp) => imp.name.toLowerCase() === existing[checkedItem]?.name.toLowerCase()
+										!existing.some(
+											(ext) => ext.name.toLowerCase() === importedClubs[checkedItem]?.name.toLowerCase()
 										)
 									) {
 										newClubs.push(importedClubs[checkedItem]);
