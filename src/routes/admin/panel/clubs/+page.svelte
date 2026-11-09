@@ -69,7 +69,8 @@
 								for (let checkedItem = 0; checkedItem < importedClubs.length; checkedItem++) {
 									if (
 										!existing.some(
-											(ext) => ext.name.toLowerCase() === importedClubs[checkedItem]?.name.toLowerCase()
+											(ext) =>
+												ext.name.toLowerCase() === importedClubs[checkedItem]?.name.toLowerCase()
 										)
 									) {
 										newClubs.push(importedClubs[checkedItem]);

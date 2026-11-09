@@ -20,7 +20,7 @@ https://lhs.cx/old-clubs
 	let { onSubmit: submit }: Props = $props();
 
 	let modalOpen = $state(false);
-	let overwriteCheckbox = $state(false);
+	let overwriteClubs = $state(false);
 	let startInput: ValidatedInput | undefined = $state();
 	let endInput: ValidatedInput | undefined = $state();
 	let csvInput: ValidatedTextarea | undefined = $state();
@@ -80,7 +80,7 @@ https://lhs.cx/old-clubs
 					});
 				},
 				complete() {
-					submit(records, overwriteCheckbox);
+					submit(records, overwriteClubs);
 					modalOpen = false;
 				},
 			});
@@ -139,7 +139,7 @@ https://lhs.cx/old-clubs
 				/>
 			</div>
 		</div>
-		<Checkbox bind:checked={overwriteCheckbox} id="overwrite">
+		<Checkbox bind:checked={overwriteClubs} id="overwrite">
 			<span class="text-amber-500 dark:text-amber-600">Overwrite existing clubs</span>
 		</Checkbox>
 		<div class="w-full">
