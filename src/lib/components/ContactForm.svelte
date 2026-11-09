@@ -3,8 +3,8 @@
 		{ value: 'suggestion', name: 'Suggestion' },
 		{ value: 'report', name: 'Incorrect Information Report' },
 		{ value: 'bug', name: 'Bug Report' },
-		{ value: 'other', name: 'Other' },
 		{ value: 'discord', name: 'Discord access request' },
+		{ value: 'other', name: 'Other' },
 	];
 </script>
 
