@@ -56,7 +56,6 @@
 					<Button color="alternative" on:click={openCreateForm}>Add Club</Button>
 					<AutoImportClubsButton
 						onSubmit={(importedClubs, overwrite) => {
-							console.log('importedclubs ', importedClubs);
 							if (overwrite) {
 								updateAll(importedClubs);
 								notificationContext.show(
@@ -69,14 +68,12 @@
 								for (let checkedItem = 0; checkedItem < importedClubs.length; checkedItem++) {
 									if (
 										!existing.some(
-											(ext) =>
-												ext.name.toLowerCase() === importedClubs[checkedItem]?.name.toLowerCase()
+											(ext) => ext.name.toLowerCase() === importedClubs[checkedItem]?.name.toLowerCase()
 										)
 									) {
 										newClubs.push(importedClubs[checkedItem]);
 									}
 								}
-								console.log('newclubs ', newClubs);
 								updateAll([...existing, ...newClubs]);
 
 								notificationContext.show('Added ' + newClubs.length + ' clubs', 'success');
