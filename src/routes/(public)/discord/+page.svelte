@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { discordRequestValidator } from '$api/contact/validator';
 	import ContactForm from '$components/ContactForm.svelte';
 	import ExternalLink from '$components/ExternalLink.svelte';
 	import SectionHeader from '$components/SectionHeader.svelte';
@@ -19,6 +18,6 @@
 			staff member, be sure to use the contact form to get in touch.
 		</p>
 		<SectionHeader title="Request access" />
-		<ContactForm emailRequired feedbackType="discord" validator={discordRequestValidator} />
+		<ContactForm feedbackType="discord" />
 	</div>
 </div>
