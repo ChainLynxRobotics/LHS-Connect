@@ -4,6 +4,7 @@ import type { RequestHandler } from './$types';
 import { ShortLink } from './model';
 import {
 	shortLinkCreateValidator,
+	shortLinkPasswordValidator,
 	shortLinkSuffixValidator,
 	shortLinkUrlUpdateValidator,
 } from './validator';
@@ -43,7 +44,9 @@ export const POST: RequestHandler = async ({ request }) => {
 export const GET: RequestHandler = async ({ url }) => {
 	try {
 		const suffix = await shortLinkSuffixValidator.validate(url.searchParams.get('suffix'));
-		const password = await shortLinkSuffixValidator.validate(url.searchParams.get('password'));
+		const password = await shortLinkPasswordValidator
+			.required()
+			.validate(url.searchParams.get('password'));
 
 		const found = await ShortLink.findOne({ suffix: suffix }).select('+hash');
 		if (!found) return error(404, { message: 'Short link not found' });
@@ -74,7 +77,9 @@ export const GET: RequestHandler = async ({ url }) => {
 export const PATCH: RequestHandler = async ({ request, url }) => {
 	try {
 		const suffix = await shortLinkSuffixValidator.validate(url.searchParams.get('suffix'));
-		const password = await shortLinkSuffixValidator.validate(url.searchParams.get('password'));
+		const password = await shortLinkPasswordValidator
+			.required()
+			.validate(url.searchParams.get('password'));
 
 		const req = await request.json();
 		const validatedReq = await shortLinkUrlUpdateValidator.validate(req, { stripUnknown: true });
@@ -108,7 +113,9 @@ export const PATCH: RequestHandler = async ({ request, url }) => {
 export const DELETE: RequestHandler = async ({ url }) => {
 	try {
 		const suffix = await shortLinkSuffixValidator.validate(url.searchParams.get('suffix'));
-		const password = await shortLinkSuffixValidator.validate(url.searchParams.get('password'));
+		const password = await shortLinkPasswordValidator
+			.required()
+			.validate(url.searchParams.get('password'));
 
 		const found = await ShortLink.findOne({ suffix: suffix }).select('+hash');
 		if (!found) return error(404, { message: 'Short link not found' });
