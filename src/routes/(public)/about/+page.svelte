@@ -6,6 +6,7 @@
 	import tylerAvatar from '$assets/images/avatars/tyler.jpg?enhanced';
 	import nathanAvatar from '$assets/images/avatars/nathan.jpg?enhanced';
 	import chainlynxAvatar from '$assets/images/avatars/chainlynx.webp?enhanced';
+	import cheesyAvatar from '$assets/images/avatars/cheesy.webp?enhanced';
 	import { DiscordSolid, InstagramSolid, GithubSolid, MailBoxOutline } from 'flowbite-svelte-icons';
 	import ContactForm from '../../../lib/components/ContactForm.svelte';
 	import ExternalLink from '$components/ExternalLink.svelte';
@@ -137,24 +138,24 @@
 			<Card>
 				<div class="flex flex-col items-center">
 					<enhanced:img
-						src={chainlynxAvatar}
-						alt="ChainLynx Robotics logo"
+						src={cheesyAvatar}
+						alt="Cheesy Logo"
 						class="m-4 h-24 w-24"
 						sizes="96px, 192px"
 					/>
-					<h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">ChainLynx Robotics</h5>
+					<h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">The Cheesy Poofs</h5>
 					<span class="text-gray-500 dark:text-gray-400">Current Developers</span>
 					<p class="intent-8 mt-4">
-						ChainLynx Robotics is Lincoln High School's FIRST® Robotics Competition team. You can
-						find out more at <ExternalLink
-							text="chainlynx8248.com"
-							href="https://chainlynx8248.com/"
+						The Cheesy Poofs, team 254, are Bellarmine High School's Robotics Team, and LHS
+						Connect's current developers.You can visit their page at <ExternalLink
+							text="team254.com"
+							href="https://www.team254.com/"
 						/>
 					</p>
 
 					<div class="mt-4 flex gap-4">
 						<Button
-							href="https://www.instagram.com/chainlynxrobotics/"
+							href="https://www.instagram.com/team254/"
 							target="_blank"
 							rel="noopener"
 							title="Instagram"
@@ -164,7 +165,7 @@
 							<InstagramSolid size="lg" />
 						</Button>
 						<Button
-							href="https://github.com/ChainlynxRobotics"
+							href="https://github.com/Team254"
 							target="_blank"
 							rel="noopener"
 							title="Github"
