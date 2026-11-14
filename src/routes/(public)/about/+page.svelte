@@ -146,8 +146,8 @@
 					<h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">The Cheesy Poofs</h5>
 					<span class="text-gray-500 dark:text-gray-400">Current Developers</span>
 					<p class="intent-8 mt-4">
-						The Cheesy Poofs, team 254, are Bellarmine High School's Robotics Team,
-						and LHS Connect's current developers.You can visit their page at <ExternalLink
+						The Cheesy Poofs, team 254, are Bellarmine High School's Robotics Team, and LHS
+						Connect's current developers.You can visit their page at <ExternalLink
 							text="team254.com"
 							href="https://www.team254.com/"
 						/>
