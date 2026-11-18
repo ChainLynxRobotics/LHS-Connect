@@ -21,6 +21,7 @@
   - Google OAuth for signing in
   - Permission system
 - Contact Us form, forwarded to a Discord Webhook
+- House Point Tracker (WIP)
 
 ## Technology
 
