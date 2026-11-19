@@ -1,3 +1,4 @@
+<!-- haha delete this-->
 <script lang="ts">
 	import type { ClubListData, IClub } from '$api/page_data/clubs/types';
 	import ExternalLink from '$components/ExternalLink.svelte';
