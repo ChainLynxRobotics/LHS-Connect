@@ -7,7 +7,7 @@ const clubEditSchema = new mongoose.Schema({
 		enum: ['create', 'update', 'delete'],
 	},
 	data: {
-		type: bulletinBoardNoteSchema,
+		type: clubSchema,
 		required: true,
 	},
 });
