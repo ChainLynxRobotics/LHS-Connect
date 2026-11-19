@@ -1,13 +1,13 @@
 import mongoose from 'mongoose';
-import { announcementSchema } from '$api/page_data/announcement/model';
-const announcementEditSchema = new mongoose.Schema({
+import { clubSchema } from '$api/page_data/clubs/model';
+const  clubEditSchema = new mongoose.Schema({
     operation: {
         type: String,
         required: true,
         enum: ['create', 'update', 'delete'],
     },
     data: {
-        type: announcementSchema,
+        type: clubSchema,
         required: true,
     }
 

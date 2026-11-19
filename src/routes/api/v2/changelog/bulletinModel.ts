@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 import { bulletinBoardNoteSchema } from '$api/page_data/bulletinBoard/model';
 const bulletinSchema = new mongoose.Schema({
 	operation: {
