@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import bulletinBoardNoteSchema from '$api/page_data/clubs/model.ts';
-const { clubSchema } = new mongoose.Schema({
+import { clubSchema } from '$api/page_data/clubs/model.ts';
+const clubEditSchema = new mongoose.Schema({
     operation: {
         type: String,
         required: true,
