@@ -22,7 +22,10 @@
 	} from 'flowbite-svelte-icons';
 	import ExternalLink from '$components/ExternalLink.svelte';
 	import EditableClubForm from './EditableClubForm.svelte';
-
+	import type { IClub } from '$api/page_data/clubs/types';
+	import type { WithoutID } from '$lib/types/basicTypes';
+	import { getNotificationContext } from '$components/NotificationProvider.svelte';
+	const notificationContext = getNotificationContext();
 	interface Props {
 		data: PageData;
 	}
@@ -51,9 +54,34 @@
 			{#snippet renderItems({ items, openCreateForm, updateAll })}
 				<div class="mb-8 flex justify-center gap-8">
 					<Button color="alternative" on:click={openCreateForm}>Add Club</Button>
-					<AutoImportClubsButton onSubmit={updateAll} />
-				</div>
+					<AutoImportClubsButton
+						onSubmit={(importedClubs, overwrite) => {
+							if (overwrite) {
+								updateAll(importedClubs);
+								notificationContext.show(
+									'Imported ' + importedClubs.length + ' clubs (Overwrote existing)',
+									'success'
+								);
+							} else {
+								const existing = items.map((i) => i.item);
+								const newClubs = [];
+								for (let checkedItem = 0; checkedItem < importedClubs.length; checkedItem++) {
+									if (
+										!existing.some(
+											(ext) =>
+												ext.name.toLowerCase() === importedClubs[checkedItem]?.name.toLowerCase()
+										)
+									) {
+										newClubs.push(importedClubs[checkedItem]);
+									}
+								}
+								updateAll([...existing, ...newClubs]);
 
+								notificationContext.show('Added ' + newClubs.length + ' clubs', 'success');
+							}
+						}}
+					/>
+				</div>
 				<Table striped shadow class="min-w-[1024px] table-fixed">
 					<TableHead>
 						<TableHeadCell>Name</TableHeadCell>

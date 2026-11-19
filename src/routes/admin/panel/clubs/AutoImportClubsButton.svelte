@@ -2,11 +2,10 @@
 	import ValidatedInput from '$components/form/ValidatedInput.svelte';
 	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
 	import ExternalLink from '$components/ExternalLink.svelte';
-	import { GradientButton, Helper, Modal, Tooltip } from 'flowbite-svelte';
+	import { GradientButton, Helper, Modal, Tooltip, Checkbox } from 'flowbite-svelte';
 	import { InfoCircleOutline } from 'flowbite-svelte-icons';
 	import { string } from 'yup';
 	import Papa from 'papaparse';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
 	import type { IClub } from '$api/page_data/clubs/types';
 	import type { WithoutID } from '$lib/types/basicTypes';
 	/* SAMPLE DATA:
@@ -15,15 +14,13 @@ https://lhs.cx/old-clubs
 */
 
 	interface Props {
-		onSubmit: (clubs: WithoutID<IClub>[]) => void;
+		onSubmit: (clubs: WithoutID<IClub>[], overwrite: boolean) => void;
 	}
 
 	let { onSubmit: submit }: Props = $props();
 
-	const notificationContext = getNotificationContext();
-
 	let modalOpen = $state(false);
-
+	let overwriteClubs = $state(false);
 	let startInput: ValidatedInput | undefined = $state();
 	let endInput: ValidatedInput | undefined = $state();
 	let csvInput: ValidatedTextarea | undefined = $state();
@@ -83,8 +80,7 @@ https://lhs.cx/old-clubs
 					});
 				},
 				complete() {
-					notificationContext.show('Imported ' + records.length + ' clubs', 'success');
-					submit(records);
+					submit(records, overwriteClubs);
 					modalOpen = false;
 				},
 			});
@@ -143,6 +139,9 @@ https://lhs.cx/old-clubs
 				/>
 			</div>
 		</div>
+		<Checkbox bind:checked={overwriteClubs} id="overwrite">
+			<span class="text-amber-500 dark:text-amber-600">Overwrite existing clubs</span>
+		</Checkbox>
 		<div class="w-full">
 			<ValidatedTextarea
 				bind:this={csvInput}
@@ -160,7 +159,6 @@ https://lhs.cx/old-clubs
 				}}
 			/>
 		</div>
-		<Helper>Note: This will overwrite everything already in the table.</Helper>
 		<GradientButton type="submit" color="purpleToPink">Import</GradientButton>
 	</form>
 </Modal>
