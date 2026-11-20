@@ -8,6 +8,10 @@ const announcementEditSchema = new mongoose.Schema<IEditLog<IAnnouncement>>({
         required: true,
         enum: ['create', 'update', 'delete'],
     },
+    editedBy: {
+        type: String,
+        required: true
+    },
     data: {
         type: announcementSchema,
         required: true,

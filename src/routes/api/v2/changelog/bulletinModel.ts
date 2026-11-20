@@ -8,10 +8,14 @@ const bulletinSchema = new mongoose.Schema<IEditLog<IBulletinBoardNote>>({
         required: true,
         enum: ['create', 'update', 'delete'],
     },
+    editedBy: {
+        type: String,
+        required: true
+    },
     data: {
         type: bulletinBoardNoteSchema,
         required: true,
     }
 
 }, { timestamps: true} );
-export const bulletinEdit = mongoose.models.bulletinEdit || mongoose.model<IEditLog<IBulletinBoardNote>>('BulletinEdit', bulletinSchema);
+export const BulletinEdit = mongoose.models.BulletinEdit || mongoose.model<IEditLog<IBulletinBoardNote>>('BulletinEdit', bulletinSchema);
