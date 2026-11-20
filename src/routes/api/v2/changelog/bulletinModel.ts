@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import { bulletinBoardNoteSchema } from '$api/page_data/bulletinBoard/model';
-const bulletinSchema = new mongoose.Schema({
+import type { IBulletinBoardNote } from '$api/page_data/bulletinBoard/types';
+import type { IEditLog } from './types';
+const bulletinSchema = new mongoose.Schema<IEditLog<IBulletinBoardNote>>({
     operation: {
         type: String,
         required: true,
@@ -12,3 +14,4 @@ const bulletinSchema = new mongoose.Schema({
     }
 
 }, { timestamps: true} );
+export const bulletinEdit = mongoose.models.bulletinEdit || mongoose.model<IEditLog<IBulletinBoardNote>>('BulletinEdit', bulletinSchema);

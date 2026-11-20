@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import { announcementSchema } from '$api/page_data/announcement/model';
-const announcementEditSchema = new mongoose.Schema({
+import type { IAnnouncement } from '$api/page_data/announcement/types';
+import type { IEditLog } from './types';
+const announcementEditSchema = new mongoose.Schema<IEditLog<IAnnouncement>>({
     operation: {
         type: String,
         required: true,
@@ -12,3 +14,4 @@ const announcementEditSchema = new mongoose.Schema({
     }
 
 }, { timestamps: true} );
+export const announceEdit = mongoose.models.AnnounceEdit || mongoose.model<IEditLog<IAnnouncement>>('AnnounceEdit', announcementEditSchema);
