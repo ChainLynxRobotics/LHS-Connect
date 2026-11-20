@@ -1,13 +1,14 @@
 import mongoose from 'mongoose';
 import { bellScheduleSchema } from '$api/page_data/bellSchedule/model';
 const bellScheduleEditSchema = new mongoose.Schema({
-	operation: {
-		type: String,
-		required: true,
-		enum: ['create', 'update', 'delete'],
-	},
-	data: {
-		type: bellScheduleSchema,
-		required: true,
-	},
-});
+    operation: {
+        type: String,
+        required: true,
+        enum: ['create', 'update', 'delete'],
+    },
+    data: {
+        type: bellScheduleSchema,
+        required: true,
+    }
+
+}, { timestamps: true} );

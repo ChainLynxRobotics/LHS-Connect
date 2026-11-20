@@ -11,4 +11,4 @@ const  clubEditSchema = new mongoose.Schema({
         required: true,
     }
 
-});
+}, { timestamps: true} );
