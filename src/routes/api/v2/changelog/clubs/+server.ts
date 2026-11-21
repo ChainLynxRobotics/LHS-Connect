@@ -1,5 +1,5 @@
 import { error, json } from '@sveltejs/kit';
-import type { RequestHandler } from '../$types';
+import type { RequestHandler } from './$types';
 import { ClubEdit } from '../clubModel';
 import { Permission } from '$lib/auth/permissions';
 // just gets clubs for now for testing, makes its own change
