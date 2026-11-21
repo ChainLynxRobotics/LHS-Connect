@@ -20,5 +20,5 @@ const linksEditSchema = new mongoose.Schema<IEditLog<ILinkCard>>(
 	},
 	{ timestamps: true, capped: 5000000 }
 );
-export const linksEdit =
-	mongoose.models.linksEdit || mongoose.model<IEditLog<ILinkCard>>('linksEdit', linksEditSchema);
+export const LinksEdit =
+	mongoose.models.LinksEdit || mongoose.model<IEditLog<ILinkCard>>('LinksEdit', linksEditSchema);

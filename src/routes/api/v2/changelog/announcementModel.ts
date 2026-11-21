@@ -20,6 +20,6 @@ const announcementEditSchema = new mongoose.Schema<IEditLog<IAnnouncement>>(
 	},
 	{ timestamps: true, capped: 5000000 }
 );
-export const announceEdit =
+export const AnnounceEdit =
 	mongoose.models.AnnounceEdit ||
 	mongoose.model<IEditLog<IAnnouncement>>('AnnounceEdit', announcementEditSchema);

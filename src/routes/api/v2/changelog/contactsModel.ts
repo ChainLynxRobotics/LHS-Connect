@@ -20,6 +20,6 @@ const contactEditSchema = new mongoose.Schema<IEditLog<ILinkCard>>(
 	},
 	{ timestamps: true, capped: 5000000 }
 );
-export const contactEdit =
-	mongoose.models.contactEdit ||
-	mongoose.model<IEditLog<ILinkCard>>('contactEdit', contactEditSchema);
+export const ContactEdit =
+	mongoose.models.ContactEdit ||
+	mongoose.model<IEditLog<ILinkCard>>('ContactEdit', contactEditSchema);
