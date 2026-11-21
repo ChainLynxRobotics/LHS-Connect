@@ -2,20 +2,24 @@ import mongoose from 'mongoose';
 import { linkCardSchema } from '$api/page_data/usefulLinks/model';
 import type { ILinkCard } from '$api/page_data/usefulLinks/types';
 import type { IEditLog } from './types';
-const contactEditSchema = new mongoose.Schema<IEditLog<ILinkCard>>({
-    operation: {
-        type: String,
-        required: true,
-        enum: ['create', 'update', 'delete'],
-    },
-    editedBy: {
-        type: String,
-        required: true
-    },
-    data: {
-        type: linkCardSchema,
-        required: true,
-    }
-
-}, { timestamps: true} );
-export const contactEdit = mongoose.models.contactEdit || mongoose.model<IEditLog<ILinkCard>>('contactEdit', contactEditSchema);
+const contactEditSchema = new mongoose.Schema<IEditLog<ILinkCard>>(
+	{
+		operation: {
+			type: String,
+			required: true,
+			enum: ['create', 'update', 'delete'],
+		},
+		editedBy: {
+			type: String,
+			required: true,
+		},
+		data: {
+			type: linkCardSchema,
+			required: true,
+		},
+	},
+	{ timestamps: true, capped: 5000000 }
+);
+export const contactEdit =
+	mongoose.models.contactEdit ||
+	mongoose.model<IEditLog<ILinkCard>>('contactEdit', contactEditSchema);

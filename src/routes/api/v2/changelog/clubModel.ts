@@ -18,7 +18,7 @@ const clubEditSchema = new mongoose.Schema<IEditLog<IClub>>(
 			required: true,
 		},
 	},
-	{ timestamps: true }
+	{ timestamps: true, capped: 5000000 }
 );
 /* 
 I believe this checks if it exists, but im not sure how the model would get made twice. 

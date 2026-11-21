@@ -18,7 +18,7 @@ const bellScheduleEditSchema = new mongoose.Schema<IEditLog<IBellSchedule>>(
 			required: true,
 		},
 	},
-	{ timestamps: true }
+	{ timestamps: true, capped: 5000000 }
 );
 export const BellScheduleEdit =
 	mongoose.models.BellScheduleEdit ||

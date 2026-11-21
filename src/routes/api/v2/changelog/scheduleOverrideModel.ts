@@ -18,7 +18,7 @@ const scheduleOverrideEditSchema = new mongoose.Schema<IEditLog<IBellScheduleOve
 			required: true,
 		},
 	},
-	{ timestamps: true }
+	{ timestamps: true, capped: 5000000 }
 );
 export const BellScheduleOverrideEdit =
 	mongoose.models.BellScheduleOverrideEdit ||

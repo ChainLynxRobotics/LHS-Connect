@@ -18,7 +18,7 @@ const bulletinSchema = new mongoose.Schema<IEditLog<IBulletinBoardNote>>(
 			required: true,
 		},
 	},
-	{ timestamps: true }
+	{ timestamps: true, capped: 5000000 }
 );
 export const BulletinEdit =
 	mongoose.models.BulletinEdit ||

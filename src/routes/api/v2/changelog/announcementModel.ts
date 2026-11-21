@@ -18,7 +18,7 @@ const announcementEditSchema = new mongoose.Schema<IEditLog<IAnnouncement>>(
 			required: true,
 		},
 	},
-	{ timestamps: true }
+	{ timestamps: true, capped: 5000000 }
 );
 export const announceEdit =
 	mongoose.models.AnnounceEdit ||
