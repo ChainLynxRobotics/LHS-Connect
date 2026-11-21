@@ -17,9 +17,6 @@
 	import {
 		AngleLeftOutline,
 		ArrowLeftToBracketOutline,
-		ChartPieOutline,
-		HomeOutline,
-		LinkOutline,
 		TableRowOutline,
 	} from 'flowbite-svelte-icons';
 	import Menu from 'flowbite-svelte/Menu.svelte';
