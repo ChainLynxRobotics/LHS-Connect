@@ -3,7 +3,8 @@ import type { IBellSchedule, IBellScheduleDefaults } from '$api/page_data/bellSc
 import type { IBulletinBoardNote } from '$api/page_data/bulletinBoard/types';
 import type { IClub } from '$api/page_data/clubs/types';
 import type { ILinkCard } from '$api/page_data/usefulLinks/types';
-import type { GetAllResults } from '$lib/util/adminApiClient';
+import type { IUserName } from '$api/users/types';
+import type { GetAllResults, GetResult } from '$lib/util/adminApiClient';
 import type { PageLoad } from './$types';
 
 export const load = (async (event) => {
@@ -29,6 +30,26 @@ export const load = (async (event) => {
 		await event.fetch('/api/v2/changelog/schedule/overrides')
 	).json()) as GetAllResults<IEditLog<IClub>>;
 
+	// TODO: This is ugly but i dont know how to do it better
+	const editorIdSet = new Set(
+		bulletin.results
+			.map((b) => b.editedBy)
+			.concat(clubs.results.map((c) => c.editedBy))
+			.concat(contacts.results.map((c) => c.editedBy))
+			.concat(links.results.map((l) => l.editedBy))
+			.concat(schedules.results.map((s) => s.editedBy))
+			.concat(defaultSchedules.results.map((d) => d.editedBy))
+			.concat(scheduleOverrides.results.map((s) => s.editedBy))
+	);
+	const editorIds = [...editorIdSet];
+	const editors = editorIds.map(async (id) => {
+		const name = (await (
+			await event.fetch('/api/v2/users/name?googleId=' + id)
+		).json()) as GetResult<IUserName>;
+
+		return { id, name: name.result.name };
+	});
+
 	return {
 		bulletin,
 		clubs,
@@ -37,5 +58,6 @@ export const load = (async (event) => {
 		schedules,
 		defaultSchedules,
 		overrides: scheduleOverrides,
+		editors,
 	};
 }) satisfies PageLoad;

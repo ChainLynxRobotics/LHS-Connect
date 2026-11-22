@@ -25,3 +25,7 @@ export interface ISessionUser {
 export interface IAdminUserUpdate {
 	permissions: number;
 }
+
+export interface IUserName {
+	name: string;
+}
