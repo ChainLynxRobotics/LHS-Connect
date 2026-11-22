@@ -7,4 +7,3 @@
 
 	let { data }: Props = $props();
 </script>
-
