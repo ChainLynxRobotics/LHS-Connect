@@ -6,6 +6,7 @@ import {
 	TableRowOutline,
 	LinkOutline,
 	ChartMixedOutline,
+	ClockOutline,
 } from 'flowbite-svelte-icons';
 
 interface AdminPage {
@@ -72,6 +73,12 @@ const pages: AdminPage[] = [
 		href: '/admin/panel/links',
 		publicHref: '/link-generator',
 		permission: Permission.MANAGE_SHORT_LINKS,
+	},
+	{
+		label: 'Changelog',
+		icon: ClockOutline,
+		href: '/admin/panel/changelog',
+		permission: Permission.EDIT,
 	},
 ];
 
