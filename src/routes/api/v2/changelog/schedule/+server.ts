@@ -7,5 +7,5 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 		error(403, 'You do not have permission to view this resource.');
 
 	const schedules = await BellScheduleEdit.find().sort({ createdAt: -1 }).exec();
-	return json({ records: schedules.map((doc) => doc.toObject()) });
+	return json({ results: schedules.map((doc) => doc.toObject()) });
 };

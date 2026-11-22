@@ -8,5 +8,5 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 
 	const docs = await BulletinEdit.find().sort({ createdAt: -1 }).exec();
 
-	return json({ records: docs.map((doc) => doc.toObject()) });
+	return json({ results: docs.map((doc) => doc.toObject()) });
 };

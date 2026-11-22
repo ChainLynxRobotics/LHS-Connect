@@ -8,5 +8,5 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 
 	const docs = await BellScheduleDefaultsEdit.find().sort({ createdAt: -1 }).exec();
 
-	return json({ records: docs.map((doc) => doc.toObject()) });
+	return json({ results: docs.map((doc) => doc.toObject()) });
 };
