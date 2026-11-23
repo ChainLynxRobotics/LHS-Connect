@@ -46,7 +46,9 @@ export const load = (async (event) => {
 		const name = (await (
 			await event.fetch('/api/v2/users/name?googleId=' + id)
 		).json()) as GetResult<IUserName>;
-
+ if (!name?.result?.name) {
+			return { id, name: 'Unknown' };
+		}
 		return { id, name: name.result.name };
 	});
 
