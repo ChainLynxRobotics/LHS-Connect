@@ -62,12 +62,10 @@
 						{/if}
 						<div class="mt-4 flex gap-4">
 							{#if page.href}
-								<Button href={page.href} class="w-fit">Edit</Button>
+								<Button href={page.href} class="w-fit">{page.label == 'Changelog' ? 'View' : 'Edit'}</Button>
 							{/if}
 							{#if page.publicHref}
-								<Button href={page.publicHref} target="_blank" color="alternative" class="w-fit"
-									>View Public Page</Button
-								>
+								<Button href={page.publicHref} target="_blank" color="alternative" class="w-fit">View Public Page</Button>
 							{/if}
 						</div>
 					</Card>

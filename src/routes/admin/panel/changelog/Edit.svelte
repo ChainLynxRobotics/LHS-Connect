@@ -30,7 +30,7 @@
 
 <TableBodyRow>
 	<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">
-		{operation}
+		{((str) => str.charAt(0).toUpperCase() + str.slice(1))(operation)}
 	</TableBodyCell>
 	<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">
 		{editedBy}
@@ -39,7 +39,7 @@
 		{editedOn}
 	</TableBodyCell>
 	<TableBodyCell tdClass="px-6 py-4 font-medium max-w-sm">
-		{operation}
+		{((str) => str.charAt(0).toUpperCase() + str.slice(1))(operation)}
 	</TableBodyCell>
 	<TableBodyCell>
 		<button onclick={handleBefore}> Before </button>
