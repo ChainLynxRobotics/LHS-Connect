@@ -6,5 +6,6 @@ import type { RequestEvent } from './$types';
 export const { GET, PATCH, DELETE } = editIndividualItemEndpoints<RequestEvent>(
 	'orderedListValue',
 	BulletinBoardNote,
-	bulletinBoardNoteValidator
+	bulletinBoardNoteValidator,
+    BulletinEdit
 );

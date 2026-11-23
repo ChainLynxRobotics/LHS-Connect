@@ -6,5 +6,6 @@ import { announcementValidator } from '../validator';
 export const { GET, POST } = editRootEndpoints<RequestEvent>(
 	'singleValue',
 	Announcement,
-	announcementValidator
+	announcementValidator,
+    AnnounceEdit
 );

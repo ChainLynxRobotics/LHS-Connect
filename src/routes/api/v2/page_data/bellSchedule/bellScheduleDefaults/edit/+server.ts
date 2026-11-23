@@ -6,5 +6,6 @@ import type { RequestEvent } from './$types';
 export const { GET, POST } = editRootEndpoints<RequestEvent>(
 	'singleValue',
 	BellScheduleDefaults,
-	bellScheduleDefaultsValidator
+	bellScheduleDefaultsValidator,
+    BellScheduleDefaultsEdit
 );
