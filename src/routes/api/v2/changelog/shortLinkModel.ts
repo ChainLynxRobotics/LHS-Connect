@@ -25,7 +25,7 @@ const shortLinkDataSchema = new mongoose.Schema<IShortLinkEditData>(
 	{
 		url: {type: changeSchema, required: true },
 		suffix: { type: changeSchema, required: true },
-		pwHash: { type: changeSchema, required: true },
+		pwHash: { type: changeSchema },
 	},
 	{ _id: false }
 );
