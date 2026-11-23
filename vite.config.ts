@@ -10,6 +10,10 @@ export default defineConfig({
 			adapter: adapter({
 				edge: false,
 			}),
+			onwarn: (warning, handler) => {
+				if (warning.code === 'state_referenced_locally') return;
+				throw new Error(`[Werror] ${warning.message}`);
+			},
 		}),
 	],
 	build: {
