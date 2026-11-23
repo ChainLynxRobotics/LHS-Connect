@@ -14,18 +14,18 @@ export interface IShortLinkEditData {
 
 const changeSchema = new mongoose.Schema(
 	{
-		old: { type: String, trim: true },
-		new: { type: String, trim: true },
+		old: { type: String, trim: true, required: true },
+		new: { type: String, trim: true, required: true },
 	},
 	{ _id: false }
 );
-// I didn't use the short link schema because we need different data.
+// I didn't use the short link schema for use of different data.
 // possibly find a way to incorporate without redundant information.
 const shortLinkDataSchema = new mongoose.Schema<IShortLinkEditData>(
 	{
-		url: changeSchema,
-		suffix: changeSchema,
-		pwHash: changeSchema,
+		url: {type: changeSchema, required: true },
+		suffix: { type: changeSchema, required: true },
+		pwHash: { type: changeSchema, required: true },
 	},
 	{ _id: false }
 );
