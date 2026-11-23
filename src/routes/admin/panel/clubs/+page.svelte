@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SectionHeader from '$components/SectionHeader.svelte';
+	import SectionHeader from '#components/SectionHeader.svelte';
 	import {
 		Button,
 		Table,
@@ -13,18 +13,18 @@
 	} from 'flowbite-svelte';
 	import AutoImportClubsButton from './AutoImportClubsButton.svelte';
 	import type { PageData } from './$types';
-	import EditableItemList from '$components/admin/EditableItemList.svelte';
+	import EditableItemList from '#components/admin/EditableItemList.svelte';
 	import {
 		EditOutline,
 		FileCopyOutline,
 		InfoCircleOutline,
 		TrashBinOutline,
 	} from 'flowbite-svelte-icons';
-	import ExternalLink from '$components/ExternalLink.svelte';
+	import ExternalLink from '#components/ExternalLink.svelte';
 	import EditableClubForm from './EditableClubForm.svelte';
-	import type { IClub } from '$api/page_data/clubs/types';
-	import type { WithoutID } from '$lib/types/basicTypes';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
+	import type { IClub } from '#api/page_data/clubs/types.ts';
+	import type { WithoutID } from '#lib/types/basicTypes.ts';
+	import { getNotificationContext } from '#components/NotificationProvider.svelte';
 	const notificationContext = getNotificationContext();
 	interface Props {
 		data: PageData;

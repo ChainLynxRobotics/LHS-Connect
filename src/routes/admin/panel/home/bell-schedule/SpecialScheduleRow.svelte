@@ -7,9 +7,9 @@
 		Tooltip,
 	} from 'flowbite-svelte';
 	import { FileCopyOutline, TrashBinOutline } from 'flowbite-svelte-icons';
-	import dayjs, { TZ } from '$lib/util/dayjs';
-	import type { IBellScheduleOverride, IBellSchedule } from '$api/page_data/bellSchedule/types';
-	import type { WithoutID } from '$lib/types/basicTypes';
+	import dayjs, { TZ } from '#lib/util/dayjs.ts';
+	import type { IBellScheduleOverride, IBellSchedule } from '#api/page_data/bellSchedule/types.ts';
+	import type { WithoutID } from '#lib/types/basicTypes.ts';
 
 	interface Props {
 		special: IBellScheduleOverride;

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { shortLinkLoginValidator } from '$api/short_link/validator';
-	import { page } from '$app/stores';
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import ValidatedInputGroup from '$components/form/ValidatedInputGroup.svelte';
-	import { PUBLIC_BASE_SHORT_URL } from '$env/static/public';
+	import { shortLinkLoginValidator } from '#api/short_link/validator.ts';
+	import { page } from '$app/state';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import ValidatedInputGroup from '#components/form/ValidatedInputGroup.svelte';
+	import { PUBLIC_BASE_SHORT_URL } from '$app/env/public';
 	import { Button, InputAddon } from 'flowbite-svelte';
 	import { EyeOutline, EyeSlashOutline } from 'flowbite-svelte-icons';
 
@@ -15,7 +15,7 @@
 	}
 
 	let {
-		suffix = $bindable($page.url.searchParams.get('suffix') || ''),
+		suffix = $bindable(page.url.searchParams.get('suffix') || ''),
 		password = $bindable(''),
 		onSubmit: submit,
 		onChange: oninput,

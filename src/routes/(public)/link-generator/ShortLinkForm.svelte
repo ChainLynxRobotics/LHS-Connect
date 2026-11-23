@@ -1,8 +1,8 @@
 <script lang="ts">
-	import ValidatedInputGroup from '$components/form/ValidatedInputGroup.svelte';
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
+	import ValidatedInputGroup from '#components/form/ValidatedInputGroup.svelte';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
 	import { InputAddon, Button, Helper } from 'flowbite-svelte';
-	import QrCodeCard from '$components/QrCodeCard.svelte';
+	import QrCodeCard from '#components/QrCodeCard.svelte';
 	import {
 		AngleDownOutline,
 		AngleUpOutline,
@@ -10,10 +10,10 @@
 		EyeSlashOutline,
 	} from 'flowbite-svelte-icons';
 	import { fade, slide } from 'svelte/transition';
-	import { getNotificationContext } from '$components/NotificationProvider.svelte';
-	import apiRequest from '$lib/util/apiClient';
-	import { PUBLIC_BASE_SHORT_URL } from '$env/static/public';
-	import { shortLinkCreateValidator } from '$api/short_link/validator';
+	import { getNotificationContext } from '#components/NotificationProvider.svelte';
+	import apiRequest from '#lib/util/apiClient.ts';
+	import { PUBLIC_BASE_SHORT_URL } from '$app/env/public';
+	import { shortLinkCreateValidator } from '#api/short_link/validator.ts';
 
 	const notificationContext = getNotificationContext();
 

@@ -1,5 +1,5 @@
-import type { IBellSchedule } from '$api/page_data/bellSchedule/types';
-import type { GetAllResults } from '$lib/util/adminApiClient';
+import type { IBellSchedule } from '#api/page_data/bellSchedule/types.ts';
+import type { GetAllResults } from '#lib/util/adminApiClient.ts';
 import type { PageLoad } from './$types';
 
 export const load = (async (event) => {

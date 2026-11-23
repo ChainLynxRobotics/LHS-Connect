@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { IBulletinBoardNote } from '$api/page_data/bulletinBoard/types';
-	import { bulletinBoardNoteValidator } from '$api/page_data/bulletinBoard/validator';
-	import ValidatedInput from '$components/form/ValidatedInput.svelte';
-	import ValidatedTextarea from '$components/form/ValidatedTextarea.svelte';
-	import type { WithoutID } from '$lib/types/basicTypes';
+	import type { IBulletinBoardNote } from '#api/page_data/bulletinBoard/types.ts';
+	import { bulletinBoardNoteValidator } from '#api/page_data/bulletinBoard/validator.ts';
+	import ValidatedInput from '#components/form/ValidatedInput.svelte';
+	import ValidatedTextarea from '#components/form/ValidatedTextarea.svelte';
+	import type { WithoutID } from '#lib/types/basicTypes.ts';
 	import { Button, Helper } from 'flowbite-svelte';
 
 	interface Props {

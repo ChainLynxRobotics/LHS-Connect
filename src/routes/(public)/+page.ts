@@ -1,6 +1,6 @@
-import type { BellScheduleData } from '$api/page_data/bellSchedule/types';
-import type { BulletinBoardData } from '$api/page_data/bulletinBoard/types';
-import type { LinkCardListData } from '$api/page_data/usefulLinks/types';
+import type { BellScheduleData } from '#api/page_data/bellSchedule/types.ts';
+import type { BulletinBoardData } from '#api/page_data/bulletinBoard/types.ts';
+import type { LinkCardListData } from '#api/page_data/usefulLinks/types.ts';
 import type { PageLoad } from './$types';
 
 export const load = (async ({ fetch }) => {

@@ -2,12 +2,12 @@ import {
 	deleteSessionTokenCookie,
 	setSessionTokenCookie,
 	validateAndRenewSession,
-} from '$lib/auth/session';
-import connect from '$lib/db/mongodb';
-import type { Handle } from '@sveltejs/kit';
-import { Permissions } from '$lib/auth/permissions';
-import { startFileClearInterval } from '$lib/db/s3';
-import { dev } from '$app/environment';
+} from '#lib/auth/session.ts';
+import connect from '#lib/db/mongodb.ts';
+import type { Handle } from '@sveltejs/kit/hooks';
+import { Permissions } from '#lib/auth/permissions.ts';
+import { startFileClearInterval } from '#lib/db/s3.ts';
+import { dev } from '$app/env';
 
 // Ensure correct time zone
 process.env.TZ = 'America/Los_Angeles';

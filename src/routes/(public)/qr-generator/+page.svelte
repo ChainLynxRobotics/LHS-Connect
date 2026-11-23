@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SectionHeader from '$components/SectionHeader.svelte';
+	import SectionHeader from '#components/SectionHeader.svelte';
 	import QrCodeForm from './QrCodeForm.svelte';
 </script>
 

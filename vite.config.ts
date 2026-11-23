@@ -1,9 +1,21 @@
 import { sveltekit } from '@sveltejs/kit/vite';
+import adapter from '@sveltejs/adapter-netlify';
 import { enhancedImages } from '@sveltejs/enhanced-img';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-	plugins: [enhancedImages(), sveltekit()],
+	plugins: [
+		enhancedImages(),
+		sveltekit({
+			adapter: adapter({
+				edge: false,
+			}),
+			onwarn: (warning, handler) => {
+				if (warning.code === 'state_referenced_locally') return;
+				throw new Error(`[Werror] ${warning.message}`);
+			},
+		}),
+	],
 	build: {
 		rollupOptions: {
 			onwarn(warning) {

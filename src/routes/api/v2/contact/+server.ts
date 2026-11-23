@@ -3,7 +3,7 @@ import { feedbackTypes } from '../../../../lib/components/ContactForm.svelte';
 import type { RequestHandler } from './$types';
 import { contactUsValidator } from './validator';
 import { ContactUsMessage } from './model';
-import { DISCORD_WEBHOOK_URL } from '$env/static/private';
+import { DISCORD_WEBHOOK_URL } from '$app/env/private';
 import { error, json } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ request }) => {
