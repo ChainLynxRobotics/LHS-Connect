@@ -6,6 +6,5 @@ import type { RequestEvent } from './$types';
 export const { GET, POST } = editOrderEndpoints<RequestEvent>(
 	'orderedListValue',
 	ContactInfoLinkCard,
-	linkCardValidator,
-    ConactEdit
+	linkCardValidator
 );
