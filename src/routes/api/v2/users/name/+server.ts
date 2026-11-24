@@ -8,9 +8,9 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 	if (!locals.permissions.has(Permission.VIEW))
 		error(403, 'You do not have permission to manage users.');
 	try {
-		const googleId = url.searchParams.get('googleId');
+		const docId = url.searchParams.get('docId');
 
-		const name = await User.findById(id, 'name').exec();
+		const name = await User.findById(docId, 'name').exec();
 		return json({ name: name });
 	} catch (e) {
 		if (e instanceof ValidationError) error(400, e.message);
