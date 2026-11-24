@@ -225,7 +225,7 @@ export const editIndividualItemEndpoints: EndpointsType<{ id: string }> = (
             if (editLogModel) {
                 try {
                     await editLogModel.create({
-                        operation: 'update',
+                        operation: 'delete',
                         data: doc.toObject(),
                         editedBy: locals.session!.user.id,
                     });
