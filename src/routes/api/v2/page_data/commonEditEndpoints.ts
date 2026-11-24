@@ -224,7 +224,7 @@ export const editIndividualItemEndpoints: EndpointsType<{ id: string }> = (
 			if (doc === null) return error(404, { message: 'Not found' });
             if (editLogModel) {
                 try {
-                    await editlogModel.create({
+                    await editLogModel.create({
                         operation: 'update',
                         data: doc.toObject(),
                         editedBy: locals.session!.user.id,
