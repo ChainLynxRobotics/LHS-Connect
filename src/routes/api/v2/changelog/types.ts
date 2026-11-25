@@ -1,6 +1,9 @@
-export interface IEditLog<T> {
+export interface IEditLogBase {
 	operation: 'create' | 'update' | 'delete';
-	data: T;
 	editedBy: string;
 	createdAt: Date;
+}
+
+export interface IEditLog<T> extends IEditLogBase {
+	data: T;
 }

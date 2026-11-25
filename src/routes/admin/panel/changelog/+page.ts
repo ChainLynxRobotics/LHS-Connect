@@ -35,7 +35,7 @@ export const load = (async (event) => {
 		await event.fetch('/api/v2/changelog/schedule/overrides')
 	).json()) as GetAllResults<IEditLog<IClub>>;
 	const shortLinks = (await (
-		await event.fetch('/api/v2/changelog/shortlinks')
+		await event.fetch('/api/v2/changelog/shortLinks')
 	).json()) as GetAllResults<IEditLog<IShortLinkEditData>>;
 
 	// TODO: This is ugly but i dont know how to do it better
@@ -63,6 +63,7 @@ export const load = (async (event) => {
 	});
 
 	return {
+		announcement,
 		bulletin,
 		clubs,
 		contacts,
@@ -71,5 +72,6 @@ export const load = (async (event) => {
 		defaultSchedules,
 		overrides: scheduleOverrides,
 		editors,
+		shortLinks,
 	};
 }) satisfies PageLoad;
