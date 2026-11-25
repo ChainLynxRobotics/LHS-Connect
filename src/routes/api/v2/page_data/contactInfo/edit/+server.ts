@@ -1,3 +1,4 @@
+import { ContactEdit } from '$api/changelog/contactsModel';
 import { editRootEndpoints } from '$api/page_data/commonEditEndpoints';
 import { linkCardValidator } from '$api/page_data/usefulLinks/validator';
 import { ContactInfoLinkCard } from '../model';

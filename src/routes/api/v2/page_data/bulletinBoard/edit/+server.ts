@@ -1,3 +1,4 @@
+import { BulletinEdit } from '$api/changelog/bulletinModel';
 import { editRootEndpoints } from '$api/page_data/commonEditEndpoints';
 import { BulletinBoardNote } from '../model';
 import { bulletinBoardNoteValidator } from '../validator';

@@ -1,3 +1,4 @@
+import { LinksEdit } from '$api/changelog/linkModel';
 import { editIndividualItemEndpoints } from '$api/page_data/commonEditEndpoints';
 import { UsefulLinksLinkCard } from '../../model';
 import { linkCardValidator } from '../../validator';

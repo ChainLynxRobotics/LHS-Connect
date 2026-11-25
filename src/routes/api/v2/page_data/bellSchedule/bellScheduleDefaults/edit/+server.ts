@@ -1,3 +1,4 @@
+import { BellScheduleDefaultsEdit } from '$api/changelog/scheduleDefaultsModel';
 import { editRootEndpoints } from '$api/page_data/commonEditEndpoints';
 import { BellScheduleDefaults } from '../../model';
 import { bellScheduleDefaultsValidator } from '../../validator';
