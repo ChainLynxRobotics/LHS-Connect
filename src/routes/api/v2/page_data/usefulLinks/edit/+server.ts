@@ -7,5 +7,5 @@ export const { GET, POST } = editRootEndpoints<RequestEvent>(
 	'orderedListValue',
 	UsefulLinksLinkCard,
 	linkCardValidator,
-    LinksEdit
+	LinksEdit
 );

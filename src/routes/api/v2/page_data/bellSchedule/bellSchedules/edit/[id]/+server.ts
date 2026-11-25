@@ -7,5 +7,5 @@ export const { GET, PATCH, DELETE } = editIndividualItemEndpoints<RequestEvent>(
 	'orderedListValue',
 	BellSchedule,
 	bellScheduleValidator,
-    BellScheduleEdit
+	BellScheduleEdit
 );

@@ -7,5 +7,5 @@ export const { GET, PATCH, DELETE } = editIndividualItemEndpoints<RequestEvent>(
 	'orderedListValue',
 	UsefulLinksLinkCard,
 	linkCardValidator,
-    LinksEdit
+	LinksEdit
 );

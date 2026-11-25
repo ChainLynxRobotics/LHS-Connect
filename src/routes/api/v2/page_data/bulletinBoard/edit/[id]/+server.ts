@@ -7,5 +7,5 @@ export const { GET, PATCH, DELETE } = editIndividualItemEndpoints<RequestEvent>(
 	'orderedListValue',
 	BulletinBoardNote,
 	bulletinBoardNoteValidator,
-    BulletinEdit
+	BulletinEdit
 );

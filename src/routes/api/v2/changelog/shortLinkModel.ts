@@ -23,7 +23,7 @@ const changeSchema = new mongoose.Schema(
 // possibly find a way to incorporate without redundant information.
 const shortLinkDataSchema = new mongoose.Schema<IShortLinkEditData>(
 	{
-		url: {type: changeSchema, required: true },
+		url: { type: changeSchema, required: true },
 		suffix: { type: changeSchema, required: true },
 		pwHash: { type: changeSchema },
 	},

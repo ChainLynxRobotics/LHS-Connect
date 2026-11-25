@@ -7,5 +7,5 @@ export const { GET, POST } = editRootEndpoints<RequestEvent>(
 	'singleValue',
 	Announcement,
 	announcementValidator,
-    AnnounceEdit
+	AnnounceEdit
 );

@@ -7,5 +7,5 @@ export const { GET, POST } = editOrderEndpoints<RequestEvent>(
 	'orderedListValue',
 	BellSchedule,
 	bellScheduleValidator,
-    BellScheduleEdit
+	BellScheduleEdit
 );

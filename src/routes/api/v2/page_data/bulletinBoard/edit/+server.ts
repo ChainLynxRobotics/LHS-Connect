@@ -7,5 +7,5 @@ export const { GET, POST } = editRootEndpoints<RequestEvent>(
 	'orderedListValue',
 	BulletinBoardNote,
 	bulletinBoardNoteValidator,
-    BulletinEdit
+	BulletinEdit
 );

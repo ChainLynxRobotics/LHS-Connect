@@ -7,5 +7,5 @@ export const { GET, POST } = editRootEndpoints<RequestEvent>(
 	'listValue',
 	BellScheduleOverride,
 	bellScheduleOverrideValidator,
-    BellScheduleOverrideEdit
+	BellScheduleOverrideEdit
 );

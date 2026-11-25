@@ -63,17 +63,17 @@ export const editRootEndpoints: EndpointsType<{}> = (type, model, validator) => 
 			}
 
 			await doc.save();
-            if (editLogModel) {
-                try {
-                    await editLogModel.create({
-                        operation: 'create',
-                        data: doc.toObject(),
-                        editedBy: locals.session!.user.id,
-                    });
-                } catch (logErr){
-                    console.error('Changelog write failed:', logErr);
-                }
-            }
+			if (editLogModel) {
+				try {
+					await editLogModel.create({
+						operation: 'create',
+						data: doc.toObject(),
+						editedBy: locals.session!.user.id,
+					});
+				} catch (logErr) {
+					console.error('Changelog write failed:', logErr);
+				}
+			}
 			return json({
 				result: doc.toObject(),
 			});
@@ -188,17 +188,17 @@ export const editIndividualItemEndpoints: EndpointsType<{ id: string }> = (
 			// Update doc
 			doc.set(req);
 			await doc.save();
-            if (editLogModel) {
-            try {
-                await editLogModel.create({
-                    operation: 'update',
-                    data: doc.toObject(),
-                    editedBy: locals.session!.user.id,
-                });
-            } catch (logErr) {
-        console.error('changelog write failed: ', logErr)
-            }
-            }
+			if (editLogModel) {
+				try {
+					await editLogModel.create({
+						operation: 'update',
+						data: doc.toObject(),
+						editedBy: locals.session!.user.id,
+					});
+				} catch (logErr) {
+					console.error('changelog write failed: ', logErr);
+				}
+			}
 
 			// Return all docs
 			return json({
@@ -222,17 +222,17 @@ export const editIndividualItemEndpoints: EndpointsType<{ id: string }> = (
 			// Find doc
 			const doc = await model.findByIdAndDelete(id).exec();
 			if (doc === null) return error(404, { message: 'Not found' });
-            if (editLogModel) {
-                try {
-                    await editLogModel.create({
-                        operation: 'delete',
-                        data: doc.toObject(),
-                        editedBy: locals.session!.user.id,
-                    });
-                } catch (logErr) {
-                    console.error('changelog write failed: ', logErr)
-                }
-            }
+			if (editLogModel) {
+				try {
+					await editLogModel.create({
+						operation: 'delete',
+						data: doc.toObject(),
+						editedBy: locals.session!.user.id,
+					});
+				} catch (logErr) {
+					console.error('changelog write failed: ', logErr);
+				}
+			}
 
 			// Return all docs
 			return json({});
