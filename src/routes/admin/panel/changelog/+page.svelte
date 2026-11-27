@@ -12,7 +12,7 @@
 
 <div class="flex flex-col items-center p-4">
 	<div class="w-full max-w-6xl">
-		<SectionHeader title="Changelog of LHS connect" />
+		<SectionHeader title="Admin Edits to LHS Connect" />
 	</div>
 
 	<EditTable {data} />
