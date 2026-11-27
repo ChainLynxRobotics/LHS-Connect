@@ -7,15 +7,14 @@ import { idArrayValidator, idValidator } from '$lib/validation/objectId';
 
 // The type of data/models that can be used with the endpoints
 type ListType = 'listValue' | 'orderedListValue' | 'singleValue';
-
-// The is a type that represents the function signature for the endpoint groups
 type EndpointsType<RouteParams extends Partial<Record<string, string>>> = <
 	TRequestEvent extends RequestEvent<RouteParams, any> = RequestEvent<RouteParams, any>,
 	TModelType extends object = any,
 >(
 	type: ListType,
 	model: Model<TModelType>,
-	validator: ObjectSchema<WithoutID<TModelType>>
+	validator: ObjectSchema<WithoutID<TModelType>>,
+	editLogModel?: Model<any>
 ) => Record<string, (event: TRequestEvent) => Response | Promise<Response>>;
 
 /**
@@ -24,12 +23,13 @@ type EndpointsType<RouteParams extends Partial<Record<string, string>>> = <
  * @param type - The type of data being edited, can be "listValue", "orderedListValue", or "singleValue"
  * @param model - The Mongoose model for the data type being edited
  * @param validator - The Yup validator for the data type being edited
+ * @param editLogModel - The Mongoose model for the edit log
  * @returns A list of endpoints to be exported from a +server.ts file, example usage:
  * ```ts
  * export { GET, POST } from editRootEndpoints("listValue", ClubModel, clubValidator);
  * ```
  */
-export const editRootEndpoints: EndpointsType<{}> = (type, model, validator) => ({
+export const editRootEndpoints: EndpointsType<{}> = (type, model, validator, editLogModel) => ({
 	// Fetching all documents
 	GET: async ({ locals }) => {
 		if (!locals.permissions.has(Permission.VIEW))
@@ -64,7 +64,17 @@ export const editRootEndpoints: EndpointsType<{}> = (type, model, validator) => 
 			}
 
 			await doc.save();
-
+			if (editLogModel) {
+				try {
+					await editLogModel.create({
+						operation: 'create',
+						data: doc.toObject(),
+						editedBy: locals.session!.user.id,
+					});
+				} catch (logErr) {
+					console.error('Changelog write failed:', logErr);
+				}
+			}
 			return json({
 				result: doc.toObject(),
 			});
@@ -136,7 +146,8 @@ export const editAllEndpoints: EndpointsType<{}> = (type, model, validator) => (
 export const editIndividualItemEndpoints: EndpointsType<{ id: string }> = (
 	type,
 	model,
-	validator
+	validator,
+	editLogModel
 ) => ({
 	GET: async ({ locals, params }) => {
 		if (!locals.permissions.has(Permission.VIEW))
@@ -179,6 +190,17 @@ export const editIndividualItemEndpoints: EndpointsType<{ id: string }> = (
 			// Update doc
 			doc.set(req);
 			await doc.save();
+			if (editLogModel) {
+				try {
+					await editLogModel.create({
+						operation: 'update',
+						data: doc.toObject(),
+						editedBy: locals.session!.user.id,
+					});
+				} catch (logErr) {
+					console.error('changelog write failed: ', logErr);
+				}
+			}
 
 			// Return all docs
 			return json({
@@ -202,6 +224,17 @@ export const editIndividualItemEndpoints: EndpointsType<{ id: string }> = (
 			// Find doc
 			const doc = await model.findByIdAndDelete(id).exec();
 			if (doc === null) return error(404, { message: 'Not found' });
+			if (editLogModel) {
+				try {
+					await editLogModel.create({
+						operation: 'delete',
+						data: doc.toObject(),
+						editedBy: locals.session!.user.id,
+					});
+				} catch (logErr) {
+					console.error('changelog write failed: ', logErr);
+				}
+			}
 
 			// Return all docs
 			return json({});
