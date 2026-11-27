@@ -1,7 +1,11 @@
 import type { IShortLinkEditData } from '$api/changelog/shortLinkModel';
 import type { IEditLog } from '$api/changelog/types';
 import type { IAnnouncement } from '$api/page_data/announcement/types';
-import type { IBellSchedule, IBellScheduleDefaults } from '$api/page_data/bellSchedule/types';
+import type {
+	IBellSchedule,
+	IBellScheduleDefaults,
+	IBellScheduleOverride,
+} from '$api/page_data/bellSchedule/types';
 import type { IBulletinBoardNote } from '$api/page_data/bulletinBoard/types';
 import type { IClub } from '$api/page_data/clubs/types';
 import type { ILinkCard } from '$api/page_data/usefulLinks/types';
@@ -33,7 +37,7 @@ export const load = (async (event) => {
 	).json()) as GetAllResults<IEditLog<IBellScheduleDefaults>>;
 	const scheduleOverrides = (await (
 		await event.fetch('/api/v2/changelog/schedule/overrides')
-	).json()) as GetAllResults<IEditLog<IClub>>;
+	).json()) as GetAllResults<IEditLog<IBellScheduleOverride>>;
 	const shortLinks = (await (
 		await event.fetch('/api/v2/changelog/shortLinks')
 	).json()) as GetAllResults<IEditLog<IShortLinkEditData>>;
@@ -54,7 +58,7 @@ export const load = (async (event) => {
 	const editorIds = [...editorIdSet];
 	const editors = editorIds.map(async (id) => {
 		const name = (await (
-			await event.fetch('/api/v2/users/name?googleId=' + id)
+			await event.fetch('/api/v2/users/name?docId=' + id)
 		).json()) as GetResult<IUserName>;
 		if (!name?.result?.name) {
 			return { id, name: 'Unknown' };

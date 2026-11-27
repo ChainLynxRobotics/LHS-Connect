@@ -23,12 +23,13 @@ type EndpointsType<RouteParams extends Partial<Record<string, string>>> = <
  * @param type - The type of data being edited, can be "listValue", "orderedListValue", or "singleValue"
  * @param model - The Mongoose model for the data type being edited
  * @param validator - The Yup validator for the data type being edited
+ * @param editLogModel - The Mongoose model for the edit log
  * @returns A list of endpoints to be exported from a +server.ts file, example usage:
  * ```ts
  * export { GET, POST } from editRootEndpoints("listValue", ClubModel, clubValidator);
  * ```
  */
-export const editRootEndpoints: EndpointsType<{}> = (type, model, validator) => ({
+export const editRootEndpoints: EndpointsType<{}> = (type, model, validator, editLogModel) => ({
 	// Fetching all documents
 	GET: async ({ locals }) => {
 		if (!locals.permissions.has(Permission.VIEW))
@@ -145,7 +146,8 @@ export const editAllEndpoints: EndpointsType<{}> = (type, model, validator) => (
 export const editIndividualItemEndpoints: EndpointsType<{ id: string }> = (
 	type,
 	model,
-	validator
+	validator,
+	editLogModel
 ) => ({
 	GET: async ({ locals, params }) => {
 		if (!locals.permissions.has(Permission.VIEW))
