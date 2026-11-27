@@ -16,7 +16,6 @@
 	import type { IShortLinkEditData } from '$api/changelog/shortLinkModel';
 	import { number } from 'yup';
 	import type { GetAllResults } from '$lib/util/adminApiClient';
-	import { AnnounceEdit } from '$api/changelog/announcementModel';
 
 	interface Props {
 		data: PageData;
