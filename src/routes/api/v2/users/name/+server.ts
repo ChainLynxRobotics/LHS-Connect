@@ -5,7 +5,7 @@ import { ValidationError } from 'yup';
 import { User } from '../model';
 
 export const GET: RequestHandler = async ({ locals, url }) => {
-	if (!locals.permissions.has(Permission.VIEW))
+	if (!locals.permissions.has(Permission.EDIT))
 		error(403, 'You do not have permission to manage users.');
 	try {
 		const docId = url.searchParams.get('docId');
