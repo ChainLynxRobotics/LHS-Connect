@@ -148,17 +148,12 @@
 				{/if}
 				{#if type === 'defaultSchedules'}
 					<Edit {operation} {editedBy} {editedOn}>
-						{@render defaultScheduleEdit(locateEditLog(announcementBoardEditLogs, genericLog.id))}
+						{@render defaultScheduleEdit(locateEditLog(defaultScheduleEditLogs, genericLog.id))}
 					</Edit>
 				{/if}
 				{#if type === 'scheduleOverrides'}
 					<Edit {operation} {editedBy} {editedOn}>
-						{@render scheduleOverrideEdit(locateEditLog(announcementBoardEditLogs, genericLog.id))}
-					</Edit>
-				{/if}
-				{#if type === 'shortLink'}
-					<Edit {operation} {editedBy} {editedOn}>
-						{@render shortLinkEdit(locateEditLog(announcementBoardEditLogs, genericLog.id))}
+						{@render scheduleOverrideEdit(locateEditLog(scheduleEditLogs, genericLog.id))}
 					</Edit>
 				{/if}
 			{/each}
